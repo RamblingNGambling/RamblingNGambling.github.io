@@ -3,50 +3,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UNITS TRACKER</title>
 <style>
-:root{--bg:#101318;--card:#171b22;--bd:#242a34;--bd2:#333b48;--tx:#d9dee7;--mut:#7d8698;
+:root{--bg:#101318;--card:#171b22;--bd:#242a34;--bd2:#333b48;--tx:#d9dee7;--mut:#8b95a7;
 --gold:#f2c14e;--win:#4ec98a;--loss:#ef5f5f;--pend:#7b93ff;
 --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Roboto Mono",monospace}
 *{margin:0;padding:0;box-sizing:border-box}
 html{color-scheme:dark}
-body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;padding:0 16px 60px}
-.wrap{max-width:1060px;margin:0 auto}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:15px;padding:0 24px 70px}
+.wrap{max-width:1640px;margin:0 auto}
 .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .win{color:var(--win)}.loss{color:var(--loss)}.mut{color:var(--mut)}.pend{color:var(--pend)}
-header{padding:26px 0 18px;border-bottom:1px solid var(--bd);margin-bottom:18px}
-.eyebrow{font:700 10px var(--mono);letter-spacing:4px;color:var(--gold);text-transform:uppercase}
-.net{font:700 44px var(--mono);line-height:1.1;margin:10px 0 2px}
-.sub{font:11px var(--mono);color:var(--mut)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-top:16px}
-.kpis .k{background:var(--card);padding:10px 12px}
-.kpis .k b{display:block;font:600 9px var(--mono);letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-bottom:3px}
-.kpis .k span{font:700 16px var(--mono)}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:14px}
-h2{font:700 10px var(--mono);letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:820px){.grid{grid-template-columns:1fr}.net{font-size:34px}}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{font:600 9px var(--mono);letter-spacing:1.3px;color:var(--mut);text-transform:uppercase;text-align:left;padding:6px 8px;border-bottom:1px solid var(--bd2);white-space:nowrap}
-td{padding:6px 8px;border-bottom:1px solid var(--bd)}
+
+header{padding:30px 0 22px;text-align:center}
+.eyebrow{font:700 12px var(--mono);letter-spacing:5px;color:var(--gold);text-transform:uppercase}
+.net{font:700 62px var(--mono);line-height:1.05;margin:12px 0 4px}
+.sub{font:13px var(--mono);color:var(--mut)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--bd);
+  border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-top:22px}
+.kpis .k{background:var(--card);padding:14px 16px;text-align:left}
+.kpis .k b{display:block;font:600 10px var(--mono);letter-spacing:1.8px;color:var(--mut);text-transform:uppercase;margin-bottom:5px}
+.kpis .k span{font:700 22px var(--mono)}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.stack{display:flex;flex-direction:column;gap:16px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media(max-width:1500px){.pair{grid-template-columns:1fr}}
+@media(max-width:1080px){.two{grid-template-columns:1fr}.net{font-size:42px}body{padding:0 14px 60px}}
+
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
+h2{font:700 12px var(--mono);letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font:600 10px var(--mono);letter-spacing:1.4px;color:var(--mut);text-transform:uppercase;text-align:left;padding:7px 9px;border-bottom:1px solid var(--bd2);white-space:nowrap}
+td{padding:8px 9px;border-bottom:1px solid var(--bd)}
 td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
 tbody tr:hover{background:#1b202a}
 .tw{overflow-x:auto}
-svg.curve{width:100%;height:180px;display:block}
-.chip{display:inline-block;font:600 9px var(--mono);letter-spacing:1px;padding:2px 6px;border-radius:3px;border:1px solid var(--bd2);color:var(--mut)}
+svg.curve{display:block;width:100%}
+.chip{display:inline-block;font:600 10px var(--mono);letter-spacing:1px;padding:3px 7px;border-radius:4px;border:1px solid var(--bd2);color:var(--mut)}
 .chip.W{color:var(--win);border-color:#2f6a4c}.chip.L{color:var(--loss);border-color:#7a3a3a}
 .chip.Pending{color:var(--pend);border-color:#3c4a86}
-.calhead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.calhead .t{flex:1;text-align:center;font:700 12px var(--mono);letter-spacing:2px}
-.btn{background:none;border:1px solid var(--bd2);color:var(--mut);border-radius:5px;padding:4px 10px;font:600 10px var(--mono);cursor:pointer}
+
+.calhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.calhead .t{flex:1;text-align:center;font:700 13px var(--mono);letter-spacing:2px}
+.btn{background:none;border:1px solid var(--bd2);color:var(--mut);border-radius:6px;padding:5px 11px;font:600 11px var(--mono);cursor:pointer}
 .btn:hover{border-color:var(--gold);color:var(--gold)}
-.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.dow{font:600 9px var(--mono);color:var(--mut);text-align:center}
-.cell{min-height:54px;border:1px solid var(--bd);border-radius:6px;background:#141920;position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:12px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.dow{font:600 10px var(--mono);color:var(--mut);text-align:center;padding-bottom:2px}
+.cell{height:42px;border:1px solid var(--bd);border-radius:5px;background:#141920;position:relative;
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:12px}
 .cell.b{background:none;border-color:transparent}
-.cell i{position:absolute;top:3px;left:5px;font:normal 9px var(--mono);color:var(--mut);font-style:normal}
+.cell i{position:absolute;top:2px;left:4px;font:normal 9px var(--mono);color:var(--mut);font-style:normal}
 .cell.w{background:#12291d;border-color:#2c5c43;color:var(--win)}
 .cell.l{background:#2b1717;border-color:#7a3535;color:var(--loss)}
-.cell em{position:absolute;bottom:3px;right:5px;font-size:8px;color:var(--pend);font-style:normal}
-footer{color:var(--mut);font-size:11px;line-height:1.7;padding-top:8px}
+.cell em{position:absolute;bottom:2px;right:4px;font-size:7px;color:var(--pend);font-style:normal}
+footer{color:var(--mut);font-size:12px;line-height:1.8;padding-top:16px;margin-top:16px;border-top:1px solid var(--bd)}
 footer b{color:var(--tx);font-weight:600}
 </style></head><body><div class="wrap">
 <header>
@@ -55,18 +64,27 @@ footer b{color:var(--tx);font-weight:600}
   <div class="sub" id="span"></div>
   <div class="kpis" id="kpis"></div>
 </header>
-<div class="card"><h2>Cumulative units</h2><svg class="curve" id="curve" viewBox="0 0 1000 180" preserveAspectRatio="none"></svg></div>
-<div class="card"><h2>By month</h2><div class="tw"><table><thead><tr><th>Month</th><th class="n">Plays</th><th class="n">W-L-P</th><th class="n">Units</th><th class="n">ROI</th></tr></thead><tbody id="months"></tbody></table></div></div>
-<div class="grid">
-  <div class="card"><h2>By sport</h2><div class="tw"><table><thead><tr><th>Sport</th><th class="n">Plays</th><th class="n">W-L-P</th><th class="n">Units</th><th class="n">ROI</th></tr></thead><tbody id="sp"></tbody></table></div></div>
-  <div class="card"><h2>By book</h2><div class="tw"><table><thead><tr><th>Book</th><th class="n">Plays</th><th class="n">W-L-P</th><th class="n">Units</th><th class="n">ROI</th></tr></thead><tbody id="bk"></tbody></table></div></div>
+
+<div class="two">
+  <div class="stack">
+    <div class="card"><h2>Cumulative units</h2><svg class="curve" id="curve"></svg></div>
+    <div class="card">
+      <div class="calhead"><button class="btn" id="pv">&lsaquo;</button><div class="t" id="ct"></div><button class="btn" id="nx">&rsaquo;</button></div>
+      <div class="cal" id="dow"></div><div class="cal" id="cal" style="margin-top:3px"></div>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card"><h2>By month</h2><div class="tw"><table><thead><tr><th>Month</th><th class="n">Plays</th><th class="n">W-L-P</th><th class="n">Units</th><th class="n">ROI</th></tr></thead><tbody id="months"></tbody></table></div></div>
+    <div class="pair">
+      <div class="card"><h2>By sport</h2><div class="tw"><table><thead><tr><th>Sport</th><th class="n">Plays</th><th class="n">W-L-P</th><th class="n">Units</th><th class="n">ROI</th></tr></thead><tbody id="sp"></tbody></table></div></div>
+      <div class="card"><h2>By book</h2><div class="tw"><table><thead><tr><th>Book</th><th class="n">Plays</th><th class="n">W-L-P</th><th class="n">Units</th><th class="n">ROI</th></tr></thead><tbody id="bk"></tbody></table></div></div>
+    </div>
+    <div class="card"><h2>By market</h2><div class="tw"><table><thead><tr><th>Market</th><th class="n">Plays</th><th class="n">W-L-P</th><th class="n">Units</th><th class="n">ROI</th></tr></thead><tbody id="mk"></tbody></table></div></div>
+  </div>
 </div>
-<div class="card"><h2>By market</h2><div class="tw"><table><thead><tr><th>Market</th><th class="n">Plays</th><th class="n">W-L-P</th><th class="n">Units</th><th class="n">ROI</th></tr></thead><tbody id="mk"></tbody></table></div></div>
-<div class="card">
-  <div class="calhead"><button class="btn" id="pv">&lsaquo; PREV</button><div class="t" id="ct"></div><button class="btn" id="nx">NEXT &rsaquo;</button></div>
-  <div class="cal" id="dow"></div><div class="cal" id="cal" style="margin-top:4px"></div>
-</div>
-<div class="card"><h2>Every play</h2><div class="tw"><table><thead><tr><th>Date</th><th>Sport</th><th>Play</th><th>Book</th><th>Market</th><th class="n">Odds</th><th class="n">Units</th><th>Result</th><th class="n">P/L</th></tr></thead><tbody id="log"></tbody></table></div></div>
+
+<div class="card" style="margin-top:16px"><h2>Every play</h2><div class="tw"><table><thead><tr><th>Date</th><th>Sport</th><th>Play</th><th>Book</th><th>Market</th><th class="n">Odds</th><th class="n">Units</th><th>Result</th><th class="n">P/L</th></tr></thead><tbody id="log"></tbody></table></div></div>
+
 <footer>
   <b>One unit is one standard bet.</b> Its cash value is deliberately not shown &mdash; a unit is whatever one standard bet is for you.<br>
   Odds are American, at the price posted. ROI is net units divided by units risked, settled plays only. Pushes and voids settle flat and are excluded from win rate.<br>
@@ -75,15 +93,19 @@ footer b{color:var(--tx);font-weight:600}
 </footer>
 </div>
 <script>
-var D={"title":"UNITS TRACKER","built":"Jul 29, 2026, 1:28 AM EDT","bets":[{"d":"2026-07-19","s":"WNBA","bk":"Fanatics","m":"Total","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-19","s":"WNBA","bk":"BetMGM","m":"Total","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-20","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-20","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-22","s":"WNBA","bk":"FanDuel","m":"Spread","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-22","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455},{"d":"2026-07-22","s":"WNBA","bk":"TheScore","m":"Spread","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-25","s":"MLB","bk":"FanDuel","m":"Moneyline","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1},{"d":"2026-07-25","s":"MLB","bk":"FanDuel","m":"Moneyline","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024},{"d":"2026-07-27","s":"MLB","bk":"Ballys","m":"Spread","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","bk":"Ballys","m":"Moneyline","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","bk":"TheScore","m":"Spread","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1},{"d":"2026-07-27","s":"MLB","bk":"Ballys","m":"Moneyline","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","bk":"TheScore","m":"Moneyline","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407},{"d":"2026-07-28","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-28","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2},{"d":"2026-07-28","s":"MLB","bk":"Ballys","m":"Spread","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1},{"d":"2026-07-28","s":"WNBA","bk":"FanDuel","m":"Total","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-28","s":"MLB","bk":"FanDuel","m":"Spread","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929},{"d":"2026-07-28","s":"MLB","bk":"FanDuel","m":"Moneyline","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463},{"d":"2026-07-29","s":"MLB","bk":"FanDuel","m":"Moneyline","t":"1H Phillies","o":-148,"u":1,"r":"Pending","p":null}]};
-var B=D.bets,DOW=['S','M','T','W','T','F','S'];
+var D={"title":"UNITS TRACKER","built":"Jul 29, 2026, 1:50 AM EDT","bets":[{"d":"2026-07-19","s":"WNBA","bk":"Fanatics","m":"Total","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-19","s":"WNBA","bk":"BetMGM","m":"Total","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-20","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-20","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-22","s":"WNBA","bk":"FanDuel","m":"Spread","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-22","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455},{"d":"2026-07-22","s":"WNBA","bk":"TheScore","m":"Spread","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-25","s":"MLB","bk":"FanDuel","m":"Moneyline","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1},{"d":"2026-07-25","s":"MLB","bk":"FanDuel","m":"Moneyline","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024},{"d":"2026-07-27","s":"MLB","bk":"Ballys","m":"Spread","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","bk":"Ballys","m":"Moneyline","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","bk":"TheScore","m":"Spread","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1},{"d":"2026-07-27","s":"MLB","bk":"Ballys","m":"Moneyline","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","bk":"TheScore","m":"Moneyline","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407},{"d":"2026-07-28","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-28","s":"WNBA","bk":"Fanatics","m":"Spread","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2},{"d":"2026-07-28","s":"MLB","bk":"Ballys","m":"Spread","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1},{"d":"2026-07-28","s":"WNBA","bk":"FanDuel","m":"Total","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-28","s":"MLB","bk":"FanDuel","m":"Spread","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929},{"d":"2026-07-28","s":"MLB","bk":"FanDuel","m":"Moneyline","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463},{"d":"2026-07-29","s":"MLB","bk":"FanDuel","m":"Moneyline","t":"1H Phillies","o":-148,"u":1,"r":"Pending","p":null}]};
+var B=D.bets,DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+var NS='http://www.w3.org/2000/svg';
 function $(s){return document.querySelector(s)}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function svgEl(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e}
 function pad(n){return n<10?'0'+n:''+n}
 function fu(u,dp){dp=dp==null?2:dp;return (u>0?'+':u<0?'-':'')+Math.abs(u).toFixed(dp)+'u'}
 function pc(x){return (x*100).toFixed(1)+'%'}
 function cl(v){return v>1e-4?'win':v<-1e-4?'loss':'mut'}
 function imp(o){return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100)}
+function shortDate(s){var p=s.split('-');
+  return new Date(+p[0],+p[1]-1,+p[2]).toLocaleString('en-US',{month:'short',day:'numeric'})}
 function ag(list){var r={n:0,w:0,l:0,p:0,u:0,risk:0,pend:0,pu:0,im:0};
   list.forEach(function(b){
     if(b.p===null){r.pend++;r.pu+=b.u;return}
@@ -101,6 +123,7 @@ function tbl(id,keyfn){
     tr.appendChild(el('td','n '+cl(a.u),fu(a.u)));
     tr.appendChild(el('td','n '+cl(a.roi),a.risk>0?pc(a.roi):'--'));
     tb.appendChild(tr)})}
+
 var A=ag(B);
 $('#net').textContent=fu(A.u);$('#net').className='net num '+cl(A.u);
 $('#span').textContent=B.length?(B[0].d+'  \u00b7  '+B[B.length-1].d+'  \u00b7  '+B.length+' plays'):'nothing posted yet';
@@ -111,24 +134,53 @@ $('#stamp').innerHTML='<b>Last updated '+D.built+'.</b>'+(A.pend?'  '+A.pend+' p
  ['Open plays',String(A.pend),A.pend?'pend':''],['Live exposure',A.pu.toFixed(2)+'u',A.pend?'pend':'']
 ].forEach(function(k){var d=el('div','k');d.appendChild(el('b','',k[0]));
   d.appendChild(el('span','num '+(k[2]||''),k[1]));$('#kpis').appendChild(d)});
-(function(){var s=B.filter(function(b){return b.p!==null}),n=0,pts=[];
-  s.forEach(function(b){n+=b.p;pts.push(n)});
-  var svg=$('#curve');if(!pts.length)return;
-  var W=1000,H=180,P=10,hi=Math.max.apply(null,pts.concat([0])),lo=Math.min.apply(null,pts.concat([0]));
-  if(hi===lo){hi+=1;lo-=1}
-  function X(i){return pts.length===1?W/2:P+i*(W-2*P)/(pts.length-1)}
-  function Y(v){return P+(hi-v)*(H-2*P)/(hi-lo)}
-  var ns='http://www.w3.org/2000/svg',c=n>=0?'#4ec98a':'#ef5f5f',d='';
-  pts.forEach(function(v,i){d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)+' '});
-  var z=document.createElementNS(ns,'line');z.setAttribute('x1',0);z.setAttribute('x2',W);
-  z.setAttribute('y1',Y(0));z.setAttribute('y2',Y(0));z.setAttribute('stroke','#333b48');
-  z.setAttribute('stroke-dasharray','4 4');z.setAttribute('vector-effect','non-scaling-stroke');svg.appendChild(z);
-  var ar=document.createElementNS(ns,'path');
-  ar.setAttribute('d','M'+X(0).toFixed(1)+' '+Y(0).toFixed(1)+' '+d.slice(1)+'L'+X(pts.length-1).toFixed(1)+' '+Y(0).toFixed(1)+' Z');
-  ar.setAttribute('fill',c);ar.setAttribute('opacity','.16');svg.appendChild(ar);
-  var ln=document.createElementNS(ns,'path');ln.setAttribute('d',d);ln.setAttribute('fill','none');
-  ln.setAttribute('stroke',c);ln.setAttribute('stroke-width','2');
-  ln.setAttribute('vector-effect','non-scaling-stroke');svg.appendChild(ln)})();
+
+/* ---------- equity curve with real axes ---------- */
+var SER=(function(){var n=0,out=[];
+  B.forEach(function(b){if(b.p===null)return;n+=b.p;out.push({d:b.d,v:n})});return out})();
+function drawCurve(){
+  var svg=$('#curve'),host=svg.parentNode;
+  var W=Math.max(320,host.clientWidth-32),H=300;
+  svg.setAttribute('width',W);svg.setAttribute('height',H);
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  if(!SER.length)return;
+  var L=58,R=16,T=14,BM=34;
+  var vals=SER.map(function(p){return p.v}).concat([0]);
+  var hi=Math.max.apply(null,vals),lo=Math.min.apply(null,vals);
+  var padv=Math.max((hi-lo)*0.12,0.5);hi+=padv;lo-=padv;
+  function X(i){return SER.length===1?L+(W-L-R)/2:L+i*(W-L-R)/(SER.length-1)}
+  function Y(v){return T+(hi-v)*(H-T-BM)/(hi-lo)}
+  for(var k=0;k<=4;k++){
+    var v=lo+(hi-lo)*k/4,y=Y(v);
+    svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:y,y2:y,stroke:'#1e242e','stroke-width':1}));
+    var t=svgEl('text',{x:L-10,y:y+4,fill:'#8b95a7','font-size':11,'text-anchor':'end',
+      'font-family':'ui-monospace,Menlo,monospace'});
+    t.textContent=fu(v,1);svg.appendChild(t);
+  }
+  if(lo<0&&hi>0)svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:Y(0),y2:Y(0),
+    stroke:'#3a4453','stroke-width':1,'stroke-dasharray':'5 5'}));
+  var d='';SER.forEach(function(p,i){d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(p.v).toFixed(1)+' '});
+  var last=SER[SER.length-1].v,c=last>=0?'#4ec98a':'#ef5f5f';
+  svg.appendChild(svgEl('path',{d:'M'+X(0).toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' '+d.slice(1)+
+    'L'+X(SER.length-1).toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' Z',fill:c,opacity:.15}));
+  svg.appendChild(svgEl('path',{d:d,fill:'none',stroke:c,'stroke-width':2.5,'stroke-linejoin':'round'}));
+  svg.appendChild(svgEl('circle',{cx:X(SER.length-1),cy:Y(last),r:4,fill:c}));
+  var ticks=Math.min(6,SER.length),seen='';
+  for(var i=0;i<ticks;i++){
+    var idx=ticks===1?0:Math.round(i*(SER.length-1)/(ticks-1));
+    var lab=shortDate(SER[idx].d);
+    if(lab===seen&&i<ticks-1)continue;          // one label per date
+    seen=lab;
+    var anchor=i===0?'start':(i===ticks-1?'end':'middle');
+    var tx=svgEl('text',{x:X(idx),y:H-12,fill:'#8b95a7','font-size':11,'text-anchor':anchor,
+      'font-family':'ui-monospace,Menlo,monospace'});
+    tx.textContent=lab;svg.appendChild(tx);
+  }
+}
+drawCurve();
+var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(drawCurve,120)});
+
 (function(){var g={},o=[];
   B.forEach(function(b){var k=b.d.slice(0,7);if(!g[k]){g[k]=[];o.push(k)}g[k].push(b)});
   o.sort().reverse();
@@ -152,13 +204,14 @@ B.slice().reverse().forEach(function(b){var tr=el('tr');
   var r=el('td');r.appendChild(el('span','chip '+(b.r==='Pending'?'Pending':b.r.charAt(0)),b.r));tr.appendChild(r);
   tr.appendChild(el('td','n '+(b.p===null?'pend':cl(b.p)),b.p===null?'--':fu(b.p)));
   $('#log').appendChild(tr)});
+
 DOW.forEach(function(d){$('#dow').appendChild(el('div','dow',d))});
 var months=B.map(function(b){return b.d.slice(0,7)}).sort();
 var cm=months.length?months[months.length-1]:(new Date().getFullYear()+'-'+pad(new Date().getMonth()+1));
 function cal(){
-  $('#ct').textContent=(function(){var p=cm.split('-');
-    return new Date(+p[0],+p[1]-1,1).toLocaleString('en-US',{month:'long'})+' '+p[0]})();
-  var p=cm.split('-'),Y=+p[0],M=+p[1]-1,first=new Date(Y,M,1).getDay(),days=new Date(Y,M+1,0).getDate();
+  var p=cm.split('-');
+  $('#ct').textContent=new Date(+p[0],+p[1]-1,1).toLocaleString('en-US',{month:'long'})+' '+p[0];
+  var Y=+p[0],M=+p[1]-1,first=new Date(Y,M,1).getDay(),days=new Date(Y,M+1,0).getDate();
   var by={};B.forEach(function(b){if(b.d.slice(0,7)!==cm)return;
     var o=by[b.d]||(by[b.d]={u:0,n:0,p:0});if(b.p===null)o.p++;else{o.u+=b.p;o.n++}});
   var g=$('#cal');g.innerHTML='';

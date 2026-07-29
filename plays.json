@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 29, 2026, 5:32 PM EDT",
+  "updated": "Jul 29, 2026, 6:34 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -261,6 +261,16 @@
       "units": 1,
       "result": "Loss",
       "units_pl": -1
+    },
+    {
+      "date": "2026-07-29",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "1H Yankees -0.5",
+      "odds": -107,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

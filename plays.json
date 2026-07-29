@@ -1,0 +1,256 @@
+{
+  "units_only": true,
+  "updated": "Jul 29, 2026, 1:16 PM EDT",
+  "plays": [
+    {
+      "date": "2026-07-19",
+      "sport": "WNBA",
+      "market": "Total",
+      "play": "Under 167",
+      "odds": -115,
+      "units": 2.5,
+      "result": "Win",
+      "units_pl": 2.1739
+    },
+    {
+      "date": "2026-07-19",
+      "sport": "WNBA",
+      "market": "Total",
+      "play": "Under 167.5",
+      "odds": -115,
+      "units": 2.5,
+      "result": "Win",
+      "units_pl": 2.1739
+    },
+    {
+      "date": "2026-07-20",
+      "sport": "WNBA",
+      "market": "Spread",
+      "play": "Tempo +11.5",
+      "odds": -115,
+      "units": 2.5,
+      "result": "Loss",
+      "units_pl": -2.5
+    },
+    {
+      "date": "2026-07-20",
+      "sport": "WNBA",
+      "market": "Spread",
+      "play": "Tempo +11",
+      "odds": -105,
+      "units": 2.5,
+      "result": "Loss",
+      "units_pl": -2.5
+    },
+    {
+      "date": "2026-07-22",
+      "sport": "WNBA",
+      "market": "Spread",
+      "play": "Mystics +7",
+      "odds": -110,
+      "units": 2.5,
+      "result": "Win",
+      "units_pl": 2.2727
+    },
+    {
+      "date": "2026-07-22",
+      "sport": "WNBA",
+      "market": "Spread",
+      "play": "Sky +8",
+      "odds": -110,
+      "units": 5,
+      "result": "Win",
+      "units_pl": 4.5455
+    },
+    {
+      "date": "2026-07-22",
+      "sport": "WNBA",
+      "market": "Spread",
+      "play": "Mystics +6.5",
+      "odds": -110,
+      "units": 2.5,
+      "result": "Win",
+      "units_pl": 2.2727
+    },
+    {
+      "date": "2026-07-25",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "1H Red Sox",
+      "odds": 110,
+      "units": 1,
+      "result": "Loss",
+      "units_pl": -1
+    },
+    {
+      "date": "2026-07-25",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "1H Washington",
+      "odds": -166,
+      "units": 1,
+      "result": "Win",
+      "units_pl": 0.6024
+    },
+    {
+      "date": "2026-07-27",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "Phillies -1",
+      "odds": -132,
+      "units": 1,
+      "result": "Loss",
+      "units_pl": -1
+    },
+    {
+      "date": "2026-07-27",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "Brewers",
+      "odds": -132,
+      "units": 1,
+      "result": "Loss",
+      "units_pl": -1
+    },
+    {
+      "date": "2026-07-27",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "Red Sox -1.5",
+      "odds": 100,
+      "units": 1,
+      "result": "Win",
+      "units_pl": 1
+    },
+    {
+      "date": "2026-07-27",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "Mariners",
+      "odds": -123,
+      "units": 1,
+      "result": "Loss",
+      "units_pl": -1
+    },
+    {
+      "date": "2026-07-27",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "Yankees",
+      "odds": -135,
+      "units": 1,
+      "result": "Win",
+      "units_pl": 0.7407
+    },
+    {
+      "date": "2026-07-28",
+      "sport": "WNBA",
+      "market": "Spread",
+      "play": "Mystics -6",
+      "odds": -110,
+      "units": 2.5,
+      "result": "Win",
+      "units_pl": 2.2727
+    },
+    {
+      "date": "2026-07-28",
+      "sport": "WNBA",
+      "market": "Spread",
+      "play": "Liberty -3.5",
+      "odds": -125,
+      "units": 2.5,
+      "result": "Win",
+      "units_pl": 2
+    },
+    {
+      "date": "2026-07-28",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "Red Sox -1",
+      "odds": -127,
+      "units": 1,
+      "result": "Loss",
+      "units_pl": -1
+    },
+    {
+      "date": "2026-07-28",
+      "sport": "WNBA",
+      "market": "Total",
+      "play": "Under 179.5",
+      "odds": -110,
+      "units": 2.5,
+      "result": "Loss",
+      "units_pl": -2.5
+    },
+    {
+      "date": "2026-07-28",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "Tigers -0.5 First 5",
+      "odds": -112,
+      "units": 1,
+      "result": "Win",
+      "units_pl": 0.8929
+    },
+    {
+      "date": "2026-07-28",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "Brewers",
+      "odds": -134,
+      "units": 1,
+      "result": "Win",
+      "units_pl": 0.7463
+    },
+    {
+      "date": "2026-07-29",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "1H Phillies",
+      "odds": -148,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-29",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "1H Phillies -0.5",
+      "odds": -118,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-29",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "Rays ML",
+      "odds": -141,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-29",
+      "sport": "MLB",
+      "market": "Total",
+      "play": "Over 9.5",
+      "odds": -115,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-29",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "Cubs",
+      "odds": -105,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    }
+  ]
+}

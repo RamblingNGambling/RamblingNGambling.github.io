@@ -1,85 +1,139 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>UNITS TRACKER</title>
 <style>
 :root{
-  --bg:#131218;--card:#1b1922;--card2:#211e2b;--bd:#272433;--bd2:#39344a;
-  --tx:#e2dfe9;--mut:#948da8;--lav:#b3a1f5;--lav2:#8f7ce0;
-  --win:#4ec98a;--loss:#ef5f5f;--pend:#8fa3ff;
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Roboto Mono",monospace}
+  --ink:#100D14;--panel:#191521;--panel2:#221D2C;--line:#2A2333;--line2:#3B3149;
+  --bone:#BAB8BB;--grey:#8F8D90;--lilac:#AC8EB8;--amethyst:#7C608F;--plum:#73517E;
+  --up:#D5A6E7;--down:#C4677E;--downbg:#261722;--upbg:#1F1929;--upbd:#8F6FA8;--downbd:#6B3A44;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Roboto Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
-html{color-scheme:dark}
-body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:15px;padding:0 24px 70px}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:15px;padding:0 24px 72px}
 .wrap{max-width:1640px;margin:0 auto}
 .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.win{color:var(--win)}.loss{color:var(--loss)}.mut{color:var(--mut)}.pend{color:var(--pend)}
+.win{color:var(--up)}.loss{color:var(--down)}.mut{color:var(--grey)}.pend{color:var(--amethyst)}
 
-header{padding:34px 0 22px;text-align:center}
-.eyebrow{font:700 12px var(--mono);letter-spacing:5px;color:var(--lav);text-transform:uppercase}
-.net{font:700 62px var(--mono);line-height:1.05;margin:12px 0 4px}
-.sub{font:13px var(--mono);color:var(--mut)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--bd);
-  border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-top:24px}
-.kpis .k{background:var(--card);padding:14px 10px;text-align:center}
-.kpis .k b{display:block;font:600 10px var(--mono);letter-spacing:1.8px;color:var(--mut);text-transform:uppercase;margin-bottom:6px}
-.kpis .k span{font:700 22px var(--mono)}
+/* ---- header ---- */
+header{padding:44px 0 26px;text-align:center;position:relative}
+.bands{display:flex;height:3px;max-width:340px;margin:0 auto 26px;border-radius:2px;overflow:hidden}
+.bands i{flex:1}
+.bands i:nth-child(1){background:var(--grey)}
+.bands i:nth-child(2){background:var(--bone)}
+.bands i:nth-child(3){background:var(--lilac)}
+.bands i:nth-child(4){background:var(--amethyst)}
+.bands i:nth-child(5){background:var(--plum)}
+.eyebrow{font:700 12px var(--mono);letter-spacing:6px;color:var(--lilac);text-transform:uppercase}
+.net{font:700 68px var(--mono);letter-spacing:-3px;line-height:1;margin:14px 0 6px}
+.sub{font:12px var(--mono);letter-spacing:1px;color:var(--grey)}
 
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}
+.kpis .k{background:var(--panel);padding:15px 10px 14px;text-align:center}
+.kpis .k b{display:block;font:600 9px var(--mono);letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin-bottom:7px}
+.kpis .k span{font:700 22px var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---- open plays band ---- */
+.open{border:1px solid var(--line2);border-left:3px solid var(--amethyst);border-radius:10px;
+  background:linear-gradient(90deg,var(--panel2),var(--panel));padding:15px 18px;margin-top:20px}
+.open h2{color:var(--lilac);margin-bottom:4px}
+.open .why{font-size:12.5px;color:var(--grey);line-height:1.6;margin-bottom:12px;max-width:74ch}
+.open ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.open li{background:var(--panel);padding:10px 12px;display:flex;align-items:baseline;gap:9px}
+.open li .t{flex:1;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.open li .o,.open li .u{font:600 12px var(--mono);color:var(--grey);white-space:nowrap}
+.open li .u{color:var(--amethyst)}
+.open li .dt{font:11px var(--mono);color:var(--grey)}
+
+/* ---- layout ---- */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start;margin-top:16px}
 .stack{display:flex;flex-direction:column;gap:16px}
-@media(max-width:1080px){.two{grid-template-columns:1fr}.net{font-size:42px}body{padding:0 14px 60px}}
+@media(max-width:1080px){.two{grid-template-columns:1fr}.net{font-size:44px;letter-spacing:-2px}
+  body{padding:0 14px 60px}header{padding:30px 0 18px}}
 
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
-h2{font:700 12px var(--mono);letter-spacing:2.5px;color:var(--lav);text-transform:uppercase;margin-bottom:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--plum);
+  border-radius:10px;padding:16px 17px}
+.card.acc{border-left-color:var(--lilac)}
+.card.acc2{border-left-color:var(--amethyst)}
+h2{font:700 11px var(--mono);letter-spacing:3px;color:var(--amethyst);text-transform:uppercase;margin-bottom:13px}
+.card.acc h2,.card.acc2 h2{color:var(--lilac)}
+
 table{width:100%;border-collapse:collapse;font-size:14px}
-th{font:600 10px var(--mono);letter-spacing:1.4px;color:var(--mut);text-transform:uppercase;text-align:center;padding:7px 9px;border-bottom:1px solid var(--bd2);white-space:nowrap}
-td{padding:8px 9px;border-bottom:1px solid var(--bd);text-align:center}
+th{font:600 9px var(--mono);letter-spacing:1.6px;color:var(--grey);text-transform:uppercase;
+  text-align:center;padding:7px 9px;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:8px 9px;border-bottom:1px solid var(--line);text-align:center}
+tr:last-child td{border-bottom:0}
 td.l,th.l{text-align:left}
 td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-tbody tr:hover{background:var(--card2)}
+tbody tr:hover{background:var(--panel2)}
 .tw{overflow-x:auto}
-.chip{display:inline-block;font:600 10px var(--mono);letter-spacing:1px;padding:3px 7px;border-radius:4px;border:1px solid var(--bd2);color:var(--mut)}
-.chip.W{color:var(--win);border-color:#2f6a4c}.chip.L{color:var(--loss);border-color:#7a3a3a}
-.chip.Pending{color:var(--pend);border-color:#3f4780}
+.chip{display:inline-block;font:600 9px var(--mono);letter-spacing:1.2px;padding:3px 7px;border-radius:4px;
+  border:1px solid var(--line2);color:var(--grey);text-transform:uppercase}
+.chip.W{color:var(--up);border-color:var(--upbd)}
+.chip.L{color:var(--down);border-color:var(--downbd)}
+.chip.Pending{color:var(--amethyst);border-color:var(--plum);background:#1E1826}
 
+/* ---- curve ---- */
 .chartwrap{position:relative}
 svg.curve{display:block;width:100%;cursor:crosshair;touch-action:none}
-.tip{position:absolute;pointer-events:none;background:var(--card2);border:1px solid var(--lav2);
-  border-radius:7px;padding:7px 10px;font:600 12px var(--mono);white-space:nowrap;opacity:0;
-  transition:opacity .1s;transform:translate(-50%,-118%);z-index:5;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--lilac);
+  border-radius:7px;padding:8px 11px;font:600 12px var(--mono);white-space:nowrap;opacity:0;
+  transition:opacity .1s;transform:translate(-50%,-118%);z-index:5;box-shadow:0 8px 22px rgba(0,0,0,.62)}
 .tip.on{opacity:1}
-.tip .d{color:var(--mut);font-weight:400;font-size:11px;display:block;margin-bottom:2px}
+.tip .d{color:var(--grey);font-weight:400;font-size:11px;display:block;margin-bottom:3px;letter-spacing:.5px}
 
-.calhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.calhead .t{flex:1;text-align:center;font:700 13px var(--mono);letter-spacing:2px}
-.btn{background:none;border:1px solid var(--bd2);color:var(--mut);border-radius:6px;padding:5px 11px;font:600 11px var(--mono);cursor:pointer}
-.btn:hover{border-color:var(--lav);color:var(--lav)}
+/* ---- calendar ---- */
+.calhead{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.calhead .t{flex:1;text-align:center;font:700 12px var(--mono);letter-spacing:2.5px;text-transform:uppercase}
+.btn{background:none;border:1px solid var(--line2);color:var(--grey);border-radius:6px;padding:5px 12px;
+  font:600 11px var(--mono);cursor:pointer}
+.btn:hover{border-color:var(--lilac);color:var(--lilac)}
+.btn:focus-visible{outline:2px solid var(--lilac);outline-offset:2px}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
-.dow{font:600 10px var(--mono);color:var(--mut);text-align:center;padding-bottom:2px}
-.cell{height:42px;border:1px solid var(--bd);border-radius:5px;background:#191722;position:relative;
+.dow{font:600 9px var(--mono);letter-spacing:1px;color:var(--grey);text-align:center;padding-bottom:3px}
+.cell{height:44px;border:1px solid var(--line);border-radius:5px;background:#161220;position:relative;
   display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:12px}
 .cell.b{background:none;border-color:transparent}
-.cell i{position:absolute;top:2px;left:4px;font:normal 9px var(--mono);color:var(--mut);font-style:normal}
-.cell.w{background:#14291f;border-color:#2c5c43;color:var(--win)}
-.cell.l{background:#2a1720;border-color:#7a3535;color:var(--loss)}
-.cell em{position:absolute;bottom:2px;right:4px;font-size:7px;color:var(--pend);font-style:normal}
-footer{color:var(--mut);font-size:12px;line-height:1.8;padding-top:16px;margin-top:16px;border-top:1px solid var(--bd);text-align:center}
-footer b{color:var(--tx);font-weight:600}
+.cell i{position:absolute;top:2px;left:4px;font:normal 9px var(--mono);color:var(--grey);font-style:normal}
+.cell.w{background:var(--upbg);border-color:var(--upbd);color:var(--up)}
+.cell.l{background:var(--downbg);border-color:var(--downbd);color:var(--down)}
+.cell em{position:absolute;bottom:2px;right:4px;font-size:7px;color:var(--amethyst);font-style:normal}
+
+footer{color:var(--grey);font-size:12.5px;line-height:1.85;padding-top:18px;margin-top:18px;
+  border-top:1px solid var(--line);text-align:center}
+footer b{color:var(--bone);font-weight:600}
+footer .rule{display:flex;height:2px;max-width:200px;margin:0 auto 16px;border-radius:2px;overflow:hidden;opacity:.65}
+footer .rule i{flex:1}
+footer .rule i:nth-child(1){background:var(--grey)}
+footer .rule i:nth-child(2){background:var(--lilac)}
+footer .rule i:nth-child(3){background:var(--plum)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body><div class="wrap">
 <header>
+  <div class="bands"><i></i><i></i><i></i><i></i><i></i></div>
   <div class="eyebrow">UNITS TRACKER</div>
   <div class="net num" id="net">+0.00u</div>
   <div class="sub" id="span"></div>
   <div class="kpis" id="kpis"></div>
 </header>
 
+<section class="open" id="openband" style="display:none">
+  <h2>Open now</h2>
+  <p class="why">Posted before the games, settled after. Every version of this page is a commit, so the timestamp on each play is a matter of public record rather than a claim.</p>
+  <ul id="openlist"></ul>
+</section>
+
 <div class="two">
   <div class="stack">
-    <div class="card"><h2>Cumulative units</h2>
+    <div class="card acc"><h2>Cumulative units</h2>
       <div class="chartwrap"><svg class="curve" id="curve"></svg><div class="tip" id="tip"></div></div>
     </div>
-    <div class="card">
-      <div class="calhead"><button class="btn" id="pv">&lsaquo;</button><div class="t" id="ct"></div><button class="btn" id="nx">&rsaquo;</button></div>
+    <div class="card acc2">
+      <div class="calhead"><button class="btn" id="pv" aria-label="Previous month">&lsaquo;</button><div class="t" id="ct"></div><button class="btn" id="nx" aria-label="Next month">&rsaquo;</button></div>
       <div class="cal" id="dow"></div><div class="cal" id="cal" style="margin-top:3px"></div>
     </div>
   </div>
@@ -90,17 +144,18 @@ footer b{color:var(--tx);font-weight:600}
   </div>
 </div>
 
-<div class="card" style="margin-top:16px"><h2>Every play</h2><div class="tw"><table><thead><tr><th>Date</th><th>Sport</th><th class="l">Play</th><th>Market</th><th class="n">Odds</th><th class="n">Units</th><th>Result</th><th class="n">P/L</th></tr></thead><tbody id="log"></tbody></table></div></div>
+<div class="card acc" style="margin-top:16px"><h2>Every play</h2><div class="tw"><table><thead><tr><th>Date</th><th>Sport</th><th class="l">Play</th><th>Market</th><th class="n">Odds</th><th class="n">Units</th><th>Result</th><th class="n">P/L</th></tr></thead><tbody id="log"></tbody></table></div></div>
 
 <footer>
+  <div class="rule"><i></i><i></i><i></i></div>
   <b>One unit is one standard bet.</b> Its cash value is deliberately not shown &mdash; a unit is whatever one standard bet is for you.<br>
   Odds are American, at the price posted. ROI is net units divided by units risked, settled plays only. Pushes and voids settle flat and are excluded from win rate.<br>
-  Pending plays are posted here before they settle and are excluded from every settled figure. Nothing is removed once posted.<br>
+  Open plays are posted here before they settle and are excluded from every settled figure. Nothing is removed once posted.<br>
   <span id="stamp"></span>
 </footer>
 </div>
 <script>
-var D={"title":"UNITS TRACKER","built":"Jul 29, 2026, 2:12 AM EDT","bets":[{"d":"2026-07-19","s":"WNBA","m":"Total","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-19","s":"WNBA","m":"Total","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-20","s":"WNBA","m":"Spread","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-20","s":"WNBA","m":"Spread","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-25","s":"MLB","m":"Moneyline","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1},{"d":"2026-07-25","s":"MLB","m":"Moneyline","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024},{"d":"2026-07-27","s":"MLB","m":"Spread","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Spread","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407},{"d":"2026-07-28","s":"WNBA","m":"Spread","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-28","s":"WNBA","m":"Spread","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2},{"d":"2026-07-28","s":"MLB","m":"Spread","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1},{"d":"2026-07-28","s":"WNBA","m":"Total","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-28","s":"MLB","m":"Spread","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929},{"d":"2026-07-28","s":"MLB","m":"Moneyline","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"1H Phillies","o":-148,"u":1,"r":"Pending","p":null}]};
+var D={"title":"UNITS TRACKER","built":"Jul 29, 2026, 1:16 PM EDT","bets":[{"d":"2026-07-19","s":"WNBA","m":"Total","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-19","s":"WNBA","m":"Total","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-20","s":"WNBA","m":"Spread","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-20","s":"WNBA","m":"Spread","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-25","s":"MLB","m":"Moneyline","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1},{"d":"2026-07-25","s":"MLB","m":"Moneyline","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024},{"d":"2026-07-27","s":"MLB","m":"Spread","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Spread","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407},{"d":"2026-07-28","s":"WNBA","m":"Spread","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-28","s":"WNBA","m":"Spread","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2},{"d":"2026-07-28","s":"MLB","m":"Spread","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1},{"d":"2026-07-28","s":"WNBA","m":"Total","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-28","s":"MLB","m":"Spread","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929},{"d":"2026-07-28","s":"MLB","m":"Moneyline","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"1H Phillies","o":-148,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"1H Phillies -0.5","o":-118,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"Rays ML","o":-141,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Total","t":"Over 9.5","o":-115,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"Cubs","o":-105,"u":1,"r":"Pending","p":null}]};
 var B=D.bets,DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 var NS='http://www.w3.org/2000/svg';
 function $(s){return document.querySelector(s)}
@@ -137,12 +192,26 @@ var A=ag(B);
 $('#net').textContent=fu(A.u);$('#net').className='net num '+cl(A.u);
 $('#span').textContent=B.length?(B[0].d+'  \u00b7  '+B[B.length-1].d+'  \u00b7  '+B.length+' plays'):'nothing posted yet';
 $('#stamp').innerHTML='<b>Last updated '+D.built+'.</b>'+(A.pend?'  '+A.pend+' play'+(A.pend>1?'s':'')+' still open at that time.':'  Everything posted was settled at that time.');
-[['Net units',fu(A.u),cl(A.u)],['ROI',A.risk>0?pc(A.roi):'--',cl(A.roi)],
+[['ROI',A.risk>0?pc(A.roi):'--',cl(A.roi)],
  ['Record',A.w+'-'+A.l+'-'+A.p,''],['Win rate',A.n?pc(A.wr):'--',''],
  ['Break-even needed',A.n?pc(A.ai):'--',''],['Units risked',A.risk.toFixed(2)+'u',''],
  ['Open plays',String(A.pend),A.pend?'pend':''],['Live exposure',A.pu.toFixed(2)+'u',A.pend?'pend':'']
 ].forEach(function(k){var d=el('div','k');d.appendChild(el('b','',k[0]));
   d.appendChild(el('span','num '+(k[2]||''),k[1]));$('#kpis').appendChild(d)});
+
+/* ---------- open plays ---------- */
+(function(){
+  var open=B.filter(function(b){return b.p===null});
+  if(!open.length)return;
+  $('#openband').style.display='block';
+  var ul=$('#openlist');
+  open.sort(function(a,b){return a.d<b.d?-1:1}).forEach(function(b){
+    var li=el('li');
+    li.appendChild(el('span','dt',shortDate(b.d)));
+    li.appendChild(el('span','t',b.t||b.s||'play'));
+    li.appendChild(el('span','o',(b.o>0?'+':'')+b.o));
+    li.appendChild(el('span','u',b.u.toFixed(2)+'u'));
+    ul.appendChild(li)})})();
 
 /* ---------- equity curve, hover-readable ---------- */
 var SER=(function(){var n=0,out=[];
@@ -150,7 +219,7 @@ var SER=(function(){var n=0,out=[];
 var XS=[],YS=[],CROSS=null,DOT=null;
 function drawCurve(){
   var svg=$('#curve'),host=svg.parentNode.parentNode;
-  var W=Math.max(320,host.clientWidth-32),H=300;
+  var W=Math.max(320,host.clientWidth-34),H=300;
   svg.setAttribute('width',W);svg.setAttribute('height',H);
   svg.setAttribute('viewBox','0 0 '+W+' '+H);
   while(svg.firstChild)svg.removeChild(svg.firstChild);
@@ -165,17 +234,17 @@ function drawCurve(){
   SER.forEach(function(p,i){XS.push(X(i));YS.push(Y(p.v))});
   for(var k=0;k<=4;k++){
     var v=lo+(hi-lo)*k/4,y=Y(v);
-    svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:y,y2:y,stroke:'#242030','stroke-width':1}));
-    var t=svgEl('text',{x:L-10,y:y+4,fill:'#948da8','font-size':11,'text-anchor':'end',
+    svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:y,y2:y,stroke:'#241E30','stroke-width':1}));
+    var t=svgEl('text',{x:L-10,y:y+4,fill:'#8F8D90','font-size':11,'text-anchor':'end',
       'font-family':'ui-monospace,Menlo,monospace'});
     t.textContent=fu(v,1);svg.appendChild(t);
   }
   if(lo<0&&hi>0)svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:Y(0),y2:Y(0),
-    stroke:'#4a4260','stroke-width':1,'stroke-dasharray':'5 5'}));
+    stroke:'#4B3E5C','stroke-width':1,'stroke-dasharray':'5 5'}));
   var d='';SER.forEach(function(p,i){d+=(i?'L':'M')+XS[i].toFixed(1)+' '+YS[i].toFixed(1)+' '});
-  var last=SER[SER.length-1].v,c=last>=0?'#4ec98a':'#ef5f5f';
+  var last=SER[SER.length-1].v,c=last>=0?'#D5A6E7':'#C4677E';
   svg.appendChild(svgEl('path',{d:'M'+XS[0].toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' '+d.slice(1)+
-    'L'+XS[SER.length-1].toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' Z',fill:c,opacity:.15}));
+    'L'+XS[SER.length-1].toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' Z',fill:c,opacity:.16}));
   svg.appendChild(svgEl('path',{d:d,fill:'none',stroke:c,'stroke-width':2.5,'stroke-linejoin':'round'}));
   var ticks=Math.min(6,SER.length),seen='';
   for(var i=0;i<ticks;i++){
@@ -184,14 +253,14 @@ function drawCurve(){
     if(lab===seen&&i<ticks-1)continue;
     seen=lab;
     var anchor=i===0?'start':(i===ticks-1?'end':'middle');
-    var tx=svgEl('text',{x:XS[idx],y:H-12,fill:'#948da8','font-size':11,'text-anchor':anchor,
+    var tx=svgEl('text',{x:XS[idx],y:H-12,fill:'#8F8D90','font-size':11,'text-anchor':anchor,
       'font-family':'ui-monospace,Menlo,monospace'});
     tx.textContent=lab;svg.appendChild(tx);
   }
-  CROSS=svgEl('line',{x1:0,x2:0,y1:T,y2:H-BM,stroke:'#b3a1f5','stroke-width':1,opacity:0});
+  CROSS=svgEl('line',{x1:0,x2:0,y1:T,y2:H-BM,stroke:'#AC8EB8','stroke-width':1,opacity:0});
   svg.appendChild(CROSS);
   DOT=svgEl('circle',{cx:XS[SER.length-1],cy:YS[SER.length-1],r:4.5,fill:c,
-    stroke:'#131218','stroke-width':2});
+    stroke:'#100D14','stroke-width':2});
   svg.appendChild(DOT);
 }
 function nearest(px){

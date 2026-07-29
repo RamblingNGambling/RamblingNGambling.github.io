@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 29, 2026, 1:59 PM EDT",
+  "updated": "Jul 29, 2026, 2:48 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -248,6 +248,16 @@
       "market": "Moneyline",
       "play": "Cubs",
       "odds": -105,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-29",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "1H Rockies ML",
+      "odds": 123,
       "units": 1,
       "result": "Pending",
       "units_pl": null

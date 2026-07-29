@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 29, 2026, 1:16 PM EDT",
+  "updated": "Jul 29, 2026, 1:59 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -209,8 +209,8 @@
       "play": "1H Phillies",
       "odds": -148,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.6757
     },
     {
       "date": "2026-07-29",
@@ -219,8 +219,8 @@
       "play": "1H Phillies -0.5",
       "odds": -118,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.8475
     },
     {
       "date": "2026-07-29",

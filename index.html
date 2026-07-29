@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<title>UNITS TRACKER</title>
+<title>Public Tracker</title>
 <style>
 :root{
   --ink:#100D14;--panel:#191521;--panel2:#221D2C;--line:#2A2333;--line2:#3B3149;
@@ -39,8 +39,7 @@ header{padding:44px 0 26px;text-align:center;position:relative}
 /* ---- open plays band ---- */
 .open{border:1px solid var(--line2);border-left:3px solid var(--amethyst);border-radius:10px;
   background:linear-gradient(90deg,var(--panel2),var(--panel));padding:15px 18px;margin-top:20px}
-.open h2{color:var(--lilac);margin-bottom:4px}
-.open .why{font-size:12.5px;color:var(--grey);line-height:1.6;margin-bottom:12px;max-width:74ch}
+.open h2{color:var(--lilac);margin-bottom:12px}
 .open ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:1px;
   background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .open li{background:var(--panel);padding:10px 12px;display:flex;align-items:baseline;gap:9px}
@@ -115,7 +114,7 @@ footer .rule i:nth-child(3){background:var(--plum)}
 </style></head><body><div class="wrap">
 <header>
   <div class="bands"><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="eyebrow">UNITS TRACKER</div>
+  <div class="eyebrow">Public Tracker</div>
   <div class="net num" id="net">+0.00u</div>
   <div class="sub" id="span"></div>
   <div class="kpis" id="kpis"></div>
@@ -123,7 +122,6 @@ footer .rule i:nth-child(3){background:var(--plum)}
 
 <section class="open" id="openband" style="display:none">
   <h2>Open now</h2>
-  <p class="why">Posted before the games, settled after. Every version of this page is a commit, so the timestamp on each play is a matter of public record rather than a claim.</p>
   <ul id="openlist"></ul>
 </section>
 
@@ -155,7 +153,7 @@ footer .rule i:nth-child(3){background:var(--plum)}
 </footer>
 </div>
 <script>
-var D={"title":"UNITS TRACKER","built":"Jul 29, 2026, 1:16 PM EDT","bets":[{"d":"2026-07-19","s":"WNBA","m":"Total","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-19","s":"WNBA","m":"Total","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-20","s":"WNBA","m":"Spread","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-20","s":"WNBA","m":"Spread","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-25","s":"MLB","m":"Moneyline","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1},{"d":"2026-07-25","s":"MLB","m":"Moneyline","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024},{"d":"2026-07-27","s":"MLB","m":"Spread","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Spread","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407},{"d":"2026-07-28","s":"WNBA","m":"Spread","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-28","s":"WNBA","m":"Spread","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2},{"d":"2026-07-28","s":"MLB","m":"Spread","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1},{"d":"2026-07-28","s":"WNBA","m":"Total","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-28","s":"MLB","m":"Spread","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929},{"d":"2026-07-28","s":"MLB","m":"Moneyline","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"1H Phillies","o":-148,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"1H Phillies -0.5","o":-118,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"Rays ML","o":-141,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Total","t":"Over 9.5","o":-115,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"Cubs","o":-105,"u":1,"r":"Pending","p":null}]};
+var D={"title":"Public Tracker","built":"Jul 29, 2026, 1:59 PM EDT","bets":[{"d":"2026-07-19","s":"WNBA","m":"Total","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-19","s":"WNBA","m":"Total","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739},{"d":"2026-07-20","s":"WNBA","m":"Spread","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-20","s":"WNBA","m":"Spread","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455},{"d":"2026-07-22","s":"WNBA","m":"Spread","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-25","s":"MLB","m":"Moneyline","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1},{"d":"2026-07-25","s":"MLB","m":"Moneyline","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024},{"d":"2026-07-27","s":"MLB","m":"Spread","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Spread","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1},{"d":"2026-07-27","s":"MLB","m":"Moneyline","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407},{"d":"2026-07-28","s":"WNBA","m":"Spread","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727},{"d":"2026-07-28","s":"WNBA","m":"Spread","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2},{"d":"2026-07-28","s":"MLB","m":"Spread","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1},{"d":"2026-07-28","s":"WNBA","m":"Total","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5},{"d":"2026-07-28","s":"MLB","m":"Spread","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929},{"d":"2026-07-28","s":"MLB","m":"Moneyline","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"1H Phillies","o":-148,"u":1,"r":"Win","p":0.6757},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"1H Phillies -0.5","o":-118,"u":1,"r":"Win","p":0.8475},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"Rays ML","o":-141,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Total","t":"Over 9.5","o":-115,"u":1,"r":"Pending","p":null},{"d":"2026-07-29","s":"MLB","m":"Moneyline","t":"Cubs","o":-105,"u":1,"r":"Pending","p":null}]};
 var B=D.bets,DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 var NS='http://www.w3.org/2000/svg';
 function $(s){return document.querySelector(s)}

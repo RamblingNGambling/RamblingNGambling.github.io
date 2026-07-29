@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 29, 2026, 2:48 PM EDT",
+  "updated": "Jul 29, 2026, 5:32 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -259,8 +259,8 @@
       "play": "1H Rockies ML",
       "odds": 123,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     }
   ]
 }

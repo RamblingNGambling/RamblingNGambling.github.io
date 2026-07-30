@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 29, 2026, 9:46 PM EDT",
+  "updated": "Jul 29, 2026, 10:38 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -249,8 +249,8 @@
       "play": "Cubs",
       "odds": -105,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     },
     {
       "date": "2026-07-29",

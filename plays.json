@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 30, 2026, 12:47 AM EDT",
+  "updated": "Jul 30, 2026, 12:25 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -288,6 +288,26 @@
       "market": "Moneyline",
       "play": "Rays",
       "odds": -140,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-30",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "Nationals +1.5",
+      "odds": -150,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-30",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "Twins",
+      "odds": -135,
       "units": 1,
       "result": "Pending",
       "units_pl": null

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 29, 2026, 6:34 PM EDT",
+  "updated": "Jul 29, 2026, 8:15 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -269,6 +269,16 @@
       "play": "1H Yankees -0.5",
       "odds": -107,
       "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-29",
+      "sport": "WNBA",
+      "market": "Spread",
+      "play": "Valks -4.0",
+      "odds": -110,
+      "units": 2.5,
       "result": "Pending",
       "units_pl": null
     }

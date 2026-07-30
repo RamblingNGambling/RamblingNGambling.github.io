@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 29, 2026, 8:41 PM EDT",
+  "updated": "Jul 29, 2026, 9:46 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -229,8 +229,8 @@
       "play": "Rays ML",
       "odds": -141,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.7092
     },
     {
       "date": "2026-07-29",
@@ -269,8 +269,8 @@
       "play": "1H Yankees -0.5",
       "odds": -107,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.9346
     },
     {
       "date": "2026-07-29",

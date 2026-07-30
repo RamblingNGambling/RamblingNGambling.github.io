@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 29, 2026, 10:38 PM EDT",
+  "updated": "Jul 30, 2026, 12:07 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -239,8 +239,8 @@
       "play": "Over 9.5",
       "odds": -115,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.8696
     },
     {
       "date": "2026-07-29",

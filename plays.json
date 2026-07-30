@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 30, 2026, 12:25 PM EDT",
+  "updated": "Jul 30, 2026, 4:25 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -289,8 +289,8 @@
       "play": "Rays",
       "odds": -140,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.7143
     },
     {
       "date": "2026-07-30",
@@ -309,8 +309,8 @@
       "play": "Twins",
       "odds": -135,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     }
   ]
 }

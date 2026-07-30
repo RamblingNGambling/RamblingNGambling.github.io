@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 30, 2026, 12:07 AM EDT",
+  "updated": "Jul 30, 2026, 12:25 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -279,8 +279,8 @@
       "play": "Valks -3.5",
       "odds": -110,
       "units": 2.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -2.5
     }
   ]
 }

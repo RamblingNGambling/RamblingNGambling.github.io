@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 31, 2026, 2:16 AM EDT",
+  "updated": "Jul 31, 2026, 1:29 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -395,6 +395,50 @@
       "play": "1H Rays -0.5",
       "odds": -108,
       "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Phillies @ Orioles",
+      "play": "1H Orioles ML",
+      "odds": -118,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "WNBA",
+      "market": "Total",
+      "game": "Storm @ Dream",
+      "play": "Over 178.5",
+      "odds": -110,
+      "units": 2.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "WNBA",
+      "market": "Spread",
+      "game": "Wings @ Mystics",
+      "play": "Mystics +3.5",
+      "odds": -110,
+      "units": 2.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "WNBA",
+      "market": "Spread",
+      "game": "Fever @ Fire",
+      "play": "Fever -7.5",
+      "odds": -115,
+      "units": 2.5,
       "result": "Pending",
       "units_pl": null
     }

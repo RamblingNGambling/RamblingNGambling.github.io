@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 30, 2026, 9:49 PM EDT",
+  "updated": "Jul 31, 2026, 1:03 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -321,6 +321,46 @@
       "units": 0.5,
       "result": "Push",
       "units_pl": 0
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "play": "1H Nationals ML",
+      "odds": -110,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "1H Nationals -0.5",
+      "odds": 118,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "1H Tigers -0.5",
+      "odds": -120,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "MLB",
+      "market": "Spread",
+      "play": "1H Rays -0.5",
+      "odds": -108,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

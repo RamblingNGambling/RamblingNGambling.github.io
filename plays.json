@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Jul 30, 2026, 5:50 PM EDT",
+  "updated": "Jul 30, 2026, 9:49 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -299,8 +299,8 @@
       "play": "Nationals +1.5",
       "odds": -150,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.6667
     },
     {
       "date": "2026-07-30",
@@ -319,8 +319,8 @@
       "play": "1H Nationals ML",
       "odds": 117,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Push",
+      "units_pl": 0
     }
   ]
 }

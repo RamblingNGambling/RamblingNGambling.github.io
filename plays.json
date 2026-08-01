@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 1, 2026, 12:36 AM EDT",
+  "updated": "Aug 1, 2026, 1:07 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -441,6 +441,28 @@
       "units": 2.5,
       "result": "Win",
       "units_pl": 2.1739
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "White Sox @ Rays",
+      "play": "Rays -1",
+      "odds": -110,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-07-31",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Phillies @ Orioles",
+      "play": "1H Phillies -0.5",
+      "odds": 100,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

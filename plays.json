@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 1, 2026, 1:41 PM EDT",
+  "updated": "Aug 1, 2026, 3:24 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -494,8 +494,8 @@
       "play": "Sky +6.5",
       "odds": -120,
       "units": 2.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 2.0833
     },
     {
       "date": "2026-08-01",

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 1, 2026, 12:48 PM EDT",
+  "updated": "Aug 1, 2026, 1:41 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -494,6 +494,28 @@
       "play": "Sky +6.5",
       "odds": -120,
       "units": 2.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-01",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Red Sox @ Dodgers",
+      "play": "Under 8",
+      "odds": -135,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-01",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Marlins @ Mets",
+      "play": "Over 9",
+      "odds": -105,
+      "units": 1,
       "result": "Pending",
       "units_pl": null
     }

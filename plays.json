@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 2, 2026, 11:39 AM EDT",
+  "updated": "Aug 2, 2026, 4:28 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -527,8 +527,8 @@
       "play": "1H Reds -0.5",
       "odds": -120,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.8333
     },
     {
       "date": "2026-08-02",
@@ -549,8 +549,8 @@
       "play": "Lynx -5",
       "odds": -110,
       "units": 2.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 2.5
     },
     {
       "date": "2026-08-02",
@@ -571,8 +571,8 @@
       "play": "1H Nationals -0.5",
       "odds": 120,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.75
     }
   ]
 }

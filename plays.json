@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 2, 2026, 1:04 AM EDT",
+  "updated": "Aug 2, 2026, 1:45 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -518,6 +518,28 @@
       "units": 1,
       "result": "Loss",
       "units_pl": -1
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Pirates @ Reds",
+      "play": "1H Reds -0.5",
+      "odds": -120,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Red Sox @ Dodgers",
+      "play": "1H Red Sox ML",
+      "odds": 134,
+      "units": 0.75,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

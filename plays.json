@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 1, 2026, 3:24 PM EDT",
+  "updated": "Aug 2, 2026, 1:04 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -450,8 +450,8 @@
       "play": "Rays -1",
       "odds": -110,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Push",
+      "units_pl": 0
     },
     {
       "date": "2026-07-31",
@@ -461,8 +461,8 @@
       "play": "1H Phillies -0.5",
       "odds": 100,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 1
     },
     {
       "date": "2026-08-01",
@@ -472,8 +472,8 @@
       "play": "1H Nationals ML",
       "odds": 130,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.75
     },
     {
       "date": "2026-08-01",
@@ -483,8 +483,8 @@
       "play": "Rangers ML",
       "odds": -120,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     },
     {
       "date": "2026-08-01",
@@ -505,8 +505,8 @@
       "play": "Under 8",
       "odds": -135,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.7407
     },
     {
       "date": "2026-08-01",
@@ -516,8 +516,8 @@
       "play": "Over 9",
       "odds": -105,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     }
   ]
 }

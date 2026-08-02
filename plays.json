@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 2, 2026, 10:54 AM EDT",
+  "updated": "Aug 2, 2026, 11:39 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -537,6 +537,39 @@
       "game": "Red Sox @ Dodgers",
       "play": "1H Red Sox ML",
       "odds": 134,
+      "units": 0.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "WNBA",
+      "market": "Spread",
+      "game": "Fever @ Lynx",
+      "play": "Lynx -5",
+      "odds": -110,
+      "units": 2.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "WNBA",
+      "market": "Spread",
+      "game": "Tempo @ Valkyries",
+      "play": "Tempo +13.5",
+      "odds": -114,
+      "units": 2.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Nationals @ Braves",
+      "play": "1H Nationals -0.5",
+      "odds": 120,
       "units": 0.75,
       "result": "Pending",
       "units_pl": null

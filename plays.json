@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 2, 2026, 10:39 PM EDT",
+  "updated": "Aug 3, 2026, 12:42 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -573,6 +573,17 @@
       "units": 0.75,
       "result": "Loss",
       "units_pl": -0.75
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "WNBA",
+      "market": "Moneyline",
+      "game": "Mercury @ Sky",
+      "play": "Sky ML",
+      "odds": -105,
+      "units": 2.5,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

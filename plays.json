@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 3, 2026, 12:42 AM EDT",
+  "updated": "Aug 3, 2026, 10:47 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -582,6 +582,28 @@
       "play": "Sky ML",
       "odds": -105,
       "units": 2.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "WNBA",
+      "market": "Moneyline",
+      "game": "Mercury @ Sky",
+      "play": "Sky ML",
+      "odds": 115,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-03",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Pirates @ Brewers",
+      "play": "Over 8.5 Runs",
+      "odds": 102,
+      "units": 1,
       "result": "Pending",
       "units_pl": null
     }

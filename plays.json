@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 2, 2026, 4:28 PM EDT",
+  "updated": "Aug 2, 2026, 9:04 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -538,8 +538,8 @@
       "play": "1H Red Sox ML",
       "odds": 134,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 1.005
     },
     {
       "date": "2026-08-02",

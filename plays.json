@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 2, 2026, 9:04 PM EDT",
+  "updated": "Aug 2, 2026, 10:39 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -560,8 +560,8 @@
       "play": "Tempo +13.5",
       "odds": -114,
       "units": 2.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -2.75
     },
     {
       "date": "2026-08-02",

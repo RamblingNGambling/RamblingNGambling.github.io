@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 4, 2026, 1:07 AM EDT",
+  "updated": "Aug 4, 2026, 4:16 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -617,6 +617,72 @@
       "units": 0.75,
       "result": "Win",
       "units_pl": 0.825
+    },
+    {
+      "date": "2026-08-04",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Padres @ Diamondbacks",
+      "play": "1H Diamondbacks -0.5",
+      "odds": 104,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-04",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Jays @ Astros",
+      "play": "Astros ML",
+      "odds": -120,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-04",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Tigers @ Mariners",
+      "play": "1H Tigers ML",
+      "odds": 104,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-04",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "White Sox @ Red Sox",
+      "play": "Red Sox ML",
+      "odds": -125,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-04",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Dodgers @ Cubs",
+      "play": "Cubs ML",
+      "odds": 178,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-04",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Rays @ Rockies",
+      "play": "1H Rockies ML",
+      "odds": 138,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

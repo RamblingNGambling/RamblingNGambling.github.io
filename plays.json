@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 4, 2026, 4:16 PM EDT",
+  "updated": "Aug 4, 2026, 11:14 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -609,7 +609,7 @@
     },
     {
       "date": "2026-08-03",
-      "sport": "NBA",
+      "sport": "MLB",
       "market": "Moneyline",
       "game": "Giants @ Rangers",
       "play": "Giants ML",
@@ -626,8 +626,8 @@
       "play": "1H Diamondbacks -0.5",
       "odds": 104,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     },
     {
       "date": "2026-08-04",
@@ -637,8 +637,8 @@
       "play": "Astros ML",
       "odds": -120,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.8333
     },
     {
       "date": "2026-08-04",
@@ -648,8 +648,8 @@
       "play": "1H Tigers ML",
       "odds": 104,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 1.04
     },
     {
       "date": "2026-08-04",
@@ -659,8 +659,8 @@
       "play": "Red Sox ML",
       "odds": -125,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.8
     },
     {
       "date": "2026-08-04",
@@ -670,8 +670,8 @@
       "play": "Cubs ML",
       "odds": 178,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.89
     },
     {
       "date": "2026-08-04",
@@ -681,8 +681,8 @@
       "play": "1H Rockies ML",
       "odds": 138,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.69
     }
   ]
 }

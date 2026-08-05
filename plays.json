@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 5, 2026, 1:26 PM EDT",
+  "updated": "Aug 5, 2026, 4:09 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -703,6 +703,17 @@
       "play": "Dodgers ML",
       "odds": 115,
       "units": 0.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-05",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Jays @ Astros",
+      "play": "Under 8.5",
+      "odds": 115,
+      "units": 0.5,
       "result": "Pending",
       "units_pl": null
     }

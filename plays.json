@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 5, 2026, 4:09 PM EDT",
+  "updated": "Aug 5, 2026, 6:35 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -692,8 +692,8 @@
       "play": "1H Rays -0.5",
       "odds": -108,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.9259
     },
     {
       "date": "2026-08-05",
@@ -703,8 +703,8 @@
       "play": "Dodgers ML",
       "odds": 115,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.75
     },
     {
       "date": "2026-08-05",
@@ -714,6 +714,28 @@
       "play": "Under 8.5",
       "odds": 115,
       "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5
+    },
+    {
+      "date": "2026-08-05",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Nationals @ Phillies",
+      "play": "Under 9.5",
+      "odds": -102,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-05",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "White Sox @ Red Sox",
+      "play": "White Sox ML",
+      "odds": 131,
+      "units": 1,
       "result": "Pending",
       "units_pl": null
     }

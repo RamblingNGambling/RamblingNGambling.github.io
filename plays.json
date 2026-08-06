@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 6, 2026, 2:12 PM EDT",
+  "updated": "Aug 6, 2026, 5:50 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -747,8 +747,8 @@
       "play": "1H Orioles -0.5",
       "odds": -125,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     },
     {
       "date": "2026-08-06",
@@ -769,6 +769,39 @@
       "play": "Jays ML",
       "odds": -102,
       "units": 1.25,
+      "result": "Loss",
+      "units_pl": -1.25
+    },
+    {
+      "date": "2026-08-06",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Jays @ Cubs",
+      "play": "Under 7.5",
+      "odds": 104,
+      "units": 1,
+      "result": "Win",
+      "units_pl": 1.04
+    },
+    {
+      "date": "2026-08-06",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Marlins @ Braves",
+      "play": "Marlins ML",
+      "odds": 150,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-06",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Marlins @ Braves",
+      "play": "Marlins +1",
+      "odds": 103,
+      "units": 0.5,
       "result": "Pending",
       "units_pl": null
     }

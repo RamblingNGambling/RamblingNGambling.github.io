@@ -248,6 +248,10 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
      fixed tab bar below, which then covers this row instead of docking to
      the bottom of the screen */
   #top{backdrop-filter:none;background:var(--bg)}
+  html,body{max-width:100%;overflow-x:hidden}
+  .daterow{flex-wrap:wrap}
+  .daterow input{flex:1 1 130px}
+  input[type=date]{min-width:0}
   .toprow{gap:6px;padding:7px 10px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
   .toprow::-webkit-scrollbar{display:none}
   .brand,.ticker{display:none}
@@ -272,14 +276,20 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
   .curvewrap{padding:10px 9px 4px}
   .curvehead .big{font-size:26px}
   .curvehead{gap:6px}
-  main{padding:12px 10px 78px}
+  main{padding:12px 10px 116px}
   .card{padding:11px 10px}
   .cols,.cols.deskrow{grid-template-columns:1fr}
   .splitgrid{column-width:auto;column-count:1}
-  #top .tabs{position:fixed;left:0;right:0;bottom:0;z-index:60;margin:0;padding:7px 8px calc(7px + env(safe-area-inset-bottom));
-    background:rgba(16,19,24,.97);backdrop-filter:blur(8px);border-top:1px solid var(--bd);
-    max-width:none;justify-content:space-between;flex-wrap:nowrap;gap:5px}
-  #top .tabs .tab{flex:1;padding:10px 2px;font-size:9px;letter-spacing:1px;text-align:center}
+  /* floating pill, lifted off the edges, with room to breathe under it */
+  #top .tabs{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));
+    z-index:60;margin:0;padding:7px 5px;
+    background:rgba(23,27,34,.93);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--bd2);border-radius:26px;box-shadow:0 10px 30px rgba(0,0,0,.6);
+    max-width:none;justify-content:space-between;flex-wrap:nowrap;gap:2px}
+  #top .tabs .tab{flex:1;padding:12px 2px;font-size:9px;letter-spacing:1px;text-align:center;
+    border:0;background:none;border-radius:19px}
+  #top .tabs .tab.on{background:#1d2b17;color:var(--gold)}
+  body.pubmode #top .tabs .tab.on{background:#12213090;color:var(--pub)}
   .formgrid{grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:9px}
   input,select,textarea{font-size:16px;padding:10px 9px}   /* 16px stops iOS zooming on focus */
   .btn{padding:10px 14px}

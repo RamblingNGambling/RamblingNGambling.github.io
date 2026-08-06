@@ -244,11 +244,21 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
   body{font-size:15px}
   /* one row, no wrap: the brand goes (it is an app icon now) and the ticker
      goes (the KPI strip two inches below says the same four numbers) */
-  .toprow{gap:7px;padding:7px 10px;flex-wrap:nowrap}
+  .toprow{gap:6px;padding:7px 10px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .toprow::-webkit-scrollbar{display:none}
   .brand,.ticker{display:none}
-  .modes button{padding:7px 11px;font-size:9px;letter-spacing:1px}
-  #btn-syncnow,#btn-pubnow,#btn-money{padding:7px 9px;font-size:9px;letter-spacing:.5px;white-space:nowrap}
-  .grow{display:block;flex:1}
+  /* nothing in the header may be squeezed: a shrunk .modes clips PUBLIC
+     off inside its own overflow:hidden */
+  .toprow>*{flex:0 0 auto}
+  .toprow .modes button{padding:8px 12px;font-size:9px;letter-spacing:1px}
+  #btn-syncnow,#btn-pubnow,#btn-money{padding:8px 9px;font-size:9px;letter-spacing:.5px;white-space:nowrap}
+  .grow{display:none}
+  /* the post-type switch is its own row, and wraps rather than clipping */
+  #postkind{flex-wrap:wrap;width:100%}
+  #postkind button{flex:1 0 auto;padding:9px 10px;font-size:9px}
+  .opt{font-size:9px;letter-spacing:.6px}
+  #gcanvas{max-width:100%!important}
+  section img,section canvas{max-width:100%;height:auto}
   /* two columns, and numbers that do not break mid-record */
   .strip{grid-template-columns:1fr 1fr}
   .strip .s{padding:11px 8px}

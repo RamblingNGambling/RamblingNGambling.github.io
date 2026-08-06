@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 5, 2026, 6:35 PM EDT",
+  "updated": "Aug 5, 2026, 11:42 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -104,17 +104,6 @@
     {
       "date": "2026-07-27",
       "sport": "MLB",
-      "market": "Spread",
-      "game": "",
-      "play": "Phillies -1",
-      "odds": -132,
-      "units": 1,
-      "result": "Loss",
-      "units_pl": -1
-    },
-    {
-      "date": "2026-07-27",
-      "sport": "MLB",
       "market": "Moneyline",
       "game": "",
       "play": "Brewers",
@@ -155,6 +144,17 @@
       "units": 1,
       "result": "Win",
       "units_pl": 0.7407
+    },
+    {
+      "date": "2026-07-27",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "",
+      "play": "Phillies -1",
+      "odds": -132,
+      "units": 1,
+      "result": "Loss",
+      "units_pl": -1
     },
     {
       "date": "2026-07-28",
@@ -725,8 +725,8 @@
       "play": "Under 9.5",
       "odds": -102,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.5
     },
     {
       "date": "2026-08-05",
@@ -736,8 +736,8 @@
       "play": "White Sox ML",
       "odds": 131,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 6, 2026, 1:32 AM EDT",
+  "updated": "Aug 6, 2026, 2:12 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -747,6 +747,28 @@
       "play": "1H Orioles -0.5",
       "odds": -125,
       "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-06",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "White Sox @ Red Sox",
+      "play": "Red Sox -1",
+      "odds": -137,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-06",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Jays @ Cubs",
+      "play": "Jays ML",
+      "odds": -102,
+      "units": 1.25,
       "result": "Pending",
       "units_pl": null
     }

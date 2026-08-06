@@ -244,6 +244,10 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
   body{font-size:15px}
   /* one row, no wrap: the brand goes (it is an app icon now) and the ticker
      goes (the KPI strip two inches below says the same four numbers) */
+  /* backdrop-filter on #top would make it the containing block for the
+     fixed tab bar below, which then covers this row instead of docking to
+     the bottom of the screen */
+  #top{backdrop-filter:none;background:var(--bg)}
   .toprow{gap:6px;padding:7px 10px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
   .toprow::-webkit-scrollbar{display:none}
   .brand,.ticker{display:none}

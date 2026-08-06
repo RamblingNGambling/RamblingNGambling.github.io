@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 6, 2026, 12:15 AM EDT",
+  "updated": "Aug 6, 2026, 1:32 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -738,6 +738,17 @@
       "units": 1,
       "result": "Loss",
       "units_pl": -1
+    },
+    {
+      "date": "2026-08-06",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Angels @ Orioles",
+      "play": "1H Orioles -0.5",
+      "odds": -125,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

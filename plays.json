@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 6, 2026 at 12:13 AM EDT",
+  "updated": "Aug 6, 2026, 12:15 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -738,17 +738,6 @@
       "units": 1,
       "result": "Loss",
       "units_pl": -1
-    },
-    {
-      "date": "2026-08-05",
-      "sport": "NBA",
-      "market": "Moneyline",
-      "game": "",
-      "play": "test a",
-      "odds": 1111,
-      "units": 1,
-      "result": "Pending",
-      "units_pl": null
     }
   ]
 }

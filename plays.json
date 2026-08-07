@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 7, 2026, 12:44 AM EDT",
+  "updated": "Aug 7, 2026, 1:21 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -824,6 +824,39 @@
       "play": "1H Marlins -0.5",
       "odds": -115,
       "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-07",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Storm @ Fire",
+      "play": "Jade Melbourne 5+ Assists",
+      "odds": 100,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-07",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Storm @ Fire",
+      "play": "Jade Melbourne 6+ Assists",
+      "odds": 270,
+      "units": 0.13,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-07",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Storm @ Fire",
+      "play": "Jade Melbourne 8+ Assists",
+      "odds": 880,
+      "units": 0.13,
       "result": "Pending",
       "units_pl": null
     }

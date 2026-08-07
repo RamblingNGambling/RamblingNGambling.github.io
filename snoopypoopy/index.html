@@ -1079,17 +1079,35 @@ function twClean(line){
   if(s&&s.replace(/@[\w.]+/g,'').replace(/\s+/g,'')==='')return '';
   return s;
 }
+var STAT_RE=/\b(pts|points|ast|asts|assists|reb|rebs|rebounds|pra|3pm|3pt|3ptm|3s|threes|blk|blks|blocks|stl|stls|steals|turnovers|ks|strikeouts|hits|rbi|rbis|bases|sog|shots|saves|goals|yds|yards|tds|touchdowns|receptions|recs|kills|double double|triple double)\b/;
+/* "5+ Assists", "1+ TD", "2+ goals" \u2014 an alt line written without over/under */
+var ALT_LINE=/(^|\s)\d+(\.\d+)?\+/;
+var SCORER_RE=/\b(anytime|atd|first (td|goal|basket|point)|scorer|to score|to record|to hit)\b/;
+function twMarketName(want){
+  var hit=state.markets.filter(function(m){return m.toLowerCase()===want.toLowerCase();})[0];
+  if(hit)return hit;
+  if(want==='Player prop'){
+    hit=state.markets.filter(function(m){return /prop/i.test(m);})[0];
+    if(hit)return hit;
+  }
+  return want;   /* the row's select carries a value it doesn't hold */
+}
 function twMarket(desc){
   var d=(desc||'').toLowerCase();
-  if(/\b(sgp|parlay|leg)\b/.test(d))return 'Parlay';
-  if(/\b(ml|moneyline|money line)\b/.test(d))return 'Moneyline';
-  if(/\bspread\b|\b(rl|run line|puck line)\b/.test(d))return 'Spread';
-  if(/\b(total|totals)\b/.test(d))return 'Total';
-  if(/\b[ou]\s?\d|\b(over|under)\b/.test(d)){
-    return /\b(pts|points|ast|assists|reb|rebounds|ks|strikeouts|sog|shots|yds|yards|tds|receptions|recs|pra|blocks|steals)\b/.test(d)
-      ? 'Player prop' : 'Total';
-  }
-  if(/[+-]\d{1,2}(\.5)?\b/.test(d))return 'Spread';
+  if(/\b(sgp|parlay|leg)\b/.test(d))return twMarketName('Parlay');
+  /* A named stat with a number attached is a prop however it is written.
+     This has to be asked before the spread test, or "5+ Assists" reads as
+     a spread and, failing that, falls through to the first market on the
+     list \u2014 which is how a stack of props all came out as moneylines. */
+  if(STAT_RE.test(d)&&(ALT_LINE.test(d)||/\b[ou]\s?\d|\b(over|under)\b/.test(d)))return twMarketName('Player prop');
+  if(SCORER_RE.test(d))return twMarketName('Player prop');
+  if(/\b(ml|moneyline|money line)\b/.test(d))return twMarketName('Moneyline');
+  if(/\bspread\b|\b(rl|run line|puck line)\b/.test(d))return twMarketName('Spread');
+  if(/\b(total|totals)\b/.test(d))return twMarketName('Total');
+  if(/\b[ou]\s?\d|\b(over|under)\b/.test(d))
+    return twMarketName(STAT_RE.test(d)?'Player prop':'Total');
+  if(ALT_LINE.test(d))return twMarketName('Player prop');
+  if(/[+-]\d{1,2}(\.5)?\b/.test(d))return twMarketName('Spread');
   return state.markets[0]||'Other';
 }
 var ODDS_RE=/(?:^|[\s(\[|,])([+-]\d{3,5})(?![\d.])/;
@@ -1119,48 +1137,75 @@ function parseTweet(text){
       if(c)carrySport=c;else kept.push(l);
     });
     if(!kept.length)return;
-    /* A units-only line belongs to the whole block, whatever shape the block
-       turns out to be. Missing this silently turned a 2.5U play into 1U. */
-    var blockUnits=null,keptRest=[];
-    kept.forEach(function(l){
-      var um=l.match(UNITS_ONLY);
-      if(um&&blockUnits===null){blockUnits=parseFloat(um[1]);return;}
-      keptRest.push(l);
-    });
-    kept=keptRest;
-    if(!kept.length)return;
-    var startAt=rows.length,dropped=[];
-    var oddsLines=[];
-    kept.forEach(function(l,i){
-      var m=l.match(ODDS_RE);
-      if(m)oddsLines.push({i:i,odds:parseInt(m[1],10),only:ODDS_ONLY.test(l),line:l});
-    });
-    if(!oddsLines.length)return;
 
-    if(oddsLines.length===1&&oddsLines[0].only){
-      /* four-line block: matchup / play / odds / units */
-      var units=blockUnits!=null?blockUnits:1,rest=[];
-      kept.forEach(function(l,i){if(i!==oddsLines[0].i)rest.push(l);});
+    /* Read the whole block before deciding anything. Every line is one of
+       four things: a price, a stake, a matchup, or context \u2014 and context
+       above the prices is almost always the player the block is about. */
+    var items=kept.map(function(l){
+      var um=l.match(UNITS_ONLY),om=l.match(ODDS_RE);
+      return {line:l,
+              units:um?parseFloat(um[1]):null,
+              odds:om?parseInt(om[1],10):null,
+              only:ODDS_ONLY.test(l)};
+    });
+    var priced=items.filter(function(it){return it.odds!=null;});
+    if(!priced.length)return;
+
+    var firstU=-1,firstO=-1,ii;
+    for(ii=0;ii<items.length;ii++){
+      if(firstU<0&&items[ii].units!=null)firstU=ii;
+      if(firstO<0&&items[ii].odds!=null)firstO=ii;
+    }
+    /* A stake belongs to one play, not to the block. A tweet writes it either
+       just above its price or just under it; the first stake line says which
+       way this block runs, and the rest follow the same way. Reading only the
+       first one and spreading it over everything turned .25 / .125 / .125
+       into three quarter-unit plays. A block with one stake and several
+       prices still shares that stake, which is the old behaviour. */
+    var leads=(firstU>=0&&firstO>=0&&firstU<firstO);
+    var fallbackUnits=firstU>=0?items[firstU].units:null;
+    items.forEach(function(it,i){
+      if(it.units==null)return;
+      var j,target=-1;
+      if(leads){for(j=i+1;j<items.length;j++)if(items[j].odds!=null){target=j;break;}}
+      else{for(j=i-1;j>=0;j--)if(items[j].odds!=null){target=j;break;}}
+      if(target>=0&&items[target].stake==null)items[target].stake=it.units;
+    });
+
+    /* the matchup, and whoever the block is about */
+    var blockGame='',who='';
+    items.forEach(function(it,i){
+      if(it.odds!=null||it.units!=null)return;
+      if(!blockGame&&looksLikeGame(it.line))return void(blockGame=it.line);
+      if(who||firstO<0||i>firstO)return;
+      /* short, no digits, no sentence ending: a name, not chatter */
+      if(it.line.split(' ').length<=5&&!/\d/.test(it.line)&&!/[.!?:]$/.test(it.line))who=it.line;
+    });
+
+    if(priced.length===1&&priced[0].only){
+      /* the four-line shape: matchup / play / price / stake */
+      var rest=[];
+      items.forEach(function(it){if(it.odds==null&&it.units==null)rest.push(it.line);});
       if(!rest.length)return;
-      var game='',play=rest.join(' ');
-      if(rest.length>1&&looksLikeGame(rest[0])){game=rest[0];play=rest.slice(1).join(' ');}
-      var sp=carrySport||bestSport(sportsIn(game+' '+play))||tweetSport;
-      rows.push({on:true,game:game,desc:play,odds:oddsLines[0].odds,
-                 units:units>0?units:1,sport:canonSport(sp||state.sports[0]),
+      var game1='',play1=rest.join(' ');
+      if(rest.length>1&&looksLikeGame(rest[0])){game1=rest[0];play1=rest.slice(1).join(' ');}
+      var u1=priced[0].stake!=null?priced[0].stake:(fallbackUnits!=null?fallbackUnits:1);
+      var sp1=carrySport||bestSport(sportsIn(game1+' '+play1))||tweetSport;
+      rows.push({on:true,game:game1,desc:play1,odds:priced[0].odds,
+                 units:u1>0?u1:1,sport:canonSport(sp1||state.sports[0]),
                  book:($('#tw-book')&&$('#tw-book').value)||state.books[0],
-                 market:twMarket(play)});
+                 market:twMarket(play1)});
       return;
     }
-    /* otherwise every line carrying odds is its own play */
-    var blockGame='';
-    kept.forEach(function(l,i){
-      var isOdds=oddsLines.some(function(o){return o.i===i;});
-      if(!isOdds&&looksLikeGame(l)&&!blockGame)blockGame=l;
-    });
-    oddsLines.forEach(function(o){
-      var line=o.line.replace(String(o.odds>0?'+':'')+o.odds,' ');
+
+    /* otherwise every line carrying a price is its own play */
+    var startAt=rows.length,dropped=[];
+    items.forEach(function(it){
+      if(it.odds==null)return;
+      var line=it.line.replace(String(it.odds>0?'+':'')+it.odds,' ');
       var um=line.match(UNITS_RE);
-      var units=um?parseFloat(um[1]):(blockUnits!=null?blockUnits:1);
+      var units=um?parseFloat(um[1])
+                  :(it.stake!=null?it.stake:(fallbackUnits!=null?fallbackUnits:1));
       if(um)line=line.replace(um[0],' ');
       var sm=line.match(new RegExp('\\b('+state.sports.map(function(s){
         return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('|')+')\\b','i'));
@@ -1168,16 +1213,18 @@ function parseTweet(text){
       var desc=line.replace(/[()\[\]|]/g,' ').replace(/\s[-\u2013\u2014:]\s/g,' ')
                    .replace(/\s+/g,' ')
                    .replace(/^[\s\-\u2013\u2014:,]+|[\s\-\u2013\u2014:,]+$/g,'').trim();
-      if(!desc){dropped.push(oddsStr(o.odds));return;}
+      if(!desc){dropped.push(oddsStr(it.odds));return;}
+      /* keep the player on the play \u2014 "5+ Assists" on its own says nothing */
+      if(who&&desc.toLowerCase().indexOf(who.toLowerCase())<0)desc=who+' '+desc;
       var sp=carrySport||bestSport(sportsIn(blockGame+' '+desc))||tweetSport;
-      rows.push({on:true,game:blockGame,desc:desc,odds:o.odds,
+      rows.push({on:true,game:blockGame,desc:desc,odds:it.odds,
                  units:units>0?units:1,sport:canonSport(sp||state.sports[0]),
                  book:($('#tw-book')&&$('#tw-book').value)||state.books[0],
                  market:twMarket(desc)});
     });
     if(dropped.length){
       for(var q=startAt;q<rows.length;q++)
-        rows[q].warn='another price ('+dropped.join(', ')+') sat in this block — check the odds';
+        rows[q].warn='another price ('+dropped.join(', ')+') sat in this block \u2014 check the odds';
     }
   });
   return rows;
@@ -1225,7 +1272,7 @@ function renderTweetRows(){
       n.oninput=function(){r[key]=parseFloat(n.value)||0;twSummary();};
       td.appendChild(n);tr.appendChild(td);
     }
-    num(r.odds,'odds',1);num(r.units,'units',0.5);
+    num(r.odds,'odds',1);num(r.units,'units','any');
     tr.appendChild(el('td','n money',plain(r.units*state.unitSize)));
     var notes=[];
     if(dup)notes.push('same play already on this date');

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 10, 2026, 4:19 PM EDT",
+  "updated": "Aug 10, 2026, 6:53 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -952,6 +952,17 @@
       "date": "2026-08-10",
       "sport": "MLB",
       "market": "Moneyline",
+      "game": "Orioles @ Twins",
+      "play": "Orioles ML",
+      "odds": 101,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "MLB",
+      "market": "Moneyline",
       "game": "Phillies @ Cardinals",
       "play": "Cardinals ML",
       "odds": 108,
@@ -972,11 +983,55 @@
     },
     {
       "date": "2026-08-10",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Sky @ Storm",
+      "play": "Hiedeman O15.5 Points",
+      "odds": -104,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Sky @ Storm",
+      "play": "Hiedeman O19.5 Points",
+      "odds": 290,
+      "units": 0.15,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Sky @ Storm",
+      "play": "Hiedeman O24.5 Points",
+      "odds": 900,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Sky @ Storm",
+      "play": "Hiedeman O29.5 Points",
+      "odds": 2800,
+      "units": 0.05,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-10",
       "sport": "MLB",
-      "market": "Moneyline",
-      "game": "Orioles @ Twins",
-      "play": "Orioles ML",
-      "odds": 101,
+      "market": "Total",
+      "game": "Red Sox @ Jays",
+      "play": "Under 8.5",
+      "odds": -108,
       "units": 1,
       "result": "Pending",
       "units_pl": null

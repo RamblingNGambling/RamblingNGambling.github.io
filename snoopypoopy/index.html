@@ -373,7 +373,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="f wide"><label id="lbl-desc">Bet</label><input type="text" id="i-desc" placeholder="1H Spread Rays -0.5"></div>
       <div class="f"><label>Odds (US)</label><input type="number" id="i-odds" placeholder="-110" step="1"></div>
       <div class="f intonly"><label>Stake ($)</label><input type="number" id="i-amt" placeholder="25" step="0.01" min="0"></div>
-      <div class="f pubonly"><label>Units posted</label><input type="number" id="i-units" placeholder="1" step="0.5" min="0"></div>
+      <div class="f pubonly"><label>Units posted</label><input type="number" id="i-units" placeholder="1" step="any" min="0"></div>
       <div class="f intonly"><label>Source</label><select id="i-tag"></select></div>
       <div class="f"><label>Result</label><select id="i-result">
         <option>Pending</option><option>Win</option><option>Loss</option><option>Push</option><option>Void</option><option class="intonly">Cashout</option>
@@ -501,11 +501,12 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="modes" id="postkind">
         <button class="pb" data-k="slate">SLATE</button>
         <button class="pb on" data-k="recap">RECAP</button>
+        <button class="pb" data-k="week">WEEK</button>
         <button class="pb" data-k="summary">SUMMARY</button>
       </div>
     </div>
     <div class="formgrid">
-      <div class="f wide" id="wrap-pdate"><label>Date</label>
+      <div class="f wide" id="wrap-pdate"><label id="lbl-pdate">Date</label>
         <div class="daterow">
           <button class="qs" id="p-prev" title="Previous day">&lsaquo;</button>
           <input type="date" id="p-date">
@@ -514,6 +515,10 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
           <button class="qs" id="p-latest" title="Jump to the most recent day with plays">Latest</button>
         </div>
       </div>
+      <div class="f" id="wrap-pweek" style="display:none"><label>Week starts</label><select id="p-week">
+        <option value="mon">Monday</option>
+        <option value="sun">Sunday</option>
+      </select></div>
       <div class="f" id="wrap-pperiod" style="display:none"><label>Period</label><select id="p-period">
         <option value="7">Last 7 days</option>
         <option value="30">Last 30 days</option>
@@ -574,7 +579,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
         <option value="lavender">Lavender &mdash; dark sheet</option>
         <option value="plum">Deep plum &mdash; cream sheet</option>
       </select></div>
-      <div class="f wide"><label>Design</label><select id="g-design">
+      <div class="f wide" id="wrap-gdesign"><label>Design</label><select id="g-design">
         <option value="ticket">Ticket &mdash; one sheet, rows down the page</option>
         <option value="scoreboard">Scoreboard &mdash; framed board, lit results</option>
       </select></div>
@@ -725,7 +730,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="f"><label>Odds (US)</label><input type="number" id="e-odds" step="1"></div>
       <div class="f" id="wrap-eamt"><label>Stake ($)</label><input type="number" id="e-amt" step="0.01" min="0"></div>
       <div class="f" id="wrap-eusize"><label>Unit size ($)</label><input type="number" id="e-usize" step="1" min="1"></div>
-      <div class="f" id="wrap-eunits" style="display:none"><label>Units posted</label><input type="number" id="e-units" step="0.5" min="0"></div>
+      <div class="f" id="wrap-eunits" style="display:none"><label>Units posted</label><input type="number" id="e-units" step="any" min="0"></div>
       <div class="f" id="wrap-etag"><label>Source</label><select id="e-tag"></select></div>
       <div class="f"><label>Result</label><select id="e-result">
         <option>Pending</option><option>Win</option><option>Loss</option><option>Push</option><option>Void</option><option>Cashout</option>
@@ -766,7 +771,7 @@ var DOW=['S','M','T','W','T','F','S'];
 
 var state={mode:'internal',unitSize:25,hideMoney:false,pubTitle:'UNITS TRACKER',
   sports:DEF_SPORTS.slice(),books:DEF_BOOKS.slice(),markets:DEF_MARKETS.slice(),
-  tags:DEF_TAGS.slice(),quick:DEF_QUICK.slice(),lastExport:null,lastPublish:null,pubLog:[],tomb:[],siteHost:'',avatar:'',gHandle:'',gTags:'',gDesign:'ticket',gBg:'lavender',
+  tags:DEF_TAGS.slice(),quick:DEF_QUICK.slice(),lastExport:null,lastPublish:null,pubLog:[],tomb:[],siteHost:'',avatar:'',gHandle:'',gTags:'',gDesign:'ticket',gBg:'lavender',wkStart:'mon',
   internal:[],public:[]};
 var filters={month:'',sport:'',book:'',result:'',smonth:''};
 var calMonth=ym(new Date()),selDay='',editing=null,storageOK=true;
@@ -790,7 +795,15 @@ function dec(o){o=+o;if(!o)return 0;return o>0?o/100:100/Math.abs(o);}
 function implied(o){o=+o;return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100);}
 function oddsStr(o){o=Math.round(+o);return (o>0?'+':'')+o;}
 function pct(x){return (x*100).toFixed(1)+'%';}
-function fmtU(u,dp){dp=dp==null?2:dp;return (u>0?'+':u<0?'-':'')+Math.abs(u).toFixed(dp)+'u';}
+/* 2dp normally. A third decimal only when the number is genuinely exact there —
+   so a 0.125u stake prints as 0.125, while 0.7965u of odds noise prints as 0.80. */
+function uDec(u){
+  var s=(+u).toFixed(3);
+  if(s.charAt(s.length-1)==='0')return s.slice(0,-1);
+  return (Math.abs(u*1000-Math.round(u*1000))<1e-6)?s:(+u).toFixed(2);}
+function fmtU(u,dp){
+  var t=(dp==null)?uDec(Math.abs(u)):Math.abs(u).toFixed(dp);
+  return (+t===0?'':(u>0?'+':'-'))+t+'u';}
 function fmtC(v){var a=Math.abs(v);
   var s=(a%1===0)?a.toLocaleString('en-US'):a.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
   return (v>0?'+$':v<0?'-$':'$')+s;}
@@ -860,6 +873,7 @@ function load(){
         if(typeof d.gDesign==='string')state.gDesign=d.gDesign;
         if(typeof d.gBg==='string')state.gBg=d.gBg;
         if(typeof d.gTags==='string')state.gTags=d.gTags;
+        if(d.wkStart==='sun'||d.wkStart==='mon')state.wkStart=d.wkStart;
         else if(typeof d.gFooter==='string')state.gHandle=d.gFooter;
         state.sports=d.sports||DEF_SPORTS.slice();state.books=d.books||DEF_BOOKS.slice();
         state.markets=d.markets||DEF_MARKETS.slice();state.tags=d.tags||DEF_TAGS.slice();
@@ -1287,7 +1301,7 @@ function twSummary(){
   var on=TWROWS.filter(function(r){return r.on;});
   var u=0;on.forEach(function(r){u+=r.units;});
   $('#tw-sum').textContent=on.length
-    ? on.length+' play'+(on.length===1?'':'s')+', '+u.toFixed(2)+'u'+
+    ? on.length+' play'+(on.length===1?'':'s')+', '+uDec(u)+'u'+
       ($('#tw-dest').value!=='pub'?' \u2014 '+plain(u*state.unitSize)+' at the current unit size':'')
     : 'Nothing ticked.';
 }
@@ -1322,7 +1336,7 @@ function twCommit(){
 
 /* ---------- writing a tweet ---------- */
 function tweetUnits(u){
-  var s=(+u).toFixed(2).replace(/0+$/,'').replace(/\.$/,'');
+  var s=(+u).toFixed(3).replace(/0+$/,'').replace(/\.$/,'');
   if(s.charAt(0)==='0'&&s.charAt(1)==='.')s=s.slice(1);
   return s+'U';
 }
@@ -1380,12 +1394,26 @@ function wireTweet(){
 /* ---------- bulk editing ---------- */
 var bulkField=null,bulkValue=null;
 function bulkFields(){
-  return isPub()?[['sport','Sport'],['market','Market'],['book','Book'],['result','Result']]
-                :[['tag','Source'],['book','Book'],['sport','Sport'],['market','Market'],['result','Result']];
+  return isPub()?[['date','Date'],['sport','Sport'],['market','Market'],['book','Book'],['result','Result']]
+                :[['date','Date'],['tag','Source'],['book','Book'],['sport','Sport'],['market','Market'],['result','Result']];
 }
 function bulkValues(k){
+  if(k==='date')return null;                 /* free date field, not a list */
   return k==='tag'?state.tags:k==='book'?state.books:k==='sport'?state.sports:
          k==='market'?state.markets:['Pending','Win','Loss','Push','Void'];
+}
+/* public plays that mirror an internal one — resolved before any date moves */
+function publicMirrorsOf(p){
+  if(isPub())return [];
+  var key=p._n>1?p.grp:(p.grp||p.id);
+  var hits=state.public.filter(function(x){return x.src===key||x.src===p.id;});
+  if(!hits.length){
+    var same=state.public.filter(function(x){
+      return x.date===p.date&&
+        (x.desc||'').trim().toLowerCase()===(p.desc||'').trim().toLowerCase();});
+    if(same.length===1)hits=same;            /* only when it is unambiguous */
+  }
+  return hits;
 }
 function bulkLabel(k){
   var f=bulkFields(),i;
@@ -1402,13 +1430,25 @@ function applyBulk(field,value){
   var tix=pickedTickets();
   if(!tix.length){toast('Nothing selected');return;}
   var word=tix.length===1?'bet':'bets';
-  if(!confirm('Set '+bulkLabel(field)+' to "'+value+'" on '+tix.length+' '+word+'?'))return;
+  if(field==='date'&&!validDate(value)){toast('Pick a date first');return;}
+  var shown=(field==='date')?longDate(value):value;
+  if(!confirm('Set '+bulkLabel(field)+' to "'+shown+'" on '+tix.length+' '+word+'?'))return;
   var mirrored=0;
   if(field==='result'){
     pickedPositions().forEach(function(p){
       ticketsOf(p).forEach(function(t){t.result=value;if(value!=='Cashout')t.cash=0;});
       mirrored+=mirrorToPublic(p,value).n;
     });
+  } else if(field==='date'){
+    var mir=[];
+    pickedPositions().forEach(function(p){
+      publicMirrorsOf(p).forEach(function(x){
+        if(x.date!==value&&mir.indexOf(x)<0)mir.push(x);});});
+    tix.forEach(function(t){t.date=value;});
+    if(mir.length&&confirm(mir.length+' public play'+(mir.length===1?' was':'s were')+
+        ' posted on the old date. Move '+(mir.length===1?'it':'them')+' too?')){
+      mir.forEach(function(x){x.date=value;});mirrored=mir.length;
+    }
   } else tix.forEach(function(t){t[field]=value;});
   selected={};save();buildSelects();render();
   toast(tix.length+' '+word+' updated'+
@@ -1520,20 +1560,33 @@ function renderSelBar(){
   var f=document.createElement('select');f.className='selsm';
   bulkFields().forEach(function(x){
     var o=el('option','',x[1]);o.value=x[0];f.appendChild(o);});
-  if(bulkField&&bulkValues(bulkField))f.value=bulkField;
+  if(bulkField)f.value=bulkField;
   var v=document.createElement('select');v.className='selsm';
+  var vd=document.createElement('input');vd.type='date';vd.className='selsm';
   function fillv(){
+    var isDate=(f.value==='date');
+    v.style.display=isDate?'none':'';
+    vd.style.display=isDate?'':'none';
+    if(isDate){
+      if(!vd.value){
+        var t=pickedTickets();
+        vd.value=(t.length&&t[0].date)||ymd(new Date());
+      }
+      return;
+    }
     v.innerHTML='';
     bulkValues(f.value).forEach(function(it){
       var o=el('option','',it);o.value=it;v.appendChild(o);});
     if(bulkValue!==null&&v.querySelector('option[value="'+bulkValue+'"]'))v.value=bulkValue;
   }
+  function bulkVal(){return f.value==='date'?vd.value:v.value;}
   f.onchange=function(){bulkField=f.value;bulkValue=null;fillv();};
   v.onchange=function(){bulkValue=v.value;};
   fillv();
-  bar.appendChild(f);bar.appendChild(el('span','sep','to'));bar.appendChild(v);
+  bar.appendChild(f);bar.appendChild(el('span','sep','to'));
+  bar.appendChild(v);bar.appendChild(vd);
   var ap=el('button','btn sm','APPLY');
-  ap.onclick=function(){applyBulk(f.value,v.value);};
+  ap.onclick=function(){applyBulk(f.value,bulkVal());};
   bar.appendChild(ap);
   bar.appendChild(el('div','grow'));
   if(!isPub()){
@@ -1593,10 +1646,10 @@ function renderStrip(a){
   var items=[
     [isPub()?'Plays settled':'Bets settled',String(a.n),a.pending?a.pending+' pending':'',''],
     ['Record',a.w+'-'+a.l+'-'+a.p,a.n?pct(a.winpct)+' win rate':'',''],
-    ['Risked',a.riskU.toFixed(2)+'u',a.money?plain(a.riskC):'',''],
+    ['Risked',uDec(a.riskU)+'u',a.money?plain(a.riskC):'',''],
     ['Net units',fmtU(a.u),a.money?fmtC(a.c):'',cls(a.u)],
     ['ROI',a.riskU>0?pct(a.roi):'—','per unit risked',cls(a.roi)],
-    ['Live exposure',a.pendU.toFixed(2)+'u',a.money?plain(a.pendC):'',a.pendU?'pend':''],
+    ['Live exposure',uDec(a.pendU)+'u',a.money?plain(a.pendC):'',a.pendU?'pend':''],
     ['Avg implied',a.n?pct(a.impl):'—','win rate needed','']
   ];
   items.forEach(function(it){
@@ -1804,7 +1857,7 @@ function betRow(b,pub,child){
   if(!pub)td(child?'':(b.tag||'\u2014'),'mut');
   td(oddsStr(b.odds),'n');
   if(!pub)td(plain(b.amt),'n money');
-  td(U(b).toFixed(2),'n');
+  td(uDec(U(b)),'n');
   tr.appendChild(settleCell(b,grp));
   if(!pub)td(c==null?'\u2014':fmtC(c),'n money');
   td(u==null?'\u2014':fmtU(u),'n '+(u==null?'pend':cls(u)));
@@ -1882,7 +1935,7 @@ function renderCal(){
   var rows=[['Net units',fmtU(a.u),cls(a.u),false]];
   if(a.money)rows.push(['Net $',fmtC(a.c),cls(a.c),true]);
   rows.push(['Record',a.w+'-'+a.l+'-'+a.p,'',false],['ROI',a.riskU>0?pct(a.roi):'—',cls(a.roi),false],
-            ['Risked',a.riskU.toFixed(2)+'u','',false],['Pending',a.pending?a.pending+'':'—','',false]);
+            ['Risked',uDec(a.riskU)+'u','',false],['Pending',a.pending?a.pending+'':'—','',false]);
   rows.forEach(function(it){
     var d=el('div');d.appendChild(el('div','k'+(it[3]?' money':''),it[0]));
     d.appendChild(el('div','v num '+it[2]+(it[3]?' money':''),it[1]));sb.appendChild(d);
@@ -1906,7 +1959,7 @@ function renderDay(){
     function td(t,cl){tr.appendChild(el('td',cl||'',t));}
     td(b.desc||'—','desc');td(b.sport,'mut');td(b.book,'mut');td(oddsStr(b.odds),'n');
     if(!pub)td(plain(b.amt),'n money');
-    td(U(b).toFixed(2),'n');
+    td(uDec(U(b)),'n');
     var r=el('td');r.appendChild(el('span','chip '+b.result.charAt(0),b.result));tr.appendChild(r);
     if(!pub)td(c==null?'—':fmtC(c),'n money');
     td(u==null?'—':fmtU(u),'n '+(u==null?'pend':cls(u)));
@@ -1967,12 +2020,12 @@ function preview(){
   if(isPub()){
     var u=+$('#i-units').value;
     if(!u){$('#preview').textContent='';return;}
-    $('#preview').textContent='risk '+u.toFixed(2)+'u to win '+(u*dec(o)).toFixed(2)+'u · implied '+pct(implied(o));
+    $('#preview').textContent='risk '+uDec(u)+'u to win '+uDec(u*dec(o))+'u · implied '+pct(implied(o));
   } else {
     var amt=+$('#i-amt').value;
     if(!amt){$('#preview').textContent='';return;}
     var win=amt*dec(o);
-    $('#preview').textContent='risk '+plain(amt)+' ('+(amt/state.unitSize).toFixed(2)+'u) to win '+plain(win)+' · implied '+pct(implied(o));
+    $('#preview').textContent='risk '+plain(amt)+' ('+uDec(amt/state.unitSize)+'u) to win '+plain(win)+' · implied '+pct(implied(o));
   }
 }
 var _lastId=0;
@@ -2013,7 +2066,7 @@ function addEntry(){
 function publicFrom(b){
   return {id:nextId(),src:(b._n>1?b.grp:b.id),date:b.date,sport:b.sport,
           book:(b._n>1?'':b.book),market:b.market,game:b.game||'',
-          desc:b.desc,odds:Math.round(b.odds),units:+U(b).toFixed(2),
+          desc:b.desc,odds:Math.round(b.odds),units:+U(b).toFixed(4),
           result:b.result==='Split'?'Pending':b.result};
 }
 function copyToPublic(b){
@@ -2074,10 +2127,10 @@ function ePreview(){
   if(!o){$('#e-preview').textContent='';return;}
   if(isPub()){
     var u=+$('#e-units').value||0;
-    $('#e-preview').textContent=u?(u.toFixed(2)+'u to win '+(u*dec(o)).toFixed(2)+'u · implied '+pct(implied(o))):'';
+    $('#e-preview').textContent=u?(uDec(u)+'u to win '+uDec(u*dec(o))+'u · implied '+pct(implied(o))):'';
   } else {
     var amt=+$('#e-amt').value||0,us=+$('#e-usize').value||state.unitSize;
-    $('#e-preview').textContent=amt?('stake '+plain(amt)+' = '+(amt/us).toFixed(2)+'u at $'+us+' per unit · implied '+pct(implied(o))):'';
+    $('#e-preview').textContent=amt?('stake '+plain(amt)+' = '+uDec(amt/us)+'u at $'+us+' per unit · implied '+pct(implied(o))):'';
   }
 }
 function openEdit(id){
@@ -2139,7 +2192,7 @@ function deleteEditing(){
   save();closeEdit();buildSelects();render();toast('Deleted');
 }
 
-var PUB_HTML="<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<meta name=\"color-scheme\" content=\"dark\">\n<title>__TITLE__<\/title>\n<style>\n:root{\n  --ink:#100D14;--panel:#191521;--panel2:#221D2C;--line:#2A2333;--line2:#3B3149;\n  --bone:#BAB8BB;--grey:#8F8D90;--lilac:#AC8EB8;--amethyst:#7C608F;--plum:#73517E;\n  --up:#D5A6E7;--down:#C4677E;--downbg:#261722;--upbg:#1F1929;--upbd:#8F6FA8;--downbd:#6B3A44;\n  --mono:ui-monospace,\"SF Mono\",Menlo,Consolas,\"Roboto Mono\",monospace;\n  --sans:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif}\n*{margin:0;padding:0;box-sizing:border-box}\nhtml{color-scheme:dark;-webkit-text-size-adjust:100%}\nbody{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:15px;padding:0 24px 72px}\n.wrap{max-width:1980px;margin:0 auto}\n.num{font-family:var(--mono);font-variant-numeric:tabular-nums}\n.win{color:var(--up)}.loss{color:var(--down)}.mut{color:var(--grey)}.pend{color:var(--amethyst)}\n\n/* ---- header ---- */\nheader{padding:44px 0 26px;text-align:center;position:relative}\n.bands{display:flex;height:3px;max-width:340px;margin:0 auto 26px;border-radius:2px;overflow:hidden}\n.bands i{flex:1}\n.bands i:nth-child(1){background:var(--grey)}\n.bands i:nth-child(2){background:var(--bone)}\n.bands i:nth-child(3){background:var(--lilac)}\n.bands i:nth-child(4){background:var(--amethyst)}\n.bands i:nth-child(5){background:var(--plum)}\n.eyebrow{font:700 12px var(--mono);letter-spacing:6px;color:var(--lilac);text-transform:uppercase}\n.net{font:700 68px var(--mono);letter-spacing:-3px;line-height:1;margin:14px 0 6px}\n.sub{font:12px var(--mono);letter-spacing:1px;color:var(--grey)}\n\n.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;background:var(--line);\n  border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}\n.kpis .k{background:var(--panel);padding:15px 10px 14px;text-align:center}\n.kpis .k b{display:block;font:600 9px var(--mono);letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin-bottom:7px}\n.kpis .k span{font:700 22px var(--mono);font-variant-numeric:tabular-nums}\n\n/* ---- open plays band ---- */\n.open{border:1px solid var(--line2);border-left:3px solid var(--amethyst);border-radius:10px;\n  background:linear-gradient(90deg,var(--panel2),var(--panel));padding:15px 18px;margin-top:20px}\n.open h2{color:var(--lilac);margin-bottom:12px}\n.open ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:1px;\n  background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}\n.open li{background:var(--panel);padding:10px 12px;display:flex;align-items:baseline;gap:9px}\n.open li .t{flex:1;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\n.open li .o,.open li .u{font:600 12px var(--mono);color:var(--grey);white-space:nowrap}\n.open li .u{color:var(--amethyst)}\n.open li .dt{font:11px var(--mono);color:var(--grey)}\n\n/* ---- layout ---- */\n.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start;margin-top:16px}\n.stack{display:flex;flex-direction:column;gap:16px}\n@media(max-width:1080px){.two{grid-template-columns:1fr}.net{font-size:44px;letter-spacing:-2px}\n  body{padding:0 14px 60px}header{padding:30px 0 18px}}\n\n.card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--plum);\n  border-radius:10px;padding:16px 17px}\n.card.acc{border-left-color:var(--lilac)}\n.card.acc2{border-left-color:var(--amethyst)}\nh2{font:700 11px var(--mono);letter-spacing:3px;color:var(--amethyst);text-transform:uppercase;margin-bottom:13px}\n.card.acc h2,.card.acc2 h2{color:var(--lilac)}\n\ntable{width:100%;border-collapse:collapse;font-size:14px}\nth{font:600 9px var(--mono);letter-spacing:1.6px;color:var(--grey);text-transform:uppercase;\n  text-align:center;padding:7px 9px;border-bottom:1px solid var(--line2);white-space:nowrap}\ntd{padding:8px 9px;border-bottom:1px solid var(--line);text-align:center}\ntr:last-child td{border-bottom:0}\ntd.l,th.l{text-align:left}\n.g{display:block;font:11px var(--mono);color:var(--grey);margin-bottom:2px}\ntd.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}\ntbody tr:hover{background:var(--panel2)}\n.tw{overflow-x:auto}\n.chip{display:inline-block;font:600 9px var(--mono);letter-spacing:1.2px;padding:3px 7px;border-radius:4px;\n  border:1px solid var(--line2);color:var(--grey);text-transform:uppercase}\n.chip.W{color:var(--up);border-color:var(--upbd)}\n.chip.L{color:var(--down);border-color:var(--downbd)}\n.chip.Pending{color:var(--amethyst);border-color:var(--plum);background:#1E1826}\n\n/* ---- curve ---- */\n.chartwrap{position:relative}\nsvg.curve{display:block;width:100%;cursor:crosshair;touch-action:none}\n.tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--lilac);\n  border-radius:7px;padding:8px 11px;font:600 12px var(--mono);white-space:nowrap;opacity:0;\n  transition:opacity .1s;transform:translate(-50%,-118%);z-index:5;box-shadow:0 8px 22px rgba(0,0,0,.62)}\n.tip.on{opacity:1}\n.tip .d{color:var(--grey);font-weight:400;font-size:11px;display:block;margin-bottom:3px;letter-spacing:.5px}\n\n/* ---- calendar ---- */\n.calhead{display:flex;align-items:center;gap:10px;margin-bottom:11px}\n.calhead .t{flex:1;text-align:center;font:700 12px var(--mono);letter-spacing:2.5px;text-transform:uppercase}\n.btn{background:none;border:1px solid var(--line2);color:var(--grey);border-radius:6px;padding:5px 12px;\n  font:600 11px var(--mono);cursor:pointer}\n.btn:hover{border-color:var(--lilac);color:var(--lilac)}\n.btn:focus-visible{outline:2px solid var(--lilac);outline-offset:2px}\n.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}\n.dow{font:600 9px var(--mono);letter-spacing:1px;color:var(--grey);text-align:center;padding-bottom:3px}\n.cell{height:44px;border:1px solid var(--line);border-radius:5px;background:#161220;position:relative;\n  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:12px}\n.cell.b{background:none;border-color:transparent}\n.cell i{position:absolute;top:2px;left:4px;font:normal 9px var(--mono);color:var(--grey);font-style:normal}\n.cell.w{background:var(--upbg);border-color:var(--upbd);color:var(--up)}\n.cell.l{background:var(--downbg);border-color:var(--downbd);color:var(--down)}\n.cell em{position:absolute;bottom:2px;right:4px;font-size:7px;color:var(--amethyst);font-style:normal}\n\nfooter{color:var(--grey);font-size:12.5px;line-height:1.85;padding-top:18px;margin-top:18px;\n  border-top:1px solid var(--line);text-align:center}\nfooter b{color:var(--bone);font-weight:600}\nfooter .rule{display:flex;height:2px;max-width:200px;margin:0 auto 16px;border-radius:2px;overflow:hidden;opacity:.65}\nfooter .rule i{flex:1}\nfooter .rule i:nth-child(1){background:var(--grey)}\nfooter .rule i:nth-child(2){background:var(--lilac)}\nfooter .rule i:nth-child(3){background:var(--plum)}\n@media(prefers-reduced-motion:reduce){*{transition:none!important}}\n<\/style><\/head><body><div class=\"wrap\">\n<header>\n  <div class=\"bands\"><i><\/i><i><\/i><i><\/i><i><\/i><i><\/i><\/div>\n  <div class=\"eyebrow\">__TITLE__<\/div>\n  <div class=\"net num\" id=\"net\">+0.00u<\/div>\n  <div class=\"sub\" id=\"span\"><\/div>\n  <div class=\"kpis\" id=\"kpis\"><\/div>\n<\/header>\n\n<section class=\"open\" id=\"openband\" style=\"display:none\">\n  <h2>Open now<\/h2>\n  <ul id=\"openlist\"><\/ul>\n<\/section>\n\n<div class=\"two\">\n  <div class=\"stack\">\n    <div class=\"card acc\"><h2>Cumulative units by day<\/h2>\n      <div class=\"chartwrap\"><svg class=\"curve\" id=\"curve\"><\/svg><div class=\"tip\" id=\"tip\"><\/div><\/div>\n    <\/div>\n    <div class=\"card acc2\">\n      <div class=\"calhead\"><button class=\"btn\" id=\"pv\" aria-label=\"Previous month\">&lsaquo;<\/button><div class=\"t\" id=\"ct\"><\/div><button class=\"btn\" id=\"nx\" aria-label=\"Next month\">&rsaquo;<\/button><\/div>\n      <div class=\"cal\" id=\"dow\"><\/div><div class=\"cal\" id=\"cal\" style=\"margin-top:3px\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"stack\">\n    <div class=\"card\"><h2>By month<\/h2><div class=\"tw\"><table><thead><tr><th class=\"l\">Month<\/th><th class=\"n\">Plays<\/th><th class=\"n\">W-L-P<\/th><th class=\"n\">Units<\/th><th class=\"n\">ROI<\/th><\/tr><\/thead><tbody id=\"months\"><\/tbody><\/table><\/div><\/div>\n    <div class=\"card\"><h2>By sport<\/h2><div class=\"tw\"><table><thead><tr><th class=\"l\">Sport<\/th><th class=\"n\">Plays<\/th><th class=\"n\">W-L-P<\/th><th class=\"n\">Units<\/th><th class=\"n\">ROI<\/th><\/tr><\/thead><tbody id=\"sp\"><\/tbody><\/table><\/div><\/div>\n    <div class=\"card\"><h2>By market<\/h2><div class=\"tw\"><table><thead><tr><th class=\"l\">Market<\/th><th class=\"n\">Plays<\/th><th class=\"n\">W-L-P<\/th><th class=\"n\">Units<\/th><th class=\"n\">ROI<\/th><\/tr><\/thead><tbody id=\"mk\"><\/tbody><\/table><\/div><\/div>\n  <\/div>\n<\/div>\n\n<div class=\"card acc\" style=\"margin-top:16px\"><h2>Every play<\/h2><div class=\"tw\"><table><thead><tr><th>Date<\/th><th>Sport<\/th><th class=\"l\">Play<\/th><th>Market<\/th><th class=\"n\">Odds<\/th><th class=\"n\">Units<\/th><th>Result<\/th><th class=\"n\">P/L<\/th><\/tr><\/thead><tbody id=\"log\"><\/tbody><\/table><\/div><\/div>\n\n<footer>\n  <div class=\"rule\"><i><\/i><i><\/i><i><\/i><\/div>\n  <b>One unit is one standard bet.<\/b> Its cash value is deliberately not shown &mdash; a unit is whatever one standard bet is for you.<br>\n  Odds are American, at the price posted. ROI is net units divided by units risked, settled plays only. Pushes and voids settle flat and are excluded from win rate.<br>\n  Open plays are posted here before they settle and are excluded from every settled figure. Nothing is removed once posted.<br>\n  <span id=\"stamp\"><\/span>\n<\/footer>\n<\/div>\n<script>\nvar D=/*__DATA__*/;\nvar B=D.bets,DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];\nvar NS='http://www.w3.org/2000/svg';\nfunction $(s){return document.querySelector(s)}\nfunction el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}\nfunction svgEl(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e}\nfunction pad(n){return n<10?'0'+n:''+n}\nfunction fu(u,dp){dp=dp==null?2:dp;return (u>0?'+':u<0?'-':'')+Math.abs(u).toFixed(dp)+'u'}\nfunction pc(x){return (x*100).toFixed(1)+'%'}\nfunction cl(v){return v>1e-4?'win':v<-1e-4?'loss':'mut'}\nfunction imp(o){return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100)}\nfunction longDate(s){var p=s.split('-');\n  return new Date(+p[0],+p[1]-1,+p[2]).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric'})}\nfunction shortDate(s){var p=s.split('-');\n  return new Date(+p[0],+p[1]-1,+p[2]).toLocaleString('en-US',{month:'short',day:'numeric'})}\nfunction ag(list){var r={n:0,w:0,l:0,p:0,u:0,risk:0,pend:0,pu:0,im:0};\n  list.forEach(function(b){\n    if(b.p===null){r.pend++;r.pu+=b.u;return}\n    r.n++;if(b.p>1e-4)r.w++;else if(b.p<-1e-4)r.l++;else r.p++;\n    r.u+=b.p;r.risk+=b.u;r.im+=imp(b.o)});\n  r.roi=r.risk>0?r.u/r.risk:0;r.wr=(r.w+r.l)>0?r.w/(r.w+r.l):0;r.ai=r.n?r.im/r.n:0;return r}\nfunction tbl(id,keyfn){\n  var g={},o=[];B.forEach(function(b){var k=keyfn(b)||'--';if(!g[k]){g[k]=[];o.push(k)}g[k].push(b)});\n  o.sort(function(a,b){return ag(g[b]).u-ag(g[a]).u});\n  var tb=$('#'+id);\n  o.forEach(function(k){var a=ag(g[k]);if(!a.n&&!a.pend)return;var tr=el('tr');\n    tr.appendChild(el('td','l',k));\n    tr.appendChild(el('td','n',a.n+(a.pend?' +'+a.pend:'')));\n    tr.appendChild(el('td','n',a.w+'-'+a.l+'-'+a.p));\n    tr.appendChild(el('td','n '+cl(a.u),fu(a.u)));\n    tr.appendChild(el('td','n '+cl(a.roi),a.risk>0?pc(a.roi):'--'));\n    tb.appendChild(tr)})}\n\nvar A=ag(B);\n$('#net').textContent=fu(A.u);$('#net').className='net num '+cl(A.u);\n$('#span').textContent=B.length?(B[0].d+'  \\u00b7  '+B[B.length-1].d+'  \\u00b7  '+B.length+' plays'):'nothing posted yet';\n$('#stamp').innerHTML='<b>Last updated '+D.built+'.<\/b>'+(A.pend?'  '+A.pend+' play'+(A.pend>1?'s':'')+' still open at that time.':'  Everything posted was settled at that time.');\n[['ROI',A.risk>0?pc(A.roi):'--',cl(A.roi)],\n ['Record',A.w+'-'+A.l+'-'+A.p,''],['Win rate',A.n?pc(A.wr):'--',''],\n ['Break-even needed',A.n?pc(A.ai):'--',''],['Units risked',A.risk.toFixed(2)+'u',''],\n ['Open plays',String(A.pend),A.pend?'pend':''],['Live exposure',A.pu.toFixed(2)+'u',A.pend?'pend':'']\n].forEach(function(k){var d=el('div','k');d.appendChild(el('b','',k[0]));\n  d.appendChild(el('span','num '+(k[2]||''),k[1]));$('#kpis').appendChild(d)});\n\n/* ---------- open plays ---------- */\n(function(){\n  var open=B.filter(function(b){return b.p===null});\n  if(!open.length)return;\n  $('#openband').style.display='block';\n  var ul=$('#openlist');\n  open.sort(function(a,b){return a.d<b.d?-1:1}).forEach(function(b){\n    var li=el('li');\n    li.appendChild(el('span','dt',shortDate(b.d)));\n    li.appendChild(el('span','t',b.t||b.s||'play'));\n    li.appendChild(el('span','o',(b.o>0?'+':'')+b.o));\n    li.appendChild(el('span','u',b.u.toFixed(2)+'u'));\n    ul.appendChild(li)})})();\n\n/* ---------- equity curve, hover-readable ---------- */\nvar SER=(function(){var g={},o=[];\n  B.forEach(function(b){if(b.p===null)return;if(!g[b.d]){g[b.d]={p:0,c:0};o.push(b.d)}g[b.d].p+=b.p;g[b.d].c++});\n  o.sort();var n=0,out=[];\n  o.forEach(function(k){n+=g[k].p;out.push({d:k,v:n,p:g[k].p,c:g[k].c})});return out})();\nvar XS=[],YS=[],CROSS=null,DOT=null;\nfunction drawCurve(){\n  var svg=$('#curve'),host=svg.parentNode.parentNode;\n  var W=Math.max(320,host.clientWidth-34),H=300;\n  svg.setAttribute('width',W);svg.setAttribute('height',H);\n  svg.setAttribute('viewBox','0 0 '+W+' '+H);\n  while(svg.firstChild)svg.removeChild(svg.firstChild);\n  XS=[];YS=[];\n  if(!SER.length)return;\n  var L=58,R=16,T=14,BM=34;\n  var vals=SER.map(function(p){return p.v}).concat([0]);\n  var hi=Math.max.apply(null,vals),lo=Math.min.apply(null,vals);\n  var padv=Math.max((hi-lo)*0.12,0.5);hi+=padv;lo-=padv;\n  function X(i){return SER.length===1?L+(W-L-R)/2:L+i*(W-L-R)/(SER.length-1)}\n  function Y(v){return T+(hi-v)*(H-T-BM)/(hi-lo)}\n  SER.forEach(function(p,i){XS.push(X(i));YS.push(Y(p.v))});\n  for(var k=0;k<=4;k++){\n    var v=lo+(hi-lo)*k/4,y=Y(v);\n    svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:y,y2:y,stroke:'#241E30','stroke-width':1}));\n    var t=svgEl('text',{x:L-10,y:y+4,fill:'#8F8D90','font-size':11,'text-anchor':'end',\n      'font-family':'ui-monospace,Menlo,monospace'});\n    t.textContent=fu(v,1);svg.appendChild(t);\n  }\n  if(lo<0&&hi>0)svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:Y(0),y2:Y(0),\n    stroke:'#4B3E5C','stroke-width':1,'stroke-dasharray':'5 5'}));\n  var d='';SER.forEach(function(p,i){d+=(i?'L':'M')+XS[i].toFixed(1)+' '+YS[i].toFixed(1)+' '});\n  var last=SER[SER.length-1].v,c=last>=0?'#D5A6E7':'#C4677E';\n  svg.appendChild(svgEl('path',{d:'M'+XS[0].toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' '+d.slice(1)+\n    'L'+XS[SER.length-1].toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' Z',fill:c,opacity:.16}));\n  svg.appendChild(svgEl('path',{d:d,fill:'none',stroke:c,'stroke-width':2.5,'stroke-linejoin':'round'}));\n  var ticks=Math.min(6,SER.length),seen='';\n  for(var i=0;i<ticks;i++){\n    var idx=ticks===1?0:Math.round(i*(SER.length-1)/(ticks-1));\n    var lab=shortDate(SER[idx].d);\n    if(lab===seen&&i<ticks-1)continue;\n    seen=lab;\n    var anchor=i===0?'start':(i===ticks-1?'end':'middle');\n    var tx=svgEl('text',{x:XS[idx],y:H-12,fill:'#8F8D90','font-size':11,'text-anchor':anchor,\n      'font-family':'ui-monospace,Menlo,monospace'});\n    tx.textContent=lab;svg.appendChild(tx);\n  }\n  CROSS=svgEl('line',{x1:0,x2:0,y1:T,y2:H-BM,stroke:'#AC8EB8','stroke-width':1,opacity:0});\n  svg.appendChild(CROSS);\n  DOT=svgEl('circle',{cx:XS[SER.length-1],cy:YS[SER.length-1],r:4.5,fill:c,\n    stroke:'#100D14','stroke-width':2});\n  svg.appendChild(DOT);\n}\nfunction nearest(px){\n  var best=0,bd=1e9;\n  for(var i=0;i<XS.length;i++){var d=Math.abs(XS[i]-px);if(d<bd){bd=d;best=i}}\n  return best;\n}\nfunction showTip(clientX){\n  if(!SER.length)return;\n  var svg=$('#curve'),r=svg.getBoundingClientRect();\n  var px=(clientX-r.left)*(svg.viewBox.baseVal.width/r.width);\n  var i=nearest(px),p=SER[i],tip=$('#tip');\n  CROSS.setAttribute('x1',XS[i]);CROSS.setAttribute('x2',XS[i]);CROSS.setAttribute('opacity','.8');\n  DOT.setAttribute('cx',XS[i]);DOT.setAttribute('cy',YS[i]);\n  tip.innerHTML='<span class=\"d\">'+longDate(p.d)+'<\/span>'+\n    '<span class=\"'+cl(p.v)+'\">'+fu(p.v)+'<\/span>'+\n    ' <span class=\"mut\">running<\/span><br><span class=\"mut\">'+\n    p.c+' play'+(p.c===1?'':'s')+' settled &nbsp;<\/span><span class=\"'+cl(p.p)+'\">'+fu(p.p)+'<\/span>';\n  tip.style.left=(XS[i]/svg.viewBox.baseVal.width*r.width)+'px';\n  tip.style.top=(YS[i]/svg.viewBox.baseVal.height*r.height)+'px';\n  tip.classList.add('on');\n}\nfunction hideTip(){\n  var tip=$('#tip');tip.classList.remove('on');\n  if(CROSS)CROSS.setAttribute('opacity','0');\n  if(DOT&&SER.length){DOT.setAttribute('cx',XS[SER.length-1]);DOT.setAttribute('cy',YS[SER.length-1])}\n}\ndrawCurve();\n(function(){\n  var svg=$('#curve');\n  svg.addEventListener('mousemove',function(e){showTip(e.clientX)});\n  svg.addEventListener('mouseleave',hideTip);\n  svg.addEventListener('touchstart',function(e){if(e.touches[0])showTip(e.touches[0].clientX)});\n  svg.addEventListener('touchmove',function(e){if(e.touches[0]){e.preventDefault();showTip(e.touches[0].clientX)}});\n  svg.addEventListener('touchend',hideTip);\n  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){drawCurve();hideTip()},120)});\n})();\n\n(function(){var g={},o=[];\n  B.forEach(function(b){var k=b.d.slice(0,7);if(!g[k]){g[k]=[];o.push(k)}g[k].push(b)});\n  o.sort().reverse();\n  o.forEach(function(k){var a=ag(g[k]),p=k.split('-'),tr=el('tr');\n    var nm=new Date(+p[0],+p[1]-1,1).toLocaleString('en-US',{month:'short'})+' '+p[0];\n    tr.appendChild(el('td','l',nm));\n    tr.appendChild(el('td','n',a.n+(a.pend?' +'+a.pend:'')));\n    tr.appendChild(el('td','n',a.w+'-'+a.l+'-'+a.p));\n    tr.appendChild(el('td','n '+cl(a.u),fu(a.u)));\n    tr.appendChild(el('td','n '+cl(a.roi),a.risk>0?pc(a.roi):'--'));\n    $('#months').appendChild(tr)})})();\ntbl('sp',function(b){return b.s});tbl('mk',function(b){return b.m});\nB.slice().reverse().forEach(function(b){var tr=el('tr');\n  tr.appendChild(el('td','num mut',b.d));\n  tr.appendChild(el('td','mut',b.s));\n  var pc=el('td','l');if(b.g)pc.appendChild(el('span','g',b.g));\n  pc.appendChild(el('span','',b.t||'--'));tr.appendChild(pc);\n  tr.appendChild(el('td','mut',b.m));\n  tr.appendChild(el('td','n',(b.o>0?'+':'')+b.o));\n  tr.appendChild(el('td','n',b.u.toFixed(2)));\n  var r=el('td');r.appendChild(el('span','chip '+(b.r==='Pending'?'Pending':b.r.charAt(0)),b.r));tr.appendChild(r);\n  tr.appendChild(el('td','n '+(b.p===null?'pend':cl(b.p)),b.p===null?'--':fu(b.p)));\n  $('#log').appendChild(tr)});\n\nDOW.forEach(function(d){$('#dow').appendChild(el('div','dow',d))});\nvar months=B.map(function(b){return b.d.slice(0,7)}).sort();\nvar cm=months.length?months[months.length-1]:(new Date().getFullYear()+'-'+pad(new Date().getMonth()+1));\nfunction cal(){\n  var p=cm.split('-');\n  $('#ct').textContent=new Date(+p[0],+p[1]-1,1).toLocaleString('en-US',{month:'long'})+' '+p[0];\n  var Y=+p[0],M=+p[1]-1,first=new Date(Y,M,1).getDay(),days=new Date(Y,M+1,0).getDate();\n  var by={};B.forEach(function(b){if(b.d.slice(0,7)!==cm)return;\n    var o=by[b.d]||(by[b.d]={u:0,n:0,p:0});if(b.p===null)o.p++;else{o.u+=b.p;o.n++}});\n  var g=$('#cal');g.innerHTML='';\n  for(var i=0;i<first;i++)g.appendChild(el('div','cell b'));\n  for(var d=1;d<=days;d++){var key=Y+'-'+pad(M+1)+'-'+pad(d),o=by[key];\n    var c=el('div','cell'+(o&&o.n?(o.u>1e-4?' w':o.u<-1e-4?' l':''):''));\n    c.appendChild(el('i','',String(d)));\n    if(o&&o.n)c.appendChild(el('span','',fu(o.u)));\n    if(o&&o.p)c.appendChild(el('em','','\\u25cf'));\n    g.appendChild(c)}}\nfunction shift(n){var p=cm.split('-'),d=new Date(+p[0],+p[1]-1+n,1);\n  cm=d.getFullYear()+'-'+pad(d.getMonth()+1);cal()}\n$('#pv').onclick=function(){shift(-1)};$('#nx').onclick=function(){shift(1)};\ncal();\n<\/script><\/body><\/html>\n";
+var PUB_HTML="<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<meta name=\"color-scheme\" content=\"dark\">\n<title>__TITLE__<\/title>\n<style>\n:root{\n  --ink:#100D14;--panel:#191521;--panel2:#221D2C;--line:#2A2333;--line2:#3B3149;\n  --bone:#BAB8BB;--grey:#8F8D90;--lilac:#AC8EB8;--amethyst:#7C608F;--plum:#73517E;\n  --up:#D5A6E7;--down:#C4677E;--downbg:#261722;--upbg:#1F1929;--upbd:#8F6FA8;--downbd:#6B3A44;\n  --mono:ui-monospace,\"SF Mono\",Menlo,Consolas,\"Roboto Mono\",monospace;\n  --sans:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif}\n*{margin:0;padding:0;box-sizing:border-box}\nhtml{color-scheme:dark;-webkit-text-size-adjust:100%}\nbody{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:15px;padding:0 24px 72px}\n.wrap{max-width:1980px;margin:0 auto}\n.num{font-family:var(--mono);font-variant-numeric:tabular-nums}\n.win{color:var(--up)}.loss{color:var(--down)}.mut{color:var(--grey)}.pend{color:var(--amethyst)}\n\n/* ---- header ---- */\nheader{padding:44px 0 26px;text-align:center;position:relative}\n.bands{display:flex;height:3px;max-width:340px;margin:0 auto 26px;border-radius:2px;overflow:hidden}\n.bands i{flex:1}\n.bands i:nth-child(1){background:var(--grey)}\n.bands i:nth-child(2){background:var(--bone)}\n.bands i:nth-child(3){background:var(--lilac)}\n.bands i:nth-child(4){background:var(--amethyst)}\n.bands i:nth-child(5){background:var(--plum)}\n.eyebrow{font:700 12px var(--mono);letter-spacing:6px;color:var(--lilac);text-transform:uppercase}\n.net{font:700 68px var(--mono);letter-spacing:-3px;line-height:1;margin:14px 0 6px}\n.sub{font:12px var(--mono);letter-spacing:1px;color:var(--grey)}\n\n.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;background:var(--line);\n  border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}\n.kpis .k{background:var(--panel);padding:15px 10px 14px;text-align:center}\n.kpis .k b{display:block;font:600 9px var(--mono);letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin-bottom:7px}\n.kpis .k span{font:700 22px var(--mono);font-variant-numeric:tabular-nums}\n\n/* ---- open plays band ---- */\n.open{border:1px solid var(--line2);border-left:3px solid var(--amethyst);border-radius:10px;\n  background:linear-gradient(90deg,var(--panel2),var(--panel));padding:15px 18px;margin-top:20px}\n.open h2{color:var(--lilac);margin-bottom:12px}\n.open ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:1px;\n  background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}\n.open li{background:var(--panel);padding:10px 12px;display:flex;align-items:baseline;gap:9px}\n.open li .t{flex:1;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\n.open li .o,.open li .u{font:600 12px var(--mono);color:var(--grey);white-space:nowrap}\n.open li .u{color:var(--amethyst)}\n.open li .dt{font:11px var(--mono);color:var(--grey)}\n\n/* ---- layout ---- */\n.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start;margin-top:16px}\n.stack{display:flex;flex-direction:column;gap:16px}\n@media(max-width:1080px){.two{grid-template-columns:1fr}.net{font-size:44px;letter-spacing:-2px}\n  body{padding:0 14px 60px}header{padding:30px 0 18px}}\n\n.card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--plum);\n  border-radius:10px;padding:16px 17px}\n.card.acc{border-left-color:var(--lilac)}\n.card.acc2{border-left-color:var(--amethyst)}\nh2{font:700 11px var(--mono);letter-spacing:3px;color:var(--amethyst);text-transform:uppercase;margin-bottom:13px}\n.card.acc h2,.card.acc2 h2{color:var(--lilac)}\n\ntable{width:100%;border-collapse:collapse;font-size:14px}\nth{font:600 9px var(--mono);letter-spacing:1.6px;color:var(--grey);text-transform:uppercase;\n  text-align:center;padding:7px 9px;border-bottom:1px solid var(--line2);white-space:nowrap}\ntd{padding:8px 9px;border-bottom:1px solid var(--line);text-align:center}\ntr:last-child td{border-bottom:0}\ntd.l,th.l{text-align:left}\n.g{display:block;font:11px var(--mono);color:var(--grey);margin-bottom:2px}\ntd.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}\ntbody tr:hover{background:var(--panel2)}\n.tw{overflow-x:auto}\n.chip{display:inline-block;font:600 9px var(--mono);letter-spacing:1.2px;padding:3px 7px;border-radius:4px;\n  border:1px solid var(--line2);color:var(--grey);text-transform:uppercase}\n.chip.W{color:var(--up);border-color:var(--upbd)}\n.chip.L{color:var(--down);border-color:var(--downbd)}\n.chip.Pending{color:var(--amethyst);border-color:var(--plum);background:#1E1826}\n\n/* ---- curve ---- */\n.chartwrap{position:relative}\nsvg.curve{display:block;width:100%;cursor:crosshair;touch-action:none}\n.tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--lilac);\n  border-radius:7px;padding:8px 11px;font:600 12px var(--mono);white-space:nowrap;opacity:0;\n  transition:opacity .1s;transform:translate(-50%,-118%);z-index:5;box-shadow:0 8px 22px rgba(0,0,0,.62)}\n.tip.on{opacity:1}\n.tip .d{color:var(--grey);font-weight:400;font-size:11px;display:block;margin-bottom:3px;letter-spacing:.5px}\n\n/* ---- calendar ---- */\n.calhead{display:flex;align-items:center;gap:10px;margin-bottom:11px}\n.calhead .t{flex:1;text-align:center;font:700 12px var(--mono);letter-spacing:2.5px;text-transform:uppercase}\n.btn{background:none;border:1px solid var(--line2);color:var(--grey);border-radius:6px;padding:5px 12px;\n  font:600 11px var(--mono);cursor:pointer}\n.btn:hover{border-color:var(--lilac);color:var(--lilac)}\n.btn:focus-visible{outline:2px solid var(--lilac);outline-offset:2px}\n.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}\n.dow{font:600 9px var(--mono);letter-spacing:1px;color:var(--grey);text-align:center;padding-bottom:3px}\n.cell{height:44px;border:1px solid var(--line);border-radius:5px;background:#161220;position:relative;\n  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:12px}\n.cell.b{background:none;border-color:transparent}\n.cell i{position:absolute;top:2px;left:4px;font:normal 9px var(--mono);color:var(--grey);font-style:normal}\n.cell.w{background:var(--upbg);border-color:var(--upbd);color:var(--up)}\n.cell.l{background:var(--downbg);border-color:var(--downbd);color:var(--down)}\n.cell em{position:absolute;bottom:2px;right:4px;font-size:7px;color:var(--amethyst);font-style:normal}\n\nfooter{color:var(--grey);font-size:12.5px;line-height:1.85;padding-top:18px;margin-top:18px;\n  border-top:1px solid var(--line);text-align:center}\nfooter b{color:var(--bone);font-weight:600}\nfooter .rule{display:flex;height:2px;max-width:200px;margin:0 auto 16px;border-radius:2px;overflow:hidden;opacity:.65}\nfooter .rule i{flex:1}\nfooter .rule i:nth-child(1){background:var(--grey)}\nfooter .rule i:nth-child(2){background:var(--lilac)}\nfooter .rule i:nth-child(3){background:var(--plum)}\n@media(prefers-reduced-motion:reduce){*{transition:none!important}}\n<\/style><\/head><body><div class=\"wrap\">\n<header>\n  <div class=\"bands\"><i><\/i><i><\/i><i><\/i><i><\/i><i><\/i><\/div>\n  <div class=\"eyebrow\">__TITLE__<\/div>\n  <div class=\"net num\" id=\"net\">+0.00u<\/div>\n  <div class=\"sub\" id=\"span\"><\/div>\n  <div class=\"kpis\" id=\"kpis\"><\/div>\n<\/header>\n\n<section class=\"open\" id=\"openband\" style=\"display:none\">\n  <h2>Open now<\/h2>\n  <ul id=\"openlist\"><\/ul>\n<\/section>\n\n<div class=\"two\">\n  <div class=\"stack\">\n    <div class=\"card acc\"><h2>Cumulative units by day<\/h2>\n      <div class=\"chartwrap\"><svg class=\"curve\" id=\"curve\"><\/svg><div class=\"tip\" id=\"tip\"><\/div><\/div>\n    <\/div>\n    <div class=\"card acc2\">\n      <div class=\"calhead\"><button class=\"btn\" id=\"pv\" aria-label=\"Previous month\">&lsaquo;<\/button><div class=\"t\" id=\"ct\"><\/div><button class=\"btn\" id=\"nx\" aria-label=\"Next month\">&rsaquo;<\/button><\/div>\n      <div class=\"cal\" id=\"dow\"><\/div><div class=\"cal\" id=\"cal\" style=\"margin-top:3px\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"stack\">\n    <div class=\"card\"><h2>By month<\/h2><div class=\"tw\"><table><thead><tr><th class=\"l\">Month<\/th><th class=\"n\">Plays<\/th><th class=\"n\">W-L-P<\/th><th class=\"n\">Units<\/th><th class=\"n\">ROI<\/th><\/tr><\/thead><tbody id=\"months\"><\/tbody><\/table><\/div><\/div>\n    <div class=\"card\"><h2>By sport<\/h2><div class=\"tw\"><table><thead><tr><th class=\"l\">Sport<\/th><th class=\"n\">Plays<\/th><th class=\"n\">W-L-P<\/th><th class=\"n\">Units<\/th><th class=\"n\">ROI<\/th><\/tr><\/thead><tbody id=\"sp\"><\/tbody><\/table><\/div><\/div>\n    <div class=\"card\"><h2>By market<\/h2><div class=\"tw\"><table><thead><tr><th class=\"l\">Market<\/th><th class=\"n\">Plays<\/th><th class=\"n\">W-L-P<\/th><th class=\"n\">Units<\/th><th class=\"n\">ROI<\/th><\/tr><\/thead><tbody id=\"mk\"><\/tbody><\/table><\/div><\/div>\n  <\/div>\n<\/div>\n\n<div class=\"card acc\" style=\"margin-top:16px\"><h2>Every play<\/h2><div class=\"tw\"><table><thead><tr><th>Date<\/th><th>Sport<\/th><th class=\"l\">Play<\/th><th>Market<\/th><th class=\"n\">Odds<\/th><th class=\"n\">Units<\/th><th>Result<\/th><th class=\"n\">P/L<\/th><\/tr><\/thead><tbody id=\"log\"><\/tbody><\/table><\/div><\/div>\n\n<footer>\n  <div class=\"rule\"><i><\/i><i><\/i><i><\/i><\/div>\n  <b>One unit is one standard bet.<\/b> Its cash value is deliberately not shown &mdash; a unit is whatever one standard bet is for you.<br>\n  Odds are American, at the price posted. ROI is net units divided by units risked, settled plays only. Pushes and voids settle flat and are excluded from win rate.<br>\n  Open plays are posted here before they settle and are excluded from every settled figure. Nothing is removed once posted.<br>\n  <span id=\"stamp\"><\/span>\n<\/footer>\n<\/div>\n<script>\nvar D=/*__DATA__*/;\nvar B=D.bets,DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];\nvar NS='http://www.w3.org/2000/svg';\nfunction $(s){return document.querySelector(s)}\nfunction el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}\nfunction svgEl(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e}\nfunction pad(n){return n<10?'0'+n:''+n}\nfunction ud(u){var s=(+u).toFixed(3);if(s.charAt(s.length-1)==='0')return s.slice(0,-1);return (Math.abs(u*1000-Math.round(u*1000))<1e-6)?s:(+u).toFixed(2)}\nfunction fu(u,dp){var t=(dp==null)?ud(Math.abs(u)):Math.abs(u).toFixed(dp);return (+t===0?'':(u>0?'+':'-'))+t+'u'}\nfunction pc(x){return (x*100).toFixed(1)+'%'}\nfunction cl(v){return v>1e-4?'win':v<-1e-4?'loss':'mut'}\nfunction imp(o){return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100)}\nfunction longDate(s){var p=s.split('-');\n  return new Date(+p[0],+p[1]-1,+p[2]).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric'})}\nfunction shortDate(s){var p=s.split('-');\n  return new Date(+p[0],+p[1]-1,+p[2]).toLocaleString('en-US',{month:'short',day:'numeric'})}\nfunction ag(list){var r={n:0,w:0,l:0,p:0,u:0,risk:0,pend:0,pu:0,im:0};\n  list.forEach(function(b){\n    if(b.p===null){r.pend++;r.pu+=b.u;return}\n    r.n++;if(b.p>1e-4)r.w++;else if(b.p<-1e-4)r.l++;else r.p++;\n    r.u+=b.p;r.risk+=b.u;r.im+=imp(b.o)});\n  r.roi=r.risk>0?r.u/r.risk:0;r.wr=(r.w+r.l)>0?r.w/(r.w+r.l):0;r.ai=r.n?r.im/r.n:0;return r}\nfunction tbl(id,keyfn){\n  var g={},o=[];B.forEach(function(b){var k=keyfn(b)||'--';if(!g[k]){g[k]=[];o.push(k)}g[k].push(b)});\n  o.sort(function(a,b){return ag(g[b]).u-ag(g[a]).u});\n  var tb=$('#'+id);\n  o.forEach(function(k){var a=ag(g[k]);if(!a.n&&!a.pend)return;var tr=el('tr');\n    tr.appendChild(el('td','l',k));\n    tr.appendChild(el('td','n',a.n+(a.pend?' +'+a.pend:'')));\n    tr.appendChild(el('td','n',a.w+'-'+a.l+'-'+a.p));\n    tr.appendChild(el('td','n '+cl(a.u),fu(a.u)));\n    tr.appendChild(el('td','n '+cl(a.roi),a.risk>0?pc(a.roi):'--'));\n    tb.appendChild(tr)})}\n\nvar A=ag(B);\n$('#net').textContent=fu(A.u);$('#net').className='net num '+cl(A.u);\n$('#span').textContent=B.length?(B[0].d+'  \\u00b7  '+B[B.length-1].d+'  \\u00b7  '+B.length+' plays'):'nothing posted yet';\n$('#stamp').innerHTML='<b>Last updated '+D.built+'.<\/b>'+(A.pend?'  '+A.pend+' play'+(A.pend>1?'s':'')+' still open at that time.':'  Everything posted was settled at that time.');\n[['ROI',A.risk>0?pc(A.roi):'--',cl(A.roi)],\n ['Record',A.w+'-'+A.l+'-'+A.p,''],['Win rate',A.n?pc(A.wr):'--',''],\n ['Break-even needed',A.n?pc(A.ai):'--',''],['Units risked',ud(A.risk)+'u',''],\n ['Open plays',String(A.pend),A.pend?'pend':''],['Live exposure',ud(A.pu)+'u',A.pend?'pend':'']\n].forEach(function(k){var d=el('div','k');d.appendChild(el('b','',k[0]));\n  d.appendChild(el('span','num '+(k[2]||''),k[1]));$('#kpis').appendChild(d)});\n\n/* ---------- open plays ---------- */\n(function(){\n  var open=B.filter(function(b){return b.p===null});\n  if(!open.length)return;\n  $('#openband').style.display='block';\n  var ul=$('#openlist');\n  open.sort(function(a,b){return a.d<b.d?-1:1}).forEach(function(b){\n    var li=el('li');\n    li.appendChild(el('span','dt',shortDate(b.d)));\n    li.appendChild(el('span','t',b.t||b.s||'play'));\n    li.appendChild(el('span','o',(b.o>0?'+':'')+b.o));\n    li.appendChild(el('span','u',ud(b.u)+'u'));\n    ul.appendChild(li)})})();\n\n/* ---------- equity curve, hover-readable ---------- */\nvar SER=(function(){var g={},o=[];\n  B.forEach(function(b){if(b.p===null)return;if(!g[b.d]){g[b.d]={p:0,c:0};o.push(b.d)}g[b.d].p+=b.p;g[b.d].c++});\n  o.sort();var n=0,out=[];\n  o.forEach(function(k){n+=g[k].p;out.push({d:k,v:n,p:g[k].p,c:g[k].c})});return out})();\nvar XS=[],YS=[],CROSS=null,DOT=null;\nfunction drawCurve(){\n  var svg=$('#curve'),host=svg.parentNode.parentNode;\n  var W=Math.max(320,host.clientWidth-34),H=300;\n  svg.setAttribute('width',W);svg.setAttribute('height',H);\n  svg.setAttribute('viewBox','0 0 '+W+' '+H);\n  while(svg.firstChild)svg.removeChild(svg.firstChild);\n  XS=[];YS=[];\n  if(!SER.length)return;\n  var L=58,R=16,T=14,BM=34;\n  var vals=SER.map(function(p){return p.v}).concat([0]);\n  var hi=Math.max.apply(null,vals),lo=Math.min.apply(null,vals);\n  var padv=Math.max((hi-lo)*0.12,0.5);hi+=padv;lo-=padv;\n  function X(i){return SER.length===1?L+(W-L-R)/2:L+i*(W-L-R)/(SER.length-1)}\n  function Y(v){return T+(hi-v)*(H-T-BM)/(hi-lo)}\n  SER.forEach(function(p,i){XS.push(X(i));YS.push(Y(p.v))});\n  for(var k=0;k<=4;k++){\n    var v=lo+(hi-lo)*k/4,y=Y(v);\n    svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:y,y2:y,stroke:'#241E30','stroke-width':1}));\n    var t=svgEl('text',{x:L-10,y:y+4,fill:'#8F8D90','font-size':11,'text-anchor':'end',\n      'font-family':'ui-monospace,Menlo,monospace'});\n    t.textContent=fu(v,1);svg.appendChild(t);\n  }\n  if(lo<0&&hi>0)svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:Y(0),y2:Y(0),\n    stroke:'#4B3E5C','stroke-width':1,'stroke-dasharray':'5 5'}));\n  var d='';SER.forEach(function(p,i){d+=(i?'L':'M')+XS[i].toFixed(1)+' '+YS[i].toFixed(1)+' '});\n  var last=SER[SER.length-1].v,c=last>=0?'#D5A6E7':'#C4677E';\n  svg.appendChild(svgEl('path',{d:'M'+XS[0].toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' '+d.slice(1)+\n    'L'+XS[SER.length-1].toFixed(1)+' '+Y(Math.max(lo,0)).toFixed(1)+' Z',fill:c,opacity:.16}));\n  svg.appendChild(svgEl('path',{d:d,fill:'none',stroke:c,'stroke-width':2.5,'stroke-linejoin':'round'}));\n  var ticks=Math.min(6,SER.length),seen='';\n  for(var i=0;i<ticks;i++){\n    var idx=ticks===1?0:Math.round(i*(SER.length-1)/(ticks-1));\n    var lab=shortDate(SER[idx].d);\n    if(lab===seen&&i<ticks-1)continue;\n    seen=lab;\n    var anchor=i===0?'start':(i===ticks-1?'end':'middle');\n    var tx=svgEl('text',{x:XS[idx],y:H-12,fill:'#8F8D90','font-size':11,'text-anchor':anchor,\n      'font-family':'ui-monospace,Menlo,monospace'});\n    tx.textContent=lab;svg.appendChild(tx);\n  }\n  CROSS=svgEl('line',{x1:0,x2:0,y1:T,y2:H-BM,stroke:'#AC8EB8','stroke-width':1,opacity:0});\n  svg.appendChild(CROSS);\n  DOT=svgEl('circle',{cx:XS[SER.length-1],cy:YS[SER.length-1],r:4.5,fill:c,\n    stroke:'#100D14','stroke-width':2});\n  svg.appendChild(DOT);\n}\nfunction nearest(px){\n  var best=0,bd=1e9;\n  for(var i=0;i<XS.length;i++){var d=Math.abs(XS[i]-px);if(d<bd){bd=d;best=i}}\n  return best;\n}\nfunction showTip(clientX){\n  if(!SER.length)return;\n  var svg=$('#curve'),r=svg.getBoundingClientRect();\n  var px=(clientX-r.left)*(svg.viewBox.baseVal.width/r.width);\n  var i=nearest(px),p=SER[i],tip=$('#tip');\n  CROSS.setAttribute('x1',XS[i]);CROSS.setAttribute('x2',XS[i]);CROSS.setAttribute('opacity','.8');\n  DOT.setAttribute('cx',XS[i]);DOT.setAttribute('cy',YS[i]);\n  tip.innerHTML='<span class=\"d\">'+longDate(p.d)+'<\/span>'+\n    '<span class=\"'+cl(p.v)+'\">'+fu(p.v)+'<\/span>'+\n    ' <span class=\"mut\">running<\/span><br><span class=\"mut\">'+\n    p.c+' play'+(p.c===1?'':'s')+' settled &nbsp;<\/span><span class=\"'+cl(p.p)+'\">'+fu(p.p)+'<\/span>';\n  tip.style.left=(XS[i]/svg.viewBox.baseVal.width*r.width)+'px';\n  tip.style.top=(YS[i]/svg.viewBox.baseVal.height*r.height)+'px';\n  tip.classList.add('on');\n}\nfunction hideTip(){\n  var tip=$('#tip');tip.classList.remove('on');\n  if(CROSS)CROSS.setAttribute('opacity','0');\n  if(DOT&&SER.length){DOT.setAttribute('cx',XS[SER.length-1]);DOT.setAttribute('cy',YS[SER.length-1])}\n}\ndrawCurve();\n(function(){\n  var svg=$('#curve');\n  svg.addEventListener('mousemove',function(e){showTip(e.clientX)});\n  svg.addEventListener('mouseleave',hideTip);\n  svg.addEventListener('touchstart',function(e){if(e.touches[0])showTip(e.touches[0].clientX)});\n  svg.addEventListener('touchmove',function(e){if(e.touches[0]){e.preventDefault();showTip(e.touches[0].clientX)}});\n  svg.addEventListener('touchend',hideTip);\n  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){drawCurve();hideTip()},120)});\n})();\n\n(function(){var g={},o=[];\n  B.forEach(function(b){var k=b.d.slice(0,7);if(!g[k]){g[k]=[];o.push(k)}g[k].push(b)});\n  o.sort().reverse();\n  o.forEach(function(k){var a=ag(g[k]),p=k.split('-'),tr=el('tr');\n    var nm=new Date(+p[0],+p[1]-1,1).toLocaleString('en-US',{month:'short'})+' '+p[0];\n    tr.appendChild(el('td','l',nm));\n    tr.appendChild(el('td','n',a.n+(a.pend?' +'+a.pend:'')));\n    tr.appendChild(el('td','n',a.w+'-'+a.l+'-'+a.p));\n    tr.appendChild(el('td','n '+cl(a.u),fu(a.u)));\n    tr.appendChild(el('td','n '+cl(a.roi),a.risk>0?pc(a.roi):'--'));\n    $('#months').appendChild(tr)})})();\ntbl('sp',function(b){return b.s});tbl('mk',function(b){return b.m});\nB.slice().reverse().forEach(function(b){var tr=el('tr');\n  tr.appendChild(el('td','num mut',b.d));\n  tr.appendChild(el('td','mut',b.s));\n  var pc=el('td','l');if(b.g)pc.appendChild(el('span','g',b.g));\n  pc.appendChild(el('span','',b.t||'--'));tr.appendChild(pc);\n  tr.appendChild(el('td','mut',b.m));\n  tr.appendChild(el('td','n',(b.o>0?'+':'')+b.o));\n  tr.appendChild(el('td','n',ud(b.u)));\n  var r=el('td');r.appendChild(el('span','chip '+(b.r==='Pending'?'Pending':b.r.charAt(0)),b.r));tr.appendChild(r);\n  tr.appendChild(el('td','n '+(b.p===null?'pend':cl(b.p)),b.p===null?'--':fu(b.p)));\n  $('#log').appendChild(tr)});\n\nDOW.forEach(function(d){$('#dow').appendChild(el('div','dow',d))});\nvar months=B.map(function(b){return b.d.slice(0,7)}).sort();\nvar cm=months.length?months[months.length-1]:(new Date().getFullYear()+'-'+pad(new Date().getMonth()+1));\nfunction cal(){\n  var p=cm.split('-');\n  $('#ct').textContent=new Date(+p[0],+p[1]-1,1).toLocaleString('en-US',{month:'long'})+' '+p[0];\n  var Y=+p[0],M=+p[1]-1,first=new Date(Y,M,1).getDay(),days=new Date(Y,M+1,0).getDate();\n  var by={};B.forEach(function(b){if(b.d.slice(0,7)!==cm)return;\n    var o=by[b.d]||(by[b.d]={u:0,n:0,p:0});if(b.p===null)o.p++;else{o.u+=b.p;o.n++}});\n  var g=$('#cal');g.innerHTML='';\n  for(var i=0;i<first;i++)g.appendChild(el('div','cell b'));\n  for(var d=1;d<=days;d++){var key=Y+'-'+pad(M+1)+'-'+pad(d),o=by[key];\n    var c=el('div','cell'+(o&&o.n?(o.u>1e-4?' w':o.u<-1e-4?' l':''):''));\n    c.appendChild(el('i','',String(d)));\n    if(o&&o.n)c.appendChild(el('span','',fu(o.u)));\n    if(o&&o.p)c.appendChild(el('em','','\\u25cf'));\n    g.appendChild(c)}}\nfunction shift(n){var p=cm.split('-'),d=new Date(+p[0],+p[1]-1+n,1);\n  cm=d.getFullYear()+'-'+pad(d.getMonth()+1);cal()}\n$('#pv').onclick=function(){shift(-1)};$('#nx').onclick=function(){shift(1)};\ncal();\n<\/script><\/body><\/html>\n";
 
 /* ================= GitHub publishing ================= */
 var GH_KEY='betDeskGH',autoTimer=null,publishing=false;
@@ -2211,7 +2264,7 @@ function playsJSON(){
     return a.date<b.date?-1:a.date>b.date?1:(a.id-b.id);}).map(function(b){
       var p=plU(b);
       return {date:b.date,sport:b.sport,market:b.market,game:b.game||'',play:b.desc||'',
-              odds:+b.odds,units:+(+b.units).toFixed(2),result:b.result,
+              odds:+b.odds,units:+(+b.units).toFixed(4),result:b.result,
               units_pl:(p==null?null:+p.toFixed(4))};
     });
   return JSON.stringify({units_only:true,updated:stamp(),plays:rows},null,2)+'\n';
@@ -2350,7 +2403,7 @@ var SY_KEY='betDeskSync',syBusy=false;
 var sy={repo:'bd-data',branch:'main',shaB:'',shaS:'',lastPull:'',lastPush:'',
         baseSig:'',pulled:false,verified:false,offline:false};
 var SET_KEYS=['unitSize','pubTitle','sports','books','markets','tags','quick',
-              'siteHost','avatar','gHandle','gTags','gDesign','gBg'];
+              'siteHost','avatar','gHandle','gTags','gDesign','gBg','wkStart'];
 
 function syLoad(){
   try{var r=localStorage.getItem(SY_KEY);
@@ -2778,7 +2831,8 @@ function reorderPub(d,from,to){
 function renderOrder(){
   var box=$('#orderbox');if(!box)return;
   var auto=$('#p-sort')&&$('#p-sort').value==='best';
-  var d=$('#p-date').value,list=(postKind==='summary')?[]:sortForPost(pubOn(d));
+  var d=$('#p-date').value;
+  var list=(postKind==='summary'||postKind==='week')?[]:sortForPost(pubOn(d));
   if(list.length<2){box.style.display='none';box.innerHTML='';return;}
   box.style.display='block';box.innerHTML='';
   list.forEach(function(b,i){
@@ -2872,6 +2926,95 @@ function buildSummary(){
   if(o.link&&o.site)out.push(o.site);
   return out.join('\n');
 }
+/* ---------- the week ---------- */
+function weekFrom(d){
+  var base=validDate(d)?parseYMD(d):new Date();
+  var s=(state.wkStart==='sun')?0:1;
+  base.setDate(base.getDate()-((base.getDay()-s+7)%7));
+  return ymd(base);
+}
+function weekDays(from){
+  var p=parseYMD(from),out=[],i;
+  for(i=0;i<7;i++)out.push(ymd(new Date(p.getFullYear(),p.getMonth(),p.getDate()+i)));
+  return out;
+}
+function weekLabel(from){
+  var ds=weekDays(from),a=parseYMD(ds[0]),b=parseYMD(ds[6]);
+  var m=function(x){return x.toLocaleString('en-US',{month:'short'}).toUpperCase();};
+  return 'WEEK OF '+m(a)+' '+a.getDate()+' \u2013 '+
+         (m(a)===m(b)?'':m(b)+' ')+b.getDate();
+}
+function dowShort(d){return parseYMD(d).toLocaleString('en-US',{weekday:'short'}).toUpperCase();}
+function weekStats(from){
+  var ds=weekDays(from),lo=ds[0],hi=ds[6];
+  var all=state.public.filter(function(b){return b.date>=lo&&b.date<=hi;})
+    .sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:(a.id-b.id);});
+  var done=all.filter(settled),a=agg(done);
+  var byDay=ds.map(function(d){
+    var l=all.filter(function(b){return b.date===d;}),st=l.filter(settled),x=agg(st);
+    return {d:d,n:l.length,settled:st.length,open:l.length-st.length,u:x.u,
+            w:x.w,l:x.l,p:x.p};
+  });
+  var best=null,bestDay=null,bySport={},sk=[];
+  done.forEach(function(b){
+    var v=plU(b);if(v==null)return;
+    if(!best||v>best.v)best={b:b,v:v};
+    var k=b.sport||'Other';
+    if(!bySport[k]){bySport[k]=[];sk.push(k);}
+    bySport[k].push(b);
+  });
+  byDay.forEach(function(x){if(x.settled&&(!bestDay||x.u>bestDay.u))bestDay=x;});
+  sk.sort(function(x,y){return agg(bySport[y]).u-agg(bySport[x]).u;});
+  return {from:from,days:ds,all:all,done:done,a:a,byDay:byDay,best:best,bestDay:bestDay,
+          sports:sk,bySport:bySport,open:all.length-done.length,run:runningThrough(hi)};
+}
+function weekNow(){return weekStats(weekFrom($('#p-date').value));}
+function buildWeek(){
+  var o=pOpts(),W=weekNow();
+  if(!W.all.length)return '';
+  var out=[];
+  if(o.head)out.push(weekLabel(W.from),'');
+  if(W.done.length){
+    out.push(fmtU(W.a.u)+' on the week');
+    out.push(recStr(W.a)+'  \u00b7  '+(W.a.riskU>0?pct(W.a.roi):'\u2014')+' ROI  \u00b7  '+
+             W.all.length+' play'+(W.all.length===1?'':'s'));
+  } else out.push(W.all.length+' play'+(W.all.length===1?'':'s')+', nothing settled yet');
+  var any=false;
+  W.byDay.forEach(function(x){
+    if(!x.n)return;
+    if(!any){out.push('');any=true;}
+    out.push(dowShort(x.d)+'  '+(x.settled?fmtU(x.u):'\u2014')+
+             (x.open?'  ('+x.open+' open)':''));
+  });
+  var tail=[];
+  if(W.best&&W.best.v>1e-4)
+    tail.push('Best: '+(W.best.b.desc||'play')+' '+oddsStr(W.best.b.odds)+'  '+fmtU(W.best.v));
+  if(W.sports.length>1){
+    var tu=agg(W.bySport[W.sports[0]]).u;
+    if(tu>1e-4)tail.push('Top sport: '+W.sports[0]+' '+fmtU(tu));
+  }
+  if(o.total&&W.done.length)tail.push(fmtU(W.run)+' overall');
+  if(tail.length)out.push('');
+  tail.forEach(function(t){out.push(t);});
+  if(W.open)out.push(W.open+' still open.');
+  if(o.link&&o.site)out.push('',o.site);
+  return out.join('\n');
+}
+function buildWeekCaption(){
+  var o=pOpts(),W=weekNow();
+  if(!W.all.length)return '';
+  var out=[weekLabel(W.from),''];
+  if(W.done.length){
+    out.push(fmtU(W.a.u)+' on the week');
+    out.push(recStr(W.a)+'  \u00b7  '+(W.a.riskU>0?pct(W.a.roi):'\u2014')+' ROI');
+    if(o.total)out.push(fmtU(W.run)+' overall');
+  } else out.push(W.all.length+' play'+(W.all.length===1?'':'s')+', nothing settled yet');
+  if(W.open)out.push(W.open+' still open');
+  out.push('','Every play posted before it started.');
+  var tags=(state.gTags||'').trim();
+  if(tags)out.push('',tags);
+  return out.join('\n');
+}
 function isShort(){var e=$('#p-text');return !e||e.value==='short';}
 function buildSlateCaption(){
   var d=$('#p-date').value,all=pubOn(d);
@@ -2904,6 +3047,15 @@ function buildCaption(){
   return out.join('\n');
 }
 function buildAlt(){
+  if(postKind==='week'){
+    var W=weekNow(),K=['Weekly betting results card, '+weekLabel(W.from).toLowerCase()+'.'];
+    if(W.done.length)K.push('Net '+fmtU(W.a.u)+', record '+recStr(W.a)+
+      ' from '+W.all.length+' plays.');
+    W.byDay.forEach(function(x){
+      if(x.settled)K.push(longDate(x.d)+', '+fmtU(x.u)+'.');});
+    if(W.done.length)K.push('Running total '+fmtU(W.run)+'.');
+    return K.join(' ');
+  }
   var d=$('#p-date').value,all=sortForPost(pubOn(d));
   if(!all.length)return '';
   var done=all.filter(settled),a=agg(done),L=[];
@@ -2918,21 +3070,25 @@ function buildAlt(){
 }
 function pShowHide(){
   var k=postKind,f=function(sel,on){$(sel).style.display=on?'flex':'none';};
-  var full=!isShort(),body=(k!=='summary');
+  var full=!isShort(),body=(k!=='summary'),day=(k==='slate'||k==='recap');
   f('#wrap-pdate',body);
+  f('#wrap-pweek',k==='week');
   f('#wrap-pperiod',k==='summary');
   f('#wrap-ptext',body);
   f('#wrap-playout',k==='slate'&&full);
   f('#wrap-psort',k==='recap');
   f('#wrap-ptags',body&&!full);
+  f('#wrap-gdesign',day);
   f('#w-head',k==='summary'||full);
-  f('#w-game',body&&full);
-  f('#w-odds',body&&full);
-  f('#w-units',body&&full);
+  f('#w-game',day&&full);
+  f('#w-odds',day&&full);
+  f('#w-units',day&&full);
   f('#w-emoji',k==='recap'&&full);
   f('#w-total',body);
-  f('#w-curve',body);
+  f('#w-curve',day);
   f('#w-link',k==='summary'||full);
+  var lb=$('#lbl-pdate');
+  if(lb)lb.textContent=(k==='week')?'Any day in the week':'Date';
 }
 function pCount(){
   var n=tweetLen($('#postout').value),c=$('#p-count');
@@ -2944,6 +3100,7 @@ function buildPost(){
   renderOrder();
   var t;
   if(postKind==='summary')t=buildSummary();
+  else if(postKind==='week')t=isShort()?buildWeekCaption():buildWeek();
   else if(postKind==='slate')t=isShort()?buildSlateCaption():buildCard();
   else t=isShort()?buildCaption():buildRecap();
   $('#postout').value=t;pCount();
@@ -2952,14 +3109,17 @@ function buildPost(){
     var showG=(postKind!=='summary');
     gcard.style.display=showG?'block':'none';
     if(showG){
-      $('#g-title').innerHTML=(postKind==='slate')?'Graphic &mdash; tonight\u2019s card':'Graphic &mdash; night recap';
+      $('#g-title').innerHTML=(postKind==='slate')?'Graphic &mdash; tonight\u2019s card'
+        :(postKind==='week'?'Graphic &mdash; week in units':'Graphic &mdash; night recap');
       drawRecapGraphic();
     }
   }
   var n=$('#p-note');
   if(!t)n.textContent=(postKind==='summary')
     ?'No settled plays in that window.'
-    :'No plays in the public log for that date. Read them in from your tweets on the Data tab.';
+    :(postKind==='week'?'No plays in the public log for that week.'
+      :'No plays in the public log for that date. Read them in from your tweets on the Data tab.');
+  else if(postKind==='week')n.textContent='One post for the whole week \u2014 the day bars carry the shape, so no play list. Post it on the same day every week whether it is green or red.';
   else if(postKind==='slate')n.textContent='Post this once your plays are all up, before first pitch. It consolidates a day of scattered posts into one card, and the commit you publish alongside it timestamps the lot.';
   else if(postKind==='recap')n.textContent='Post as a reply to the slate card so the chain reads card \u2192 result. Keep the site link out of the body \u2014 put it in a self-reply.';
   else n.textContent='Good as a standalone weekly or monthly post. Keep posting the red ones on the same schedule as the green ones.';
@@ -3445,6 +3605,118 @@ function dScore(c,P){
   c.textAlign='left';
 }
 
+/* ---------- week in units ---------- */
+function gPrepWeek(){
+  var from=weekFrom($('#p-date').value);
+  return {W:weekStats(from),o:pOpts(),
+    title:((state.gHandle||state.pubTitle||'').trim()||'UNITS TRACKER').toUpperCase(),
+    label:weekLabel(from),
+    host:(postHost()||'').toUpperCase()};
+}
+function dWeek(c,P){
+  var T=gTone(),dark=(state.gBg!=='plum'),W=P.W;
+  c.fillStyle=T.bg;c.fillRect(0,0,GW,GH);
+  var X0=64,X1=1016,Y0=76,Y1=1274,L=X0+54,R=X1-54,CX=(X0+X1)/2;
+  c.save();c.shadowColor='rgba(20,9,32,.46)';c.shadowBlur=76;c.shadowOffsetY=32;
+  c.fillStyle=T.sheet;gRR(c,X0,Y0,X1-X0,Y1-Y0,18);c.fill();c.restore();
+  c.strokeStyle=T.acc;c.lineWidth=6;gRR(c,X0+3,Y0+3,X1-X0-6,Y1-Y0-6,16);c.stroke();
+  [[X0+30,Y0+30],[X1-30,Y0+30],[X0+30,Y1-30],[X1-30,Y1-30]].forEach(function(pt){
+    c.fillStyle=T.line2;c.beginPath();c.arc(pt[0],pt[1],7,0,Math.PI*2);c.fill();});
+
+  c.fillStyle=T.panel;gRR(c,X0+8,Y0+8,X1-X0-16,168,12);c.fill();
+  gIdent(c,P,CX,Y0+72,34,6,AV.ready?34:0,T.head,L,R);
+  gFont(c,'700',20);c.fillStyle=T.mut;c.textBaseline='middle';
+  gTrack(c,P.label,CX,Y0+130,7,'center');
+  c.fillStyle=T.line;c.fillRect(L,Y0+188,R-L,2);
+
+  if(!W.all.length){
+    gFont(c,'600',30,GSANS);c.fillStyle=T.mut;c.textAlign='center';c.textBaseline='middle';
+    c.fillText('No plays posted that week',GW/2,GH/2);c.textAlign='left';return;
+  }
+
+  /* hero */
+  var head=Y0+188,val=W.done.length?fmtU(W.a.u):'\u2014';
+  gFont(c,'700',124);c.textAlign='center';c.textBaseline='middle';
+  c.fillStyle=W.done.length?gColT(W.a.u,T):T.acc;
+  c.fillText(val,CX,head+104);
+  var vw=c.measureText(val).width;
+  gScan(c,CX-vw/2-10,head+104-70,vw+20,140,T.sheet);
+  var sub=[];
+  if(W.done.length){
+    sub.push(recStr(W.a));
+    if(W.a.riskU>0)sub.push(pct(W.a.roi)+' ROI');
+  }
+  sub.push(W.all.length+' PLAY'+(W.all.length===1?'':'S'));
+  if(W.open)sub.push(W.open+' OPEN');
+  gFont(c,'700',23);c.fillStyle=T.mut;
+  gTrack(c,sub.join('   \u00b7   '),CX,head+196,3.2,'center');
+  c.fillStyle=T.line;c.fillRect(L,head+240,R-L,2);
+
+  /* day bars */
+  var CT=head+300,CB=head+632;
+  var vals=W.byDay.map(function(x){return x.settled?x.u:0;});
+  var hi=Math.max.apply(null,vals),lo=Math.min.apply(null,vals);
+  if(hi<0)hi=0;if(lo>0)lo=0;
+  if(hi-lo<1e-6){hi=0.5;lo=-0.5;}
+  var padv=(hi-lo)*0.24;hi+=padv;lo-=padv;
+  var BY=function(v){return CB-((v-lo)/(hi-lo))*(CB-CT);};
+  var zy=BY(0);
+  c.save();c.strokeStyle=T.line2;c.lineWidth=1.5;
+  if(c.setLineDash)c.setLineDash([8,8]);
+  c.beginPath();c.moveTo(L,zy);c.lineTo(R,zy);c.stroke();c.restore();
+
+  var colW=(R-L)/7,bw=Math.min(86,colW-44);
+  W.byDay.forEach(function(x,i){
+    var cx=L+colW*(i+0.5);
+    if(!x.settled){
+      c.fillStyle=T.line2;c.beginPath();c.arc(cx,zy,5,0,Math.PI*2);c.fill();
+    }else{
+      var y=BY(x.u),top=Math.min(y,zy),h=Math.max(Math.abs(y-zy),5),col=gColT(x.u,T);
+      c.save();
+      if(dark){c.shadowColor=col;c.shadowBlur=15;}
+      c.fillStyle=col;gRR(c,cx-bw/2,top,bw,h,6);c.fill();c.restore();
+      gFont(c,'700',23);c.fillStyle=col;c.textAlign='center';c.textBaseline='middle';
+      c.fillText(fmtU(x.u),cx,x.u>=0?top-26:top+h+26);
+    }
+    gFont(c,'700',22);c.fillStyle=x.n?T.mut:T.line2;c.textBaseline='middle';
+    gTrack(c,dowShort(x.d),cx,CB+44,4,'center');
+    if(x.open){c.fillStyle=T.acc;c.beginPath();c.arc(cx,CB+72,5,0,Math.PI*2);c.fill();}
+  });
+  c.fillStyle=T.line;c.fillRect(L,CB+98,R-L,2);
+
+  /* the three lines worth keeping */
+  var rows=[];
+  if(W.best&&W.best.v>1e-4)
+    rows.push(['BEST PLAY',W.best.b.desc||'play',fmtU(W.best.v),gColT(W.best.v,T)]);
+  if(W.sports.length>1){
+    var su=agg(W.bySport[W.sports[0]]).u;
+    if(su>1e-4)rows.push(['TOP SPORT',W.sports[0],fmtU(su),gColT(su,T)]);
+  }
+  if(P.o.total&&W.done.length)
+    rows.push(['RUNNING TOTAL','',fmtU(W.run),gColT(W.run,T)]);
+  if(rows.length){
+    var ry0=CB+118,ry1=1198,sp=Math.min(78,(ry1-ry0)/rows.length);
+    var y0=ry0+((ry1-ry0)-sp*rows.length)/2;
+    rows.forEach(function(r,i){
+      var cy=y0+sp*i+sp/2;
+      if(i){c.fillStyle=T.line;c.fillRect(L,y0+sp*i,R-L,1);}
+      gFont(c,'700',18);c.fillStyle=T.mut;c.textBaseline='middle';c.textAlign='left';
+      var lw=gTrack(c,r[0],L,cy,3,'left');
+      gFont(c,'700',31);c.textAlign='right';c.fillStyle=r[3];
+      var nw=c.measureText(r[2]).width;
+      c.fillText(r[2],R,cy);
+      if(r[1]){
+        c.textAlign='left';gFont(c,'600',27,GSANS);c.fillStyle=T.tx;
+        var tx=L+lw+30;
+        c.fillText(gFit(c,r[1],Math.max(60,R-nw-26-tx)),tx,cy);
+      }
+    });
+  }
+  if(P.host){gFont(c,'700',19);c.fillStyle=T.acc;c.textBaseline='middle';
+    gTrack(c,P.host,CX,Y1-52,4.5,'center');}
+  c.textAlign='left';
+}
+
 var GDESIGNS={ticket:dTicket,scoreboard:dScore};
 function drawRecapGraphic(){
   var cv=$('#gcanvas');if(!cv||!cv.getContext)return;
@@ -3452,8 +3724,8 @@ function drawRecapGraphic(){
   cv.width=GW*GS;cv.height=GH*GS;
   c.setTransform(GS,0,0,GS,0,0);
   c.textAlign='left';c.textBaseline='middle';
-  var P=gPrep();
-  (GDESIGNS[state.gDesign]||dTicket)(c,P);
+  if(postKind==='week'){dWeek(c,gPrepWeek());return;}
+  (GDESIGNS[state.gDesign]||dTicket)(c,gPrep());
 }
 
 function gBlob(cb){
@@ -3464,8 +3736,10 @@ function gBlob(cb){
 function downloadGraphic(){
   gBlob(function(b){
     var u=URL.createObjectURL(b),a=document.createElement('a');
-    a.href=u;a.download=(postKind==='slate'?'slate-':'recap-')+$('#p-date').value+
-      '-'+(state.gDesign||'ticket')+'.png';
+    var nm=(postKind==='week')
+      ?('week-'+weekFrom($('#p-date').value))
+      :((postKind==='slate'?'slate-':'recap-')+$('#p-date').value+'-'+(state.gDesign||'ticket'));
+    a.href=u;a.download=nm+'.png';
     document.body.appendChild(a);a.click();document.body.removeChild(a);
     setTimeout(function(){URL.revokeObjectURL(u);},3000);
     toast('Downloaded');
@@ -3506,7 +3780,7 @@ function importPlays(text){
 }
 function tsv(){
   return state.public.slice().sort(function(a,b){return a.date<b.date?-1:1;}).map(function(b){
-    return [b.date,b.sport,b.book,b.market,(b.desc||'').replace(/\t/g,' '),b.odds,(+b.units).toFixed(2),b.result].join('\t');
+    return [b.date,b.sport,b.book,b.market,(b.desc||'').replace(/\t/g,' '),b.odds,uDec(+b.units),b.result].join('\t');
   }).join('\n');
 }
 function csv(){
@@ -3514,7 +3788,7 @@ function csv(){
   var q=function(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
   var rows=state.internal.slice().sort(function(a,b){return a.date<b.date?-1:1;}).map(function(b){
     var c=plC(b),u=plU(b);
-    return [b.date,b.sport,b.book,b.market,b.game||'',b.desc||'',b.odds,b.amt.toFixed(2),U(b).toFixed(2),usize(b),
+    return [b.date,b.sport,b.book,b.market,b.game||'',b.desc||'',b.odds,b.amt.toFixed(2),U(b).toFixed(4),usize(b),
             b.result,c==null?'':c.toFixed(2),u==null?'':u.toFixed(4),b.grp||''].map(q).join(',');
   });
   return head.join(',')+'\n'+rows.join('\n');
@@ -3548,7 +3822,7 @@ function pubPayload(){
     .map(function(b){
       var p=plU(b);
       return {d:b.date,s:b.sport,m:b.market,g:b.game||'',t:b.desc||'',o:+b.odds,
-              u:+(+b.units).toFixed(2),r:b.result,p:(p==null?null:+p.toFixed(4))};
+              u:+(+b.units).toFixed(4),r:b.result,p:(p==null?null:+p.toFixed(4))};
     });
   return JSON.stringify({title:pubTitle(),built:stamp(),bets:rows});
 }
@@ -3586,13 +3860,14 @@ function shiftMonth(m,d){var p=m.split('-');return ym(new Date(+p[0],+p[1]-1+d,1
 function wirePost(){
   if(!$('#p-date'))return;
   wireDate('#p-date','#p-prev','#p-next','#p-today');
-  ['#p-prev','#p-next','#p-today'].forEach(function(sel){
-    var prev=$(sel).onclick;
-    $(sel).onclick=function(){prev();buildPost();};
-  });
+  $('#p-prev').onclick=function(){stepDate('#p-date',postKind==='week'?-7:-1);buildPost();};
+  $('#p-next').onclick=function(){stepDate('#p-date',postKind==='week'?7:1);buildPost();};
+  $('#p-today').onclick=function(){$('#p-date').value=ymd(new Date());buildPost();};
+  $('#p-week').value=(state.wkStart==='sun')?'sun':'mon';
+  $('#p-week').onchange=function(){state.wkStart=this.value;save();buildPost();};
   $('#p-date').onchange=buildPost;
   $('#p-latest').onclick=function(){
-    var d=latestPubDate(postKind==='recap');
+    var d=latestPubDate(postKind==='recap'||postKind==='week');
     if(!d){toast('Public log is empty');return;}
     $('#p-date').value=d;buildPost();
   };
@@ -3600,7 +3875,12 @@ function wirePost(){
     b.onclick=function(){
       document.querySelectorAll('#postkind button').forEach(function(x){x.classList.remove('on');});
       b.classList.add('on');postKind=b.dataset.k;
-      if(postKind!=='summary'){
+      if(postKind==='week'){
+        if(!weekNow().all.length){
+          var jw=latestPubDate(true)||latestPubDate(false);
+          if(jw)$('#p-date').value=jw;
+        }
+      } else if(postKind!=='summary'){
         var d=$('#p-date').value,on=pubOn(d);
         var ok=(postKind==='recap')?on.some(settled):on.length>0;
         if(!ok){var j=latestPubDate(postKind==='recap');if(j)$('#p-date').value=j;}

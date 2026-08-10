@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 10, 2026, 1:42 AM EDT",
+  "updated": "Aug 10, 2026, 4:19 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -944,6 +944,39 @@
       "game": "Brewers @ Padres",
       "play": "Under 7.5",
       "odds": -115,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Phillies @ Cardinals",
+      "play": "Cardinals ML",
+      "odds": 108,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Phillies @ Cardinals",
+      "play": "Cardinals +1.5",
+      "odds": -150,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Orioles @ Twins",
+      "play": "Orioles ML",
+      "odds": 101,
       "units": 1,
       "result": "Pending",
       "units_pl": null

@@ -361,7 +361,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="f wide"><label>Date</label>
         <div class="daterow">
           <button class="qs" id="d-prev" title="Previous day">‹</button>
-          <input type="date" id="i-date">
+          <input autocomplete="off" type="date" id="i-date">
           <button class="qs" id="d-next" title="Next day">›</button>
           <button class="qs" id="d-today">Today</button>
         </div>
@@ -369,16 +369,16 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="f"><label>Sport</label><select id="i-sport"></select></div>
       <div class="f"><label>Book</label><select id="i-book"></select></div>
       <div class="f"><label>Market</label><select id="i-market"></select></div>
-      <div class="f"><label>Game</label><input type="text" id="i-game" placeholder="White Sox @ Rays"></div>
-      <div class="f wide"><label id="lbl-desc">Bet</label><input type="text" id="i-desc" placeholder="1H Spread Rays -0.5"></div>
-      <div class="f"><label>Odds (US)</label><input type="number" id="i-odds" placeholder="-110" step="1"></div>
-      <div class="f intonly"><label>Stake ($)</label><input type="number" id="i-amt" placeholder="25" step="0.01" min="0"></div>
-      <div class="f pubonly"><label>Units posted</label><input type="number" id="i-units" placeholder="1" step="any" min="0"></div>
+      <div class="f"><label>Game</label><input autocomplete="off" type="text" id="i-game" placeholder="White Sox @ Rays"></div>
+      <div class="f wide"><label id="lbl-desc">Bet</label><input autocomplete="off" type="text" id="i-desc" placeholder="1H Spread Rays -0.5"></div>
+      <div class="f"><label>Odds (US)</label><input autocomplete="off" type="number" id="i-odds" placeholder="-110" step="1"></div>
+      <div class="f intonly"><label>Stake ($)</label><input autocomplete="off" type="number" id="i-amt" placeholder="25" step="0.01" min="0"></div>
+      <div class="f pubonly"><label>Units posted</label><input autocomplete="off" type="number" id="i-units" placeholder="1" step="any" min="0"></div>
       <div class="f intonly"><label>Source</label><select id="i-tag"></select></div>
       <div class="f"><label>Result</label><select id="i-result">
         <option>Pending</option><option>Win</option><option>Loss</option><option>Push</option><option>Void</option><option class="intonly">Cashout</option>
       </select></div>
-      <div class="f intonly" id="wrap-cash" style="display:none"><label>Cashout P/L ($)</label><input type="number" id="i-cash" step="0.01"></div>
+      <div class="f intonly" id="wrap-cash" style="display:none"><label>Cashout P/L ($)</label><input autocomplete="off" type="number" id="i-cash" step="0.01"></div>
     </div>
     <div class="inline" style="margin-top:9px">
       <button class="btn gold" id="btn-add">ADD</button>
@@ -459,7 +459,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <button class="btn" id="btn-checklive">Check live site</button>
       <button class="btn sm" id="btn-openlive">Open site</button>
       <div class="grow"></div>
-      <label class="chk"><input type="checkbox" id="i-auto"> Publish automatically when the public log changes</label>
+      <label class="chk"><input autocomplete="off" type="checkbox" id="i-auto"> Publish automatically when the public log changes</label>
     </div>
     <div class="note" id="ghstatus">Not connected yet. Fill in the connection below.</div>
   </div>
@@ -509,7 +509,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="f wide" id="wrap-pdate"><label id="lbl-pdate">Date</label>
         <div class="daterow">
           <button class="qs" id="p-prev" title="Previous day">&lsaquo;</button>
-          <input type="date" id="p-date">
+          <input autocomplete="off" type="date" id="p-date">
           <button class="qs" id="p-next" title="Next day">&rsaquo;</button>
           <button class="qs" id="p-today">Today</button>
           <button class="qs" id="p-latest" title="Jump to the most recent day with plays">Latest</button>
@@ -541,14 +541,14 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="f wide"><label>Site link</label><input type="text" id="p-site" placeholder="yourname.github.io" autocomplete="off"></div>
     </div>
     <div class="chips" style="margin-top:10px">
-      <label class="opt" id="w-head"><input type="checkbox" id="o-head" checked> Header</label>
-      <label class="opt" id="w-game"><input type="checkbox" id="o-game" checked> Game line</label>
-      <label class="opt" id="w-odds"><input type="checkbox" id="o-odds" checked> Odds</label>
-      <label class="opt" id="w-units"><input type="checkbox" id="o-units" checked> Units</label>
-      <label class="opt" id="w-emoji"><input type="checkbox" id="o-emoji" checked> Emoji</label>
-      <label class="opt" id="w-total"><input type="checkbox" id="o-total" checked> Running total</label>
-      <label class="opt" id="w-curve"><input type="checkbox" id="o-curve" checked> Curve</label>
-      <label class="opt" id="w-link"><input type="checkbox" id="o-link" checked> Link</label>
+      <label class="opt" id="w-head"><input autocomplete="off" type="checkbox" id="o-head" checked> Header</label>
+      <label class="opt" id="w-game"><input autocomplete="off" type="checkbox" id="o-game" checked> Game line</label>
+      <label class="opt" id="w-odds"><input autocomplete="off" type="checkbox" id="o-odds" checked> Odds</label>
+      <label class="opt" id="w-units"><input autocomplete="off" type="checkbox" id="o-units" checked> Units</label>
+      <label class="opt" id="w-emoji"><input autocomplete="off" type="checkbox" id="o-emoji" checked> Emoji</label>
+      <label class="opt" id="w-total"><input autocomplete="off" type="checkbox" id="o-total" checked> Running total</label>
+      <label class="opt" id="w-curve"><input autocomplete="off" type="checkbox" id="o-curve" checked> Curve</label>
+      <label class="opt" id="w-link"><input autocomplete="off" type="checkbox" id="o-link" checked> Link</label>
     </div>
     <div id="orderbox" style="display:none"></div>
     <div class="note">Reads the public log only. Stakes, books and dollar figures cannot reach this tab.</div>
@@ -560,7 +560,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="grow"></div>
       <span class="cc" id="p-count">0 / 280</span>
     </div>
-    <textarea id="postout" rows="15" spellcheck="false" placeholder="Nothing in the public log for this date."></textarea>
+    <textarea autocomplete="off" id="postout" rows="15" spellcheck="false" placeholder="Nothing in the public log for this date."></textarea>
     <div class="inline" style="margin-top:10px">
       <button class="btn blue" id="btn-copypost">COPY</button>
       <button class="btn sm" id="btn-repost">Rebuild</button>
@@ -583,7 +583,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
         <option value="ticket">Ticket &mdash; one sheet, rows down the page</option>
         <option value="scoreboard">Scoreboard &mdash; framed board, lit results</option>
       </select></div>
-      <div class="f"><label>Avatar</label><input type="file" id="g-av" accept="image/*"></div>
+      <div class="f"><label>Avatar</label><input autocomplete="off" type="file" id="g-av" accept="image/*"></div>
       <div class="f wide"><label>Handle</label><input type="text" id="g-foot" placeholder="@yourhandle" autocomplete="off"></div>
     </div>
     <div style="text-align:center">
@@ -639,9 +639,29 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
 
 <section id="tab-data">
   <div class="card">
+    <div class="lbl">Write the tweet</div>
+    <div class="note" style="margin-top:0">Type the plays however they come out of your head. This puts them in one shape, adds the threshold plus, and signs every price. Copy from the box below and nowhere else &mdash; text copied out of a rendered page carries hidden formatting and X drops the line breaks.</div>
+    <textarea autocomplete="off" id="rw-in" rows="5" spellcheck="false" placeholder="Mystics @ Aces&#10;NaLyssa Smith 6 Rebounds&#10;.3U&#10;-108"></textarea>
+    <div class="inline" style="margin-top:8px">
+      <button class="btn" id="rw-go">Rewrite</button>
+      <button class="btn sm" id="rw-clear">Clear</button>
+      <span class="note" style="margin:0" id="rw-note"></span>
+    </div>
+    <div id="rw-result" style="display:none">
+      <div class="hr"></div>
+      <textarea autocomplete="off" id="rw-out" rows="8" spellcheck="false"></textarea>
+      <div class="inline" style="margin-top:8px">
+        <button class="btn blue" id="rw-copy">COPY</button>
+        <button class="btn sm" id="rw-x">Open X with this</button>
+        <span class="note" style="margin:0" id="rw-count"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
     <div class="lbl">From a tweet</div>
     <div class="note" style="margin-top:0">Paste the tweet you posted. Each line holding American odds becomes a play. Nothing is written until you check the preview and press add.</div>
-    <textarea id="tw-in" rows="5" spellcheck="false" placeholder="&#127936; WNBA&#10;Mystics +7 (-110) 2u&#10;Under 167.5 (-115) 1u"></textarea>
+    <textarea autocomplete="off" id="tw-in" rows="5" spellcheck="false" placeholder="&#127936; WNBA&#10;Mystics +7 (-110) 2u&#10;Under 167.5 (-115) 1u"></textarea>
     <div class="inline" style="margin-top:8px">
       <button class="btn" id="tw-parse">Read the tweet</button>
       <button class="btn sm" id="tw-clear">Clear</button>
@@ -650,7 +670,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
     <div id="tw-result" style="display:none">
       <div class="hr"></div>
       <div class="formgrid" style="max-width:760px">
-        <div class="f"><label>Date</label><input type="date" id="tw-date"></div>
+        <div class="f"><label>Date</label><input autocomplete="off" type="date" id="tw-date"></div>
         <div class="f"><label>Add to</label><select id="tw-dest">
           <option value="both">Both logs, linked</option>
           <option value="pub">Public log only</option>
@@ -673,7 +693,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
     <div class="card">
       <h2 class="pb">Public log</h2>
       <div class="note" style="margin-top:0" id="pubcount"></div>
-      <div class="f" style="max-width:240px;margin-top:8px"><label>Public page title</label><input type="text" id="i-pubtitle" placeholder="UNITS TRACKER"></div>
+      <div class="f" style="max-width:240px;margin-top:8px"><label>Public page title</label><input autocomplete="off" type="text" id="i-pubtitle" placeholder="UNITS TRACKER"></div>
       <div class="inline" style="margin-top:10px">
         <button class="btn blue" id="btn-preview">Preview</button>
       </div>
@@ -683,16 +703,16 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
     <div class="card">
       <h2>Internal settings</h2>
       <div class="inline">
-        <div class="f" style="max-width:170px"><label>Unit size ($) for new bets</label><input type="number" id="i-unitsize" step="1" min="1"></div>
+        <div class="f" style="max-width:170px"><label>Unit size ($) for new bets</label><input autocomplete="off" type="number" id="i-unitsize" step="1" min="1"></div>
         <button class="btn sm" id="btn-restate" style="margin-top:14px">Restate all</button>
       </div>
-      <div class="f" style="margin-top:8px"><label>Quick stakes ($)</label><input type="text" id="i-quick"></div>
+      <div class="f" style="margin-top:8px"><label>Quick stakes ($)</label><input autocomplete="off" type="text" id="i-quick"></div>
       <div class="hr"></div>
       <h2>Dropdown lists</h2>
-      <div class="f"><label>Sports</label><input type="text" id="i-sports"></div>
-      <div class="f" style="margin-top:6px"><label>Books</label><input type="text" id="i-books"></div>
-      <div class="f" style="margin-top:6px"><label>Markets</label><input type="text" id="i-markets"></div>
-      <div class="f" style="margin-top:6px"><label>Sources</label><input type="text" id="i-tags"></div>
+      <div class="f"><label>Sports</label><input autocomplete="off" type="text" id="i-sports"></div>
+      <div class="f" style="margin-top:6px"><label>Books</label><input autocomplete="off" type="text" id="i-books"></div>
+      <div class="f" style="margin-top:6px"><label>Markets</label><input autocomplete="off" type="text" id="i-markets"></div>
+      <div class="f" style="margin-top:6px"><label>Sources</label><input autocomplete="off" type="text" id="i-tags"></div>
       <div class="inline" style="margin-top:8px"><button class="btn" id="btn-savelists">Save lists</button></div>
       <div class="hr"></div>
       <h2>Backup — both logs</h2>
@@ -701,7 +721,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
         <button class="btn" id="btn-dl">Download JSON</button>
         <button class="btn" id="btn-restore">Restore pasted</button>
       </div>
-      <textarea id="backup" rows="4" spellcheck="false" placeholder="Backup JSON appears here."></textarea>
+      <textarea autocomplete="off" id="backup" rows="4" spellcheck="false" placeholder="Backup JSON appears here."></textarea>
       <div class="inline" style="margin-top:10px"><button class="btn danger sm" id="btn-wipe">Delete everything in this log</button></div>
       <div class="note" id="storenote"></div>
     </div>
@@ -717,7 +737,7 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="f wide"><label>Date</label>
         <div class="daterow">
           <button class="qs" id="ed-prev">‹</button>
-          <input type="date" id="e-date">
+          <input autocomplete="off" type="date" id="e-date">
           <button class="qs" id="ed-next">›</button>
           <button class="qs" id="ed-today">Today</button>
         </div>
@@ -725,17 +745,17 @@ input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:auto;padd
       <div class="f"><label>Sport</label><select id="e-sport"></select></div>
       <div class="f"><label>Book</label><select id="e-book"></select></div>
       <div class="f"><label>Market</label><select id="e-market"></select></div>
-      <div class="f wide"><label>Game</label><input type="text" id="e-game"></div>
-      <div class="f wide"><label>Bet / play</label><input type="text" id="e-desc"></div>
-      <div class="f"><label>Odds (US)</label><input type="number" id="e-odds" step="1"></div>
-      <div class="f" id="wrap-eamt"><label>Stake ($)</label><input type="number" id="e-amt" step="0.01" min="0"></div>
-      <div class="f" id="wrap-eusize"><label>Unit size ($)</label><input type="number" id="e-usize" step="1" min="1"></div>
-      <div class="f" id="wrap-eunits" style="display:none"><label>Units posted</label><input type="number" id="e-units" step="any" min="0"></div>
+      <div class="f wide"><label>Game</label><input autocomplete="off" type="text" id="e-game"></div>
+      <div class="f wide"><label>Bet / play</label><input autocomplete="off" type="text" id="e-desc"></div>
+      <div class="f"><label>Odds (US)</label><input autocomplete="off" type="number" id="e-odds" step="1"></div>
+      <div class="f" id="wrap-eamt"><label>Stake ($)</label><input autocomplete="off" type="number" id="e-amt" step="0.01" min="0"></div>
+      <div class="f" id="wrap-eusize"><label>Unit size ($)</label><input autocomplete="off" type="number" id="e-usize" step="1" min="1"></div>
+      <div class="f" id="wrap-eunits" style="display:none"><label>Units posted</label><input autocomplete="off" type="number" id="e-units" step="any" min="0"></div>
       <div class="f" id="wrap-etag"><label>Source</label><select id="e-tag"></select></div>
       <div class="f"><label>Result</label><select id="e-result">
         <option>Pending</option><option>Win</option><option>Loss</option><option>Push</option><option>Void</option><option>Cashout</option>
       </select></div>
-      <div class="f" id="wrap-ecash" style="display:none"><label>Cashout P/L ($)</label><input type="number" id="e-cash" step="0.01"></div>
+      <div class="f" id="wrap-ecash" style="display:none"><label>Cashout P/L ($)</label><input autocomplete="off" type="number" id="e-cash" step="0.01"></div>
     </div>
     <div class="note" id="e-preview"></div>
     <div class="inline" style="margin-top:12px">
@@ -1097,6 +1117,23 @@ var STAT_RE=/\b(pts|points|ast|asts|assists|reb|rebs|rebounds|pra|3pm|3pt|3ptm|3
 /* "5+ Assists", "1+ TD", "2+ goals" \u2014 an alt line written without over/under */
 var ALT_LINE=/(^|\s)\d+(\.\d+)?\+/;
 var SCORER_RE=/\b(anytime|atd|first (td|goal|basket|point)|scorer|to score|to record|to hit)\b/;
+/* "6 Rebounds", "2 Goals" \u2014 a stat with a plain number in front of it and
+   no over/under and no plus. Asked last, after moneyline, spread and total
+   have all been ruled out, so "Total 220.5 points" still reads as a total. */
+var STAT_NUM=/\b(\d+(?:\.\d+)?)\s*\+?\s*(pts|points|ast|asts|assists|reb|rebs|rebounds|pra|3pm|3pt|3ptm|3s|threes|blk|blks|blocks|stl|stls|steals|turnovers|ks|strikeouts|hits|rbi|rbis|bases|sog|shots|saves|goals|yds|yards|tds|touchdowns|receptions|recs|kills)\b/;
+/* The most one player has ever plausibly been priced for in one game, rounded
+   up and left loose. Nobody is getting 165.5 points, so a number over the
+   ceiling says the line is a game or team total wearing a stat word. */
+var STAT_CAP={pts:70,points:70,ast:30,asts:30,assists:30,reb:35,rebs:35,rebounds:35,pra:90,
+  '3pm':16,'3pt':16,'3ptm':16,'3s':16,threes:16,blk:12,blks:12,blocks:12,stl:12,stls:12,steals:12,
+  turnovers:12,ks:22,strikeouts:22,hits:7,rbi:9,rbis:9,bases:14,sog:16,shots:16,saves:60,goals:6,
+  yds:450,yards:450,tds:6,touchdowns:6,receptions:22,recs:22,kills:45};
+function statFit(d){
+  var m=STAT_NUM.exec(d);
+  if(!m)return null;
+  var cap=STAT_CAP[m[2]];
+  return {n:parseFloat(m[1]),stat:m[2],ok:!cap||parseFloat(m[1])<=cap};
+}
 function twMarketName(want){
   var hit=state.markets.filter(function(m){return m.toLowerCase()===want.toLowerCase();})[0];
   if(hit)return hit;
@@ -1108,23 +1145,31 @@ function twMarketName(want){
 }
 function twMarket(desc){
   var d=(desc||'').toLowerCase();
+  /* A number sitting next to a stat word only reads as a player line if one
+     player could actually put it up. "Total Over 165.5 Points" is a game
+     total; "A'ja Wilson 30 Points" is a prop. Same words, different size. */
+  var sf=statFit(d),human=!sf||sf.ok;
   if(/\b(sgp|parlay|leg)\b/.test(d))return twMarketName('Parlay');
   /* A named stat with a number attached is a prop however it is written.
      This has to be asked before the spread test, or "5+ Assists" reads as
      a spread and, failing that, falls through to the first market on the
      list \u2014 which is how a stack of props all came out as moneylines. */
-  if(STAT_RE.test(d)&&(ALT_LINE.test(d)||/\b[ou]\s?\d|\b(over|under)\b/.test(d)))return twMarketName('Player prop');
+  if(human&&STAT_RE.test(d)&&(ALT_LINE.test(d)||/\b[ou]\s?\d|\b(over|under)\b/.test(d)))return twMarketName('Player prop');
   if(SCORER_RE.test(d))return twMarketName('Player prop');
   if(/\b(ml|moneyline|money line)\b/.test(d))return twMarketName('Moneyline');
   if(/\bspread\b|\b(rl|run line|puck line)\b/.test(d))return twMarketName('Spread');
   if(/\b(total|totals)\b/.test(d))return twMarketName('Total');
   if(/\b[ou]\s?\d|\b(over|under)\b/.test(d))
-    return twMarketName(STAT_RE.test(d)?'Player prop':'Total');
-  if(ALT_LINE.test(d))return twMarketName('Player prop');
+    return twMarketName((human&&STAT_RE.test(d))?'Player prop':'Total');
+  if(human&&ALT_LINE.test(d))return twMarketName('Player prop');
+  if(human&&sf)return twMarketName('Player prop');
   if(/[+-]\d{1,2}(\.5)?\b/.test(d))return twMarketName('Spread');
   return state.markets[0]||'Other';
 }
-var ODDS_RE=/(?:^|[\s(\[|,])([+-]\d{3,5})(?![\d.])/;
+var ODDS_RE=/(?:^|[\s(\[|,\u2022\u00b7])([+-]\d{3,5})(?![\d.])/;
+/* a bullet, a middle dot or a pipe between the fields of a play. The pipe is
+   still read because tweets already went up with it. */
+var FIELD_SEP=/\s*[|\u2022\u00b7]\s*/;
 var ODDS_ONLY=/^[+-]\d{3,5}$/;
 var UNITS_RE=/(\d*\.?\d+)\s*(?:u\b|units?\b)/i;
 var UNITS_ONLY=/^(\d*\.?\d+)\s*(?:u|units?)$/i;
@@ -1142,7 +1187,7 @@ function parseTweet(text){
   });
   if(cur.length)blocks.push(cur);
   var tweetSport=bestSport(sportsIn(text));   /* league voted on by every team named */
-  var rows=[],carrySport='';
+  var rows=[],carrySport='',carryGame='';
   blocks.forEach(function(bl){
     /* a sport stated outright always wins */
     var kept=[];
@@ -1163,7 +1208,12 @@ function parseTweet(text){
               only:ODDS_ONLY.test(l)};
     });
     var priced=items.filter(function(it){return it.odds!=null;});
-    if(!priced.length)return;
+    /* A matchup written once, above the plays it belongs to, is a block with
+       no price in it. Dropping it lost the game on every play underneath. */
+    if(!priced.length){
+      kept.forEach(function(l){if(looksLikeGame(l))carryGame=l;});
+      return;
+    }
 
     var firstU=-1,firstO=-1,ii;
     for(ii=0;ii<items.length;ii++){
@@ -1190,11 +1240,13 @@ function parseTweet(text){
     var blockGame='',who='';
     items.forEach(function(it,i){
       if(it.odds!=null||it.units!=null)return;
-      if(!blockGame&&looksLikeGame(it.line))return void(blockGame=it.line);
+      if(!blockGame&&looksLikeGame(it.line))return void(blockGame=it.line,it.isGame=true);
       if(who||firstO<0||i>firstO)return;
       /* short, no digits, no sentence ending: a name, not chatter */
       if(it.line.split(' ').length<=5&&!/\d/.test(it.line)&&!/[.!?:]$/.test(it.line))who=it.line;
     });
+    /* a block that names its own game sets the game for the ones after it */
+    if(blockGame)carryGame=blockGame;else blockGame=carryGame;
 
     if(priced.length===1&&priced[0].only){
       /* the four-line shape: matchup / play / price / stake */
@@ -1203,6 +1255,7 @@ function parseTweet(text){
       if(!rest.length)return;
       var game1='',play1=rest.join(' ');
       if(rest.length>1&&looksLikeGame(rest[0])){game1=rest[0];play1=rest.slice(1).join(' ');}
+      else if(!looksLikeGame(play1))game1=carryGame;
       var u1=priced[0].stake!=null?priced[0].stake:(fallbackUnits!=null?fallbackUnits:1);
       var sp1=carrySport||bestSport(sportsIn(game1+' '+play1))||tweetSport;
       rows.push({on:true,game:game1,desc:play1,odds:priced[0].odds,
@@ -1214,9 +1267,27 @@ function parseTweet(text){
 
     /* otherwise every line carrying a price is its own play */
     var startAt=rows.length,dropped=[];
-    items.forEach(function(it){
+    items.forEach(function(it,idx){
       if(it.odds==null)return;
-      var line=it.line.replace(String(it.odds>0?'+':'')+it.odds,' ');
+      var src=it.line,lineGame='';
+      /* "Mystics @ Aces | Mystics +7.5 | -122 | 1.25U" \u2014 one play, one line,
+         carrying its own matchup. This is what the rewriter emits, so the
+         reader has to be able to take it back. */
+      var segs=src.split(FIELD_SEP);
+      if(segs.length>1&&looksLikeGame(segs[0])){lineGame=segs[0].trim();src=segs.slice(1).join(' | ');}
+      var line=src.replace(String(it.odds>0?'+':'')+it.odds,' ');
+      /* A price alone on its line describes the play written above it. Walk
+         back past the stake to find it. Without this, a run of plays with no
+         blank line between them lost every description and the whole paste
+         came back empty with nothing said about it. */
+      if(it.only){
+        for(var b=idx-1;b>=0;b--){
+          if(items[b].odds!=null)break;          /* that text belongs to the earlier price */
+          if(items[b].units!=null)continue;      /* a stake, keep walking */
+          if(items[b].isGame||items[b].taken)continue;
+          items[b].taken=true;line=items[b].line;break;
+        }
+      }
       var um=line.match(UNITS_RE);
       var units=um?parseFloat(um[1])
                   :(it.stake!=null?it.stake:(fallbackUnits!=null?fallbackUnits:1));
@@ -1224,14 +1295,14 @@ function parseTweet(text){
       var sm=line.match(new RegExp('\\b('+state.sports.map(function(s){
         return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('|')+')\\b','i'));
       if(sm){carrySport=canonSport(sm[1]);line=line.replace(sm[0],' ');}
-      var desc=line.replace(/[()\[\]|]/g,' ').replace(/\s[-\u2013\u2014:]\s/g,' ')
+      var desc=line.replace(/[()\[\]|\u2022\u00b7]/g,' ').replace(/\s[-\u2013\u2014:]\s/g,' ')
                    .replace(/\s+/g,' ')
                    .replace(/^[\s\-\u2013\u2014:,]+|[\s\-\u2013\u2014:,]+$/g,'').trim();
       if(!desc){dropped.push(oddsStr(it.odds));return;}
       /* keep the player on the play \u2014 "5+ Assists" on its own says nothing */
       if(who&&desc.toLowerCase().indexOf(who.toLowerCase())<0)desc=who+' '+desc;
       var sp=carrySport||bestSport(sportsIn(blockGame+' '+desc))||tweetSport;
-      rows.push({on:true,game:blockGame,desc:desc,odds:it.odds,
+      rows.push({on:true,game:lineGame||blockGame,desc:desc,odds:it.odds,
                  units:units>0?units:1,sport:canonSport(sp||state.sports[0]),
                  book:($('#tw-book')&&$('#tw-book').value)||state.books[0],
                  market:twMarket(desc)});
@@ -1242,6 +1313,94 @@ function parseTweet(text){
     }
   });
   return rows;
+}
+/* ---------- rewriting a tweet before it goes up ---------- */
+/* "6 Rebounds" settles how? Six exactly, or six or more? A stranger reading
+   the log months later should not have to guess, so a whole number sitting
+   next to a stat gets the plus that says which. A line already carrying a
+   direction, a plus, or a half point is left exactly as written. */
+var RW_STAT=/(^|[^\d.])(\d+)(\s*)(pts|points|ast|asts|assists|reb|rebs|rebounds|pra|3pm|3pt|3ptm|3s|threes|blk|blks|blocks|stl|stls|steals|turnovers|ks|strikeouts|hits|rbi|rbis|bases|sog|shots|saves|goals|yds|yards|tds|touchdowns|receptions|recs|kills)\b/i;
+function rwPlus(desc){
+  var d=String(desc||'');
+  if(/\b(over|under)\b|\b[ou]\s?\d/i.test(d))return d;   /* direction already said */
+  if(/\d\s*\+/.test(d))return d;                        /* already an alt line */
+  var sf=statFit(d.toLowerCase());
+  if(!sf||!sf.ok)return d;                              /* not a number a person puts up */
+  return d.replace(RW_STAT,function(m,pre,n,sp,st){return pre+n+'+'+(sp||' ')+st;});
+}
+/* a stake reads as short as it truly is: 1U, 0.3U, 0.125U \u2014 never 0.30U */
+function rwU(u){return (+u).toFixed(4).replace(/0+$/,'').replace(/\.$/,'');}
+/* One marker on the matchup line, never on a play. It is there to be scanned
+   past, not to sell anything. The reader strips it straight back out. */
+var RW_MARK={NBA:'\uD83C\uDFC0',WNBA:'\uD83C\uDFC0',NCAAMB:'\uD83C\uDFC0',NCAAWB:'\uD83C\uDFC0',
+  NFL:'\uD83C\uDFC8',NCAAFB:'\uD83C\uDFC8',CFB:'\uD83C\uDFC8',
+  NHL:'\uD83C\uDFD2',MLB:'\u26BE',
+  SOCCER:'\u26BD',EPL:'\u26BD',MLS:'\u26BD',UCL:'\u26BD',
+  TENNIS:'\uD83C\uDFBE',GOLF:'\u26F3',UFC:'\uD83E\uDD4A',MMA:'\uD83E\uDD4A',BOXING:'\uD83E\uDD4A'};
+function rwMark(sport){
+  var k=String(sport||'').toUpperCase().replace(/[^A-Z]/g,'');
+  return RW_MARK[k]?RW_MARK[k]+' ':'';
+}
+/* Two lines a play. The play and its price are one thought, so they share a
+   line; the stake is what a reader scans for, so it gets its own. A blank
+   line between makes each play a block instead of a wall. */
+function rwBuild(rows){
+  var out=[],i=0;
+  while(i<rows.length){
+    var g=(rows[i].game||''),j=i;
+    while(j<rows.length&&(rows[j].game||'')===g)j++;
+    var grp=rows.slice(i,j);
+    if(g){out.push(rwMark(grp[0].sport)+g);out.push('');}
+    grp.forEach(function(r){
+      out.push(rwPlus(r.desc)+' ('+oddsStr(r.odds)+')');
+      out.push(rwU(r.units)+'U');
+      out.push('');
+    });
+    i=j;
+  }
+  while(out.length&&!out[out.length-1])out.pop();
+  return out.join('\n');
+}
+function wireRewrite(){
+  if(!$('#rw-go'))return;
+  function count(){
+    var t=$('#rw-out').value,n=0,i,c;
+    for(i=0;i<t.length;i++){
+      c=t.charCodeAt(i);
+      if(c>=0xD800&&c<=0xDBFF){n+=2;i++;}          /* an emoji, which X counts twice */
+      else if(c>=0x2190&&c<=0x2BFF)n+=2;
+      else n++;
+    }
+    $('#rw-count').textContent=n+' character'+(n===1?'':'s')+' on X'+
+      (n>280?'  \u2014  over the 280 limit':'');
+  }
+  $('#rw-go').onclick=function(){
+    var rows=parseTweet($('#rw-in').value);
+    if(!rows.length){
+      $('#rw-note').textContent='No prices found \u2014 every play needs American odds.';
+      $('#rw-result').style.display='none';return;
+    }
+    $('#rw-note').textContent=rows.length+' play'+(rows.length===1?'':'s')+' read.';
+    $('#rw-out').value=rwBuild(rows);
+    $('#rw-result').style.display='';
+    count();
+  };
+  $('#rw-out').oninput=count;
+  $('#rw-clear').onclick=function(){
+    $('#rw-in').value='';$('#rw-out').value='';$('#rw-note').textContent='';
+    $('#rw-result').style.display='none';
+  };
+  $('#rw-copy').onclick=function(){
+    var t=$('#rw-out').value;
+    if(!t){toast('Nothing to copy');return;}
+    copyText(t);
+  };
+  $('#rw-x').onclick=function(){
+    var t=$('#rw-out').value;
+    if(!t){toast('Nothing to post');return;}
+    /* the text rides in the URL, where a line break cannot be reinterpreted */
+    window.open('https://x.com/intent/post?text='+encodeURIComponent(t),'_blank');
+  };
 }
 function twDupe(r,date){
   var d=(r.desc||'').trim().toLowerCase(),g=(r.game||'').trim().toLowerCase();
@@ -1275,14 +1434,14 @@ function renderTweetRows(){
     sel(state.markets,r.market,'market');
     function txt(val,key){
       var td=el('td'),i=document.createElement('input');
-      i.type='text';i.value=val||'';i.style.width='100%';
+      i.type='text';i.autocomplete='off';i.value=val||'';i.style.width='100%';
       i.oninput=function(){r[key]=i.value;};
       td.appendChild(i);tr.appendChild(td);
     }
     txt(r.game,'game');txt(r.desc,'desc');
     function num(val,key,step){
       var td=el('td','n'),n=document.createElement('input');
-      n.type='number';n.value=val;n.step=step;n.style.width='84px';
+      n.type='number';n.autocomplete='off';n.value=val;n.step=step;n.style.width='84px';
       n.oninput=function(){r[key]=parseFloat(n.value)||0;twSummary();};
       td.appendChild(n);tr.appendChild(td);
     }
@@ -4064,11 +4223,11 @@ function boot(){
   inp.onkeydown=function(e){if(e.key==='Enter')attempt();};
 }
 
-function init(){
-  load();
-  $('#i-date').value=ymd(new Date());
-  $('#i-amt').value=state.unitSize;
-  $('#i-units').value=1;
+/* Safari refills text boxes from an earlier visit when the page reloads, and
+   it matches them by position, not by name. Drop in a new build and yesterday's
+   half-typed play can land in Sports. These boxes are only ever a view of the
+   log, so re-read them from the log every time the page comes back. */
+function fillSettings(){
   $('#i-unitsize').value=state.unitSize;
   $('#i-quick').value=state.quick.join(', ');
   $('#i-sports').value=state.sports.join(', ');
@@ -4076,13 +4235,22 @@ function init(){
   $('#i-markets').value=state.markets.join(', ');
   $('#i-tags').value=state.tags.join(', ');
   $('#i-pubtitle').value=state.pubTitle;
+}
+function init(){
+  load();
+  $('#i-date').value=ymd(new Date());
+  $('#i-amt').value=state.unitSize;
+  $('#i-units').value=1;
+  fillSettings();
+  window.addEventListener('pageshow',fillSettings);
+  setTimeout(fillSettings,0);
   seedIds();
   $('#p-site').value=state.siteHost||'';
   $('#g-foot').value=state.gHandle||'';
   $('#p-tags').value=state.gTags||'';
   $('#p-date').value=latestPubDate(false)||ymd(new Date());
   pShowHide();
-  buildSelects();buildQuick();wirePublish();wireSync();wirePin();render();wireCurve();wireTweet();
+  buildSelects();buildQuick();wirePublish();wireSync();wirePin();render();wireCurve();wireTweet();wireRewrite();
   wirePost();
   loadAvatar();
   if(document.fonts&&document.fonts.ready&&document.fonts.ready.then)
@@ -4151,9 +4319,14 @@ function init(){
   $('#btn-savelists').onclick=function(){
     var sp=csvList($('#i-sports').value),bk=csvList($('#i-books').value),
         mk=csvList($('#i-markets').value),tg=csvList($('#i-tags').value);
+    /* a matchup or a price in one of these boxes is a refilled field, not a list */
+    var junk=[].concat(sp,bk,mk,tg).filter(function(x){
+      return looksLikeGame(x)||/[+-]\d{2,}/.test(x);});
+    if(junk.length&&!confirm('These do not look like list entries:\n\n  '+
+        junk.join('\n  ')+'\n\nSave anyway?')){fillSettings();return;}
     if(sp.length)state.sports=sp;if(bk.length)state.books=bk;
     if(mk.length)state.markets=mk;if(tg.length)state.tags=tg;
-    save();buildSelects();render();toast('Lists saved');};
+    save();buildSelects();render();fillSettings();toast('Lists saved');};
 
   $('#i-pubtitle').onchange=function(){state.pubTitle=this.value.trim()||'UNITS TRACKER';save();toast('Title saved');};
   $('#btn-preview').onclick=function(){

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 11, 2026, 1:21 AM EDT",
+  "updated": "Aug 11, 2026, 3:11 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1035,6 +1035,72 @@
       "units": 0.05,
       "result": "Loss",
       "units_pl": -0.05
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Pirates @ Marlins",
+      "play": "PIT ML",
+      "odds": -104,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Pirates @ Marlins",
+      "play": "PIT -1",
+      "odds": 117,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "WNBA",
+      "market": "Spread",
+      "game": "Liberty @ Fever",
+      "play": "Fever -2.5",
+      "odds": 100,
+      "units": 0.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "WNBA",
+      "market": "Spread",
+      "game": "Mystics @ Aces",
+      "play": "Mystics +7.5",
+      "odds": -122,
+      "units": 1.25,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Phillies @ Cardinals",
+      "play": "1H Under 4.5",
+      "odds": -111,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Reds @ White Sox",
+      "play": "White Sox -1",
+      "odds": -112,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

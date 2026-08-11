@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 10, 2026, 6:53 PM EDT",
+  "updated": "Aug 11, 2026, 1:21 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -945,8 +945,8 @@
       "play": "Under 7.5",
       "odds": -115,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.8696
     },
     {
       "date": "2026-08-10",
@@ -956,74 +956,8 @@
       "play": "Orioles ML",
       "odds": 101,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
-    },
-    {
-      "date": "2026-08-10",
-      "sport": "MLB",
-      "market": "Moneyline",
-      "game": "Phillies @ Cardinals",
-      "play": "Cardinals ML",
-      "odds": 108,
-      "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
-    },
-    {
-      "date": "2026-08-10",
-      "sport": "MLB",
-      "market": "Spread",
-      "game": "Phillies @ Cardinals",
-      "play": "Cardinals +1.5",
-      "odds": -150,
-      "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
-    },
-    {
-      "date": "2026-08-10",
-      "sport": "WNBA",
-      "market": "Player prop",
-      "game": "Sky @ Storm",
-      "play": "Hiedeman O15.5 Points",
-      "odds": -104,
-      "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
-    },
-    {
-      "date": "2026-08-10",
-      "sport": "WNBA",
-      "market": "Player prop",
-      "game": "Sky @ Storm",
-      "play": "Hiedeman O19.5 Points",
-      "odds": 290,
-      "units": 0.15,
-      "result": "Pending",
-      "units_pl": null
-    },
-    {
-      "date": "2026-08-10",
-      "sport": "WNBA",
-      "market": "Player prop",
-      "game": "Sky @ Storm",
-      "play": "Hiedeman O24.5 Points",
-      "odds": 900,
-      "units": 0.1,
-      "result": "Pending",
-      "units_pl": null
-    },
-    {
-      "date": "2026-08-10",
-      "sport": "WNBA",
-      "market": "Player prop",
-      "game": "Sky @ Storm",
-      "play": "Hiedeman O29.5 Points",
-      "odds": 2800,
-      "units": 0.05,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
     },
     {
       "date": "2026-08-10",
@@ -1033,8 +967,74 @@
       "play": "Under 8.5",
       "odds": -108,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.9259
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Phillies @ Cardinals",
+      "play": "Cardinals ML",
+      "odds": 108,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Phillies @ Cardinals",
+      "play": "Cardinals +1.5",
+      "odds": -150,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.3333
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Sky @ Storm",
+      "play": "Hiedeman O15.5 Points",
+      "odds": -104,
+      "units": 0.2,
+      "result": "Win",
+      "units_pl": 0.1923
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Sky @ Storm",
+      "play": "Hiedeman O19.5 Points",
+      "odds": 290,
+      "units": 0.15,
+      "result": "Loss",
+      "units_pl": -0.15
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Sky @ Storm",
+      "play": "Hiedeman O24.5 Points",
+      "odds": 900,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1
+    },
+    {
+      "date": "2026-08-10",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Sky @ Storm",
+      "play": "Hiedeman O29.5 Points",
+      "odds": 2800,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 11, 2026, 3:11 PM EDT",
+  "updated": "Aug 11, 2026, 11:58 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1044,8 +1044,8 @@
       "play": "PIT ML",
       "odds": -104,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.5
     },
     {
       "date": "2026-08-11",
@@ -1055,8 +1055,8 @@
       "play": "PIT -1",
       "odds": 117,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.5
     },
     {
       "date": "2026-08-11",
@@ -1066,8 +1066,8 @@
       "play": "Fever -2.5",
       "odds": 100,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.75
     },
     {
       "date": "2026-08-11",
@@ -1077,8 +1077,8 @@
       "play": "Mystics +7.5",
       "odds": -122,
       "units": 1.25,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1.25
     },
     {
       "date": "2026-08-11",
@@ -1088,8 +1088,8 @@
       "play": "1H Under 4.5",
       "odds": -111,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.9009
     },
     {
       "date": "2026-08-11",
@@ -1099,8 +1099,85 @@
       "play": "White Sox -1",
       "odds": -112,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -1
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Mystics @ Aces",
+      "play": "NaLyssa Smith 6+ Rebounds",
+      "odds": -108,
+      "units": 0.3,
+      "result": "Win",
+      "units_pl": 0.2778
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Mystics @ Aces",
+      "play": "NaLyssa Smith 8+ Rebounds",
+      "odds": 375,
+      "units": 0.1,
+      "result": "Win",
+      "units_pl": 0.375
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Mystics @ Aces",
+      "play": "NaLyssa Smith 10+ Rebounds",
+      "odds": 1050,
+      "units": 0.1,
+      "result": "Win",
+      "units_pl": 1.05
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Mystics @ Aces",
+      "play": "Jackie Young 5+ Rebounds",
+      "odds": 117,
+      "units": 0.3,
+      "result": "Loss",
+      "units_pl": -0.3
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Mystics @ Aces",
+      "play": "Jackie Young 6+ Rebounds",
+      "odds": 230,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Mystics @ Aces",
+      "play": "Jackie Young 8+ Rebounds",
+      "odds": 880,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1
+    },
+    {
+      "date": "2026-08-11",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Reds @ White Sox",
+      "play": "Under 8",
+      "odds": -118,
+      "units": 1,
+      "result": "Loss",
+      "units_pl": -1
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 12, 2026, 1:15 AM EDT",
+  "updated": "Aug 13, 2026, 6:05 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1178,6 +1178,105 @@
       "units": 1,
       "result": "Loss",
       "units_pl": -1
+    },
+    {
+      "date": "2026-08-12",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Orioles @ Twins",
+      "play": "Under 9",
+      "odds": -118,
+      "units": 1.25,
+      "result": "Loss",
+      "units_pl": -1.25
+    },
+    {
+      "date": "2026-08-12",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Rockies @ Diamondbacks",
+      "play": "Diamondbacks -1",
+      "odds": -135,
+      "units": 1.5,
+      "result": "Loss",
+      "units_pl": -1.5
+    },
+    {
+      "date": "2026-08-12",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Tempo @ Wings",
+      "play": "Marina Mabrey Over 4+ Assists",
+      "odds": -144,
+      "units": 0.35,
+      "result": "Win",
+      "units_pl": 0.2431
+    },
+    {
+      "date": "2026-08-12",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Tempo @ Wings",
+      "play": "Marina Mabrey Over 6+ Assists",
+      "odds": 320,
+      "units": 0.2,
+      "result": "Loss",
+      "units_pl": -0.2
+    },
+    {
+      "date": "2026-08-12",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Tempo @ Wings",
+      "play": "Marina Mabrey Over 8+ Assists",
+      "odds": 1200,
+      "units": 0.2,
+      "result": "Loss",
+      "units_pl": -0.2
+    },
+    {
+      "date": "2026-08-12",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Tempo @ Wings",
+      "play": "Awak Kuier Over 7+ Points",
+      "odds": -111,
+      "units": 0.35,
+      "result": "Win",
+      "units_pl": 0.3153
+    },
+    {
+      "date": "2026-08-12",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Tempo @ Wings",
+      "play": "Awak Kuier Over 10+ Points",
+      "odds": 240,
+      "units": 0.2,
+      "result": "Win",
+      "units_pl": 0.48
+    },
+    {
+      "date": "2026-08-12",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Tempo @ Wings",
+      "play": "Awak Kuier Over 15+ Points",
+      "odds": 900,
+      "units": 0.2,
+      "result": "Loss",
+      "units_pl": -0.2
+    },
+    {
+      "date": "2026-08-13",
+      "sport": "MLB",
+      "market": "Other",
+      "game": "Brewers @ Dodgers",
+      "play": "NRFI",
+      "odds": 102,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

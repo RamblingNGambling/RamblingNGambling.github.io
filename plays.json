@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 13, 2026, 9:07 PM EDT",
+  "updated": "Aug 14, 2026, 12:41 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1275,8 +1275,8 @@
       "play": "NRFI",
       "odds": 102,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 1.02
     }
   ]
 }

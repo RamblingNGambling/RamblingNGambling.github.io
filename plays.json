@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 14, 2026, 12:41 AM EDT",
+  "updated": "Aug 14, 2026, 1:08 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1277,6 +1277,50 @@
       "units": 1,
       "result": "Win",
       "units_pl": 1.02
+    },
+    {
+      "date": "2026-08-13",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Marlins @ Reds",
+      "play": "Under 8 Total Runs",
+      "odds": -115,
+      "units": 0.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-13",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Fire @ Storm",
+      "play": "Ezi Magbegor Over 7+ Points",
+      "odds": -130,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-13",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Fire @ Storm",
+      "play": "Ezi Magbegor Over 10+ Points",
+      "odds": 205,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-13",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Fire @ Storm",
+      "play": "Ezi Magbegor Over 15+ Points",
+      "odds": 900,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

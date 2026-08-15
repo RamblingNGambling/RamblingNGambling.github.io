@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 14, 2026, 1:08 AM EDT",
+  "updated": "Aug 14, 2026, 8:32 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1319,6 +1319,28 @@
       "play": "Ezi Magbegor Over 15+ Points",
       "odds": 900,
       "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-14",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Nationals @ Mets",
+      "play": "1H Nationals ML",
+      "odds": -104,
+      "units": 0.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-14",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Marlins @ Reds",
+      "play": "1H Red ML",
+      "odds": -117,
+      "units": 0.75,
       "result": "Pending",
       "units_pl": null
     }

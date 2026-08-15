@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 14, 2026, 8:32 PM EDT",
+  "updated": "Aug 14, 2026, 10:12 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1279,18 +1279,18 @@
       "units_pl": 1.02
     },
     {
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "sport": "MLB",
       "market": "Total",
       "game": "Marlins @ Reds",
       "play": "Under 8 Total Runs",
       "odds": -115,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.6522
     },
     {
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "sport": "WNBA",
       "market": "Player prop",
       "game": "Fire @ Storm",
@@ -1301,7 +1301,7 @@
       "units_pl": null
     },
     {
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "sport": "WNBA",
       "market": "Player prop",
       "game": "Fire @ Storm",
@@ -1312,7 +1312,7 @@
       "units_pl": null
     },
     {
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "sport": "WNBA",
       "market": "Player prop",
       "game": "Fire @ Storm",
@@ -1330,8 +1330,8 @@
       "play": "1H Nationals ML",
       "odds": -104,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.7212
     },
     {
       "date": "2026-08-14",
@@ -1341,8 +1341,8 @@
       "play": "1H Red ML",
       "odds": -117,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Push",
+      "units_pl": 0
     }
   ]
 }

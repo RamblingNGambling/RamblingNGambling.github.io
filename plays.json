@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 15, 2026, 2:08 AM EDT",
+  "updated": "Aug 15, 2026, 12:54 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1343,6 +1343,39 @@
       "units": 0.75,
       "result": "Push",
       "units_pl": 0
+    },
+    {
+      "date": "2026-08-15",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Liberty @ Sun",
+      "play": "Diamond Miller Over 20+ Points",
+      "odds": 900,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-15",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Liberty @ Sun",
+      "play": "Diamond Miller Over 15+ Points",
+      "odds": 325,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-15",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Liberty @ Sun",
+      "play": "Diamond Miller Over 11+ Points",
+      "odds": -121,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

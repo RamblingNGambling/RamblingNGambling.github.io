@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 16, 2026, 1:05 AM EDT",
+  "updated": "Aug 16, 2026, 1:31 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1431,6 +1431,61 @@
       "units": 0.025,
       "result": "Loss",
       "units_pl": -0.025
+    },
+    {
+      "date": "2026-08-16",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Fernado Tatis Jr. Over 0.5 Stolen Bases",
+      "odds": 840,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-16",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Corbin Carroll Over 0.5 Stolen Bases",
+      "odds": 500,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-16",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Randy Arozarena Over 0.5 Stolen Bases",
+      "odds": 500,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-16",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Ronald Acuna Jr. Over 0.5 Stolen Bases",
+      "odds": 750,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-16",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Elly De La Cruz Over 0.5 Stolen Bases",
+      "odds": 240,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

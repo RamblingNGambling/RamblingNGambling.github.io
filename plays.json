@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 15, 2026, 12:54 PM EDT",
+  "updated": "Aug 16, 2026, 1:05 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1352,8 +1352,8 @@
       "play": "Diamond Miller Over 20+ Points",
       "odds": 900,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.2
     },
     {
       "date": "2026-08-15",
@@ -1363,8 +1363,8 @@
       "play": "Diamond Miller Over 15+ Points",
       "odds": 325,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.2
     },
     {
       "date": "2026-08-15",
@@ -1374,8 +1374,63 @@
       "play": "Diamond Miller Over 11+ Points",
       "odds": -121,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.1653
+    },
+    {
+      "date": "2026-08-15",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Acuna x Seager HR",
+      "odds": 2154,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1
+    },
+    {
+      "date": "2026-08-15",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Contreras HR + Burger HR",
+      "odds": 3558,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05
+    },
+    {
+      "date": "2026-08-15",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Contreras HR + Carroll HR",
+      "odds": 3124,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05
+    },
+    {
+      "date": "2026-08-15",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Burger HR + Carroll HR",
+      "odds": 2968,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05
+    },
+    {
+      "date": "2026-08-15",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Contreras HR + Burger HR + Carroll HR",
+      "odds": 18922,
+      "units": 0.025,
+      "result": "Loss",
+      "units_pl": -0.025
     }
   ]
 }

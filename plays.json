@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 17, 2026, 5:16 PM EDT",
+  "updated": "Aug 17, 2026, 5:18 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1495,6 +1495,61 @@
       "play": "Alonso HR + Ohtani HR",
       "odds": 1894,
       "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-17",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Carroll Over 0.5 Stolen Bases + o/uU Over 0.5 + Carrigg Over 0.5 Stolen Bases",
+      "odds": 13745,
+      "units": 0.025,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-17",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Carroll Over 0.5 Stolen Bases + Tatis Over 0.5 Stolen Bases",
+      "odds": 2943,
+      "units": 0.05,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-17",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Carroll Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases",
+      "odds": 2239,
+      "units": 0.05,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-17",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Tatis Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases",
+      "odds": 2594,
+      "units": 0.05,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-17",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Dodgers @ Rockies",
+      "play": "Under 11 Runs",
+      "odds": -115,
+      "units": 0.5748,
       "result": "Pending",
       "units_pl": null
     }

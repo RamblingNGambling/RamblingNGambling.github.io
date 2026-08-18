@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 18, 2026, 1:28 AM EDT",
+  "updated": "Aug 18, 2026, 3:09 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1552,6 +1552,72 @@
       "units": 0.5748,
       "result": "Loss",
       "units_pl": -0.5748
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Padres @ Mets",
+      "play": "Padres ML",
+      "odds": -106,
+      "units": 0.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Giants @ Guardians",
+      "play": "Guardians -1",
+      "odds": -136,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Diamondbacks @ Red Sox",
+      "play": "YRFI",
+      "odds": 127,
+      "units": 0.75,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jonah Cox Over 0.5 Stolen Bases",
+      "odds": 600,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Los Angeles Sparks @ Connecticut Sun",
+      "play": "Olivia Nelson-Ododa Score 15+ Points",
+      "odds": 192,
+      "units": 0.15,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Los Angeles Sparks @ Connecticut Sun",
+      "play": "Olivia Nelson-Ododa Score 20+ Points",
+      "odds": 670,
+      "units": 0.05,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

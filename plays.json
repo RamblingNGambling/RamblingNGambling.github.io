@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 18, 2026, 3:09 PM EDT",
+  "updated": "Aug 18, 2026, 10:47 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1561,8 +1561,8 @@
       "play": "Padres ML",
       "odds": -106,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.7075
     },
     {
       "date": "2026-08-18",
@@ -1572,8 +1572,8 @@
       "play": "Guardians -1",
       "odds": -136,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.3676
     },
     {
       "date": "2026-08-18",
@@ -1583,8 +1583,8 @@
       "play": "YRFI",
       "odds": 127,
       "units": 0.75,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.9525
     },
     {
       "date": "2026-08-18",
@@ -1594,8 +1594,8 @@
       "play": "Jonah Cox Over 0.5 Stolen Bases",
       "odds": 600,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.1
     },
     {
       "date": "2026-08-18",
@@ -1605,8 +1605,8 @@
       "play": "Olivia Nelson-Ododa Score 15+ Points",
       "odds": 192,
       "units": 0.15,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.288
     },
     {
       "date": "2026-08-18",
@@ -1616,8 +1616,52 @@
       "play": "Olivia Nelson-Ododa Score 20+ Points",
       "odds": 670,
       "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Shohei Ohtani Over 0.5 Stolen Bases",
+      "odds": 650,
+      "units": 0.1,
       "result": "Pending",
       "units_pl": null
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "Athletics @ Kansas City Royals",
+      "play": "Lawrence Butler HR",
+      "odds": 710,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Diamondbacks @ Red Sox",
+      "play": "1H Red Sox ML",
+      "odds": -160,
+      "units": 1,
+      "result": "Win",
+      "units_pl": 0.625
+    },
+    {
+      "date": "2026-08-18",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Mariners @ Brewers",
+      "play": "Mariners ML",
+      "odds": 156,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5
     }
   ]
 }

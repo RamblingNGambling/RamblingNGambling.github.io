@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 18, 2026, 10:56 PM EDT",
+  "updated": "Aug 18, 2026, 11:49 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1627,8 +1627,8 @@
       "play": "Shohei Ohtani Over 0.5 Stolen Bases",
       "odds": 650,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.1
     },
     {
       "date": "2026-08-18",
@@ -1638,8 +1638,8 @@
       "play": "Lawrence Butler HR",
       "odds": 710,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.1
     },
     {
       "date": "2026-08-18",

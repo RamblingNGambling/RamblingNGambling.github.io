@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 20, 2026, 1:11 AM EDT",
+  "updated": "Aug 20, 2026, 5:25 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1675,13 +1675,68 @@
       "units_pl": -0.2
     },
     {
-      "date": "2026-08-19",
+      "date": "2026-08-20",
       "sport": "MLB",
       "market": "Moneyline",
       "game": "Athletics @ Royals",
       "play": "1H Athletics ML",
       "odds": 105,
       "units": 0.6,
+      "result": "Loss",
+      "units_pl": -0.6
+    },
+    {
+      "date": "2026-08-20",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Caminero HR + Alonso HR",
+      "odds": 1738,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1
+    },
+    {
+      "date": "2026-08-20",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Athletics @ Royals",
+      "play": "Under 9.5",
+      "odds": 115,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.575
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Lynx @ Mystics (Friday)",
+      "play": "Olivia Miles Over 30+ Points",
+      "odds": 1300,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Lynx @ Mystics (Friday)",
+      "play": "Olivia Miles Over 25+ Points",
+      "odds": 415,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Lynx @ Mystics (Friday)",
+      "play": "Olivia Miles Over 20+ Points",
+      "odds": 108,
+      "units": 0.2,
       "result": "Pending",
       "units_pl": null
     }

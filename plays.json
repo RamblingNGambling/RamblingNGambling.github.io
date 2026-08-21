@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 20, 2026, 5:25 PM EDT",
+  "updated": "Aug 21, 2026, 2:00 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1737,6 +1737,50 @@
       "play": "Olivia Miles Over 20+ Points",
       "odds": 108,
       "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Fire @ Tempo",
+      "play": "Aneesah Morrow Over 20+ Points",
+      "odds": 980,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Fire @ Tempo",
+      "play": "Aneesah Morrow Over 15+ Points",
+      "odds": 275,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "Fire @ Tempo",
+      "play": "Aneesah Morrow Over 11+ Points",
+      "odds": -120,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Witt HR + Crow-Armstrong HR",
+      "odds": 2921,
+      "units": 0.1,
       "result": "Pending",
       "units_pl": null
     }

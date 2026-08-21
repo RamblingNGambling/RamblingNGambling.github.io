@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 21, 2026, 2:00 AM EDT",
+  "updated": "Aug 21, 2026, 12:51 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1781,6 +1781,39 @@
       "play": "Witt HR + Crow-Armstrong HR",
       "odds": 2921,
       "units": 0.1,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Nasim Nunez Over 0.5 Stolen Bases",
+      "odds": 450,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jose Caballero Over 0.5 Stolen Bases",
+      "odds": 222,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-21",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Mets @ White Sox",
+      "play": "White Sox ML",
+      "odds": -133,
+      "units": 0.5,
       "result": "Pending",
       "units_pl": null
     }

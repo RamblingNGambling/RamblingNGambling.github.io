@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 21, 2026, 12:51 PM EDT",
+  "updated": "Aug 22, 2026, 12:16 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1715,8 +1715,8 @@
       "play": "Olivia Miles Over 30+ Points",
       "odds": 1300,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.2
     },
     {
       "date": "2026-08-21",
@@ -1726,8 +1726,8 @@
       "play": "Olivia Miles Over 25+ Points",
       "odds": 415,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.2
     },
     {
       "date": "2026-08-21",
@@ -1737,8 +1737,8 @@
       "play": "Olivia Miles Over 20+ Points",
       "odds": 108,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.216
     },
     {
       "date": "2026-08-21",
@@ -1748,8 +1748,8 @@
       "play": "Aneesah Morrow Over 20+ Points",
       "odds": 980,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.2
     },
     {
       "date": "2026-08-21",
@@ -1759,8 +1759,8 @@
       "play": "Aneesah Morrow Over 15+ Points",
       "odds": 275,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.2
     },
     {
       "date": "2026-08-21",
@@ -1770,8 +1770,8 @@
       "play": "Aneesah Morrow Over 11+ Points",
       "odds": -120,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.2
     },
     {
       "date": "2026-08-21",
@@ -1781,8 +1781,8 @@
       "play": "Witt HR + Crow-Armstrong HR",
       "odds": 2921,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.1
     },
     {
       "date": "2026-08-21",
@@ -1792,8 +1792,8 @@
       "play": "Nasim Nunez Over 0.5 Stolen Bases",
       "odds": 450,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.9
     },
     {
       "date": "2026-08-21",
@@ -1803,8 +1803,8 @@
       "play": "Jose Caballero Over 0.5 Stolen Bases",
       "odds": 222,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.2
     },
     {
       "date": "2026-08-21",
@@ -1814,8 +1814,8 @@
       "play": "White Sox ML",
       "odds": -133,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.3759
     }
   ]
 }

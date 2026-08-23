@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 22, 2026, 12:16 AM EDT",
+  "updated": "Aug 23, 2026, 12:49 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1816,6 +1816,50 @@
       "units": 0.5,
       "result": "Win",
       "units_pl": 0.3759
+    },
+    {
+      "date": "2026-08-22",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "",
+      "play": "AJ Ewing OVer 0.5 Stolen Bases",
+      "odds": 600,
+      "units": 0.125,
+      "result": "Win",
+      "units_pl": 0.75
+    },
+    {
+      "date": "2026-08-22",
+      "sport": "UFC",
+      "market": "Moneyline",
+      "game": "",
+      "play": "Shanelle Dyer by KO, TKO, or DQ",
+      "odds": 135,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.675
+    },
+    {
+      "date": "2026-08-22",
+      "sport": "MLB",
+      "market": "Spread",
+      "game": "Braves @ Brewers",
+      "play": "1H Brewers -0.5",
+      "odds": -122,
+      "units": 0.75,
+      "result": "Win",
+      "units_pl": 0.6148
+    },
+    {
+      "date": "2026-08-22",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Jays @ Yankees",
+      "play": "Under 7",
+      "odds": -115,
+      "units": 0.75,
+      "result": "Push",
+      "units_pl": 0
     }
   ]
 }

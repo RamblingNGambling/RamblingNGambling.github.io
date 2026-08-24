@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 23, 2026, 12:49 AM EDT",
+  "updated": "Aug 23, 2026, 11:25 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1860,6 +1860,39 @@
       "units": 0.75,
       "result": "Push",
       "units_pl": 0
+    },
+    {
+      "date": "2026-08-23",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Braves @ Brewers",
+      "play": "Brewers ML",
+      "odds": 130,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5
+    },
+    {
+      "date": "2026-08-23",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Guardians @ Rockies",
+      "play": "Rockies ML",
+      "odds": 150,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5
+    },
+    {
+      "date": "2026-08-23",
+      "sport": "NFL",
+      "market": "Spread",
+      "game": "Seahawks @ Titans",
+      "play": "Seahawks +3.5",
+      "odds": -118,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4237
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 25, 2026, 12:54 AM EDT",
+  "updated": "Aug 25, 2026, 4:42 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1904,6 +1904,17 @@
       "units": 0.5,
       "result": "Win",
       "units_pl": 0.4167
+    },
+    {
+      "date": "2026-08-25",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Cubs @ Diamondbacks",
+      "play": "Diamondbacks",
+      "odds": 102,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

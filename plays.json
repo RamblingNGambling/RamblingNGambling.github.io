@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 23, 2026, 11:25 PM EDT",
+  "updated": "Aug 25, 2026, 12:54 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1893,6 +1893,17 @@
       "units": 0.5,
       "result": "Win",
       "units_pl": 0.4237
+    },
+    {
+      "date": "2026-08-24",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Guardians @ Angels",
+      "play": "Under 8.5 Total Runs",
+      "odds": -120,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4167
     }
   ]
 }

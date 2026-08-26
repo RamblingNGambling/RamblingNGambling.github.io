@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 26, 2026, 12:50 AM EDT",
+  "updated": "Aug 26, 2026, 6:26 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1937,6 +1937,50 @@
       "units": 0.5,
       "result": "Loss",
       "units_pl": -0.5
+    },
+    {
+      "date": "2026-08-26",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Pirates @ Padres",
+      "play": "Padres ML",
+      "odds": -127,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-26",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Reds @ Giants",
+      "play": "Reds ML",
+      "odds": 110,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null
+    },
+    {
+      "date": "2026-08-26",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Phillies @ Mariners",
+      "play": "1H Phillies ML",
+      "odds": -130,
+      "units": 0.65,
+      "result": "Win",
+      "units_pl": 0.5
+    },
+    {
+      "date": "2026-08-26",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Phillies @ Mariners",
+      "play": "Phillies ML",
+      "odds": -125,
+      "units": 0.35,
+      "result": "Pending",
+      "units_pl": null
     }
   ]
 }

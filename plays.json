@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 25, 2026, 4:42 PM EDT",
+  "updated": "Aug 26, 2026, 12:50 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1913,8 +1913,30 @@
       "play": "Diamondbacks",
       "odds": 102,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.51
+    },
+    {
+      "date": "2026-08-25",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Rays @ Tigers",
+      "play": "Under 7",
+      "odds": -130,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.3846
+    },
+    {
+      "date": "2026-08-25",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Reds @ Giants",
+      "play": "Reds ML",
+      "odds": 102,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5
     }
   ]
 }

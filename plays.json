@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 26, 2026, 6:30 PM EDT",
+  "updated": "Aug 26, 2026, 11:30 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1946,8 +1946,8 @@
       "play": "Padres ML",
       "odds": -127,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.3937
     },
     {
       "date": "2026-08-26",
@@ -1957,8 +1957,8 @@
       "play": "Reds ML",
       "odds": 110,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.55
     },
     {
       "date": "2026-08-26",
@@ -1979,8 +1979,8 @@
       "play": "Phillies ML",
       "odds": -125,
       "units": 0.35,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.28
     }
   ]
 }

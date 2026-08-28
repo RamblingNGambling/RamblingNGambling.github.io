@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 28, 2026, 1:28 AM EDT",
+  "updated": "Aug 28, 2026, 2:37 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -11,7 +11,8 @@
       "odds": -115,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.1739
+      "units_pl": 2.1739,
+      "post": ""
     },
     {
       "date": "2026-07-19",
@@ -22,7 +23,8 @@
       "odds": -115,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.1739
+      "units_pl": 2.1739,
+      "post": ""
     },
     {
       "date": "2026-07-20",
@@ -33,7 +35,8 @@
       "odds": -115,
       "units": 2.5,
       "result": "Loss",
-      "units_pl": -2.5
+      "units_pl": -2.5,
+      "post": ""
     },
     {
       "date": "2026-07-20",
@@ -44,7 +47,8 @@
       "odds": -105,
       "units": 2.5,
       "result": "Loss",
-      "units_pl": -2.5
+      "units_pl": -2.5,
+      "post": ""
     },
     {
       "date": "2026-07-22",
@@ -55,7 +59,8 @@
       "odds": -110,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.2727
+      "units_pl": 2.2727,
+      "post": ""
     },
     {
       "date": "2026-07-22",
@@ -66,7 +71,8 @@
       "odds": -110,
       "units": 5,
       "result": "Win",
-      "units_pl": 4.5455
+      "units_pl": 4.5455,
+      "post": ""
     },
     {
       "date": "2026-07-22",
@@ -77,7 +83,8 @@
       "odds": -110,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.2727
+      "units_pl": 2.2727,
+      "post": ""
     },
     {
       "date": "2026-07-25",
@@ -88,7 +95,8 @@
       "odds": 110,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-25",
@@ -99,7 +107,8 @@
       "odds": -166,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.6024
+      "units_pl": 0.6024,
+      "post": ""
     },
     {
       "date": "2026-07-27",
@@ -110,7 +119,8 @@
       "odds": -132,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-27",
@@ -121,7 +131,8 @@
       "odds": 100,
       "units": 1,
       "result": "Win",
-      "units_pl": 1
+      "units_pl": 1,
+      "post": ""
     },
     {
       "date": "2026-07-27",
@@ -132,7 +143,8 @@
       "odds": -123,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-27",
@@ -143,7 +155,8 @@
       "odds": -135,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.7407
+      "units_pl": 0.7407,
+      "post": ""
     },
     {
       "date": "2026-07-27",
@@ -154,7 +167,8 @@
       "odds": -132,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-28",
@@ -165,7 +179,8 @@
       "odds": -110,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.2727
+      "units_pl": 2.2727,
+      "post": ""
     },
     {
       "date": "2026-07-28",
@@ -176,7 +191,8 @@
       "odds": -125,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2
+      "units_pl": 2,
+      "post": ""
     },
     {
       "date": "2026-07-28",
@@ -187,7 +203,8 @@
       "odds": -127,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-28",
@@ -198,7 +215,8 @@
       "odds": -110,
       "units": 2.5,
       "result": "Loss",
-      "units_pl": -2.5
+      "units_pl": -2.5,
+      "post": ""
     },
     {
       "date": "2026-07-28",
@@ -209,7 +227,8 @@
       "odds": -112,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.8929
+      "units_pl": 0.8929,
+      "post": ""
     },
     {
       "date": "2026-07-28",
@@ -220,7 +239,8 @@
       "odds": -134,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.7463
+      "units_pl": 0.7463,
+      "post": ""
     },
     {
       "date": "2026-07-29",
@@ -231,7 +251,8 @@
       "odds": -148,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.6757
+      "units_pl": 0.6757,
+      "post": ""
     },
     {
       "date": "2026-07-29",
@@ -242,7 +263,8 @@
       "odds": -118,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.8475
+      "units_pl": 0.8475,
+      "post": ""
     },
     {
       "date": "2026-07-29",
@@ -253,7 +275,8 @@
       "odds": -141,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.7092
+      "units_pl": 0.7092,
+      "post": ""
     },
     {
       "date": "2026-07-29",
@@ -264,7 +287,8 @@
       "odds": -115,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.8696
+      "units_pl": 0.8696,
+      "post": ""
     },
     {
       "date": "2026-07-29",
@@ -275,7 +299,8 @@
       "odds": -105,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-29",
@@ -286,7 +311,8 @@
       "odds": 123,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-29",
@@ -297,7 +323,8 @@
       "odds": -107,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.9346
+      "units_pl": 0.9346,
+      "post": ""
     },
     {
       "date": "2026-07-29",
@@ -308,7 +335,8 @@
       "odds": -110,
       "units": 2.5,
       "result": "Loss",
-      "units_pl": -2.5
+      "units_pl": -2.5,
+      "post": ""
     },
     {
       "date": "2026-07-30",
@@ -319,7 +347,8 @@
       "odds": -140,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.7143
+      "units_pl": 0.7143,
+      "post": ""
     },
     {
       "date": "2026-07-30",
@@ -330,7 +359,8 @@
       "odds": -150,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.6667
+      "units_pl": 0.6667,
+      "post": ""
     },
     {
       "date": "2026-07-30",
@@ -341,7 +371,8 @@
       "odds": -135,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.7407
+      "units_pl": 0.7407,
+      "post": ""
     },
     {
       "date": "2026-07-30",
@@ -352,7 +383,8 @@
       "odds": 117,
       "units": 0.5,
       "result": "Push",
-      "units_pl": 0
+      "units_pl": 0,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -363,7 +395,8 @@
       "odds": -110,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -374,7 +407,8 @@
       "odds": 118,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -385,7 +419,8 @@
       "odds": -120,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.8333
+      "units_pl": 0.8333,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -396,7 +431,8 @@
       "odds": -108,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -407,7 +443,8 @@
       "odds": -118,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -418,7 +455,8 @@
       "odds": -110,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.2727
+      "units_pl": 2.2727,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -429,7 +467,8 @@
       "odds": -110,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.2727
+      "units_pl": 2.2727,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -440,7 +479,8 @@
       "odds": -115,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.1739
+      "units_pl": 2.1739,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -451,7 +491,8 @@
       "odds": -110,
       "units": 1,
       "result": "Push",
-      "units_pl": 0
+      "units_pl": 0,
+      "post": ""
     },
     {
       "date": "2026-07-31",
@@ -462,7 +503,8 @@
       "odds": 100,
       "units": 1,
       "result": "Win",
-      "units_pl": 1
+      "units_pl": 1,
+      "post": ""
     },
     {
       "date": "2026-08-01",
@@ -473,7 +515,8 @@
       "odds": 130,
       "units": 0.75,
       "result": "Loss",
-      "units_pl": -0.75
+      "units_pl": -0.75,
+      "post": ""
     },
     {
       "date": "2026-08-01",
@@ -484,7 +527,8 @@
       "odds": -120,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-01",
@@ -495,7 +539,8 @@
       "odds": -120,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.0833
+      "units_pl": 2.0833,
+      "post": ""
     },
     {
       "date": "2026-08-01",
@@ -506,7 +551,8 @@
       "odds": -135,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.7407
+      "units_pl": 0.7407,
+      "post": ""
     },
     {
       "date": "2026-08-01",
@@ -517,7 +563,8 @@
       "odds": -105,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-02",
@@ -528,7 +575,8 @@
       "odds": -120,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.8333
+      "units_pl": 0.8333,
+      "post": ""
     },
     {
       "date": "2026-08-02",
@@ -539,7 +587,8 @@
       "odds": 134,
       "units": 0.75,
       "result": "Win",
-      "units_pl": 1.005
+      "units_pl": 1.005,
+      "post": ""
     },
     {
       "date": "2026-08-02",
@@ -550,7 +599,8 @@
       "odds": -110,
       "units": 2.75,
       "result": "Win",
-      "units_pl": 2.5
+      "units_pl": 2.5,
+      "post": ""
     },
     {
       "date": "2026-08-02",
@@ -561,7 +611,8 @@
       "odds": -114,
       "units": 2.75,
       "result": "Loss",
-      "units_pl": -2.75
+      "units_pl": -2.75,
+      "post": ""
     },
     {
       "date": "2026-08-02",
@@ -572,7 +623,8 @@
       "odds": 120,
       "units": 0.75,
       "result": "Loss",
-      "units_pl": -0.75
+      "units_pl": -0.75,
+      "post": ""
     },
     {
       "date": "2026-08-03",
@@ -583,7 +635,8 @@
       "odds": -105,
       "units": 2.5,
       "result": "Loss",
-      "units_pl": -2.5
+      "units_pl": -2.5,
+      "post": ""
     },
     {
       "date": "2026-08-03",
@@ -594,7 +647,8 @@
       "odds": 115,
       "units": 0.25,
       "result": "Loss",
-      "units_pl": -0.25
+      "units_pl": -0.25,
+      "post": ""
     },
     {
       "date": "2026-08-03",
@@ -605,7 +659,8 @@
       "odds": 102,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-03",
@@ -616,7 +671,8 @@
       "odds": 110,
       "units": 0.75,
       "result": "Win",
-      "units_pl": 0.825
+      "units_pl": 0.825,
+      "post": ""
     },
     {
       "date": "2026-08-04",
@@ -627,7 +683,8 @@
       "odds": -120,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.8333
+      "units_pl": 0.8333,
+      "post": ""
     },
     {
       "date": "2026-08-04",
@@ -638,7 +695,8 @@
       "odds": 104,
       "units": 1,
       "result": "Win",
-      "units_pl": 1.04
+      "units_pl": 1.04,
+      "post": ""
     },
     {
       "date": "2026-08-04",
@@ -649,7 +707,8 @@
       "odds": -125,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.8
+      "units_pl": 0.8,
+      "post": ""
     },
     {
       "date": "2026-08-04",
@@ -660,7 +719,8 @@
       "odds": 178,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.89
+      "units_pl": 0.89,
+      "post": ""
     },
     {
       "date": "2026-08-04",
@@ -671,7 +731,8 @@
       "odds": 138,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.69
+      "units_pl": 0.69,
+      "post": ""
     },
     {
       "date": "2026-08-04",
@@ -682,7 +743,8 @@
       "odds": 104,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-05",
@@ -693,7 +755,8 @@
       "odds": -108,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.9259
+      "units_pl": 0.9259,
+      "post": ""
     },
     {
       "date": "2026-08-05",
@@ -704,7 +767,8 @@
       "odds": 115,
       "units": 0.75,
       "result": "Loss",
-      "units_pl": -0.75
+      "units_pl": -0.75,
+      "post": ""
     },
     {
       "date": "2026-08-05",
@@ -715,7 +779,8 @@
       "odds": 115,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-05",
@@ -726,7 +791,8 @@
       "odds": -102,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-05",
@@ -737,7 +803,8 @@
       "odds": 131,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-06",
@@ -748,7 +815,8 @@
       "odds": 104,
       "units": 1,
       "result": "Win",
-      "units_pl": 1.04
+      "units_pl": 1.04,
+      "post": ""
     },
     {
       "date": "2026-08-06",
@@ -759,7 +827,8 @@
       "odds": 153,
       "units": 1,
       "result": "Win",
-      "units_pl": 1.53
+      "units_pl": 1.53,
+      "post": ""
     },
     {
       "date": "2026-08-06",
@@ -770,7 +839,8 @@
       "odds": -137,
       "units": 1,
       "result": "Push",
-      "units_pl": 0
+      "units_pl": 0,
+      "post": ""
     },
     {
       "date": "2026-08-06",
@@ -781,7 +851,8 @@
       "odds": -125,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-06",
@@ -792,7 +863,8 @@
       "odds": -102,
       "units": 1.25,
       "result": "Loss",
-      "units_pl": -1.25
+      "units_pl": -1.25,
+      "post": ""
     },
     {
       "date": "2026-08-06",
@@ -803,7 +875,8 @@
       "odds": 150,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-06",
@@ -814,7 +887,8 @@
       "odds": 103,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-07",
@@ -825,7 +899,8 @@
       "odds": -115,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-08",
@@ -836,7 +911,8 @@
       "odds": 100,
       "units": 0.25,
       "result": "Win",
-      "units_pl": 0.25
+      "units_pl": 0.25,
+      "post": ""
     },
     {
       "date": "2026-08-08",
@@ -847,7 +923,8 @@
       "odds": 270,
       "units": 0.125,
       "result": "Loss",
-      "units_pl": -0.125
+      "units_pl": -0.125,
+      "post": ""
     },
     {
       "date": "2026-08-08",
@@ -858,7 +935,8 @@
       "odds": 880,
       "units": 0.125,
       "result": "Loss",
-      "units_pl": -0.125
+      "units_pl": -0.125,
+      "post": ""
     },
     {
       "date": "2026-08-08",
@@ -869,7 +947,8 @@
       "odds": -108,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.3148
+      "units_pl": 2.3148,
+      "post": ""
     },
     {
       "date": "2026-08-08",
@@ -880,7 +959,8 @@
       "odds": -115,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.4348
+      "units_pl": 0.4348,
+      "post": ""
     },
     {
       "date": "2026-08-08",
@@ -891,7 +971,8 @@
       "odds": -120,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.4167
+      "units_pl": 0.4167,
+      "post": ""
     },
     {
       "date": "2026-08-08",
@@ -902,7 +983,8 @@
       "odds": -150,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-09",
@@ -913,7 +995,8 @@
       "odds": 100,
       "units": 2.5,
       "result": "Win",
-      "units_pl": 2.5
+      "units_pl": 2.5,
+      "post": ""
     },
     {
       "date": "2026-08-09",
@@ -924,7 +1007,8 @@
       "odds": -104,
       "units": 0.75,
       "result": "Loss",
-      "units_pl": -0.75
+      "units_pl": -0.75,
+      "post": ""
     },
     {
       "date": "2026-08-09",
@@ -935,7 +1019,8 @@
       "odds": -115,
       "units": 0.75,
       "result": "Push",
-      "units_pl": 0
+      "units_pl": 0,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -946,7 +1031,8 @@
       "odds": -115,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.8696
+      "units_pl": 0.8696,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -957,7 +1043,8 @@
       "odds": 101,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -968,7 +1055,8 @@
       "odds": -108,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.9259
+      "units_pl": 0.9259,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -979,7 +1067,8 @@
       "odds": 108,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -990,7 +1079,8 @@
       "odds": -150,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.3333
+      "units_pl": 0.3333,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -1001,7 +1091,8 @@
       "odds": -104,
       "units": 0.2,
       "result": "Win",
-      "units_pl": 0.1923
+      "units_pl": 0.1923,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -1012,7 +1103,8 @@
       "odds": 290,
       "units": 0.15,
       "result": "Loss",
-      "units_pl": -0.15
+      "units_pl": -0.15,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -1023,7 +1115,8 @@
       "odds": 900,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-10",
@@ -1034,7 +1127,8 @@
       "odds": 2800,
       "units": 0.05,
       "result": "Loss",
-      "units_pl": -0.05
+      "units_pl": -0.05,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1045,7 +1139,8 @@
       "odds": -104,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1056,7 +1151,8 @@
       "odds": 117,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1067,7 +1163,8 @@
       "odds": 100,
       "units": 0.75,
       "result": "Win",
-      "units_pl": 0.75
+      "units_pl": 0.75,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1078,7 +1175,8 @@
       "odds": -122,
       "units": 1.25,
       "result": "Loss",
-      "units_pl": -1.25
+      "units_pl": -1.25,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1089,7 +1187,8 @@
       "odds": -111,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.9009
+      "units_pl": 0.9009,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1100,7 +1199,8 @@
       "odds": -112,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1111,7 +1211,8 @@
       "odds": -108,
       "units": 0.3,
       "result": "Win",
-      "units_pl": 0.2778
+      "units_pl": 0.2778,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1122,7 +1223,8 @@
       "odds": 375,
       "units": 0.1,
       "result": "Win",
-      "units_pl": 0.375
+      "units_pl": 0.375,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1133,7 +1235,8 @@
       "odds": 1050,
       "units": 0.1,
       "result": "Win",
-      "units_pl": 1.05
+      "units_pl": 1.05,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1144,7 +1247,8 @@
       "odds": 117,
       "units": 0.3,
       "result": "Loss",
-      "units_pl": -0.3
+      "units_pl": -0.3,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1155,7 +1259,8 @@
       "odds": 230,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1166,7 +1271,8 @@
       "odds": 880,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-11",
@@ -1177,7 +1283,8 @@
       "odds": -118,
       "units": 1,
       "result": "Loss",
-      "units_pl": -1
+      "units_pl": -1,
+      "post": ""
     },
     {
       "date": "2026-08-12",
@@ -1188,7 +1295,8 @@
       "odds": -118,
       "units": 1.25,
       "result": "Loss",
-      "units_pl": -1.25
+      "units_pl": -1.25,
+      "post": ""
     },
     {
       "date": "2026-08-12",
@@ -1199,7 +1307,8 @@
       "odds": -135,
       "units": 1.5,
       "result": "Loss",
-      "units_pl": -1.5
+      "units_pl": -1.5,
+      "post": ""
     },
     {
       "date": "2026-08-12",
@@ -1210,7 +1319,8 @@
       "odds": -144,
       "units": 0.35,
       "result": "Win",
-      "units_pl": 0.2431
+      "units_pl": 0.2431,
+      "post": ""
     },
     {
       "date": "2026-08-12",
@@ -1221,7 +1331,8 @@
       "odds": 320,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-12",
@@ -1232,7 +1343,8 @@
       "odds": 1200,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-12",
@@ -1243,7 +1355,8 @@
       "odds": -111,
       "units": 0.35,
       "result": "Win",
-      "units_pl": 0.3153
+      "units_pl": 0.3153,
+      "post": ""
     },
     {
       "date": "2026-08-12",
@@ -1254,7 +1367,8 @@
       "odds": 240,
       "units": 0.2,
       "result": "Win",
-      "units_pl": 0.48
+      "units_pl": 0.48,
+      "post": ""
     },
     {
       "date": "2026-08-12",
@@ -1265,7 +1379,8 @@
       "odds": 900,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-13",
@@ -1276,7 +1391,8 @@
       "odds": 102,
       "units": 1,
       "result": "Win",
-      "units_pl": 1.02
+      "units_pl": 1.02,
+      "post": ""
     },
     {
       "date": "2026-08-14",
@@ -1287,7 +1403,8 @@
       "odds": -115,
       "units": 0.75,
       "result": "Win",
-      "units_pl": 0.6522
+      "units_pl": 0.6522,
+      "post": ""
     },
     {
       "date": "2026-08-14",
@@ -1298,7 +1415,8 @@
       "odds": -130,
       "units": 0.2,
       "result": "Win",
-      "units_pl": 0.1538
+      "units_pl": 0.1538,
+      "post": ""
     },
     {
       "date": "2026-08-14",
@@ -1309,7 +1427,8 @@
       "odds": 205,
       "units": 0.2,
       "result": "Win",
-      "units_pl": 0.41
+      "units_pl": 0.41,
+      "post": ""
     },
     {
       "date": "2026-08-14",
@@ -1320,7 +1439,8 @@
       "odds": 900,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-14",
@@ -1331,7 +1451,8 @@
       "odds": -104,
       "units": 0.75,
       "result": "Win",
-      "units_pl": 0.7212
+      "units_pl": 0.7212,
+      "post": ""
     },
     {
       "date": "2026-08-14",
@@ -1342,7 +1463,8 @@
       "odds": -117,
       "units": 0.75,
       "result": "Push",
-      "units_pl": 0
+      "units_pl": 0,
+      "post": ""
     },
     {
       "date": "2026-08-15",
@@ -1353,7 +1475,8 @@
       "odds": 900,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-15",
@@ -1364,7 +1487,8 @@
       "odds": 325,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-15",
@@ -1375,7 +1499,8 @@
       "odds": -121,
       "units": 0.2,
       "result": "Win",
-      "units_pl": 0.1653
+      "units_pl": 0.1653,
+      "post": ""
     },
     {
       "date": "2026-08-15",
@@ -1386,7 +1511,8 @@
       "odds": 2154,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-15",
@@ -1397,7 +1523,8 @@
       "odds": 3558,
       "units": 0.05,
       "result": "Loss",
-      "units_pl": -0.05
+      "units_pl": -0.05,
+      "post": ""
     },
     {
       "date": "2026-08-15",
@@ -1408,7 +1535,8 @@
       "odds": 3124,
       "units": 0.05,
       "result": "Loss",
-      "units_pl": -0.05
+      "units_pl": -0.05,
+      "post": ""
     },
     {
       "date": "2026-08-15",
@@ -1419,7 +1547,8 @@
       "odds": 2968,
       "units": 0.05,
       "result": "Loss",
-      "units_pl": -0.05
+      "units_pl": -0.05,
+      "post": ""
     },
     {
       "date": "2026-08-15",
@@ -1430,7 +1559,8 @@
       "odds": 18922,
       "units": 0.025,
       "result": "Loss",
-      "units_pl": -0.025
+      "units_pl": -0.025,
+      "post": ""
     },
     {
       "date": "2026-08-16",
@@ -1441,7 +1571,8 @@
       "odds": 500,
       "units": 0.1,
       "result": "Win",
-      "units_pl": 0.5
+      "units_pl": 0.5,
+      "post": ""
     },
     {
       "date": "2026-08-16",
@@ -1452,7 +1583,8 @@
       "odds": 750,
       "units": 0.1,
       "result": "Win",
-      "units_pl": 0.75
+      "units_pl": 0.75,
+      "post": ""
     },
     {
       "date": "2026-08-16",
@@ -1463,7 +1595,8 @@
       "odds": 840,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-16",
@@ -1474,7 +1607,8 @@
       "odds": 500,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-16",
@@ -1485,7 +1619,8 @@
       "odds": 240,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-17",
@@ -1496,7 +1631,8 @@
       "odds": 1894,
       "units": 0.1,
       "result": "Win",
-      "units_pl": 1.894
+      "units_pl": 1.894,
+      "post": ""
     },
     {
       "date": "2026-08-17",
@@ -1507,7 +1643,8 @@
       "odds": 13745,
       "units": 0.025,
       "result": "Loss",
-      "units_pl": -0.025
+      "units_pl": -0.025,
+      "post": ""
     },
     {
       "date": "2026-08-17",
@@ -1518,7 +1655,8 @@
       "odds": 2943,
       "units": 0.05,
       "result": "Loss",
-      "units_pl": -0.05
+      "units_pl": -0.05,
+      "post": ""
     },
     {
       "date": "2026-08-17",
@@ -1529,7 +1667,8 @@
       "odds": 2239,
       "units": 0.05,
       "result": "Loss",
-      "units_pl": -0.05
+      "units_pl": -0.05,
+      "post": ""
     },
     {
       "date": "2026-08-17",
@@ -1540,7 +1679,8 @@
       "odds": 2594,
       "units": 0.05,
       "result": "Loss",
-      "units_pl": -0.05
+      "units_pl": -0.05,
+      "post": ""
     },
     {
       "date": "2026-08-17",
@@ -1551,7 +1691,8 @@
       "odds": -115,
       "units": 0.5748,
       "result": "Loss",
-      "units_pl": -0.5748
+      "units_pl": -0.5748,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1562,7 +1703,8 @@
       "odds": -106,
       "units": 0.75,
       "result": "Win",
-      "units_pl": 0.7075
+      "units_pl": 0.7075,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1573,7 +1715,8 @@
       "odds": -136,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.3676
+      "units_pl": 0.3676,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1584,7 +1727,8 @@
       "odds": 127,
       "units": 0.75,
       "result": "Win",
-      "units_pl": 0.9525
+      "units_pl": 0.9525,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1595,7 +1739,8 @@
       "odds": 600,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1606,7 +1751,8 @@
       "odds": 192,
       "units": 0.15,
       "result": "Win",
-      "units_pl": 0.288
+      "units_pl": 0.288,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1617,7 +1763,8 @@
       "odds": 670,
       "units": 0.05,
       "result": "Loss",
-      "units_pl": -0.05
+      "units_pl": -0.05,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1628,7 +1775,8 @@
       "odds": 650,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1639,7 +1787,8 @@
       "odds": 710,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1650,7 +1799,8 @@
       "odds": -160,
       "units": 1,
       "result": "Win",
-      "units_pl": 0.625
+      "units_pl": 0.625,
+      "post": ""
     },
     {
       "date": "2026-08-18",
@@ -1661,7 +1811,8 @@
       "odds": 156,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-19",
@@ -1672,7 +1823,8 @@
       "odds": 340,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-20",
@@ -1683,7 +1835,8 @@
       "odds": 105,
       "units": 0.6,
       "result": "Loss",
-      "units_pl": -0.6
+      "units_pl": -0.6,
+      "post": ""
     },
     {
       "date": "2026-08-20",
@@ -1694,7 +1847,8 @@
       "odds": 1738,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-20",
@@ -1705,7 +1859,8 @@
       "odds": 115,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.575
+      "units_pl": 0.575,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1716,7 +1871,8 @@
       "odds": 1300,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1727,7 +1883,8 @@
       "odds": 415,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1738,7 +1895,8 @@
       "odds": 108,
       "units": 0.2,
       "result": "Win",
-      "units_pl": 0.216
+      "units_pl": 0.216,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1749,7 +1907,8 @@
       "odds": 980,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1760,7 +1919,8 @@
       "odds": 275,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1771,7 +1931,8 @@
       "odds": -120,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1782,7 +1943,8 @@
       "odds": 2921,
       "units": 0.1,
       "result": "Loss",
-      "units_pl": -0.1
+      "units_pl": -0.1,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1793,7 +1955,8 @@
       "odds": 450,
       "units": 0.2,
       "result": "Win",
-      "units_pl": 0.9
+      "units_pl": 0.9,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1804,7 +1967,8 @@
       "odds": 222,
       "units": 0.2,
       "result": "Loss",
-      "units_pl": -0.2
+      "units_pl": -0.2,
+      "post": ""
     },
     {
       "date": "2026-08-21",
@@ -1815,7 +1979,8 @@
       "odds": -133,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.3759
+      "units_pl": 0.3759,
+      "post": ""
     },
     {
       "date": "2026-08-22",
@@ -1826,7 +1991,8 @@
       "odds": 600,
       "units": 0.125,
       "result": "Win",
-      "units_pl": 0.75
+      "units_pl": 0.75,
+      "post": ""
     },
     {
       "date": "2026-08-22",
@@ -1837,7 +2003,8 @@
       "odds": 135,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.675
+      "units_pl": 0.675,
+      "post": ""
     },
     {
       "date": "2026-08-22",
@@ -1848,7 +2015,8 @@
       "odds": -122,
       "units": 0.75,
       "result": "Win",
-      "units_pl": 0.6148
+      "units_pl": 0.6148,
+      "post": ""
     },
     {
       "date": "2026-08-22",
@@ -1859,7 +2027,8 @@
       "odds": -115,
       "units": 0.75,
       "result": "Push",
-      "units_pl": 0
+      "units_pl": 0,
+      "post": ""
     },
     {
       "date": "2026-08-23",
@@ -1870,7 +2039,8 @@
       "odds": 130,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-23",
@@ -1881,7 +2051,8 @@
       "odds": 150,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-23",
@@ -1892,7 +2063,8 @@
       "odds": -118,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.4237
+      "units_pl": 0.4237,
+      "post": ""
     },
     {
       "date": "2026-08-24",
@@ -1903,7 +2075,8 @@
       "odds": -120,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.4167
+      "units_pl": 0.4167,
+      "post": ""
     },
     {
       "date": "2026-08-25",
@@ -1914,7 +2087,8 @@
       "odds": 102,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.51
+      "units_pl": 0.51,
+      "post": ""
     },
     {
       "date": "2026-08-25",
@@ -1925,7 +2099,8 @@
       "odds": -130,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.3846
+      "units_pl": 0.3846,
+      "post": ""
     },
     {
       "date": "2026-08-25",
@@ -1936,7 +2111,8 @@
       "odds": 102,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-26",
@@ -1947,7 +2123,8 @@
       "odds": -127,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.3937
+      "units_pl": 0.3937,
+      "post": ""
     },
     {
       "date": "2026-08-26",
@@ -1958,7 +2135,8 @@
       "odds": 110,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.55
+      "units_pl": 0.55,
+      "post": ""
     },
     {
       "date": "2026-08-26",
@@ -1969,7 +2147,8 @@
       "odds": -130,
       "units": 0.65,
       "result": "Win",
-      "units_pl": 0.5
+      "units_pl": 0.5,
+      "post": ""
     },
     {
       "date": "2026-08-26",
@@ -1980,7 +2159,8 @@
       "odds": -125,
       "units": 0.35,
       "result": "Win",
-      "units_pl": 0.28
+      "units_pl": 0.28,
+      "post": ""
     },
     {
       "date": "2026-08-27",
@@ -1991,7 +2171,8 @@
       "odds": -112,
       "units": 0.5,
       "result": "Win",
-      "units_pl": 0.4464
+      "units_pl": 0.4464,
+      "post": ""
     },
     {
       "date": "2026-08-27",
@@ -2002,7 +2183,8 @@
       "odds": -108,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-27",
@@ -2013,7 +2195,8 @@
       "odds": -150,
       "units": 1.5,
       "result": "Win",
-      "units_pl": 1
+      "units_pl": 1,
+      "post": ""
     },
     {
       "date": "2026-08-27",
@@ -2024,7 +2207,8 @@
       "odds": -107,
       "units": 0.5,
       "result": "Loss",
-      "units_pl": -0.5
+      "units_pl": -0.5,
+      "post": ""
     },
     {
       "date": "2026-08-29",
@@ -2035,7 +2219,8 @@
       "odds": -110,
       "units": 0.5,
       "result": "Pending",
-      "units_pl": null
+      "units_pl": null,
+      "post": ""
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 28, 2026, 1:21 AM EDT",
+  "updated": "Aug 28, 2026, 1:28 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2012,8 +2012,8 @@
       "play": "Mystics -1.5",
       "odds": -150,
       "units": 1.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 1
     },
     {
       "date": "2026-08-27",

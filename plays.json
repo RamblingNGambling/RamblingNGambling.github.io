@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 27, 2026, 5:32 PM EDT",
+  "updated": "Aug 27, 2026, 11:40 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -1990,8 +1990,8 @@
       "play": "UMAINE +3.5",
       "odds": -112,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Win",
+      "units_pl": 0.4464
     },
     {
       "date": "2026-08-27",
@@ -2001,8 +2001,8 @@
       "play": "Under 51.5",
       "odds": -108,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null
+      "result": "Loss",
+      "units_pl": -0.5
     },
     {
       "date": "2026-08-27",
@@ -2014,6 +2014,17 @@
       "units": 1.5,
       "result": "Pending",
       "units_pl": null
+    },
+    {
+      "date": "2026-08-27",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "Mercyhurst vs Youngstown State",
+      "play": "Mercyhurst +30.5",
+      "odds": -107,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5
     },
     {
       "date": "2026-08-29",

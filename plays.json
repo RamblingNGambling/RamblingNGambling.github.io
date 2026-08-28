@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 28, 2026, 1:50 PM EDT",
+  "updated": "Aug 28, 2026, 7:09 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2209,6 +2209,90 @@
       "result": "Loss",
       "units_pl": -0.5,
       "post": "https://x.com/gamblingv1ctim/status/2093095928043282910"
+    },
+    {
+      "date": "2026-08-28",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Dodgers x Under 9.5 x Pirates +1",
+      "odds": 224,
+      "units": 0.3,
+      "result": "Loss",
+      "units_pl": -0.3,
+      "post": "https://x.com/gamblingv1ctim/status/2093427522406859002"
+    },
+    {
+      "date": "2026-08-28",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "CIN Reds @ CHI Cubs",
+      "play": "Dodgers x Pirates +1",
+      "odds": 133,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093433064319836324"
+    },
+    {
+      "date": "2026-08-28",
+      "sport": "NFL",
+      "market": "Total",
+      "game": "Giants @ Jets",
+      "play": "Under 37",
+      "odds": -115,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093450373872640315"
+    },
+    {
+      "date": "2026-08-28",
+      "sport": "NFL",
+      "market": "Spread",
+      "game": "Falcons @ Dolphins",
+      "play": "Dolphins +5.5",
+      "odds": -120,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093450373872640315"
+    },
+    {
+      "date": "2026-08-28",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Lauren Betts Over 7.5+ Points",
+      "odds": 125,
+      "units": 0.35,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093454569531470012"
+    },
+    {
+      "date": "2026-08-28",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Lauren Betts Over 9.5+ Points",
+      "odds": 235,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093454569531470012"
+    },
+    {
+      "date": "2026-08-28",
+      "sport": "WNBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Lauren Betts Over 14.5+ Points",
+      "odds": 1172,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093454569531470012"
     },
     {
       "date": "2026-08-29",

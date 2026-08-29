@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 28, 2026, 11:34 PM EDT",
+  "updated": "Aug 29, 2026, 12:01 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -649,6 +649,30 @@
       "result": "Loss",
       "units_pl": -0.25,
       "post": "https://x.com/gamblingv1ctim/status/2084137554949865611"
+    },
+    {
+      "date": "2026-08-03",
+      "sport": "MLB",
+      "market": "Total",
+      "game": "Pirates @ Brewers",
+      "play": "Over 8.5 Runs",
+      "odds": 102,
+      "units": 1,
+      "result": "Loss",
+      "units_pl": -1,
+      "post": ""
+    },
+    {
+      "date": "2026-08-03",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Giants @ Rangers",
+      "play": "Giants ML",
+      "odds": 110,
+      "units": 0.75,
+      "result": "Win",
+      "units_pl": 0.825,
+      "post": ""
     },
     {
       "date": "2026-08-04",
@@ -2242,8 +2266,8 @@
       "play": "Lauren Betts Over 7.5+ Points",
       "odds": 125,
       "units": 0.35,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.35,
       "post": "https://x.com/gamblingv1ctim/status/2093454569531470012"
     },
     {
@@ -2254,8 +2278,8 @@
       "play": "Lauren Betts Over 9.5+ Points",
       "odds": 235,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.2,
       "post": "https://x.com/gamblingv1ctim/status/2093454569531470012"
     },
     {
@@ -2266,8 +2290,8 @@
       "play": "Lauren Betts Over 14.5+ Points",
       "odds": 1172,
       "units": 0.2,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.2,
       "post": "https://x.com/gamblingv1ctim/status/2093454569531470012"
     },
     {

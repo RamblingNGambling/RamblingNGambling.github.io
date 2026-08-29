@@ -16,60 +16,31 @@
 .calc{position:absolute;top:26px;right:2px;z-index:3;background:var(--panel);
   border:1px solid var(--line2);border-left:3px solid var(--lilac);border-radius:10px;
   padding:12px 14px;text-align:left;min-width:214px}
-.calc b,.tin b{display:block;font:400 14px var(--mono);letter-spacing:1.8px;color:var(--grey);
+.calc b{display:block;font:400 14px var(--mono);letter-spacing:1.8px;color:var(--grey);
   text-transform:uppercase;margin-bottom:8px}
-.calc .row,.tin .row{display:flex;align-items:center;gap:7px}
-.calc .row+.row,.tin .row+.row{margin-top:6px}
-.calc .row span,.tin .row span{font:400 15px var(--mono);color:var(--grey);flex:0 0 62px}
-.calc input,.tin input{flex:1;min-width:0;background:var(--ink);border:1px solid var(--line2);border-radius:6px;
-  color:var(--bone);font:400 18px var(--mono);padding:7px 9px;text-align:right;
+.calc .row{display:flex;align-items:center;gap:7px}
+.calc .row span{font:400 18px var(--mono);color:var(--grey)}
+.calc input{width:100px;background:var(--ink);border:1px solid var(--line2);border-radius:6px;
+  color:var(--bone);font:400 19px var(--mono);padding:7px 9px;text-align:right;
   font-variant-numeric:tabular-nums;-moz-appearance:textfield}
-.calc input::-webkit-outer-spin-button,.calc input::-webkit-inner-spin-button,.tin input::-webkit-outer-spin-button,.tin input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.calc input:focus,.tin input:focus{outline:none;border-color:var(--lilac)}
-.calc input.bad,.tin input.bad{border-color:var(--downbd)}
-.calc .out,.tin .out{font:400 28px var(--mono);margin-top:10px;font-variant-numeric:tabular-nums}
-/* tool tabs */
-.ctabs{display:flex;gap:3px;margin:-2px 0 10px;border-bottom:1px solid var(--line);padding-bottom:8px}
-.ct{flex:1;background:transparent;border:1px solid transparent;border-radius:6px;cursor:pointer;
-  color:var(--grey);font:400 13px var(--mono);letter-spacing:.6px;padding:5px 0;
-  font-family:var(--mono);transition:color .12s,background .12s}
-.ct:hover{color:var(--bone)}
-.ct.on{background:var(--panel2);border-color:var(--line2);color:var(--lilac)}
-.ct:focus-visible{outline:2px solid var(--lilac);outline-offset:1px}
-.cp{display:none}
-.cp.on{display:block}
-.calc .seg,.tin .seg{display:flex;gap:3px;margin-top:9px}
-.calc .sg,.tin .sg{flex:1;background:var(--ink);border:1px solid var(--line2);border-radius:5px;cursor:pointer;
-  color:var(--grey);font:400 14px var(--mono);letter-spacing:.4px;padding:7px 0}
-.calc .sg:hover,.tin .sg:hover{color:var(--bone)}
-.calc .sg.on,.tin .sg.on{border-color:var(--lilac);color:var(--lilac);background:var(--panel2)}
-.calc .sg:focus-visible,.tin .sg:focus-visible{outline:2px solid var(--lilac);outline-offset:1px}
-.calc .fine,.tin .fine{font:400 13px var(--mono);color:var(--grey);margin-top:8px;line-height:1.65;
-  font-variant-numeric:tabular-nums}
-.calc .fine i,.tin .fine i{font-style:normal;color:var(--bone)}
-.calc .fine u,.tin .fine u{text-decoration:none;color:var(--lilac)}
-.calc .out.sm,.tin .out.sm{font-size:23px}
+.calc input::-webkit-outer-spin-button,.calc input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.calc input:focus{outline:none;border-color:var(--lilac)}
+.calc .out{font:400 28px var(--mono);margin-top:10px;font-variant-numeric:tabular-nums}
 
-.mark{width:60px;height:60px;flex:0 0 60px;border-radius:15px;display:block;
+.mark{position:absolute;top:26px;left:6px;width:78px;height:78px;border-radius:18px;display:block;
   background:url(data:image/webp;base64,UklGRioFAABXRUJQVlA4IB4FAABQJQCdASqAAIAAPpU+l0glo6IhsXZrkLASiWUAyby/kCCXAgdgLwaFQtc6phuuRxIDx0EgKemMZLeDUc473KbZHl7aVvRPn7vwMn4lPiKt68+/syGMNViDSbXYGEBOPQaRkbbGlFdzSqWQucoHyHno5oSUjhesyN+LZ0bk/1eCnwGPqisTp2hWnTfpIDCMGsTyx6JQMCfOTagi30D6ddYJVVAaDK7A5kZfgRrjlb5+tJydjPLVJgJx86o6nEMwqLIe0goso/PXetYpPRl1gKFjN01cNvPcvWTO8q5SwxoDsT465DE5JIy+WQviG9B6N0dDb5XFU02mZetmxclfvVpp7NmYaWUN7wrwy4QL8dYteEGs7+ISSK7O9iOe3GvNAt4hkd73+gZTL125nLbyD1+/X3AAAP77jkNjJvQXN2U+4NW9uae2lec2dpyAvn3zvnmL8olt1kmnLE5lk4/pvysrYdkwITPeANrTFzuekLwlHEfJ5pHm1u1/ykzN30jyVym/Xfa6t5rZGAxTW4xpdzDL5nK4H8BrcL758/foXoYTCRnDPdhjHRuTddKN6c1K/12W6OErKkmiT4H6aj0PUMwXxpMT7tDTgk1zLTZ0cKFlR9Ir5DXAZ+yeYl2mif1ydwyrzXgyaY6sr19zGbCI78byj6/zUzk8Bf1galVi/4rxBb//BPKHL2j8ZVzokLv8FpaggislIS7w729giBrFNEApUWHYdFXBnM+RIgcaBb2MtoEB/NHZhsGfDcX8Y0yIi1V5zKxbUgxLYIzcRkYjuYC34GpWrhScuBXGXOHIjY7mE0d/diHedLQPQvD3/1ttnmlHSN/vyBUe3Ii4eFKVMkNyk8xPoXl/BGYJgA1BMXn/oLPVkffgo9thy5ga3o4yO/A1nf9pQvyohj4Fsi9wvLaDIzep46qHpD39MnjDczp3dtaLyP0XQeGPDg38T/pzYXIPja/h+KhsD/6kpMmIbpqXNDJUDjDUUHDPK44GpgXeyl5+zvDIWE67JnwwpRM6ijky0Y2QWQhykyCSi41cTKuVYWqUhu2qgI71QFcQj+azzN4269KLMf+ME8Qpo7n7ILVAhb2YElaIdiHiMxWGDNR7peK6F1UJPTF2pfUNc6OfrMV4WcqWq4Lp4whtBPnYbGAg6NmKXdLLd2Za9iZQBzF5ajraQjc5n3grev2ZOIXBXINk4+gICl78Ta2vCiqxEWomdQZmfInH/tLpOH0AuIAYYplUYTB5UkWqkQRBoyiy3yQdyFomu7DXvjn/F8Puk3DGr/35JqP8oKkJ9nWKKAULAk+gC4V3Cmit8GZYjuaReEoH2JoV6xm5AoGerb/vCTye7AVDQyJNRQg2jCiNMCtSzhCg48kmUL37EKOQJDllKx9JjYgW09dRgaF+nQPjsRjud2T9qcc0hVkg3Q9QLYEJb84yMMmtDctVX59veSH3M9WwazJFMPDDkWZwYq+YrlkabvzuXMiuL4HfHDvycKY2D1mFT1ubYMhGC2Ps0OYpKbHgfQsN44TANGWfb6sUx7e1deqSZy8Bf92cMVoQs7QorVJiW6RNT9RBgM/G7kVVEr6JoYS/sy7mS9vU8FTGrv+SvUKB14qOsj78VjGThuX3M6Gn0GW5pwQqu37OE0RElbQ3MQ/wDg8xLl4CwCRv8LYpgaVOIVb8D/m/C2HdeT3E3PDglTdJ6ATv3qac2a93SuRY41WNLEWr4Oz5c9laYG6i4LR5lFUdrb2WadgAAA==) center/cover no-repeat;opacity:1;z-index:3;
   border:1px solid var(--line2);box-shadow:0 6px 18px rgba(0,0,0,.5);
   transition:transform .16s,box-shadow .16s,border-color .16s}
-.brand:hover .mark{transform:translateY(-2px) scale(1.04);border-color:var(--lilac);
+.mark:hover{transform:translateY(-2px) scale(1.04);border-color:var(--lilac);
   box-shadow:0 10px 26px rgba(0,0,0,.62)}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin:0 0 24px}
-.btag{font:400 17px var(--mono);color:var(--grey);line-height:1.25;word-break:break-word;
-  transition:color .14s}
-.brand:hover .btag{color:var(--lilac)}
-.brand:focus-visible{outline:2px solid var(--lilac);outline-offset:4px;border-radius:12px}
+.mark:focus-visible{outline:2px solid var(--lilac);outline-offset:3px}
 
 html{color-scheme:dark;-webkit-text-size-adjust:100%}
 .num,.net,.eyebrow,.sub,h2,th,td.n,.chip,.btn,.dow,.cell,.calhead .t,
 .kpis .k b,.kpis .k span,.open li .dt,.open li .o,.open li .u,.g,.more .c,
 .nudge b,.nudge u,.tip,details.card>summary .hint{font-synthesis-weight:none}
 body{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:20px;padding:0 32px 88px}
-.wrap{max-width:1760px;margin:0 auto;position:relative;display:flex;flex-direction:column}
-.wrap>*{order:3}.wrap>header{order:1}.wrap>.side{order:2}
-.side{min-width:0}
+.wrap{max-width:1760px;margin:0 auto;position:relative}
 .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .win{color:var(--up)}.loss{color:var(--down)}.mut{color:var(--grey)}.pend{color:var(--amethyst)}
 
@@ -241,8 +212,7 @@ footer b{color:var(--bone);font-weight:600}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* ---- responsive overrides, last so they win on source order ---- */
-@media(max-width:1080px){.mark{width:56px;height:56px;flex-basis:56px;border-radius:14px}
-  .btag{font-size:16px}}
+@media(max-width:1080px){.mark{width:54px;height:54px;top:14px;left:0}}
 @media(max-width:680px){
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kpis .k{padding:18px 8px 17px}
@@ -264,10 +234,7 @@ footer b{color:var(--bone);font-weight:600}
   .eyebrow{font-size:13px;letter-spacing:4px}
   .calc{padding:11px 13px;min-width:0;max-width:270px;margin-top:16px}
   .calc .out{font-size:24px;margin-top:8px}
-  .calc .out.sm{font-size:20px}
-  .calc input{font-size:17px}
-  .calc .row span{font-size:14px;flex-basis:58px}
-  .ct{font-size:12px}
+  .calc input{width:86px;font-size:17px}
   .card{padding:16px 13px}
   body{padding:0 11px 56px}
   table{font-size:16px}table.tight{font-size:15px}
@@ -276,300 +243,13 @@ footer b{color:var(--bone);font-weight:600}
   .eyebrow{font-size:14px;letter-spacing:5px}
 }
 @media(max-width:1280px){.calc{position:static;margin:20px auto 0;max-width:300px}}
-/* ---- tool rail ---- */
-.rail{display:flex;flex-direction:column;gap:3px}
-.railfoot{margin-top:auto;padding-top:18px;display:flex;flex-direction:column;gap:14px}
-.railfoot .brand{margin:0;padding-top:16px;border-top:1px solid var(--line)}
-.rhead{font:400 16px var(--mono);letter-spacing:2.6px;color:var(--grey);text-transform:uppercase;
-  padding:22px 12px 10px}
-.rbtn{display:flex;align-items:center;gap:15px;width:100%;background:transparent;border:0;
-  border-radius:9px;cursor:pointer;color:var(--bone);font:400 30px var(--mono);text-decoration:none;
-  padding:11px 12px;text-align:left;transition:background .12s,color .12s}
-.rbtn:hover{background:var(--panel)}
-.rbtn.on{background:var(--panel2);color:var(--lilac)}
-.rbtn:focus-visible{outline:2px solid var(--lilac);outline-offset:-2px}
-.ric{width:29px;height:29px;flex:0 0 29px;color:var(--lilac);opacity:.8}
-.rbtn.on .ric{opacity:1}
-.rlab{flex:1}
-
-/* ---- tool pages ---- */
-.view{display:none}.view.on{display:block}
-.crumb{font:400 15px var(--mono);letter-spacing:2.4px;color:var(--grey);text-transform:uppercase;
-  padding-top:44px}
-.th{font:400 66px var(--mono);letter-spacing:-1px;line-height:1.03;margin:14px 0 0;color:var(--bone)}
-.lede{font:400 21px var(--mono);color:var(--grey);margin:16px 0 30px;max-width:56ch;line-height:1.6}
-.tcard{background:var(--panel);border:1px solid var(--line2);border-radius:12px;overflow:hidden}
-.thead{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid var(--line);
-  background:var(--panel2)}
-.thead b{flex:1;font:400 15px var(--mono);letter-spacing:2.2px;color:var(--lilac);text-transform:uppercase}
-.treset{background:transparent;border:1px solid var(--line2);border-radius:6px;color:var(--grey);
-  font:400 13px var(--mono);letter-spacing:1px;padding:6px 11px;cursor:pointer}
-.treset:hover{color:var(--bone);border-color:var(--lilac)}
-.tgrid{display:grid;grid-template-columns:minmax(0,580px) minmax(0,1fr)}
-.tin{padding:20px 18px;border-right:1px solid var(--line)}
-.tnote{padding:22px 24px;font:400 17px var(--mono);color:var(--grey);line-height:1.75}
-.tnote b{display:block;font-size:14px;letter-spacing:2px;color:var(--bone);text-transform:uppercase;
-  margin-bottom:9px}
-.tnote p{margin-bottom:11px}
-.tnote a,.prose a{color:var(--lilac)}
-.prose{margin:34px 0 10px;max-width:74ch;font:400 18px var(--mono);color:var(--grey);line-height:1.85}
-.prose h2{font:400 16px var(--mono);letter-spacing:2.6px;color:var(--lilac);text-transform:uppercase;
-  margin:26px 0 10px}
-.prose h2:first-child{margin-top:0}
-.prose p{margin-bottom:12px}
-.prose b{color:var(--bone)}
-
-/* ---- side-by-side calculator grid ---- */
-.agrid{display:grid;grid-template-columns:82px minmax(0,1fr) minmax(0,1fr);gap:9px;align-items:center}
-.dgrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:9px;
-  align-items:center;margin-top:14px}
-.ah{font:400 14px var(--mono);letter-spacing:1.8px;color:var(--grey);text-transform:uppercase;
-  padding-bottom:2px}
-.dgrid .ah{text-align:right}.dgrid .ah:first-child{text-align:left}
-.al{font:400 17px var(--mono);color:var(--grey)}
-.mi{display:flex;align-items:center;gap:0;position:relative}
-.mi span{position:absolute;left:11px;font:400 17px var(--mono);color:var(--grey);pointer-events:none}
-.mi input{padding-left:26px}
-.agrid input,.dgrid input{width:100%;min-width:0;background:var(--ink);border:1px solid var(--line2);
-  border-radius:6px;color:var(--bone);font:400 21px var(--mono);padding:11px 13px;text-align:right;
-  font-variant-numeric:tabular-nums}
-.agrid input:focus,.dgrid input:focus{outline:none;border-color:var(--lilac)}
-.agrid input.bad,.dgrid input.bad{border-color:var(--downbd)}
-.dv{font:400 25px var(--mono);text-align:right;color:var(--bone)}
-.dv.lil{color:var(--lilac)}
-.asum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px;
-  padding-top:16px;border-top:1px solid var(--line)}
-.asum b{display:block;font:400 13px var(--mono);letter-spacing:1.6px;color:var(--grey);
-  text-transform:uppercase;margin-bottom:7px}
-.asum i{display:block;margin-top:6px;font:400 16px var(--mono);font-style:normal;color:var(--grey);
-  font-variant-numeric:tabular-nums}
-.asum span{font:400 30px var(--mono);font-variant-numeric:tabular-nums;color:var(--bone)}
-.asum .sep{border-left:1px solid var(--line);padding-left:14px}
-
-.csteps{flex:0 0 auto;margin:0;width:210px;display:flex;gap:4px}
-.csteps .sg{flex:1;background:var(--ink);border:1px solid var(--line2);border-radius:6px;cursor:pointer;
-  color:var(--grey);font:400 13px var(--mono);letter-spacing:.6px;padding:7px 0}
-.csteps .sg:hover{color:var(--bone)}
-.csteps .sg.on{border-color:var(--lilac);color:var(--lilac);background:var(--panel2)}
-.csteps .sg:focus-visible{outline:2px solid var(--lilac);outline-offset:1px}
-.tin .row span{flex-basis:92px;font-size:18px}
-.tin .row+.row{margin-top:10px}
-.tin input{font-size:21px;padding:11px 13px}
-.tin .out{font-size:42px;margin-top:15px}
-.tin .out.sm{font-size:31px}
-.tin .fine{font-size:16px;margin-top:11px}
-.tin>b{font-size:15px;margin-top:22px}
-.tin>b:first-child{margin-top:0}
-
-.agrid.hg{grid-template-columns:132px minmax(0,1fr)}
-.asum.four{grid-template-columns:repeat(4,minmax(0,1fr))}
-.tgrid.one{grid-template-columns:minmax(0,1fr)}
-.tgrid.one .tin{border-right:0}
-.btn2{background:var(--ink);border:1px solid var(--line2);border-radius:7px;color:var(--lilac);
-  font:400 14px var(--mono);letter-spacing:1.2px;padding:8px 14px;cursor:pointer}
-.btn2:hover{border-color:var(--lilac);background:var(--panel2)}
-.btn2[disabled]{opacity:.4;cursor:not-allowed}
-.btn2:focus-visible{outline:2px solid var(--lilac);outline-offset:1px}
-
-/* ---- parlay legs ---- */
-.legs{display:flex;flex-direction:column;gap:8px}
-.leg{display:flex;align-items:center;gap:10px}
-.leg .ln{font:400 15px var(--mono);color:var(--grey);flex:0 0 62px}
-.leg input{flex:1;min-width:0;background:var(--ink);border:1px solid var(--line2);border-radius:6px;
-  color:var(--bone);font:400 21px var(--mono);padding:11px 13px;text-align:right;
-  font-variant-numeric:tabular-nums}
-.leg input:focus{outline:none;border-color:var(--lilac)}
-.leg input.bad{border-color:var(--downbd)}
-.legx{flex:0 0 auto;background:transparent;border:1px solid transparent;border-radius:6px;color:var(--grey);
-  font:400 20px var(--mono);line-height:1;padding:6px 9px;cursor:pointer}
-.legx:hover{color:var(--down);border-color:var(--downbd)}
-.legadd{display:flex;align-items:center;gap:12px;margin-top:12px}
-.lhint{font:400 14px var(--mono);color:var(--grey)}
-.plist{margin-top:18px}
-.plist>summary{cursor:pointer;font:400 14px var(--mono);letter-spacing:1.4px;color:var(--lilac);
-  text-transform:uppercase;list-style:none;padding:9px 0}
-.plist>summary::-webkit-details-marker{display:none}
-.plist>summary::after{content:' \25BE'}
-.plist[open]>summary::after{content:' \25B4'}
-
-/* ---- parlay tables ---- */
-.ptab{margin-top:18px;border:1px solid var(--line);border-radius:9px;overflow:hidden}
-.prow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.5fr) minmax(0,1.2fr);
-  border-bottom:1px solid var(--line);font:400 18px var(--mono);font-variant-numeric:tabular-nums}
-.ptab.two .prow{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)}
-.prow>*{padding:9px 14px;text-align:right}
-.prow>*:first-child{text-align:left;color:var(--grey)}
-.prow.hd{background:var(--panel2);font-size:13px;letter-spacing:1.6px;color:var(--grey);
-  text-transform:uppercase}
-.prow.hd>*{color:var(--grey)}
-.prow:last-child{border-bottom:0}
-.prow.brk{background:var(--upbg)}
-.prow.brk>*:first-child{color:var(--bone)}
-
-.unitline{font:400 15px var(--mono);color:var(--grey);margin:14px auto 0;max-width:62ch;
-  line-height:1.65}
-
-/* ---- recent form strip ---- */
-.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;
-  background:var(--line);border:1px solid var(--line2);border-radius:12px;overflow:hidden;margin-top:14px}
-.form .fcell{background:var(--panel);padding:15px 14px;text-align:center}
-.form .fcell b{display:block;font:400 13px var(--mono);letter-spacing:2px;color:var(--grey);
-  text-transform:uppercase;margin-bottom:8px}
-.form .fcell span{font:400 26px var(--mono);font-variant-numeric:tabular-nums;line-height:1}
-.form .fcell i{display:block;margin-top:7px;font:400 14px var(--mono);font-style:normal;color:var(--grey)}
-
-/* ---- follow line ---- */
-.follow{display:flex;align-items:center;gap:11px;margin-top:16px;padding:9px 15px;text-decoration:none;
-  border:1px solid var(--line);border-radius:999px;width:max-content;max-width:100%;
-  transition:border-color .14s,background .14s}
-.follow:hover{border-color:var(--lilac);background:var(--panel)}
-.fx{flex:0 0 auto;width:24px;height:24px;display:flex;align-items:center;justify-content:center;
-  border:1px solid var(--line2);border-radius:7px;font:400 13px var(--mono);color:var(--grey)}
-.follow:hover .fx{border-color:var(--lilac);color:var(--lilac)}
-.ft{font:400 15px var(--mono);color:var(--grey)}
-.fgo{font:400 15px var(--mono);color:var(--lilac)}
-
-/* ---- sport filter ---- */
-.chips{display:flex;flex-wrap:wrap;gap:7px;margin:-4px 0 16px}
-.chipf{background:var(--ink);border:1px solid var(--line2);border-radius:999px;cursor:pointer;
-  color:var(--grey);font:400 14px var(--mono);letter-spacing:.6px;padding:6px 14px}
-.chipf:hover{color:var(--bone)}
-.chipf.on{border-color:var(--lilac);color:var(--lilac);background:var(--panel2)}
-.chipf:focus-visible{outline:2px solid var(--lilac);outline-offset:1px}
-
-/* ---- copy link ---- */
-.tlink{background:transparent;border:1px solid var(--line2);border-radius:6px;color:var(--grey);
-  font:400 13px var(--mono);letter-spacing:1px;padding:6px 11px;cursor:pointer;margin-right:7px}
-.tlink:hover{color:var(--lilac);border-color:var(--lilac)}
-.tlink.done{color:var(--up);border-color:var(--upbd)}
-
-/* ---- about ---- */
-.prose.tight{margin:0;max-width:78ch}
-.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:10px}
-.bk{display:flex;align-items:center;gap:12px;padding:13px 15px;text-decoration:none;
-  background:var(--ink);border:1px solid var(--line2);border-radius:10px;transition:border-color .14s,background .14s}
-a.bk:hover{border-color:var(--lilac);background:var(--panel2)}
-.bk .bn{flex:1;font:400 17px var(--mono);color:var(--bone)}
-.bk .bw{font:400 13px var(--mono);letter-spacing:1px;color:var(--grey);text-transform:uppercase}
-a.bk .bw{color:var(--lilac)}
-
-/* ---- hand-off card ---- */
-.handoff{display:block;margin:26px 0 4px;max-width:74ch;padding:16px 18px;text-decoration:none;
-  background:var(--panel);border:1px solid var(--line2);border-left:3px solid var(--lilac);
-  border-radius:10px;transition:border-color .14s,background .14s}
-.handoff:hover{background:var(--panel2);border-color:var(--lilac)}
-.handoff b{display:block;font:400 19px var(--mono);color:var(--bone);margin-bottom:7px}
-.handoff span{display:block;font:400 17px var(--mono);color:var(--grey);line-height:1.7}
-.handoff em{display:inline-block;margin-top:12px;font:400 15px var(--mono);font-style:normal;
-  letter-spacing:1.4px;color:var(--lilac);text-transform:uppercase}
-
-/* ---- cheat sheet ---- */
-.cfind{display:flex;align-items:center;gap:8px}
-.cfind span{font:400 15px var(--mono);color:var(--grey)}
-.cfind input{width:86px;background:var(--ink);border:1px solid var(--line2);border-radius:6px;
-  color:var(--bone);font:400 17px var(--mono);padding:5px 8px;text-align:right;
-  font-variant-numeric:tabular-nums;-moz-appearance:textfield}
-.cfind input:focus{outline:none;border-color:var(--lilac)}
-.csheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--line)}
-.cblk{background:var(--panel)}
-.crow{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--line);
-  font:400 18px var(--mono);font-variant-numeric:tabular-nums}
-.crow>*{padding:8px 15px;text-align:right}
-.crow>*:first-child{text-align:left;color:var(--grey)}
-.crow.hd{background:var(--panel2);font-size:13px;letter-spacing:1.6px;color:var(--grey);
-  text-transform:uppercase;position:sticky;top:0}
-.crow.hd>*:first-child{color:var(--grey)}
-.crow:last-child{border-bottom:0}
-.crow .am{color:var(--up)}
-.crow .am.neg{color:var(--down)}
-.crow .dc{color:var(--grey)}
-.crow.hit{background:var(--upbg);outline:1px solid var(--upbd);outline-offset:-1px}
-.crow.hit>*:first-child{color:var(--bone)}
-
-/* On wide screens the page becomes two columns: a sticky rail on the left,
-   everything else on the right. The rail spans every row so the sticky box
-   inside it has the full page height to travel through. */
-@media(min-width:1401px){
-  .wrap{display:grid;grid-template-columns:330px minmax(0,1fr);column-gap:34px;align-items:start}
-  .wrap>*{grid-column:2}
-  .wrap>.side{grid-column:1;grid-row:1/span 99;align-self:stretch}
-  .sidein{position:sticky;top:26px;height:calc(100vh - 52px);min-height:640px;
-    display:flex;flex-direction:column}
-  .rail{flex:0 0 auto}
-}
-@media(max-width:1400px){
-  .side{max-width:760px;margin:20px auto 24px;width:100%}
-  .sidein{display:flex;flex-direction:column;height:auto;min-height:0}
-  .rail{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:7px}
-  .rhead{display:none}
-  .rbtn{width:auto;flex:0 0 auto;font-size:19px;padding:8px 15px;gap:9px;
-    border:1px solid var(--line);border-radius:999px}
-  .rbtn.on{border-color:var(--line2)}
-  .ric{width:20px;height:20px;flex-basis:20px}
-  .railfoot{display:contents}
-  .railfoot .brand{order:1;justify-content:center;border-top:0;padding-top:0;margin:0 0 16px}
-  .rail{order:2}
-  .railfoot .rbtn{order:3;margin:12px auto 0}
-  
-}
-/* narrow screens, for the pages added in this session; last in the sheet so
-   these win over the component rules above */
-@media(max-width:820px){
-  .tcard .thead{flex-wrap:wrap;row-gap:11px}
-  .tcard .thead>b{flex:1 0 100%}
-  .thead .csteps{width:100%;order:3;margin-top:2px}
-  .thead .cfind{order:2;margin-left:auto}
-  .asum,.asum.four{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:16px}
-  .agrid.hg{grid-template-columns:104px minmax(0,1fr)}
-  .ptab{overflow-x:auto}
-  .prow{font-size:15px;min-width:436px}
-  .prow>*{padding:8px 10px}
-  .leg .ln{flex-basis:52px;font-size:13px}
-  .leg input{font-size:17px;padding:9px 10px}
-  .asum .sep{border-left:0;padding-left:0;grid-column:1/-1;border-top:1px solid var(--line);
-    padding-top:14px}
-  .crow>*{padding:8px 11px}
-  .crow{font-size:16px}
-  .th{font-size:32px}
-  .follow{margin:16px auto 0}
-  .ft,.fgo{font-size:14px}
-  .form .fcell span{font-size:22px}
-  .unitline{font-size:14px}
-  .al{font-size:15px}
-  .agrid.hg{grid-template-columns:114px minmax(0,1fr)}
-  .lede{font-size:17px}
-}
 </style></head><body><div class="wrap">
-
-<aside class="side"><div class="sidein">
-  <nav class="rail" aria-label="Pages">
-    <a class="rbtn on" id="rb-tracker" href="#tracker" data-v="tracker"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 5-8"/><path d="M3 21h18"/></svg><span class="rlab">Tracker</span></a>
-    <div class="rhead">Tools</div>
-    <a class="rbtn" id="rb-arb" href="#arb" data-v="arb"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l4-7h9"/><path d="M11 19h9"/><path d="M7 12l4 7"/><path d="M17 2.5l3 2.5-3 2.5"/><path d="M17 16.5l3 2.5-3 2.5"/></svg><span class="rlab">Arbitrage</span></a>
-    <a class="rbtn" id="rb-hedge" href="#hedge" data-v="hedge"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.4-3 8.1-7 10-4-1.9-7-5.6-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span class="rlab">Hedge</span></a>
-    <a class="rbtn" id="rb-parlay" href="#parlay" data-v="parlay"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4-8 4-8-4z"/><path d="M4 12l8 4 8-4"/><path d="M4 17l8 4 8-4"/></svg><span class="rlab">Parlay</span></a>
-    <a class="rbtn" id="rb-odds" href="#odds" data-v="odds"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="7.5" cy="7.5" r="2.6"/><circle cx="16.5" cy="16.5" r="2.6"/></svg><span class="rlab">Odds</span></a>
-    <a class="rbtn" id="rb-devig" href="#devig" data-v="devig"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18l-7 8v7l-4 2v-9z"/></svg><span class="rlab">Devig</span></a>
-    <a class="rbtn" id="rb-cheat" href="#cheat" data-v="cheat"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span class="rlab">Cheat sheet</span></a>
-  </nav>
-  <div class="railfoot">
-    <a class="rbtn" id="rb-about" href="#about" data-v="about"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c.9-3.6 3.9-5.6 7.5-5.6s6.6 2 7.5 5.6"/></svg><span class="rlab">About</span></a>
-    <a class="brand" href="https://x.com/gamblingv1ctim" target="_blank" rel="noopener noreferrer"
-       aria-label="@gamblingv1ctim on X" title="@gamblingv1ctim on X">
-      <span class="mark" aria-hidden="true"></span>
-      <span class="btag">@gamblingv1ctim</span>
-    </a>
-  </div>
-</div></aside>
-
-<main class="views">
-<div class="view on" id="view-tracker">
+<a class="mark" href="https://x.com/gamblingv1ctim" target="_blank" rel="noopener noreferrer"
+   aria-label="@gamblingv1ctim on X" title="@gamblingv1ctim on X"></a>
 <header>
   <div class="eyebrow">Public Tracker</div>
   <div class="net num" id="net">+0.00u</div>
   <div class="sub" id="span"></div>
-  <div class="unitline">One unit is one standard bet. Its cash value is up to you &mdash;
-    set yours in the box and every figure here turns into money.</div>
   <div class="calc">
     <b>What a unit is worth</b>
     <div class="row"><span>1u&nbsp;=&nbsp;$</span><input type="number" id="usz" min="0" step="1" value="100"
@@ -577,20 +257,13 @@ a.bk .bw{color:var(--lilac)}
     <div class="out num" id="uout">--</div>
   </div>
   <div class="kpis" id="kpis"></div>
-  <div class="form" id="formstrip"></div>
   <div class="nudge" id="nudge" role="tooltip"></div>
 </header>
 
-<section class="open" id="openband">
+<section class="open" id="openband" hidden>
   <h2>Open now</h2>
   <ul id="openlist"></ul>
 </section>
-
-<a class="follow" href="https://x.com/gamblingv1ctim" target="_blank" rel="noopener noreferrer">
-  <span class="fx" aria-hidden="true">X</span>
-  <span class="ft">Plays post on X first</span>
-  <span class="fgo">@gamblingv1ctim &rarr;</span>
-</a>
 
 <div class="hero">
   <div class="card acc"><h2>Cumulative units by day</h2>
@@ -617,7 +290,6 @@ a.bk .bw{color:var(--lilac)}
 </div>
 
 <div class="card acc" style="margin-top:18px"><h2>Every play</h2>
-  <div class="chips" id="sportchips"></div>
   <div class="tw"><table><thead><tr><th>Date</th><th>Sport</th><th class="l">Play</th><th>Market</th><th class="n">Odds</th><th class="n">Units</th><th>Result</th><th class="n">P/L</th></tr></thead><tbody id="log"></tbody></table></div>
   <div class="more" id="morebar" hidden>
     <span class="c" id="shown"></span>
@@ -627,321 +299,14 @@ a.bk .bw{color:var(--lilac)}
 </div>
 
 <footer>
+  <b>One unit is one standard bet.</b> Its cash value is deliberately not shown &mdash; a unit is whatever one standard bet is for you.<br>
+  Odds are American, at the price posted. ROI is net units divided by units risked, settled plays only. Pushes and voids settle flat and are excluded from win rate.<br>
+  Open plays are posted here before they settle and are excluded from every settled figure. Nothing is removed once posted.<br>
   <span id="stamp"></span>
 </footer>
 </div>
-
-
-<div class="view" id="view-about" hidden>
-  <div class="crumb">About</div>
-  <h1 class="th">About<br>this page</h1>
-  <p class="lede" id="ab-lede"></p>
-  <div class="tcard">
-    <div class="thead"><b>How I bet</b></div>
-    <div class="tgrid one"><div class="tin"><div class="prose tight" id="ab-how"></div></div></div>
-  </div>
-  <div class="tcard" style="margin-top:18px">
-    <div class="thead"><b>Books I use</b><span class="lhint">Some links below are referral links</span></div>
-    <div class="tgrid one"><div class="tin"><div class="books" id="ab-books"></div></div></div>
-  </div>
-  <div class="prose">
-    <h2>What is on this page</h2>
-    <p>Every play I post publicly is logged here, win or lose. Nothing is removed once it is up. Plays that
-    carry a link go straight to the post that called them, so you can check the time and the price yourself.</p>
-    <p>Open plays appear before they settle and are left out of every settled figure.</p>
-    <h2>Disclosure</h2>
-    <p>Some of the book links above are referral links. If you sign up through one, I may be paid. It costs
-    you nothing and it does not change which books I use or what I post.</p>
-    <p>Nothing here is advice. Bet only what you can afford to lose. If betting stops being fun, stop.</p>
-  </div>
-</div>
-
-<div class="view" id="view-arb" hidden>
-  <div class="crumb">Tools / Arbitrage</div>
-  <h1 class="th">Arbitrage<br>calculator</h1>
-  <p class="lede">Put two prices on the same market side by side. See the stake split, the return, and whether the pair locks a profit.</p>
-  <div class="tcard">
-    <div class="thead"><b>Two-way arbitrage</b><button class="tlink" data-k="arb">COPY LINK</button><button class="treset" id="ar-clear" data-r="arb">RESET &times;</button></div>
-    <div class="tgrid">
-      <div class="tin">
-        <div class="agrid">
-          <div class="ah"></div><div class="ah">Side A</div><div class="ah">Side B</div>
-          <div class="al">Odds</div>
-          <input type="text" id="ar-a" placeholder="+110" autocomplete="off" spellcheck="false" aria-label="Odds on side A">
-          <input type="text" id="ar-b" placeholder="+110" autocomplete="off" spellcheck="false" aria-label="Odds on side B">
-          <div class="al">Stake</div>
-          <div class="mi"><span>$</span><input type="text" id="ar-sa" placeholder="100" inputmode="decimal" autocomplete="off" aria-label="Stake on side A"></div>
-          <div class="mi"><span>$</span><input type="text" id="ar-sb" placeholder="100" inputmode="decimal" autocomplete="off" aria-label="Stake on side B"></div>
-          <div class="al">Payout</div>
-          <div class="mi"><span>$</span><input type="text" id="ar-pa" placeholder="0.00" inputmode="decimal" autocomplete="off" aria-label="Payout on side A"></div>
-          <div class="mi"><span>$</span><input type="text" id="ar-pb" placeholder="0.00" inputmode="decimal" autocomplete="off" aria-label="Payout on side B"></div>
-        </div>
-        <div class="asum">
-          <div><b>Total stake</b><span class="num" id="ar-ts">$0.00</span></div>
-          <div><b>Total payout</b><span class="num" id="ar-tp">$0.00</span></div>
-          <div class="sep"><b>Profit</b><span class="num" id="ar-out">$0.00</span><i class="num" id="ar-pct">0.00%</i></div>
-        </div>
-        <div class="fine" id="ar-fine">Enter both prices, then a stake on either side.</div>
-      </div>
-      <div class="tnote"><b>How to read it</b><p>Put a price on each side. Type a stake on either side and the other side fills in with the amount that balances the pair, so both outcomes return the same money.</p><p>Type over either stake at any time and the other one follows. You can also type a payout to work backwards to the stake that reaches it.</p><p>Prices read as American (+150, &minus;130) or decimal (2.50).</p></div>
-    </div>
-  </div>
-  <div class="prose">
-    <h2>What arbitrage is</h2>
-    <p>Two books can price the same market differently. When the two prices disagree enough, you can back both
-    sides and win the same amount whichever way the game goes. This is an arbitrage, or an arb.</p>
-    <p>The calculator adds the implied chance of each price. If the total is below 100%, an arb exists. It then
-    divides your stake so that both sides return the same money.</p>
-    <h2>How to use it</h2>
-    <p>Put the best price you can get on each side into the two fields. Put the money you want to risk in total
-    into the stake field. The tool gives you the amount for each side and the profit.</p>
-    <p>The split is what makes it work. Equal stakes on both sides do not lock the return.</p>
-    <h2>What to watch</h2>
-    <p>Prices move. Get the second side down quickly, or you hold one side alone. Books also limit or close
-    accounts that only take arbs. Check that both bets are on the same market, the same line and the same period.</p>
-  </div>
-</div>
-
-
-<div class="view" id="view-hedge" hidden>
-  <div class="crumb">Tools / Hedge</div>
-  <h1 class="th">Hedge<br>calculator</h1>
-  <p class="lede">You already hold a bet. Work out what to put on the other side now to lock a profit, and
-  whether that beats the cash-out the book offers you.</p>
-  <div class="tcard">
-    <div class="thead"><b>Hedge a bet you hold</b><button class="tlink" data-k="hedge">COPY LINK</button><button class="treset" id="hg-clear" data-r="hedge">RESET &times;</button></div>
-    <div class="tgrid">
-      <div class="tin">
-        <div class="agrid hg">
-          <div class="al">Your odds</div>
-          <input type="text" id="hg-o" placeholder="+400" autocomplete="off" spellcheck="false" aria-label="Odds of the bet you hold">
-          <div class="al">Your stake</div>
-          <div class="mi"><span>$</span><input type="text" id="hg-s" placeholder="100" inputmode="decimal" autocomplete="off" aria-label="Stake on the bet you hold"></div>
-          <div class="al">Hedge odds</div>
-          <input type="text" id="hg-h" placeholder="-140" autocomplete="off" spellcheck="false" aria-label="Odds available on the other side now">
-          <div class="al">Hedge stake</div>
-          <div class="mi"><span>$</span><input type="text" id="hg-hs" placeholder="auto" inputmode="decimal" autocomplete="off" aria-label="Amount to put on the other side"></div>
-          <div class="al">Cash out</div>
-          <div class="mi"><span>$</span><input type="text" id="hg-c" placeholder="optional" inputmode="decimal" autocomplete="off" aria-label="Cash-out offer from the book"></div>
-        </div>
-        <div class="asum">
-          <div><b>If your bet wins</b><span class="num" id="hg-w1">$0.00</span></div>
-          <div><b>If the hedge wins</b><span class="num" id="hg-w2">$0.00</span></div>
-          <div class="sep"><b>Locked in</b><span class="num" id="hg-out">$0.00</span><i class="num" id="hg-pct">0.00%</i></div>
-        </div>
-        <div class="fine" id="hg-fine">Enter your price, your stake, and the price on the other side.</div>
-      </div>
-      <div class="tnote"><b>How to read it</b>
-        <p>Leave the hedge stake empty and the tool fills in the amount that makes both outcomes pay the same.
-        That amount is the equal hedge, and the locked figure is your profit whichever way the game goes.</p>
-        <p>Type your own hedge stake to take less than the full lock. The two outcome figures then differ, and
-        the locked figure shows the worse one.</p>
-        <p>Add the book&rsquo;s cash-out offer to see which is better. The offer is the money returned to you,
-        stake included.</p>
-      </div>
-    </div>
-  </div>
-  <div class="prose">
-    <h2>When to hedge</h2>
-    <p>A hedge turns an open position into a settled one. You give up the top end and you remove the risk.
-    It is the right move when the remaining edge is small next to the money at stake &mdash; a live futures
-    ticket, the last leg of a parlay, a big price that has shortened a long way.</p>
-    <p>It is the wrong move when you still hold the edge. If the current price on the other side is worse than
-    fair, a full hedge sells your position at a loss to the market.</p>
-    <h2>Cash out is a hedge with a fee</h2>
-    <p>A book&rsquo;s cash-out is the same trade, priced by the book. It is almost always worse than hedging by
-    hand, because the book takes its margin on both the original price and the current one. Put the offer in
-    the field and the tool tells you the gap in money.</p>
-    <h2>Partial hedges</h2>
-    <p>You do not have to lock the whole thing. Put in half the equal hedge and you keep half the upside and
-    remove half the risk. The two outcome figures show exactly where that leaves you.</p>
-  </div>
-</div>
-
-<div class="view" id="view-parlay" hidden>
-  <div class="crumb">Tools / Parlay</div>
-  <h1 class="th">Parlay and<br>round robin</h1>
-  <p class="lede">Price a parlay from its legs, or break the same legs into a round robin and see what each
-  number of winning legs pays back.</p>
-  <div class="tcard">
-    <div class="thead"><b>Legs and stake</b><button class="tlink" data-k="parlay">COPY LINK</button><button class="treset" id="pl-clear" data-r="parlay">RESET &times;</button></div>
-    <div class="tgrid">
-      <div class="tin">
-        <div class="legs" id="pl-legs"></div>
-        <div class="legadd"><button class="btn2" id="pl-add">+ ADD LEG</button>
-          <span class="lhint" id="pl-hint"></span></div>
-        <div class="agrid hg" style="margin-top:16px">
-          <div class="al">Stake per bet</div>
-          <div class="mi"><span>$</span><input type="text" id="pl-s" value="10" inputmode="decimal" autocomplete="off" aria-label="Stake on each bet"></div>
-        </div>
-        <div class="ah" style="margin:16px 0 6px">Ticket</div>
-        <div class="seg" id="pl-mode" role="group" aria-label="Ticket type"></div>
-      </div>
-      <div class="tnote"><b>How to read it</b>
-        <p>A straight parlay is one bet on all the legs. Every leg must win.</p>
-        <p>A round robin splits the same legs into every smaller parlay of the size you pick. By 2s on four
-        legs is six two-leg parlays. The stake is per bet, so six bets at $10 risks $60.</p>
-        <p>The table shows what comes back for each number of winning legs. Where legs are priced
-        differently, the return depends on which ones win, so a range is shown.</p>
-      </div>
-    </div>
-  </div>
-  <div class="tcard" style="margin-top:18px">
-    <div class="thead"><b id="pl-title">Every bet on the ticket</b><span class="lhint" id="pl-count"></span></div>
-    <div class="tgrid one">
-      <div class="tin">
-        <div class="asum four">
-          <div><b>Bets</b><span class="num" id="pl-n">0</span></div>
-          <div><b>Total risk</b><span class="num" id="pl-risk">$0.00</span></div>
-          <div><b>Best case back</b><span class="num" id="pl-best">$0.00</span></div>
-          <div class="sep"><b>Best case profit</b><span class="num" id="pl-bestp">$0.00</span></div>
-        </div>
-        <div class="ptab" id="pl-out"></div>
-        <details class="plist"><summary>Show every bet and its price</summary>
-          <div class="ptab two" id="pl-combos"></div>
-        </details>
-        <div class="fine" id="pl-fine">Enter a price on at least two legs.</div>
-      </div>
-    </div>
-  </div>
-  <div class="prose">
-    <h2>What a round robin does</h2>
-    <p>A round robin is not one bet. It is every parlay of a chosen size that can be made from your legs.
-    Four legs by 2s is six separate two-leg parlays. Each one is priced and settled on its own.</p>
-    <p>The point is that you no longer need every leg. With four legs by 2s, two winners already pay one bet
-    back. The cost is that you risk six stakes instead of one, so a clean sweep pays less than the straight
-    four-leg parlay would.</p>
-    <h2>How to size it</h2>
-    <p>The stake here is per bet, which is how books take it. Decide the total you want to risk first, then
-    divide by the number of bets. Six bets and a 0.3u budget is 0.05u per bet.</p>
-    <h2>Reading the table</h2>
-    <p>Each row is a number of winning legs. Where your legs carry different prices, which legs win changes
-    the return, so the row shows the range from worst to best. Profit is that return less the whole ticket.</p>
-    <p>Find the row where profit first turns positive. That is how many legs you need.</p>
-  </div>
-</div>
-
-<div class="view" id="view-odds" hidden>
-  <div class="crumb">Tools / Odds</div>
-  <h1 class="th">Odds<br>converter</h1>
-  <p class="lede">Turn a percentage into a price, and a price back into a percentage.</p>
-  <div class="tcard">
-    <div class="thead"><b>Percent and price</b><button class="tlink" data-k="odds">COPY LINK</button><button class="treset" data-r="odds">RESET &times;</button></div>
-    <div class="tgrid">
-      <div class="tin">
-    <div class="row"><span>Chance&nbsp;%</span><input type="number" id="pc-in" min="0" max="100" step="0.1"
-      placeholder="55" inputmode="decimal" aria-label="Chance in percent"></div>
-    <div class="out num" id="pc-out">--</div>
-    <div class="fine" id="pc-fine">Enter a chance from 0 to 100.</div>
-    <b style="margin:14px 0 8px">Odds to percent</b>
-    <div class="row"><span>Odds</span><input type="text" id="pc-o" placeholder="-110"
-      inputmode="text" autocomplete="off" spellcheck="false" aria-label="American or decimal odds"></div>
-    <div class="out num sm" id="pc-oout">--</div>
-    <div class="fine" id="pc-ofine">American or decimal.</div>
-      </div>
-      <div class="tnote"><b>How to read it</b><p>The top half turns a chance into the price that pays fairly for it. The bottom half turns a price into the chance the book is charging you for.</p><p>The bottom figure still has the vig in it. To take the vig out you need both sides of the market &mdash; use the <a href="#devig">devig tool</a>.</p></div>
-    </div>
-  </div>
-  <a class="handoff" href="#cheat">
-    <b>Trading on Kalshi, Novig or Polymarket?</b>
-    <span>Those markets quote in cents and percent, not American prices. The cheat sheet lists every
-    percent from 1 to 99, in whole steps or in halves, with its American and decimal price.</span>
-    <em>Open the cheat sheet &rarr;</em>
-  </a>
-  <div class="prose">
-    <h2>Why the two directions matter</h2>
-    <p>Every price is a percentage in disguise. &minus;110 is 52.38%. +150 is 40.00%. If you think a side wins
-    more often than the price says, the bet has value.</p>
-    <h2>How to use it</h2>
-    <p>Start with your own number. If you think a team wins 57% of the time, put 57 in the top field. The tool
-    gives you &minus;133. Any price better than &minus;133 is a bet worth making by your own estimate.</p>
-    <p>Go the other way to check a price. Put &minus;250 in the second field and you get 71.43%. That is how
-    often the bet must win to break even.</p>
-    <h2>Percent markets</h2>
-    <p>Exchanges price in percent or in cents. Kalshi and Polymarket quote a contract from 1&cent; to 99&cent;,
-    which is the chance in percent. Novig shows a percentage beside every price. This tool moves between that
-    world and a sportsbook price, so you can compare an exchange with a book on the same scale.</p>
-    <p>For a full table, see the <a href="#cheat">cheat sheet</a>.</p>
-    <h2>Remember the vig</h2>
-    <p>The percentages from a book add up to more than 100%. That extra is the book&rsquo;s margin. A single
-    price is never a fair estimate on its own.</p>
-  </div>
-</div>
-
-<div class="view" id="view-devig" hidden>
-  <div class="crumb">Tools / Devig</div>
-  <h1 class="th">Devig<br>calculator</h1>
-  <p class="lede">Take the book&rsquo;s margin out of a two-way market and get the fair price behind it.</p>
-  <div class="tcard">
-    <div class="thead"><b>Devig a two-way market</b><button class="tlink" data-k="devig">COPY LINK</button><button class="treset" data-r="devig">RESET &times;</button></div>
-    <div class="tgrid">
-      <div class="tin">
-        <div class="ah" style="margin-bottom:6px">Method</div>
-        <div class="seg" role="group" aria-label="Devig method">
-          <button class="sg on" data-m="mult" aria-pressed="true">MULT</button>
-          <button class="sg" data-m="add" aria-pressed="false">ADD</button>
-          <button class="sg" data-m="pow" aria-pressed="false">POWER</button>
-        </div>
-        <div class="dgrid">
-          <div class="ah">Odds</div><div class="ah">No-vig %</div><div class="ah">No-vig odds</div>
-          <input type="text" id="dv-a" placeholder="+110" autocomplete="off" spellcheck="false" aria-label="Odds on the first side">
-          <div class="dv num" id="dv-pa">--</div><div class="dv num lil" id="dv-oa">--</div>
-          <input type="text" id="dv-b" placeholder="+110" autocomplete="off" spellcheck="false" aria-label="Odds on the second side">
-          <div class="dv num" id="dv-pb">--</div><div class="dv num lil" id="dv-ob">--</div>
-        </div>
-        <div class="fine" id="dv-fine">Enter both sides of the market.</div>
-      </div>
-      <div class="tnote"><b>How to read it</b><p>Enter both sides of the market. Each row gives the fair chance and the fair price for that side, with the book&rsquo;s margin taken out. The two percentages add up to 100%.</p><p>Compare a fair price with what another book offers. A better price than the fair one is a positive edge.</p></div>
-    </div>
-  </div>
-  <div class="prose">
-    <h2>What the vig is</h2>
-    <p>A book prices both sides so that the two chances add up to more than 100%. On a &minus;110 / &minus;110
-    market the two sides come to 104.55%. The extra 4.55% is the hold. It is how the book makes money.</p>
-    <p>To devig is to remove that extra and leave two numbers that add up to 100%.</p>
-    <h2>The three methods</h2>
-    <p><b>Multiplicative</b> divides each side by the total. It is the standard method and the right first choice.</p>
-    <p><b>Additive</b> takes an equal share of the margin off each side. It gives the favourite a lower fair
-    chance than the multiplicative method does.</p>
-    <p><b>Power</b> raises both chances to the same power until they add up to 100%. It moves longshots the most,
-    so it is the one to reach for on big prices.</p>
-    <p>The three agree closely on an even market. They separate as the market gets one-sided. On a
-    &minus;1000 / +700 market they differ by more than two points.</p>
-    <h2>How to use it</h2>
-    <p>Take both sides of the market from the sharpest book you have. Put your side in the first field. Read the
-    fair line, then look for a better price elsewhere. That gap is your edge.</p>
-  </div>
-</div>
-
-<div class="view" id="view-cheat" hidden>
-  <div class="crumb">Tools / Cheat sheet</div>
-  <h1 class="th">Percent to<br>American odds</h1>
-  <p class="lede">Every percentage from 1 to 99, whole or in halves, with the price that pays fairly for it. Use it to read a Kalshi, Novig or Polymarket price as a sportsbook line.</p>
-  <div class="tcard">
-    <div class="thead"><b>Quick look-up</b>
-      <div class="seg csteps" role="group" aria-label="Step size">
-        <button class="sg on" data-step="1" aria-pressed="true">WHOLE %</button>
-        <button class="sg" data-step="0.5" aria-pressed="false">HALF %</button>
-      </div>
-      <div class="cfind"><span>Jump to</span><input type="text" id="cf"
-        placeholder="55" inputmode="decimal" autocomplete="off" aria-label="Highlight a percentage"></div>
-    </div>
-    <div class="csheet" id="csheet"></div>
-  </div>
-  <div class="prose">
-    <h2>How to read it</h2>
-    <p>Find your chance in the left column of a block. The price beside it is the one that breaks even at that
-    chance. A price better than that one is a bet with value.</p>
-    <p>Under 50% the price is a plus number. You risk one unit to win more than one. Over 50% the price is a
-    minus number. You risk more than one unit to win one. At 50% the price is +100, an even bet.</p>
-    <p>These prices carry no vig. A real book prices both sides so that the two chances add up to more than
-    100%. Use the <a href="#devig">devig tool</a> to strip that out first, then come back here.</p>
-  </div>
-</div>
-</main>
-</div>
 <script>
-var D={"title":"Public Tracker","built":"Aug 28, 2026, 11:34 PM EDT","bets":[{"d":"2026-07-19","s":"WNBA","m":"Total","g":"","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2078935318087004374"},{"d":"2026-07-19","s":"WNBA","m":"Total","g":"","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2078935318087004374"},{"d":"2026-07-20","s":"WNBA","m":"Spread","g":"","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2079243217468260585"},{"d":"2026-07-20","s":"WNBA","m":"Spread","g":"","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2079243217468260585"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2080059585562300721"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455,"x":"https://x.com/gamblingv1ctim/status/2080020133745946839"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2080059585562300721"},{"d":"2026-07-25","s":"MLB","m":"Moneyline","g":"","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081089594917785955"},{"d":"2026-07-25","s":"MLB","m":"Moneyline","g":"","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024,"x":"https://x.com/gamblingv1ctim/status/2081050904833176053"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Spread","g":"","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081786311275356504"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Spread","g":"","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-28","s":"WNBA","m":"Spread","g":"","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"WNBA","m":"Spread","g":"","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"MLB","m":"Spread","g":"","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-28","s":"WNBA","m":"Total","g":"","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"MLB","m":"Spread","g":"","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-28","s":"MLB","m":"Moneyline","g":"","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Phillies","o":-148,"u":1,"r":"Win","p":0.6757,"x":"https://x.com/gamblingv1ctim/status/2082321817595777147"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Phillies -0.5","o":-118,"u":1,"r":"Win","p":0.8475,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"Rays ML","o":-141,"u":1,"r":"Win","p":0.7092,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Total","g":"","t":"Over 9.5","o":-115,"u":1,"r":"Win","p":0.8696,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"Cubs","o":-105,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2082500560616399346"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Rockies ML","o":123,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2082538597178056854"},{"d":"2026-07-29","s":"MLB","m":"Spread","g":"","t":"1H Yankees -0.5","o":-107,"u":1,"r":"Win","p":0.9346,"x":"https://x.com/gamblingv1ctim/status/2082595650814799989"},{"d":"2026-07-29","s":"WNBA","m":"Spread","g":"","t":"Valks -3.5","o":-110,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2082620919252455524"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"Rays","o":-140,"u":1,"r":"Win","p":0.7143,"x":"https://x.com/gamblingv1ctim/status/2082685194117538171"},{"d":"2026-07-30","s":"MLB","m":"Spread","g":"","t":"Nationals +1.5","o":-150,"u":1,"r":"Win","p":0.6667,"x":"https://x.com/gamblingv1ctim/status/2082860119369421091"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"Twins","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2082864844672221355"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"1H Nationals ML","o":117,"u":0.5,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2082946350572818815"},{"d":"2026-07-31","s":"MLB","m":"Moneyline","g":"","t":"1H Nationals ML","o":-110,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Nationals -0.5","o":118,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Tigers -0.5","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Rays -0.5","o":-108,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Moneyline","g":"Phillies @ Orioles","t":"1H Orioles ML","o":-118,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Total","g":"Storm @ Dream","t":"Over 178.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Spread","g":"Wings @ Mystics","t":"Mystics +3.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Spread","g":"Fever @ Fire","t":"Fever -7.5","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"White Sox @ Rays","t":"Rays -1","o":-110,"u":1,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2083419117009125584"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"Phillies @ Orioles","t":"1H Phillies -0.5","o":100,"u":1,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2083419117009125584"},{"d":"2026-08-01","s":"MLB","m":"Moneyline","g":"Nationals @ Braves","t":"1H Nationals ML","o":130,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"MLB","m":"Moneyline","g":"Rangers @ Astros","t":"Rangers ML","o":-120,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"WNBA","m":"Spread","g":"Aces @ Sky","t":"Sky +6.5","o":-120,"u":2.5,"r":"Win","p":2.0833,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"MLB","m":"Total","g":"Red Sox @ Dodgers","t":"Under 8","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2083608901447020803"},{"d":"2026-08-01","s":"MLB","m":"Total","g":"Marlins @ Mets","t":"Over 9","o":-105,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083608901447020803"},{"d":"2026-08-02","s":"MLB","m":"Spread","g":"Pirates @ Reds","t":"1H Reds -0.5","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2083791414169583643"},{"d":"2026-08-02","s":"MLB","m":"Moneyline","g":"Red Sox @ Dodgers","t":"1H Red Sox ML","o":134,"u":0.75,"r":"Win","p":1.005,"x":"https://x.com/gamblingv1ctim/status/2083791414169583643"},{"d":"2026-08-02","s":"WNBA","m":"Spread","g":"Fever @ Lynx","t":"Lynx -5","o":-110,"u":2.75,"r":"Win","p":2.5,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-02","s":"WNBA","m":"Spread","g":"Tempo @ Valkyries","t":"Tempo +13.5","o":-114,"u":2.75,"r":"Loss","p":-2.75,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-02","s":"MLB","m":"Spread","g":"Nationals @ Braves","t":"1H Nationals -0.5","o":120,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-03","s":"WNBA","m":"Moneyline","g":"Mercury @ Sky","t":"Sky ML","o":-105,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2084137554949865611"},{"d":"2026-08-03","s":"WNBA","m":"Moneyline","g":"Mercury @ Sky","t":"Sky ML","o":115,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2084137554949865611"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Jays @ Astros","t":"Astros ML","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Tigers @ Mariners","t":"1H Tigers ML","o":104,"u":1,"r":"Win","p":1.04,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"Red Sox ML","o":-125,"u":1,"r":"Win","p":0.8,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Dodgers @ Cubs","t":"Cubs ML","o":178,"u":0.5,"r":"Win","p":0.89,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Rays @ Rockies","t":"1H Rockies ML","o":138,"u":0.5,"r":"Win","p":0.69,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Spread","g":"Padres @ Diamondbacks","t":"1H Diamondbacks -0.5","o":104,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-05","s":"MLB","m":"Spread","g":"Rays @ Rockies","t":"1H Rays -0.5","o":-108,"u":1,"r":"Win","p":0.9259,"x":"https://x.com/gamblingv1ctim/status/2085048377402695895"},{"d":"2026-08-05","s":"MLB","m":"Moneyline","g":"Dodgers @ Cubs","t":"Dodgers ML","o":115,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2085048377402695895"},{"d":"2026-08-05","s":"MLB","m":"Total","g":"Jays @ Astros","t":"Under 8.5","o":115,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085095667957948880"},{"d":"2026-08-05","s":"MLB","m":"Total","g":"Nationals @ Phillies","t":"Under 9.5","o":-102,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085130379887882633"},{"d":"2026-08-05","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"White Sox ML","o":131,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085130379887882633"},{"d":"2026-08-06","s":"MLB","m":"Total","g":"Jays @ Cubs","t":"Under 7.5","o":104,"u":1,"r":"Win","p":1.04,"x":"https://x.com/gamblingv1ctim/status/2085435642842914862"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"Red Sox ML","o":153,"u":1,"r":"Win","p":1.53,"x":"https://x.com/gamblingv1ctim/status/2085515295179866354"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"White Sox @ Red Sox","t":"Red Sox -1","o":-137,"u":1,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2085395431781998743"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"Angels @ Orioles","t":"1H Orioles -0.5","o":-125,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085234786059129020"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"Jays @ Cubs","t":"Jays ML","o":-102,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2085428385493246422"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"Marlins @ Braves","t":"Marlins ML","o":150,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085483257458577583"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"Marlins @ Braves","t":"Marlins +1","o":103,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085483257458577583"},{"d":"2026-08-07","s":"MLB","m":"Spread","g":"Angels @ Marlins","t":"1H Marlins -0.5","o":-115,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085587641018257646"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 5+ Assists","o":100,"u":0.25,"r":"Win","p":0.25,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 6+ Assists","o":270,"u":0.125,"r":"Loss","p":-0.125,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 8+ Assists","o":880,"u":0.125,"r":"Loss","p":-0.125,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Spread","g":"","t":"Lynx -4.5","o":-108,"u":2.5,"r":"Win","p":2.3148,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"PIT ML","o":-115,"u":0.5,"r":"Win","p":0.4348,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"PIT 1H ML","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"Braves 1H ML","o":-150,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-09","s":"WNBA","m":"Total","g":"Mercury @ Mystics","t":"Over 167.5","o":100,"u":2.5,"r":"Win","p":2.5,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-09","s":"MLB","m":"Spread","g":"","t":"Brewers -1.5","o":-104,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-09","s":"MLB","m":"Moneyline","g":"","t":"Tigers 1H ML","o":-115,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-10","s":"MLB","m":"Total","g":"Brewers @ Padres","t":"Under 7.5","o":-115,"u":1,"r":"Win","p":0.8696,"x":"https://x.com/gamblingv1ctim/status/2086688126072758284"},{"d":"2026-08-10","s":"MLB","m":"Moneyline","g":"Orioles @ Twins","t":"Orioles ML","o":101,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2086901406091387153"},{"d":"2026-08-10","s":"MLB","m":"Total","g":"Red Sox @ Jays","t":"Under 8.5","o":-108,"u":1,"r":"Win","p":0.9259,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"MLB","m":"Moneyline","g":"Phillies @ Cardinals","t":"Cardinals ML","o":108,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"MLB","m":"Spread","g":"Phillies @ Cardinals","t":"Cardinals +1.5","o":-150,"u":0.5,"r":"Win","p":0.3333,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O15.5 Points","o":-104,"u":0.2,"r":"Win","p":0.1923,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O19.5 Points","o":290,"u":0.15,"r":"Loss","p":-0.15,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O24.5 Points","o":900,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O29.5 Points","o":2800,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-11","s":"MLB","m":"Moneyline","g":"Pirates @ Marlins","t":"PIT ML","o":-104,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Spread","g":"Pirates @ Marlins","t":"PIT -1","o":117,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Spread","g":"Liberty @ Fever","t":"Fever -2.5","o":100,"u":0.75,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Spread","g":"Mystics @ Aces","t":"Mystics +7.5","o":-122,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Total","g":"Phillies @ Cardinals","t":"1H Under 4.5","o":-111,"u":1,"r":"Win","p":0.9009,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Spread","g":"Reds @ White Sox","t":"White Sox -1","o":-112,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 6+ Rebounds","o":-108,"u":0.3,"r":"Win","p":0.2778,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 8+ Rebounds","o":375,"u":0.1,"r":"Win","p":0.375,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 10+ Rebounds","o":1050,"u":0.1,"r":"Win","p":1.05,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 5+ Rebounds","o":117,"u":0.3,"r":"Loss","p":-0.3,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 6+ Rebounds","o":230,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 8+ Rebounds","o":880,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"MLB","m":"Total","g":"Reds @ White Sox","t":"Under 8","o":-118,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2087301352753889660"},{"d":"2026-08-12","s":"MLB","m":"Total","g":"Orioles @ Twins","t":"Under 9","o":-118,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2087595032391913946"},{"d":"2026-08-12","s":"MLB","m":"Spread","g":"Rockies @ Diamondbacks","t":"Diamondbacks -1","o":-135,"u":1.5,"r":"Loss","p":-1.5,"x":"https://x.com/gamblingv1ctim/status/2087617340082934133"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 4+ Assists","o":-144,"u":0.35,"r":"Win","p":0.2431,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 6+ Assists","o":320,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 8+ Assists","o":1200,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 7+ Points","o":-111,"u":0.35,"r":"Win","p":0.3153,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 10+ Points","o":240,"u":0.2,"r":"Win","p":0.48,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 15+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-13","s":"MLB","m":"Other","g":"Brewers @ Dodgers","t":"NRFI","o":102,"u":1,"r":"Win","p":1.02,"x":"https://x.com/gamblingv1ctim/status/2088009926891159798"},{"d":"2026-08-14","s":"MLB","m":"Total","g":"Marlins @ Reds","t":"Under 8 Total Runs","o":-115,"u":0.75,"r":"Win","p":0.6522,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 7+ Points","o":-130,"u":0.2,"r":"Win","p":0.1538,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 10+ Points","o":205,"u":0.2,"r":"Win","p":0.41,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 15+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"MLB","m":"Moneyline","g":"Nationals @ Mets","t":"1H Nationals ML","o":-104,"u":0.75,"r":"Win","p":0.7212,"x":"https://x.com/gamblingv1ctim/status/2088306091721453937"},{"d":"2026-08-14","s":"MLB","m":"Moneyline","g":"Marlins @ Reds","t":"1H Red ML","o":-117,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2088306091721453937"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 20+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 15+ Points","o":325,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 11+ Points","o":-121,"u":0.2,"r":"Win","p":0.1653,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"MLB","m":"Player prop","g":"","t":"Acuna x Seager HR","o":2154,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2088728828491280803"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Burger HR","o":3558,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Carroll HR","o":3124,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Burger HR + Carroll HR","o":2968,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Burger HR + Carroll HR","o":18922,"u":0.025,"r":"Loss","p":-0.025,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Corbin Carroll Over 0.5 Stolen Bases","o":500,"u":0.1,"r":"Win","p":0.5,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Ronald Acuna Jr. Over 0.5 Stolen Bases","o":750,"u":0.1,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Fernado Tatis Jr. Over 0.5 Stolen Bases","o":840,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Randy Arozarena Over 0.5 Stolen Bases","o":500,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Elly De La Cruz Over 0.5 Stolen Bases","o":240,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Alonso HR + Ohtani HR","o":1894,"u":0.1,"r":"Win","p":1.894,"x":"https://x.com/gamblingv1ctim/status/2089436930182144317"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + o/uU Over 0.5 + Carrigg Over 0.5 Stolen Bases","o":13745,"u":0.025,"r":"Loss","p":-0.025,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + Tatis Over 0.5 Stolen Bases","o":2943,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases","o":2239,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Tatis Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases","o":2594,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Total","g":"Dodgers @ Rockies","t":"Under 11 Runs","o":-115,"u":0.5748,"r":"Loss","p":-0.5748,"x":"https://x.com/gamblingv1ctim/status/2089370147693764957"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Padres @ Mets","t":"Padres ML","o":-106,"u":0.75,"r":"Win","p":0.7075,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Spread","g":"Giants @ Guardians","t":"Guardians -1","o":-136,"u":0.5,"r":"Win","p":0.3676,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Diamondbacks @ Red Sox","t":"YRFI","o":127,"u":0.75,"r":"Win","p":0.9525,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"","t":"Jonah Cox Over 0.5 Stolen Bases","o":600,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089765610389373076"},{"d":"2026-08-18","s":"WNBA","m":"Player prop","g":"Los Angeles Sparks @ Connecticut Sun","t":"Olivia Nelson-Ododa Score 15+ Points","o":192,"u":0.15,"r":"Win","p":0.288,"x":"https://x.com/gamblingv1ctim/status/2089791480994861524"},{"d":"2026-08-18","s":"WNBA","m":"Player prop","g":"Los Angeles Sparks @ Connecticut Sun","t":"Olivia Nelson-Ododa Score 20+ Points","o":670,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089791480994861524"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"","t":"Shohei Ohtani Over 0.5 Stolen Bases","o":650,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089797146379706475"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"Athletics @ Kansas City Royals","t":"Lawrence Butler HR","o":710,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089806248472424883"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Diamondbacks @ Red Sox","t":"1H Red Sox ML","o":-160,"u":1,"r":"Win","p":0.625,"x":"https://x.com/gamblingv1ctim/status/2089826173672943869"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Mariners @ Brewers","t":"Mariners ML","o":156,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2089826997803381087"},{"d":"2026-08-19","s":"MLB","m":"Player prop","g":"","t":"Nasim Nunez Over 0.5 Stolen Bases","o":340,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090112446484590746"},{"d":"2026-08-20","s":"MLB","m":"Moneyline","g":"Athletics @ Royals","t":"1H Athletics ML","o":105,"u":0.6,"r":"Loss","p":-0.6,"x":"https://x.com/gamblingv1ctim/status/2090305553671037179"},{"d":"2026-08-20","s":"MLB","m":"Parlay","g":"","t":"Caminero HR + Alonso HR","o":1738,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2090483778040873252"},{"d":"2026-08-20","s":"MLB","m":"Total","g":"Athletics @ Royals","t":"Under 9.5","o":115,"u":0.5,"r":"Win","p":0.575,"x":"https://x.com/gamblingv1ctim/status/2090544227448938856"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 30+ Points","o":1300,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 25+ Points","o":415,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 20+ Points","o":108,"u":0.2,"r":"Win","p":0.216,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 20+ Points","o":980,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 15+ Points","o":275,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 11+ Points","o":-120,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"MLB","m":"Parlay","g":"","t":"Witt HR + Crow-Armstrong HR","o":2921,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2090679196464898128"},{"d":"2026-08-21","s":"MLB","m":"Player prop","g":"","t":"Nasim Nunez Over 0.5 Stolen Bases","o":450,"u":0.2,"r":"Win","p":0.9,"x":"https://x.com/gamblingv1ctim/status/2090842091999928672"},{"d":"2026-08-21","s":"MLB","m":"Player prop","g":"","t":"Jose Caballero Over 0.5 Stolen Bases","o":222,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090842091999928672"},{"d":"2026-08-21","s":"MLB","m":"Moneyline","g":"Mets @ White Sox","t":"White Sox ML","o":-133,"u":0.5,"r":"Win","p":0.3759,"x":"https://x.com/gamblingv1ctim/status/2090831275175092616"},{"d":"2026-08-22","s":"MLB","m":"Player prop","g":"","t":"AJ Ewing OVer 0.5 Stolen Bases","o":600,"u":0.125,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2091230456070975759"},{"d":"2026-08-22","s":"UFC","m":"Moneyline","g":"","t":"Shanelle Dyer by KO, TKO, or DQ","o":135,"u":0.5,"r":"Win","p":0.675,"x":"https://x.com/gamblingv1ctim/status/2091218119771533748"},{"d":"2026-08-22","s":"MLB","m":"Spread","g":"Braves @ Brewers","t":"1H Brewers -0.5","o":-122,"u":0.75,"r":"Win","p":0.6148,"x":"https://x.com/gamblingv1ctim/status/2091018989526724997"},{"d":"2026-08-22","s":"MLB","m":"Total","g":"Jays @ Yankees","t":"Under 7","o":-115,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2091018989526724997"},{"d":"2026-08-23","s":"MLB","m":"Moneyline","g":"Braves @ Brewers","t":"Brewers ML","o":130,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2091671227995759055"},{"d":"2026-08-23","s":"MLB","m":"Moneyline","g":"Guardians @ Rockies","t":"Rockies ML","o":150,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2091597564369945073"},{"d":"2026-08-23","s":"NFL","m":"Spread","g":"Seahawks @ Titans","t":"Seahawks +3.5","o":-118,"u":0.5,"r":"Win","p":0.4237,"x":"https://x.com/gamblingv1ctim/status/2091677016491713018"},{"d":"2026-08-24","s":"MLB","m":"Total","g":"Guardians @ Angels","t":"Under 8.5 Total Runs","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2091902504082502134"},{"d":"2026-08-25","s":"MLB","m":"Moneyline","g":"Cubs @ Diamondbacks","t":"Diamondbacks","o":102,"u":0.5,"r":"Win","p":0.51,"x":"https://x.com/gamblingv1ctim/status/2092347728697217343"},{"d":"2026-08-25","s":"MLB","m":"Total","g":"Rays @ Tigers","t":"Under 7","o":-130,"u":0.5,"r":"Win","p":0.3846,"x":"https://x.com/gamblingv1ctim/status/2092388541590356070"},{"d":"2026-08-25","s":"MLB","m":"Moneyline","g":"Reds @ Giants","t":"Reds ML","o":102,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2092424464063447538"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Pirates @ Padres","t":"Padres ML","o":-127,"u":0.5,"r":"Win","p":0.3937,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Reds @ Giants","t":"Reds ML","o":110,"u":0.5,"r":"Win","p":0.55,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Phillies @ Mariners","t":"1H Phillies ML","o":-130,"u":0.65,"r":"Win","p":0.5,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Phillies @ Mariners","t":"Phillies ML","o":-125,"u":0.35,"r":"Win","p":0.28,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-27","s":"NCAAF","m":"Spread","g":"Maine vs Towson","t":"UMAINE +3.5","o":-112,"u":0.5,"r":"Win","p":0.4464,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-27","s":"NCAAF","m":"Total","g":"Stony Brook vs Delaware State","t":"Under 51.5","o":-108,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-27","s":"WNBA","m":"Spread","g":"Mystics @ Mercury","t":"Mystics -1.5","o":-150,"u":1.5,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2093087677117595675"},{"d":"2026-08-27","s":"NCAAF","m":"Spread","g":"Mercyhurst vs Youngstown State","t":"Mercyhurst +30.5","o":-107,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093095928043282910"},{"d":"2026-08-28","s":"MLB","m":"Parlay","g":"","t":"Dodgers x Under 9.5 x Pirates +1","o":224,"u":0.3,"r":"Loss","p":-0.3,"x":"https://x.com/gamblingv1ctim/status/2093427522406859002"},{"d":"2026-08-28","s":"MLB","m":"Parlay","g":"CIN Reds @ CHI Cubs","t":"Dodgers x Pirates +1","o":133,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2093433064319836324"},{"d":"2026-08-28","s":"NFL","m":"Total","g":"Giants @ Jets","t":"Under 37","o":-115,"u":0.5,"r":"Win","p":0.4348,"x":"https://x.com/gamblingv1ctim/status/2093450373872640315"},{"d":"2026-08-28","s":"NFL","m":"Spread","g":"Falcons @ Dolphins","t":"Dolphins +5.5","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2093450373872640315"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 7.5+ Points","o":125,"u":0.35,"r":"Pending","p":null,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 9.5+ Points","o":235,"u":0.2,"r":"Pending","p":null,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 14.5+ Points","o":1172,"u":0.2,"r":"Pending","p":null,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-29","s":"NCAAF","m":"Spread","g":"NC State vs Virginia","t":"NCS +4.5","o":-110,"u":0.5,"r":"Pending","p":null,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"}]};
+var D={"title":"Public Tracker","built":"Aug 29, 2026, 12:01 AM EDT","bets":[{"d":"2026-07-19","s":"WNBA","m":"Total","g":"","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2078935318087004374"},{"d":"2026-07-19","s":"WNBA","m":"Total","g":"","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2078935318087004374"},{"d":"2026-07-20","s":"WNBA","m":"Spread","g":"","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2079243217468260585"},{"d":"2026-07-20","s":"WNBA","m":"Spread","g":"","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2079243217468260585"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2080059585562300721"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455,"x":"https://x.com/gamblingv1ctim/status/2080020133745946839"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2080059585562300721"},{"d":"2026-07-25","s":"MLB","m":"Moneyline","g":"","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081089594917785955"},{"d":"2026-07-25","s":"MLB","m":"Moneyline","g":"","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024,"x":"https://x.com/gamblingv1ctim/status/2081050904833176053"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Spread","g":"","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081786311275356504"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Spread","g":"","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-28","s":"WNBA","m":"Spread","g":"","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"WNBA","m":"Spread","g":"","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"MLB","m":"Spread","g":"","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-28","s":"WNBA","m":"Total","g":"","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"MLB","m":"Spread","g":"","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-28","s":"MLB","m":"Moneyline","g":"","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Phillies","o":-148,"u":1,"r":"Win","p":0.6757,"x":"https://x.com/gamblingv1ctim/status/2082321817595777147"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Phillies -0.5","o":-118,"u":1,"r":"Win","p":0.8475,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"Rays ML","o":-141,"u":1,"r":"Win","p":0.7092,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Total","g":"","t":"Over 9.5","o":-115,"u":1,"r":"Win","p":0.8696,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"Cubs","o":-105,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2082500560616399346"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Rockies ML","o":123,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2082538597178056854"},{"d":"2026-07-29","s":"MLB","m":"Spread","g":"","t":"1H Yankees -0.5","o":-107,"u":1,"r":"Win","p":0.9346,"x":"https://x.com/gamblingv1ctim/status/2082595650814799989"},{"d":"2026-07-29","s":"WNBA","m":"Spread","g":"","t":"Valks -3.5","o":-110,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2082620919252455524"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"Rays","o":-140,"u":1,"r":"Win","p":0.7143,"x":"https://x.com/gamblingv1ctim/status/2082685194117538171"},{"d":"2026-07-30","s":"MLB","m":"Spread","g":"","t":"Nationals +1.5","o":-150,"u":1,"r":"Win","p":0.6667,"x":"https://x.com/gamblingv1ctim/status/2082860119369421091"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"Twins","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2082864844672221355"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"1H Nationals ML","o":117,"u":0.5,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2082946350572818815"},{"d":"2026-07-31","s":"MLB","m":"Moneyline","g":"","t":"1H Nationals ML","o":-110,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Nationals -0.5","o":118,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Tigers -0.5","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Rays -0.5","o":-108,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Moneyline","g":"Phillies @ Orioles","t":"1H Orioles ML","o":-118,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Total","g":"Storm @ Dream","t":"Over 178.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Spread","g":"Wings @ Mystics","t":"Mystics +3.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Spread","g":"Fever @ Fire","t":"Fever -7.5","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"White Sox @ Rays","t":"Rays -1","o":-110,"u":1,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2083419117009125584"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"Phillies @ Orioles","t":"1H Phillies -0.5","o":100,"u":1,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2083419117009125584"},{"d":"2026-08-01","s":"MLB","m":"Moneyline","g":"Nationals @ Braves","t":"1H Nationals ML","o":130,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"MLB","m":"Moneyline","g":"Rangers @ Astros","t":"Rangers ML","o":-120,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"WNBA","m":"Spread","g":"Aces @ Sky","t":"Sky +6.5","o":-120,"u":2.5,"r":"Win","p":2.0833,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"MLB","m":"Total","g":"Red Sox @ Dodgers","t":"Under 8","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2083608901447020803"},{"d":"2026-08-01","s":"MLB","m":"Total","g":"Marlins @ Mets","t":"Over 9","o":-105,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083608901447020803"},{"d":"2026-08-02","s":"MLB","m":"Spread","g":"Pirates @ Reds","t":"1H Reds -0.5","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2083791414169583643"},{"d":"2026-08-02","s":"MLB","m":"Moneyline","g":"Red Sox @ Dodgers","t":"1H Red Sox ML","o":134,"u":0.75,"r":"Win","p":1.005,"x":"https://x.com/gamblingv1ctim/status/2083791414169583643"},{"d":"2026-08-02","s":"WNBA","m":"Spread","g":"Fever @ Lynx","t":"Lynx -5","o":-110,"u":2.75,"r":"Win","p":2.5,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-02","s":"WNBA","m":"Spread","g":"Tempo @ Valkyries","t":"Tempo +13.5","o":-114,"u":2.75,"r":"Loss","p":-2.75,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-02","s":"MLB","m":"Spread","g":"Nationals @ Braves","t":"1H Nationals -0.5","o":120,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-03","s":"WNBA","m":"Moneyline","g":"Mercury @ Sky","t":"Sky ML","o":-105,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2084137554949865611"},{"d":"2026-08-03","s":"WNBA","m":"Moneyline","g":"Mercury @ Sky","t":"Sky ML","o":115,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2084137554949865611"},{"d":"2026-08-03","s":"MLB","m":"Total","g":"Pirates @ Brewers","t":"Over 8.5 Runs","o":102,"u":1,"r":"Loss","p":-1},{"d":"2026-08-03","s":"MLB","m":"Moneyline","g":"Giants @ Rangers","t":"Giants ML","o":110,"u":0.75,"r":"Win","p":0.825},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Jays @ Astros","t":"Astros ML","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Tigers @ Mariners","t":"1H Tigers ML","o":104,"u":1,"r":"Win","p":1.04,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"Red Sox ML","o":-125,"u":1,"r":"Win","p":0.8,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Dodgers @ Cubs","t":"Cubs ML","o":178,"u":0.5,"r":"Win","p":0.89,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Rays @ Rockies","t":"1H Rockies ML","o":138,"u":0.5,"r":"Win","p":0.69,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Spread","g":"Padres @ Diamondbacks","t":"1H Diamondbacks -0.5","o":104,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-05","s":"MLB","m":"Spread","g":"Rays @ Rockies","t":"1H Rays -0.5","o":-108,"u":1,"r":"Win","p":0.9259,"x":"https://x.com/gamblingv1ctim/status/2085048377402695895"},{"d":"2026-08-05","s":"MLB","m":"Moneyline","g":"Dodgers @ Cubs","t":"Dodgers ML","o":115,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2085048377402695895"},{"d":"2026-08-05","s":"MLB","m":"Total","g":"Jays @ Astros","t":"Under 8.5","o":115,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085095667957948880"},{"d":"2026-08-05","s":"MLB","m":"Total","g":"Nationals @ Phillies","t":"Under 9.5","o":-102,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085130379887882633"},{"d":"2026-08-05","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"White Sox ML","o":131,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085130379887882633"},{"d":"2026-08-06","s":"MLB","m":"Total","g":"Jays @ Cubs","t":"Under 7.5","o":104,"u":1,"r":"Win","p":1.04,"x":"https://x.com/gamblingv1ctim/status/2085435642842914862"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"Red Sox ML","o":153,"u":1,"r":"Win","p":1.53,"x":"https://x.com/gamblingv1ctim/status/2085515295179866354"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"White Sox @ Red Sox","t":"Red Sox -1","o":-137,"u":1,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2085395431781998743"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"Angels @ Orioles","t":"1H Orioles -0.5","o":-125,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085234786059129020"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"Jays @ Cubs","t":"Jays ML","o":-102,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2085428385493246422"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"Marlins @ Braves","t":"Marlins ML","o":150,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085483257458577583"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"Marlins @ Braves","t":"Marlins +1","o":103,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085483257458577583"},{"d":"2026-08-07","s":"MLB","m":"Spread","g":"Angels @ Marlins","t":"1H Marlins -0.5","o":-115,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085587641018257646"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 5+ Assists","o":100,"u":0.25,"r":"Win","p":0.25,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 6+ Assists","o":270,"u":0.125,"r":"Loss","p":-0.125,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 8+ Assists","o":880,"u":0.125,"r":"Loss","p":-0.125,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Spread","g":"","t":"Lynx -4.5","o":-108,"u":2.5,"r":"Win","p":2.3148,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"PIT ML","o":-115,"u":0.5,"r":"Win","p":0.4348,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"PIT 1H ML","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"Braves 1H ML","o":-150,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-09","s":"WNBA","m":"Total","g":"Mercury @ Mystics","t":"Over 167.5","o":100,"u":2.5,"r":"Win","p":2.5,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-09","s":"MLB","m":"Spread","g":"","t":"Brewers -1.5","o":-104,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-09","s":"MLB","m":"Moneyline","g":"","t":"Tigers 1H ML","o":-115,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-10","s":"MLB","m":"Total","g":"Brewers @ Padres","t":"Under 7.5","o":-115,"u":1,"r":"Win","p":0.8696,"x":"https://x.com/gamblingv1ctim/status/2086688126072758284"},{"d":"2026-08-10","s":"MLB","m":"Moneyline","g":"Orioles @ Twins","t":"Orioles ML","o":101,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2086901406091387153"},{"d":"2026-08-10","s":"MLB","m":"Total","g":"Red Sox @ Jays","t":"Under 8.5","o":-108,"u":1,"r":"Win","p":0.9259,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"MLB","m":"Moneyline","g":"Phillies @ Cardinals","t":"Cardinals ML","o":108,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"MLB","m":"Spread","g":"Phillies @ Cardinals","t":"Cardinals +1.5","o":-150,"u":0.5,"r":"Win","p":0.3333,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O15.5 Points","o":-104,"u":0.2,"r":"Win","p":0.1923,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O19.5 Points","o":290,"u":0.15,"r":"Loss","p":-0.15,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O24.5 Points","o":900,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O29.5 Points","o":2800,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-11","s":"MLB","m":"Moneyline","g":"Pirates @ Marlins","t":"PIT ML","o":-104,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Spread","g":"Pirates @ Marlins","t":"PIT -1","o":117,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Spread","g":"Liberty @ Fever","t":"Fever -2.5","o":100,"u":0.75,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Spread","g":"Mystics @ Aces","t":"Mystics +7.5","o":-122,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Total","g":"Phillies @ Cardinals","t":"1H Under 4.5","o":-111,"u":1,"r":"Win","p":0.9009,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Spread","g":"Reds @ White Sox","t":"White Sox -1","o":-112,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 6+ Rebounds","o":-108,"u":0.3,"r":"Win","p":0.2778,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 8+ Rebounds","o":375,"u":0.1,"r":"Win","p":0.375,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 10+ Rebounds","o":1050,"u":0.1,"r":"Win","p":1.05,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 5+ Rebounds","o":117,"u":0.3,"r":"Loss","p":-0.3,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 6+ Rebounds","o":230,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 8+ Rebounds","o":880,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"MLB","m":"Total","g":"Reds @ White Sox","t":"Under 8","o":-118,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2087301352753889660"},{"d":"2026-08-12","s":"MLB","m":"Total","g":"Orioles @ Twins","t":"Under 9","o":-118,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2087595032391913946"},{"d":"2026-08-12","s":"MLB","m":"Spread","g":"Rockies @ Diamondbacks","t":"Diamondbacks -1","o":-135,"u":1.5,"r":"Loss","p":-1.5,"x":"https://x.com/gamblingv1ctim/status/2087617340082934133"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 4+ Assists","o":-144,"u":0.35,"r":"Win","p":0.2431,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 6+ Assists","o":320,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 8+ Assists","o":1200,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 7+ Points","o":-111,"u":0.35,"r":"Win","p":0.3153,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 10+ Points","o":240,"u":0.2,"r":"Win","p":0.48,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 15+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-13","s":"MLB","m":"Other","g":"Brewers @ Dodgers","t":"NRFI","o":102,"u":1,"r":"Win","p":1.02,"x":"https://x.com/gamblingv1ctim/status/2088009926891159798"},{"d":"2026-08-14","s":"MLB","m":"Total","g":"Marlins @ Reds","t":"Under 8 Total Runs","o":-115,"u":0.75,"r":"Win","p":0.6522,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 7+ Points","o":-130,"u":0.2,"r":"Win","p":0.1538,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 10+ Points","o":205,"u":0.2,"r":"Win","p":0.41,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 15+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"MLB","m":"Moneyline","g":"Nationals @ Mets","t":"1H Nationals ML","o":-104,"u":0.75,"r":"Win","p":0.7212,"x":"https://x.com/gamblingv1ctim/status/2088306091721453937"},{"d":"2026-08-14","s":"MLB","m":"Moneyline","g":"Marlins @ Reds","t":"1H Red ML","o":-117,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2088306091721453937"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 20+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 15+ Points","o":325,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 11+ Points","o":-121,"u":0.2,"r":"Win","p":0.1653,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"MLB","m":"Player prop","g":"","t":"Acuna x Seager HR","o":2154,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2088728828491280803"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Burger HR","o":3558,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Carroll HR","o":3124,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Burger HR + Carroll HR","o":2968,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Burger HR + Carroll HR","o":18922,"u":0.025,"r":"Loss","p":-0.025,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Corbin Carroll Over 0.5 Stolen Bases","o":500,"u":0.1,"r":"Win","p":0.5,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Ronald Acuna Jr. Over 0.5 Stolen Bases","o":750,"u":0.1,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Fernado Tatis Jr. Over 0.5 Stolen Bases","o":840,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Randy Arozarena Over 0.5 Stolen Bases","o":500,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Elly De La Cruz Over 0.5 Stolen Bases","o":240,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Alonso HR + Ohtani HR","o":1894,"u":0.1,"r":"Win","p":1.894,"x":"https://x.com/gamblingv1ctim/status/2089436930182144317"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + o/uU Over 0.5 + Carrigg Over 0.5 Stolen Bases","o":13745,"u":0.025,"r":"Loss","p":-0.025,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + Tatis Over 0.5 Stolen Bases","o":2943,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases","o":2239,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Tatis Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases","o":2594,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Total","g":"Dodgers @ Rockies","t":"Under 11 Runs","o":-115,"u":0.5748,"r":"Loss","p":-0.5748,"x":"https://x.com/gamblingv1ctim/status/2089370147693764957"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Padres @ Mets","t":"Padres ML","o":-106,"u":0.75,"r":"Win","p":0.7075,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Spread","g":"Giants @ Guardians","t":"Guardians -1","o":-136,"u":0.5,"r":"Win","p":0.3676,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Diamondbacks @ Red Sox","t":"YRFI","o":127,"u":0.75,"r":"Win","p":0.9525,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"","t":"Jonah Cox Over 0.5 Stolen Bases","o":600,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089765610389373076"},{"d":"2026-08-18","s":"WNBA","m":"Player prop","g":"Los Angeles Sparks @ Connecticut Sun","t":"Olivia Nelson-Ododa Score 15+ Points","o":192,"u":0.15,"r":"Win","p":0.288,"x":"https://x.com/gamblingv1ctim/status/2089791480994861524"},{"d":"2026-08-18","s":"WNBA","m":"Player prop","g":"Los Angeles Sparks @ Connecticut Sun","t":"Olivia Nelson-Ododa Score 20+ Points","o":670,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089791480994861524"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"","t":"Shohei Ohtani Over 0.5 Stolen Bases","o":650,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089797146379706475"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"Athletics @ Kansas City Royals","t":"Lawrence Butler HR","o":710,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089806248472424883"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Diamondbacks @ Red Sox","t":"1H Red Sox ML","o":-160,"u":1,"r":"Win","p":0.625,"x":"https://x.com/gamblingv1ctim/status/2089826173672943869"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Mariners @ Brewers","t":"Mariners ML","o":156,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2089826997803381087"},{"d":"2026-08-19","s":"MLB","m":"Player prop","g":"","t":"Nasim Nunez Over 0.5 Stolen Bases","o":340,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090112446484590746"},{"d":"2026-08-20","s":"MLB","m":"Moneyline","g":"Athletics @ Royals","t":"1H Athletics ML","o":105,"u":0.6,"r":"Loss","p":-0.6,"x":"https://x.com/gamblingv1ctim/status/2090305553671037179"},{"d":"2026-08-20","s":"MLB","m":"Parlay","g":"","t":"Caminero HR + Alonso HR","o":1738,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2090483778040873252"},{"d":"2026-08-20","s":"MLB","m":"Total","g":"Athletics @ Royals","t":"Under 9.5","o":115,"u":0.5,"r":"Win","p":0.575,"x":"https://x.com/gamblingv1ctim/status/2090544227448938856"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 30+ Points","o":1300,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 25+ Points","o":415,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 20+ Points","o":108,"u":0.2,"r":"Win","p":0.216,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 20+ Points","o":980,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 15+ Points","o":275,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 11+ Points","o":-120,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"MLB","m":"Parlay","g":"","t":"Witt HR + Crow-Armstrong HR","o":2921,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2090679196464898128"},{"d":"2026-08-21","s":"MLB","m":"Player prop","g":"","t":"Nasim Nunez Over 0.5 Stolen Bases","o":450,"u":0.2,"r":"Win","p":0.9,"x":"https://x.com/gamblingv1ctim/status/2090842091999928672"},{"d":"2026-08-21","s":"MLB","m":"Player prop","g":"","t":"Jose Caballero Over 0.5 Stolen Bases","o":222,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090842091999928672"},{"d":"2026-08-21","s":"MLB","m":"Moneyline","g":"Mets @ White Sox","t":"White Sox ML","o":-133,"u":0.5,"r":"Win","p":0.3759,"x":"https://x.com/gamblingv1ctim/status/2090831275175092616"},{"d":"2026-08-22","s":"MLB","m":"Player prop","g":"","t":"AJ Ewing OVer 0.5 Stolen Bases","o":600,"u":0.125,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2091230456070975759"},{"d":"2026-08-22","s":"UFC","m":"Moneyline","g":"","t":"Shanelle Dyer by KO, TKO, or DQ","o":135,"u":0.5,"r":"Win","p":0.675,"x":"https://x.com/gamblingv1ctim/status/2091218119771533748"},{"d":"2026-08-22","s":"MLB","m":"Spread","g":"Braves @ Brewers","t":"1H Brewers -0.5","o":-122,"u":0.75,"r":"Win","p":0.6148,"x":"https://x.com/gamblingv1ctim/status/2091018989526724997"},{"d":"2026-08-22","s":"MLB","m":"Total","g":"Jays @ Yankees","t":"Under 7","o":-115,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2091018989526724997"},{"d":"2026-08-23","s":"MLB","m":"Moneyline","g":"Braves @ Brewers","t":"Brewers ML","o":130,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2091671227995759055"},{"d":"2026-08-23","s":"MLB","m":"Moneyline","g":"Guardians @ Rockies","t":"Rockies ML","o":150,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2091597564369945073"},{"d":"2026-08-23","s":"NFL","m":"Spread","g":"Seahawks @ Titans","t":"Seahawks +3.5","o":-118,"u":0.5,"r":"Win","p":0.4237,"x":"https://x.com/gamblingv1ctim/status/2091677016491713018"},{"d":"2026-08-24","s":"MLB","m":"Total","g":"Guardians @ Angels","t":"Under 8.5 Total Runs","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2091902504082502134"},{"d":"2026-08-25","s":"MLB","m":"Moneyline","g":"Cubs @ Diamondbacks","t":"Diamondbacks","o":102,"u":0.5,"r":"Win","p":0.51,"x":"https://x.com/gamblingv1ctim/status/2092347728697217343"},{"d":"2026-08-25","s":"MLB","m":"Total","g":"Rays @ Tigers","t":"Under 7","o":-130,"u":0.5,"r":"Win","p":0.3846,"x":"https://x.com/gamblingv1ctim/status/2092388541590356070"},{"d":"2026-08-25","s":"MLB","m":"Moneyline","g":"Reds @ Giants","t":"Reds ML","o":102,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2092424464063447538"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Pirates @ Padres","t":"Padres ML","o":-127,"u":0.5,"r":"Win","p":0.3937,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Reds @ Giants","t":"Reds ML","o":110,"u":0.5,"r":"Win","p":0.55,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Phillies @ Mariners","t":"1H Phillies ML","o":-130,"u":0.65,"r":"Win","p":0.5,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Phillies @ Mariners","t":"Phillies ML","o":-125,"u":0.35,"r":"Win","p":0.28,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-27","s":"NCAAF","m":"Spread","g":"Maine vs Towson","t":"UMAINE +3.5","o":-112,"u":0.5,"r":"Win","p":0.4464,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-27","s":"NCAAF","m":"Total","g":"Stony Brook vs Delaware State","t":"Under 51.5","o":-108,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-27","s":"WNBA","m":"Spread","g":"Mystics @ Mercury","t":"Mystics -1.5","o":-150,"u":1.5,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2093087677117595675"},{"d":"2026-08-27","s":"NCAAF","m":"Spread","g":"Mercyhurst vs Youngstown State","t":"Mercyhurst +30.5","o":-107,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093095928043282910"},{"d":"2026-08-28","s":"MLB","m":"Parlay","g":"","t":"Dodgers x Under 9.5 x Pirates +1","o":224,"u":0.3,"r":"Loss","p":-0.3,"x":"https://x.com/gamblingv1ctim/status/2093427522406859002"},{"d":"2026-08-28","s":"MLB","m":"Parlay","g":"CIN Reds @ CHI Cubs","t":"Dodgers x Pirates +1","o":133,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2093433064319836324"},{"d":"2026-08-28","s":"NFL","m":"Total","g":"Giants @ Jets","t":"Under 37","o":-115,"u":0.5,"r":"Win","p":0.4348,"x":"https://x.com/gamblingv1ctim/status/2093450373872640315"},{"d":"2026-08-28","s":"NFL","m":"Spread","g":"Falcons @ Dolphins","t":"Dolphins +5.5","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2093450373872640315"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 7.5+ Points","o":125,"u":0.35,"r":"Loss","p":-0.35,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 9.5+ Points","o":235,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 14.5+ Points","o":1172,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-29","s":"NCAAF","m":"Spread","g":"NC State vs Virginia","t":"NCS +4.5","o":-110,"u":0.5,"r":"Pending","p":null,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"}]};
 var B=D.bets,DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 var NS='http://www.w3.org/2000/svg';
 function $(s){return document.querySelector(s)}
@@ -1000,92 +365,18 @@ $('#stamp').innerHTML='<b>Last updated '+D.built+'.</b>'+(A.pend?'  '+A.pend+' p
   if(k[3]){var car=el('span','car','▾');b.appendChild(car)}
   d.appendChild(b);
   d.appendChild(el('span','num '+(k[2]||''),k[1]));
-  if(k[3]){d.type='button';d.id='openbtn';d.setAttribute('aria-expanded','true');
+  if(k[3]){d.type='button';d.id='openbtn';d.setAttribute('aria-expanded','false');
     d.setAttribute('aria-controls','openband')}
   $('#kpis').appendChild(d)});
 
-/* ---------- recent form ---------- */
-(function(){
-  var host=$('#formstrip');if(!host)return;
-  function iso(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
-  function win(days){
-    var c=new Date();c.setDate(c.getDate()-(days-1));var from=iso(c);
-    return B.filter(function(b){return b.d>=from})}
-  function cell(label,days){
-    var a=ag(win(days)),d=el('div','fcell');
-    d.appendChild(el('b','',label));
-    d.appendChild(el('span','num '+(a.n?cl(a.u):'mut'),a.n?fu(a.u):'--'));
-    d.appendChild(el('i','',a.n
-      ? a.n+' play'+(a.n===1?'':'s')+' · '+(a.risk>0?pc(a.roi):'--')+' ROI'
-      : 'nothing settled yet'));
-    host.appendChild(d)}
-  cell('Last 7 days',7);
-  cell('Last 30 days',30);
-  var all=el('div','fcell');
-  all.appendChild(el('b','','All time'));
-  all.appendChild(el('span','num '+cl(A.u),fu(A.u)));
-  all.appendChild(el('i','',A.n+' settled play'+(A.n===1?'':'s')+
-    (A.n<200?' · still a small sample':'')));
-  host.appendChild(all);
-})();
-
-/* ---------- calculators ---------- */
-(function(){
-
-/* -- shared maths -- */
-/* Read a price. A signed number, or 100 and above, is American.
-   A plain number above 1 and below 100 is decimal. */
-function pOdds(s){
-  s=String(s==null?'':s).trim().replace(/[\s,]/g,'');
-  if(!s||!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s))return null;
-  var v=parseFloat(s);
-  if(!isFinite(v))return null;
-  if(v<=-100)return 1+100/(-v);
-  if(v>=100)return 1+v/100;
-  if(v>1&&v<100&&s.charAt(0)!=='-')return v;
-  return null;
-}
-/* Decimal price back to an American price. */
-function am(d){
-  if(!(d>1))return '--';
-  if(Math.abs(d-2)<1e-9)return '+100';   /* an even market reads +100, not -100 */
-  var v=d>2?Math.round((d-1)*100):-Math.round(100/(d-1));
-  return (v>0?'+':'')+v;
-}
-function dec(d){return d.toFixed(d<10?3:2)}
-function money(x){
-  var neg=x<0,v=Math.abs(x);
-  var s=v>=1000?v.toLocaleString('en-US',{maximumFractionDigits:0})
-               :v.toFixed(v<100?2:0);
-  return (neg?'-$':'+$')+s}
-function cash(v){
-  return '$'+(v>=1000?v.toLocaleString('en-US',{maximumFractionDigits:0}):v.toFixed(2))}
-function p2(x){return (x*100).toFixed(2)+'%'}
-function fine(id,html){$(id).innerHTML=html}
-function mark(inp,ok){inp.className=ok?'':'bad'}
-
-/* -- pages: the rail swaps the whole view, and the hash keeps back and forward working -- */
-var VIEWS=['tracker','about','arb','hedge','parlay','odds','devig','cheat'];
-function show(v){
-  if(VIEWS.indexOf(v)<0)v='tracker';
-  VIEWS.forEach(function(k){
-    var pane=$('#view-'+k),btn=$('#rb-'+k),hit=(k===v);
-    pane.hidden=!hit;pane.className='view'+(hit?' on':'');
-    btn.className='rbtn'+(hit?' on':'');
-    btn.setAttribute('aria-current',hit?'page':'false');
-  });
-  document.title=(v==='tracker')?PAGE_TITLE:(NAMES[v]+' · '+PAGE_TITLE);
-}
-var NAMES={about:'About',arb:'Arbitrage calculator',hedge:'Hedge calculator',
-           parlay:'Parlay and round robin',odds:'Odds converter',
-           devig:'Devig calculator',cheat:'Percent to American odds'},PAGE_TITLE=document.title;
-function route(){show((location.hash||'#tracker').slice(1).split('?')[0])}
-window.addEventListener('hashchange',function(){route();window.scrollTo(0,0)});
-route();
-
-/* -- 1. what a unit is worth -- */
+/* ---------- unit calculator ---------- */
 (function(){
   var inp=$('#usz'),out=$('#uout');
+  function money(x){
+    var neg=x<0,v=Math.abs(x);
+    var s=v>=1000?v.toLocaleString('en-US',{maximumFractionDigits:0})
+                 :v.toFixed(v<100?2:0);
+    return (neg?'-$':'+$')+s}
   function paint(){
     var v=parseFloat(inp.value);
     if(!(v>0)){out.textContent='--';out.className='out num mut';return}
@@ -1093,526 +384,6 @@ route();
   }
   inp.addEventListener('input',paint);
   paint();
-})();
-
-/* -- 2. two-way arbitrage, a stake on each side -- */
-(function(){
-  var oA=$('#ar-a'),oB=$('#ar-b'),sA=$('#ar-sa'),sB=$('#ar-sb'),pA=$('#ar-pa'),pB=$('#ar-pb');
-  var last='a';   /* the side edited most recently; the other one follows it */
-  /* money to the cent, however big it gets */
-  function cash2(v){return '$'+Math.abs(v).toLocaleString('en-US',
-    {minimumFractionDigits:2,maximumFractionDigits:2})}
-  function money2(v){return (v<0?'-':'+')+cash2(v)}
-  function num(e){var v=parseFloat(String(e.value).replace(/[^0-9.]/g,''));return (v>0&&isFinite(v))?v:null}
-  /* never type over the field the person is in */
-  function set(e,v){if(document.activeElement===e)return;
-    e.value=(v==null||!isFinite(v)||v<=0)?'':v.toFixed(2)}
-  function paint(src){
-    var da=pOdds(oA.value),db=pOdds(oB.value);
-    mark(oA,da!==null||!oA.value);mark(oB,db!==null||!oB.value);
-    var out=$('#ar-out'),pct=$('#ar-pct');
-    if(da===null||db===null){
-      ['#ar-ts','#ar-tp','#ar-out'].forEach(function(k){$(k).textContent='$0.00'});
-      pct.textContent='0.00%';pct.className='num';out.className='num mut';
-      fine('#ar-fine',(oA.value||oB.value)?'That price does not read. Use +150, -130 or 2.50.'
-                                          :'Enter both prices, then a stake on either side.');
-      return}
-    /* a payout works backwards to the stake that reaches it */
-    if(src==='pa'){var v=num(pA);if(v)set(sA,v/da)}
-    if(src==='pb'){var v=num(pB);if(v)set(sB,v/db)}
-    /* the side you did not touch follows, so both outcomes return the same money */
-    var drive=(src==='sb'||src==='pb')?'b':(src==='sa'||src==='pa')?'a':last;
-    last=drive;
-    var a=num(sA),b=num(sB);
-    if(drive==='a'){if(a)set(sB,a*da/db);else if(b)set(sA,b*db/da)}
-    else{if(b)set(sA,b*db/da);else if(a)set(sB,a*da/db)}
-    a=num(sA);b=num(sB);
-    set(pA,a?a*da:null);set(pB,b?b*db:null);
-
-    var ra=a?a*da:0,rb=b?b*db:0,ts=(a||0)+(b||0);
-    var tp=(a&&b)?Math.min(ra,rb):(ra||rb),profit=tp-ts;
-    $('#ar-ts').textContent=cash2(ts);
-    $('#ar-tp').textContent=cash2(tp);
-    out.textContent=(ts>0?money2(profit):'$0.00');
-    out.className='num '+(ts<=0?'mut':profit>1e-9?'win':profit<-1e-9?'loss':'mut');
-    pct.textContent=(ts>0&&profit>0?'+':'')+(ts>0?(profit/ts*100).toFixed(2):'0.00')+'%';
-    pct.className='num '+(ts<=0?'':profit>1e-9?'win':profit<-1e-9?'loss':'');
-
-    var s=1/da+1/db;
-    fine('#ar-fine',
-      (s<1?'Arb of <u>'+p2(1/s-1)+'</u> on the stake at these prices'
-          :'No arb &mdash; the book holds <i>'+p2((s-1)/s)+'</i> at these prices'));
-  }
-  [[oA,'odds'],[oB,'odds'],[sA,'sa'],[sB,'sb'],[pA,'pa'],[pB,'pb']].forEach(function(k){
-    k[0].addEventListener('input',function(){paint(k[1])});
-    k[0].addEventListener('blur',function(){paint(k[1])});
-  });
-  $('#ar-clear').addEventListener('click',function(){
-    last='a';[oA,oB,sA,sB,pA,pB].forEach(function(e){e.value=''});
-    paint('odds');oA.focus();
-  });
-  paint('odds');
-})();
-
-/* -- 3. percent to odds, and back -- */
-(function(){
-  var inp=$('#pc-in'),out=$('#pc-out');
-  function paint(){
-    var v=parseFloat(inp.value);
-    if(!(v>0&&v<100)){
-      out.textContent='--';out.className='out num mut';
-      fine('#pc-fine',inp.value?'Use a number above 0 and below 100.'
-                               :'Enter a chance from 0 to 100.');
-      return}
-    var p=v/100,d=1/p;
-    out.textContent=am(d);out.className='out num';
-    fine('#pc-fine','Decimal <i>'+dec(d)+'</i> &middot; pays <i>'+dec(d-1)+'</i> to 1');
-  }
-  inp.addEventListener('input',paint);
-  paint();
-
-  var io=$('#pc-o'),oo=$('#pc-oout');
-  function back(){
-    var d=pOdds(io.value);
-    mark(io,d!==null||!io.value);
-    if(d===null){
-      oo.textContent='--';oo.className='out num sm mut';
-      fine('#pc-ofine',io.value?'That price does not read.':'American or decimal.');
-      return}
-    var p=1/d;
-    oo.textContent=p2(p);oo.className='out num sm';
-    fine('#pc-ofine','American <i>'+am(d)+'</i> &middot; decimal <i>'+dec(d)+'</i><br>'+
-                     'This is the raw price, vig included');
-  }
-  io.addEventListener('input',back);
-  back();
-})();
-
-/* -- 4. devig a two-way market -- */
-(function(){
-  var ia=$('#dv-a'),ib=$('#dv-b'),method='mult';
-  var NAME={mult:'Multiplicative',add:'Additive',pow:'Power'};
-
-  /* Power: find k where pA^k + pB^k = 1. The sum falls as k rises,
-     so a plain bisection finds k. */
-  function powerK(pa,pb){
-    var lo=(pa+pb>1)?1:0.0001, hi=(pa+pb>1)?60:1, k, f, i;
-    for(i=0;i<200;i++){
-      k=(lo+hi)/2;
-      f=Math.pow(pa,k)+Math.pow(pb,k)-1;
-      if(Math.abs(f)<1e-12)break;
-      if(f>0)lo=k;else hi=k;
-    }
-    return k;
-  }
-  function fairA(pa,pb,m){
-    if(m==='add')return pa-(pa+pb-1)/2;
-    if(m==='pow')return Math.pow(pa,powerK(pa,pb));
-    return pa/(pa+pb);
-  }
-  function blank(){
-    ['#dv-pa','#dv-oa','#dv-pb','#dv-ob'].forEach(function(k){
-      $(k).textContent='--';$(k).className=$(k).className.replace(' mut','')+' mut'});
-  }
-  function put(k,txt,lil){var e=$(k);e.textContent=txt;e.className='dv num'+(lil?' lil':'')}
-  function paint(){
-    var da=pOdds(ia.value),db=pOdds(ib.value);
-    mark(ia,da!==null||!ia.value);mark(ib,db!==null||!ib.value);
-    if(da===null||db===null){
-      blank();
-      fine('#dv-fine',(ia.value||ib.value)?'That price does not read. Use +120, -140 or 2.20.'
-                                          :'Enter both sides of the market.');
-      return}
-    var pa=1/da,pb=1/db,s=pa+pb,fa=fairA(pa,pb,method),fb=1-fa;
-    if(!(fa>0&&fa<1)){
-      blank();
-      fine('#dv-fine','These two prices do not make a market this method can split.');
-      return}
-    put('#dv-pa',p2(fa));put('#dv-oa',am(1/fa),1);
-    put('#dv-pb',p2(fb));put('#dv-ob',am(1/fb),1);
-    fine('#dv-fine',
-      (s>1?'Book holds <i>'+p2((s-1)/s)+'</i>':'These prices are under 100% already')+
-      ' &middot; raw <i>'+p2(pa)+'</i> / <i>'+p2(pb)+'</i> &middot; '+NAME[method]);
-  }
-  [].slice.call(document.querySelectorAll('#view-devig .sg')).forEach(function(b){
-    b.addEventListener('click',function(){
-      method=b.getAttribute('data-m');
-      [].slice.call(document.querySelectorAll('#view-devig .sg')).forEach(function(o){
-        var hit=o===b;o.className='sg'+(hit?' on':'');
-        o.setAttribute('aria-pressed',hit?'true':'false')});
-      paint();
-    });
-  });
-  [ia,ib].forEach(function(e){e.addEventListener('input',paint)});
-  paint();
-})();
-
-/* -- reset a tool page -- */
-[].slice.call(document.querySelectorAll('.treset')).forEach(function(btn){
-  btn.addEventListener('click',function(){
-    var pane=$('#view-'+btn.getAttribute('data-r'));
-    [].slice.call(pane.querySelectorAll('input')).forEach(function(f){
-      f.value='';
-      f.dispatchEvent(new Event('input',{bubbles:true}));
-    });
-    var f=pane.querySelector('input');if(f)f.focus();
-  });
-});
-
-/* -- cheat sheet: whole or half percent, three blocks -- */
-(function(){
-  var host=$('#csheet');if(!host)return;
-  var step=1;
-  function key(p){return 'cr-'+Math.round(p*10)}
-  function build(){
-    host.innerHTML='';
-    var rows=[],p;
-    for(p=step;p<100;p+=step){
-      var v=Math.round(p*10)/10,d=100/v;
-      rows.push({p:v,am:am(d),dec:dec(d),neg:v>50})}
-    var per=Math.ceil(rows.length/3);
-    for(var b=0;b<3;b++){
-      var slice=rows.slice(b*per,(b+1)*per);if(!slice.length)continue;
-      var blk=el('div','cblk');
-      var hd=el('div','crow hd');
-      hd.appendChild(el('div','','Chance'));hd.appendChild(el('div','','American'));
-      hd.appendChild(el('div','','Decimal'));blk.appendChild(hd);
-      slice.forEach(function(r){
-        var tr=el('div','crow');tr.id=key(r.p);
-        tr.appendChild(el('div','',(step<1?r.p.toFixed(1):String(r.p))+'%'));
-        tr.appendChild(el('div','am'+(r.neg?' neg':''),r.am));
-        tr.appendChild(el('div','dc',r.dec));
-        blk.appendChild(tr)});
-      host.appendChild(blk)}
-  }
-  function jump(){
-    [].slice.call(document.querySelectorAll('.crow.hit')).forEach(function(e){e.className='crow'});
-    var v=parseFloat($('#cf').value);
-    if(!(v>0&&v<100))return;
-    v=Math.round(v/step)*step;
-    var t=$('#'+key(Math.round(v*10)/10));if(!t)return;
-    t.className='crow hit';t.scrollIntoView({block:'nearest'});
-  }
-  [].slice.call(document.querySelectorAll('.csteps .sg')).forEach(function(b){
-    b.addEventListener('click',function(){
-      step=parseFloat(b.getAttribute('data-step'));
-      [].slice.call(document.querySelectorAll('.csteps .sg')).forEach(function(o){
-        var hit=o===b;o.className='sg'+(hit?' on':'');
-        o.setAttribute('aria-pressed',hit?'true':'false')});
-      build();jump();
-    });
-  });
-  $('#cf').addEventListener('input',jump);
-  build();
-})();
-
-
-/* -- 5. hedge a bet you already hold -- */
-(function(){
-  var iO=$('#hg-o'),iS=$('#hg-s'),iH=$('#hg-h'),iHS=$('#hg-hs'),iC=$('#hg-c');
-  function cash2(v){return '$'+Math.abs(v).toLocaleString('en-US',
-    {minimumFractionDigits:2,maximumFractionDigits:2})}
-  function money2(v){return (v<0?'-':'+')+cash2(v)}
-  function num(e){var v=parseFloat(String(e.value).replace(/[^0-9.]/g,''));return (v>0&&isFinite(v))?v:null}
-  function paint(){
-    var dO=pOdds(iO.value),dH=pOdds(iH.value),st=num(iS);
-    mark(iO,dO!==null||!iO.value);mark(iH,dH!==null||!iH.value);
-    var w1=$('#hg-w1'),w2=$('#hg-w2'),out=$('#hg-out'),pct=$('#hg-pct');
-    function blank(msg){
-      [w1,w2,out].forEach(function(e){e.textContent='$0.00';e.className='num mut'});
-      pct.textContent='0.00%';pct.className='num';fine('#hg-fine',msg)}
-    if(dO===null||dH===null||!st){
-      blank((iO.value||iH.value||iS.value)
-        ? 'Fill in your price, your stake, and the price on the other side.'
-        : 'Enter your price, your stake, and the price on the other side.');
-      return}
-    var even=st*dO/dH;                       /* the stake that makes both sides pay the same */
-    var h=num(iHS);
-    if(h===null){iHS.placeholder=even.toFixed(2)}
-    var use=(h===null)?even:h;
-    var risk=st+use;
-    var p1=st*dO-risk;                       /* your bet wins */
-    var p2=use*dH-risk;                      /* the hedge wins */
-    var lock=Math.min(p1,p2);
-    w1.textContent=money2(p1);w1.className='num '+(p1>1e-9?'win':p1<-1e-9?'loss':'mut');
-    w2.textContent=money2(p2);w2.className='num '+(p2>1e-9?'win':p2<-1e-9?'loss':'mut');
-    out.textContent=money2(lock);out.className='num '+(lock>1e-9?'win':lock<-1e-9?'loss':'mut');
-    pct.textContent=(lock>0?'+':'')+(lock/risk*100).toFixed(2)+'%';
-    pct.className='num '+(lock>1e-9?'win':lock<-1e-9?'loss':'');
-    var txt=(h===null)
-      ? 'Equal hedge of <u>'+cash2(even)+'</u> at '+am(dH)+' &middot; '+cash2(risk)+' at risk in total'
-      : 'Equal hedge would be <u>'+cash2(even)+'</u> &middot; '+cash2(risk)+' at risk in total';
-    var c=num(iC);
-    if(c!==null){
-      var cp=c-st,gap=lock-cp;
-      txt+='<br>Cash out returns '+cash2(c)+', a profit of <i>'+money2(cp)+'</i>. '+
-        (Math.abs(gap)<0.005?'The two are level.'
-          :gap>0?'Hedging is <u>'+cash2(gap)+'</u> better.'
-                :'Cash out is <u>'+cash2(-gap)+'</u> better.');
-    }
-    fine('#hg-fine',txt);
-  }
-  [iO,iS,iH,iHS,iC].forEach(function(e){
-    e.addEventListener('input',paint);e.addEventListener('blur',paint)});
-  $('#hg-clear').addEventListener('click',function(){
-    [iO,iS,iH,iHS,iC].forEach(function(e){e.value=''});iHS.placeholder='auto';paint();iO.focus()});
-  paint();
-})();
-
-/* -- 6. parlay and round robin -- */
-(function(){
-  var box=$('#pl-legs'),MAXL=10,mode='straight',legs=['','',''];
-  function cash2(v){return '$'+Math.abs(v).toLocaleString('en-US',
-    {minimumFractionDigits:2,maximumFractionDigits:2})}
-  function money2(v){return (v<0?'-':'+')+cash2(v)}
-  function bits(m){var n=0;while(m){n+=m&1;m>>=1}return n}
-  function nCk(n,k){if(k<0||k>n)return 0;var r=1,i;for(i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
-
-  function drawLegs(){
-    box.innerHTML='';
-    legs.forEach(function(v,i){
-      var row=el('div','leg');
-      row.appendChild(el('span','ln','Leg '+(i+1)));
-      var inp=document.createElement('input');
-      inp.type='text';inp.value=v;inp.placeholder='+120';inp.autocomplete='off';
-      inp.spellcheck=false;inp.setAttribute('aria-label','Odds on leg '+(i+1));
-      inp.addEventListener('input',function(){legs[i]=inp.value;
-        mark(inp,pOdds(inp.value)!==null||!inp.value);paint()});
-      row.appendChild(inp);
-      var x=el('button','legx','×');
-      x.type='button';x.title='Remove this leg';
-      x.setAttribute('aria-label','Remove leg '+(i+1));
-      x.addEventListener('click',function(){
-        if(legs.length<=2)return;legs.splice(i,1);drawLegs();drawModes();paint()});
-      row.appendChild(x);
-      box.appendChild(row);
-    });
-    $('#pl-hint').textContent=legs.length+' of '+MAXL+' legs';
-    $('#pl-add').disabled=(legs.length>=MAXL);
-  }
-  function drawModes(){
-    var seg=$('#pl-mode'),n=live().length;seg.innerHTML='';
-    var opts=[['straight','STRAIGHT']],k;
-    for(k=2;k<n;k++)opts.push([String(k),'BY '+k+'s']);
-    if(opts.length===1)opts.push(['2','BY 2s']);
-    if(mode!=='straight'&&+mode>=n)mode='straight';
-    opts.forEach(function(o){
-      var b=el('button','sg'+(String(mode)===o[0]?' on':''),o[1]);
-      b.type='button';b.setAttribute('data-m',o[0]);
-      b.setAttribute('aria-pressed',String(mode)===o[0]?'true':'false');
-      b.addEventListener('click',function(){mode=o[0];drawModes();paint()});
-      seg.appendChild(b);
-    });
-  }
-  function live(){
-    var out=[];legs.forEach(function(v){var d=pOdds(v);if(d!==null)out.push(d)});return out}
-
-  function paint(){
-    var D=live(),n=D.length,S=parseFloat(String($('#pl-s').value).replace(/[^0-9.]/g,''));
-    if(!(S>0))S=0;
-    var outTab=$('#pl-out'),comboTab=$('#pl-combos');
-    outTab.innerHTML='';comboTab.innerHTML='';
-    if(n<2){
-      ['#pl-n','#pl-risk','#pl-best','#pl-bestp'].forEach(function(k,i){
-        $(k).textContent=i===0?'0':'$0.00';$(k).className='num mut'});
-      $('#pl-count').textContent='';
-      fine('#pl-fine','Enter a price on at least two legs.');
-      return}
-    var K=(mode==='straight')?n:Math.min(+mode,n);
-    /* every bet on the ticket, as a bitmask over the live legs */
-    var combos=[],m,i,d;
-    for(m=1;m<(1<<n);m++){
-      if(bits(m)!==K)continue;
-      d=1;for(i=0;i<n;i++)if(m&(1<<i))d*=D[i];
-      combos.push({m:m,d:d});
-    }
-    var risk=S*combos.length,best=0;
-    combos.forEach(function(c){best+=S*c.d});
-    $('#pl-n').textContent=String(combos.length);$('#pl-n').className='num';
-    $('#pl-risk').textContent=cash2(risk);$('#pl-risk').className='num';
-    $('#pl-best').textContent=cash2(best);$('#pl-best').className='num';
-    $('#pl-bestp').textContent=money2(best-risk);
-    $('#pl-bestp').className='num '+(best-risk>1e-9?'win':'loss');
-    $('#pl-title').textContent=(mode==='straight')
-      ? 'Straight parlay of '+n+' legs' : 'Round robin, '+n+' legs by '+K+'s';
-    $('#pl-count').textContent=combos.length+(combos.length===1?' bet':' bets')+
-      ' · '+cash2(risk)+' at risk';
-
-    /* what comes back for each number of winning legs */
-    var head=el('div','prow hd');
-    ['Legs hit','Bets that win','Comes back','Profit'].forEach(function(t){
-      head.appendChild(el('div','',t))});
-    outTab.appendChild(head);
-    /* work out the fewest legs that guarantee a profit, then mark that row */
-    var rows=[],brk=-1,j;
-    for(j=0;j<=n;j++){
-      var mn=Infinity,mx=-Infinity,w;
-      for(w=0;w<(1<<n);w++){
-        if(bits(w)!==j)continue;
-        var ret=0;
-        for(i=0;i<combos.length;i++)if((combos[i].m&w)===combos[i].m)ret+=S*combos[i].d;
-        if(ret<mn)mn=ret;if(ret>mx)mx=ret;
-      }
-      if(mn===Infinity){mn=mx=0}
-      rows.push({j:j,mn:mn,mx:mx});
-      if(brk<0&&mn-risk>1e-9)brk=j;
-    }
-    for(j=rows.length-1;j>=0;j--){
-      var r=rows[j],pmin=r.mn-risk,pmax=r.mx-risk;
-      var tr=el('div','prow'+(r.j===brk?' brk':''));
-      tr.appendChild(el('div','',r.j+' of '+n));
-      tr.appendChild(el('div','',String(nCk(r.j,K))));
-      tr.appendChild(el('div','',(Math.abs(r.mx-r.mn)<0.005)?cash2(r.mn):cash2(r.mn)+' – '+cash2(r.mx)));
-      tr.appendChild(el('div',(pmax>1e-9?'win':pmax<-1e-9?'loss':'mut'),
-        (Math.abs(pmax-pmin)<0.005)?money2(pmin):money2(pmin)+' – '+money2(pmax)));
-      outTab.appendChild(tr);
-    }
-
-    /* every bet, with its own price */
-    var ch=el('div','prow hd');
-    ['Bet','Decimal','American','Pays'].forEach(function(t){ch.appendChild(el('div','',t))});
-    comboTab.appendChild(ch);
-    combos.forEach(function(c){
-      var names=[];for(i=0;i<n;i++)if(c.m&(1<<i))names.push(i+1);
-      var tr=el('div','prow');
-      tr.appendChild(el('div','','Legs '+names.join(', ')));
-      tr.appendChild(el('div','',dec(c.d)));
-      tr.appendChild(el('div','',am(c.d)));
-      tr.appendChild(el('div','',cash2(S*c.d)));
-      comboTab.appendChild(tr);
-    });
-
-    var full=1;for(i=0;i<n;i++)full*=D[i];
-    fine('#pl-fine','All '+n+' legs together price at <u>'+am(full)+'</u> ('+dec(full)+')'+
-      ((mode==='straight')?''
-        :' &middot; a straight '+n+'-leg parlay at '+cash2(S)+' would pay '+cash2(S*full)));
-  }
-  $('#pl-add').addEventListener('click',function(){
-    if(legs.length>=MAXL)return;legs.push('');drawLegs();drawModes();paint()});
-  $('#pl-s').addEventListener('input',paint);
-  $('#pl-clear').addEventListener('click',function(){
-    legs=['','',''];mode='straight';$('#pl-s').value='10';
-    drawLegs();drawModes();paint();box.querySelector('input').focus()});
-  drawLegs();drawModes();paint();
-})();
-
-})();
-
-
-/* ---------- about: edit this block and nothing else ---------- */
-var ABOUT={
-  lede:'I post plays on X and log every one of them here, win or lose. Units only, no dollar figures, '+
-       'and nothing comes down once it is up.',
-  how:[
-    ['How I size','Everything is posted in units, from 0.025u to 5u. The size is the edge, not a flat '+
-      'stake. Bigger where I think I have a real number, small where I am still learning the market. '+
-      'A unit is one standard bet for you, whatever that is.'],
-    ['What I bet','NBA and WNBA are where most of it lands, with NFL through the season and MLB home-run '+
-      'props on the side. Mostly player props and spreads, some moneyline, some totals.'],
-    ['Line shopping','I price the same play across every book I hold, so the line I post is the best one '+
-      'I could get at that moment. If you get a worse number the play may no longer be worth it.'],
-    ['Why the posts are linked','Where a play has a link, it goes to the post that called it. The time '+
-      'and the price on that post are the record. This page is the ledger, not the claim.']
-  ],
-  /* Add a url to turn a book into a referral link. Leave it empty and the book
-     is listed as plain text with no link. */
-  books:[
-    {name:'FanDuel',url:''},
-    {name:'DraftKings',url:''},
-    {name:'BetMGM',url:''},
-    {name:'theScore Bet',url:''},
-    {name:'Fanatics',url:''},
-    {name:"Bally Bet",url:''},
-    {name:'Novig',url:''},
-    {name:'Kalshi',url:''}
-  ]
-};
-(function(){
-  $('#ab-lede').textContent=ABOUT.lede;
-  var how=$('#ab-how');
-  ABOUT.how.forEach(function(h){
-    how.appendChild(el('h2','',h[0]));
-    how.appendChild(el('p','',h[1]))});
-  var box=$('#ab-books');
-  ABOUT.books.forEach(function(bk){
-    var card;
-    if(bk.url){card=el('a','bk');card.href=bk.url;card.target='_blank';
-      card.rel='sponsored nofollow noopener noreferrer'}
-    else card=el('div','bk');
-    card.appendChild(el('span','bn',bk.name));
-    card.appendChild(el('span','bw',bk.url?'Sign up →':'No link'));
-    box.appendChild(card)});
-})();
-
-/* ---------- shareable tool links ---------- */
-/* A tool page keeps its numbers in the hash, so a filled-in calculator can be
-   pasted to someone and open exactly as it was left. */
-(function(){
-  var FIELDS={
-    arb:['ar-a','ar-b','ar-sa','ar-sb'],
-    hedge:['hg-o','hg-s','hg-h','hg-hs','hg-c'],
-    odds:['pc-in','pc-o'],
-    devig:['dv-a','dv-b'],
-    parlay:['pl-s']
-  };
-  function q(){
-    var h=location.hash.slice(1),i=h.indexOf('?');
-    if(i<0)return {};
-    var out={};
-    h.slice(i+1).split('&').forEach(function(kv){
-      var p=kv.split('=');if(p[0])out[decodeURIComponent(p[0])]=decodeURIComponent(p[1]||'')});
-    return out}
-  function fire(e){e.dispatchEvent(new Event('input',{bubbles:true}))}
-
-  /* fill a tool from the address bar, once, on arrival */
-  var done={};
-  function apply(){
-    var v=(location.hash||'#tracker').slice(1).split('?')[0],f=FIELDS[v];
-    if(!f||done[v])return;
-    var p=q(),any=false;
-    f.forEach(function(id){var e=$('#'+id);
-      if(e&&p[id]!=null&&p[id]!==''){e.value=p[id];any=true}});
-    if(v==='parlay'&&p.legs){
-      var want=p.legs.split(',');
-      var add=$('#pl-add');
-      while(document.querySelectorAll('#pl-legs input').length<want.length&&!add.disabled)add.click();
-      var ins=document.querySelectorAll('#pl-legs input');
-      want.forEach(function(val,i){if(ins[i]){ins[i].value=val;fire(ins[i])}});
-      if(p.mode){var mb=document.querySelector('#pl-mode .sg[data-m="'+p.mode+'"]');if(mb)mb.click()}
-      any=true;
-    }
-    if(v==='devig'&&p.m){
-      var b=document.querySelector('#view-devig .sg[data-m="'+p.m+'"]');if(b)b.click()}
-    if(any){f.forEach(function(id){var e=$('#'+id);if(e)fire(e)});done[v]=true}
-  }
-  window.addEventListener('hashchange',apply);
-  apply();
-
-  [].slice.call(document.querySelectorAll('.tlink')).forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var k=btn.getAttribute('data-k'),parts=[];
-      (FIELDS[k]||[]).forEach(function(id){
-        var e=$('#'+id);
-        if(e&&e.value.trim())parts.push(id+'='+encodeURIComponent(e.value.trim()))});
-      if(k==='parlay'){
-        var vals=[].slice.call(document.querySelectorAll('#pl-legs input'))
-          .map(function(e){return e.value.trim()}).filter(Boolean);
-        if(vals.length)parts.push('legs='+encodeURIComponent(vals.join(',')));
-        var on=document.querySelector('#pl-mode .sg.on');
-        if(on)parts.push('mode='+on.getAttribute('data-m'));
-      }
-      if(k==='devig'){
-        var d=document.querySelector('#view-devig .sg.on');
-        if(d)parts.push('m='+d.getAttribute('data-m'));
-      }
-      var url=location.href.split('#')[0]+'#'+k+(parts.length?'?'+parts.join('&'):'');
-      function ok(){btn.textContent='COPIED';btn.className='tlink done';
-        setTimeout(function(){btn.textContent='COPY LINK';btn.className='tlink'},1600)}
-      if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(url).then(ok,function(){window.prompt('Copy this link',url)});
-      }else{window.prompt('Copy this link',url)}
-    });
-  });
 })();
 
 /* ---------- open plays dropdown ---------- */
@@ -1650,7 +421,7 @@ var ABOUT={
     nud.innerHTML='<b>Nothing open</b><i>Every play posted here has settled.</i>';
   }
   function placeNudge(){
-    var hd=nud.offsetParent;if(!hd)return;var r=btn.getBoundingClientRect(),h=hd.getBoundingClientRect();
+    var hd=nud.offsetParent,r=btn.getBoundingClientRect(),h=hd.getBoundingClientRect();
     var w=nud.offsetWidth||340,pad=10;
     var want=r.left+r.width/2;
     var lo=w/2+pad,hi=window.innerWidth-w/2-pad;
@@ -1799,9 +570,9 @@ tbl('sp',function(b){return b.s});tbl('mk',function(b){return b.m});
   hm.textContent=uniq(function(b){return b.m})+' markets';
 })();
 
-/* ---------- every play, filtered and paged ---------- */
+/* ---------- every play, paged ---------- */
 (function(){
-  var ALL=B.slice().reverse(),rows=ALL,shown=0,tb=$('#log'),bar=$('#morebar'),sport='';
+  var rows=B.slice().reverse(),shown=0,tb=$('#log'),bar=$('#morebar');
   function row(b){var tr=el('tr');
     tr.appendChild(el('td','num mut',b.d));
     tr.appendChild(el('td','mut',b.s));
@@ -1817,36 +588,13 @@ tbl('sp',function(b){return b.s});tbl('mk',function(b){return b.m});
     var end=Math.min(shown+n,rows.length);
     for(var i=shown;i<end;i++)tb.appendChild(row(rows[i]));
     shown=end;
-    if(!rows.length){bar.hidden=false;
-      $('#shown').textContent='No plays in that sport';
-      $('#more').hidden=true;$('#all').hidden=true;return}
+    if(!rows.length){bar.hidden=true;return}
     bar.hidden=false;
     $('#shown').textContent='Showing '+shown+' of '+rows.length;
     var done=shown>=rows.length;
     $('#more').hidden=done;$('#all').hidden=done||(rows.length-shown)<=25;
-    if(done)$('#shown').textContent='All '+rows.length+
-      (sport?' '+sport+' plays shown':' plays shown');
+    if(done)$('#shown').textContent='All '+rows.length+' plays shown';
   }
-  function reset(){tb.innerHTML='';shown=0;render(10)}
-  /* one chip per sport, ordered by how much is posted in it */
-  (function(){
-    var box=$('#sportchips'),count={},order=[];
-    ALL.forEach(function(b){var k=b.s||'--';if(!count[k]){count[k]=0;order.push(k)}count[k]++});
-    if(order.length<2){box.hidden=true;return}
-    order.sort(function(a,b){return count[b]-count[a]});
-    [['','All',ALL.length]].concat(order.map(function(k){return [k,k,count[k]]}))
-      .forEach(function(o){
-        var c=el('button','chipf'+(o[0]===sport?' on':''),o[1]+'  '+o[2]);
-        c.type='button';
-        c.addEventListener('click',function(){
-          sport=o[0];
-          rows=sport?ALL.filter(function(b){return (b.s||'--')===sport}):ALL;
-          [].slice.call(box.children).forEach(function(e){e.className='chipf'});
-          c.className='chipf on';
-          reset();
-        });
-        box.appendChild(c)});
-  })();
   $('#more').onclick=function(){render(25)};
   $('#all').onclick=function(){render(rows.length)};
   render(10);

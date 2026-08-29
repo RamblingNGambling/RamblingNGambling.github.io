@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 28, 2026, 11:25 PM EDT",
+  "updated": "Aug 28, 2026, 11:34 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -649,30 +649,6 @@
       "result": "Loss",
       "units_pl": -0.25,
       "post": "https://x.com/gamblingv1ctim/status/2084137554949865611"
-    },
-    {
-      "date": "2026-08-03",
-      "sport": "MLB",
-      "market": "Total",
-      "game": "Pirates @ Brewers",
-      "play": "Over 8.5 Runs",
-      "odds": 102,
-      "units": 1,
-      "result": "Loss",
-      "units_pl": -1,
-      "post": ""
-    },
-    {
-      "date": "2026-08-03",
-      "sport": "MLB",
-      "market": "Moneyline",
-      "game": "Giants @ Rangers",
-      "play": "Giants ML",
-      "odds": 110,
-      "units": 0.75,
-      "result": "Win",
-      "units_pl": 0.825,
-      "post": ""
     },
     {
       "date": "2026-08-04",

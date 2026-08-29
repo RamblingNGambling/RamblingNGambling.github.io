@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 29, 2026, 2:27 PM EDT",
+  "updated": "Aug 29, 2026, 3:31 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2314,8 +2314,8 @@
       "play": "CCSU v SDAK Under 51.5 + SUU vs MONT Over 58.5",
       "odds": 253,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "https://x.com/gamblingv1ctim/status/2093731234694283527"
     },
     {
@@ -2353,6 +2353,18 @@
       "result": "Pending",
       "units_pl": null,
       "post": "https://x.com/gamblingv1ctim/status/2093766855995310486"
+    },
+    {
+      "date": "2026-08-29",
+      "sport": "NCAAF",
+      "market": "Total",
+      "game": "NCST vs UVA",
+      "play": "Under 52.5",
+      "odds": -135,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093774114288701632"
     }
   ]
 }

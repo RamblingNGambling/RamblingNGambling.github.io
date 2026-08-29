@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 29, 2026, 1:01 AM EDT",
+  "updated": "Aug 29, 2026, 2:27 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2305,6 +2305,54 @@
       "result": "Pending",
       "units_pl": null,
       "post": "https://x.com/gamblingv1ctim/status/2093085836212392229"
+    },
+    {
+      "date": "2026-08-29",
+      "sport": "NCAAF",
+      "market": "Parlay",
+      "game": "",
+      "play": "CCSU v SDAK Under 51.5 + SUU vs MONT Over 58.5",
+      "odds": 253,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093731234694283527"
+    },
+    {
+      "date": "2026-08-29",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "UNC vs TCU (LIVE)",
+      "play": "TCU -5.5",
+      "odds": -120,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093745072139379085"
+    },
+    {
+      "date": "2026-08-29",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "NCST vs UVA",
+      "play": "UVA -3",
+      "odds": -134,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093745072139379085"
+    },
+    {
+      "date": "2026-08-29",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Pirates @ Cardinals",
+      "play": "Cardinals ML",
+      "odds": 105,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "https://x.com/gamblingv1ctim/status/2093766855995310486"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Aug 30, 2026, 1:27 AM EDT",
+  "updated": "Sep 1, 2026, 1:22 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2365,6 +2365,30 @@
       "result": "Win",
       "units_pl": 0.3704,
       "post": "https://x.com/gamblingv1ctim/status/2093774114288701632"
+    },
+    {
+      "date": "2026-08-31",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Tatis Over 0.5 Stolen Bases + Caballero Over 0.5 Stolen Bases",
+      "odds": 3013,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1,
+      "post": ""
+    },
+    {
+      "date": "2026-09-07",
+      "sport": "NCAAF",
+      "market": "Parlay",
+      "game": "",
+      "play": "James Madison -6.5 + SMU ML",
+      "odds": 203,
+      "units": 0.3,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
     }
   ]
 }

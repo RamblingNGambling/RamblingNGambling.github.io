@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 1, 2026, 1:22 AM EDT",
+  "updated": "Sep 1, 2026, 4:51 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2376,6 +2376,42 @@
       "units": 0.1,
       "result": "Loss",
       "units_pl": -0.1,
+      "post": ""
+    },
+    {
+      "date": "2026-09-01",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Gunnar Henderson x Max Muncy HRs",
+      "odds": 3475,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-01",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Juan Soto x Salvador Perez",
+      "odds": 2737,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-01",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "Soto x Henderson x Muncy x Perez",
+      "odds": 77759,
+      "units": 0.05,
+      "result": "Pending",
+      "units_pl": null,
       "post": ""
     },
     {

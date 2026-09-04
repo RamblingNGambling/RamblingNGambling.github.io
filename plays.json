@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 4, 2026, 11:12 AM EDT",
+  "updated": "Sep 4, 2026, 11:58 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2494,6 +2494,18 @@
       "play": "Max Fried Over 3.5 Strikeouts",
       "odds": -147,
       "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-04",
+      "sport": "NCAAF",
+      "market": "Total",
+      "game": "Indiana State @ Purdue",
+      "play": "Purdue: Team Total Points Over 45.5",
+      "odds": 100,
+      "units": 0.25,
       "result": "Pending",
       "units_pl": null,
       "post": ""

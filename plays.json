@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 3, 2026, 12:46 PM EDT",
+  "updated": "Sep 3, 2026, 10:15 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2424,6 +2424,54 @@
       "units": 0.25,
       "result": "Loss",
       "units_pl": -0.25,
+      "post": ""
+    },
+    {
+      "date": "2026-09-03",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "Marlins @ Royals",
+      "play": "Royals ML",
+      "odds": -111,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-03",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "",
+      "play": "Colorado +7.5",
+      "odds": -135,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-05",
+      "sport": "NCAAF",
+      "market": "Parlay",
+      "game": "",
+      "play": "Over 51.0 Colorado @ Georgia Tech + Over 51.5 Boise State @ Oregon + Over 55.5 North Texas @ Indiana + Utah -35.0",
+      "odds": 1101,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-05",
+      "sport": "NCAAF",
+      "market": "Parlay",
+      "game": "",
+      "play": "Over 51.0 Colorado @ Georgia Tech + Over 51.5 Boise State @ Oregon + Over 55.5 North Texas @ Indiana + Utah -35.0",
+      "odds": 1319,
+      "units": 0.4044,
+      "result": "Pending",
+      "units_pl": null,
       "post": ""
     },
     {

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 3, 2026, 11:48 PM EDT",
+  "updated": "Sep 4, 2026, 12:31 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2441,18 +2441,6 @@
     {
       "date": "2026-09-03",
       "sport": "NCAAF",
-      "market": "Spread",
-      "game": "",
-      "play": "Colorado +7.5",
-      "odds": -135,
-      "units": 0.5,
-      "result": "Win",
-      "units_pl": 0.3704,
-      "post": ""
-    },
-    {
-      "date": "2026-09-05",
-      "sport": "NCAAF",
       "market": "Parlay",
       "game": "",
       "play": "Over 51.0 Colorado @ Georgia Tech + Over 51.5 Boise State @ Oregon + Over 55.5 North Texas @ Indiana + Utah -35.0",
@@ -2460,6 +2448,18 @@
       "units": 0.1,
       "result": "Loss",
       "units_pl": -0.1,
+      "post": ""
+    },
+    {
+      "date": "2026-09-03",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "",
+      "play": "Colorado +7.5",
+      "odds": -135,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.3704,
       "post": ""
     },
     {

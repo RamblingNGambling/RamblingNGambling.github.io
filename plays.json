@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 3, 2026, 10:21 PM EDT",
+  "updated": "Sep 3, 2026, 11:48 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2434,8 +2434,8 @@
       "play": "Royals ML",
       "odds": -111,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4505,
       "post": ""
     },
     {
@@ -2446,8 +2446,8 @@
       "play": "Colorado +7.5",
       "odds": -135,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.3704,
       "post": ""
     },
     {
@@ -2458,8 +2458,8 @@
       "play": "Over 51.0 Colorado @ Georgia Tech + Over 51.5 Boise State @ Oregon + Over 55.5 North Texas @ Indiana + Utah -35.0",
       "odds": 1101,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.1,
       "post": ""
     },
     {

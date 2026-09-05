@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 5, 2026, 3:30 PM EDT",
+  "updated": "Sep 5, 2026, 5:00 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2578,8 +2578,8 @@
       "play": "TEX -16.5 1H Spread",
       "odds": -122,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4098,
       "post": ""
     },
     {

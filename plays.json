@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 5, 2026, 1:15 AM EDT",
+  "updated": "Sep 5, 2026, 3:30 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2529,6 +2529,54 @@
       "game": "FIU @ South Florida",
       "play": "South Florida -14",
       "odds": -120,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-05",
+      "sport": "NCAAF",
+      "market": "Moneyline",
+      "game": "TSU vs BGSU",
+      "play": "TSU ML",
+      "odds": 110,
+      "units": 0.6,
+      "result": "Win",
+      "units_pl": 0.66,
+      "post": ""
+    },
+    {
+      "date": "2026-09-05",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "BAL Orioles ML STL Cardinals ML",
+      "odds": 291,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-05",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "North Texas @ Indiana",
+      "play": "Indiana 1H Spread -23.5",
+      "odds": -118,
+      "units": 0.4,
+      "result": "Loss",
+      "units_pl": -0.4,
+      "post": ""
+    },
+    {
+      "date": "2026-09-05",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "TXST @ TEX",
+      "play": "TEX -16.5 1H Spread",
+      "odds": -122,
       "units": 0.5,
       "result": "Pending",
       "units_pl": null,

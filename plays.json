@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 4, 2026, 11:58 AM EDT",
+  "updated": "Sep 5, 2026, 1:15 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2470,8 +2470,8 @@
       "play": "NYY First 5 Moneyline",
       "odds": -122,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Push",
+      "units_pl": 0,
       "post": ""
     },
     {
@@ -2482,8 +2482,8 @@
       "play": "Alvarez x Lindor HRs",
       "odds": 1983,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.1,
       "post": ""
     },
     {
@@ -2494,8 +2494,8 @@
       "play": "Max Fried Over 3.5 Strikeouts",
       "odds": -147,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.3401,
       "post": ""
     },
     {
@@ -2506,6 +2506,30 @@
       "play": "Purdue: Team Total Points Over 45.5",
       "odds": 100,
       "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": ""
+    },
+    {
+      "date": "2026-09-04",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "SJSU @ EMU",
+      "play": "SJSU +2.5",
+      "odds": -108,
+      "units": 0.81,
+      "result": "Win",
+      "units_pl": 0.75,
+      "post": ""
+    },
+    {
+      "date": "2026-09-05",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "FIU @ South Florida",
+      "play": "South Florida -14",
+      "odds": -120,
+      "units": 0.5,
       "result": "Pending",
       "units_pl": null,
       "post": ""

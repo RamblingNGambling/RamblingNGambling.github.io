@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 6, 2026, 1:42 AM EDT",
+  "updated": "Sep 7, 2026, 1:05 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2616,6 +2616,30 @@
       "units": 1,
       "result": "Loss",
       "units_pl": -1,
+      "post": ""
+    },
+    {
+      "date": "2026-09-06",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "WISC @ ND",
+      "play": "WISC +22.5",
+      "odds": -120,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": ""
+    },
+    {
+      "date": "2026-09-06",
+      "sport": "NCAAF",
+      "market": "Total",
+      "game": "SCST v FAMU",
+      "play": "Under 54.5",
+      "odds": -125,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4,
       "post": ""
     },
     {

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 8, 2026, 1:51 AM EDT",
+  "updated": "Sep 8, 2026, 3:35 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2664,6 +2664,42 @@
       "units": 0.25,
       "result": "Loss",
       "units_pl": -0.25,
+      "post": ""
+    },
+    {
+      "date": "2026-09-08",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "CAL @ SYR",
+      "play": "Syracuse -3",
+      "odds": -120,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-08",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "ARIZ @ BYU",
+      "play": "BYU -7.5",
+      "odds": -110,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-08",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "MTSU @ MRSH",
+      "play": "Middle Tennessee +15/15.5",
+      "odds": -115,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null,
       "post": ""
     }
   ]

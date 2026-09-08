@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 7, 2026, 1:05 AM EDT",
+  "updated": "Sep 8, 2026, 1:51 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2650,8 +2650,20 @@
       "play": "James Madison -6.5 + SMU ML",
       "odds": 203,
       "units": 0.3,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.609,
+      "post": ""
+    },
+    {
+      "date": "2026-09-07",
+      "sport": "NCAAF",
+      "market": "Parlay",
+      "game": "",
+      "play": "Diamondback +1.5 x Over 54.5",
+      "odds": 184,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": ""
     }
   ]

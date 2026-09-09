@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 8, 2026, 3:40 PM EDT",
+  "updated": "Sep 8, 2026, 10:23 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2698,6 +2698,90 @@
       "play": "Middle Tennessee +15/15.5",
       "odds": -115,
       "units": 1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-08",
+      "sport": "MLB",
+      "market": "Parlay",
+      "game": "",
+      "play": "NYY x Soto x Harper",
+      "odds": 310,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": ""
+    },
+    {
+      "date": "2026-09-08",
+      "sport": "MLB",
+      "market": "Player prop",
+      "game": "Rockies @ Yankees",
+      "play": "Aaron Judge HR",
+      "odds": 290,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": ""
+    },
+    {
+      "date": "2026-09-09",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "Patriots v Seahawks",
+      "play": "Rashid Shaheed Over 2.5 Receptions",
+      "odds": 106,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "Bills @ Texans",
+      "play": "David Montgomery Over 7.5 Receiving Yards",
+      "odds": -125,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "Saints @ Lions",
+      "play": "Sam LaPorta Over 38.5 Rec Yards",
+      "odds": -116,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Boutte 15+ LaPorta 30+ Coker 30+ Receiving Yards",
+      "odds": 228,
+      "units": 0.15,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Kyle Pitts 4+ Receptions Jauan Jennings 2+ Receptions",
+      "odds": 120,
+      "units": 0.4,
       "result": "Pending",
       "units_pl": null,
       "post": ""

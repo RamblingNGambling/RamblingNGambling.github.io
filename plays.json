@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 8, 2026, 10:23 PM EDT",
+  "updated": "Sep 10, 2026, 1:23 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2734,8 +2734,8 @@
       "play": "Rashid Shaheed Over 2.5 Receptions",
       "odds": 106,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": ""
     },
     {

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 12, 2026, 6:55 PM EDT",
+  "updated": "Sep 12, 2026, 7:24 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2746,8 +2746,8 @@
       "play": "BYU -7.5",
       "odds": -110,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.9091,
       "post": ""
     },
     {

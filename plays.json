@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 12, 2026, 7:24 PM EDT",
+  "updated": "Sep 12, 2026, 7:29 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2734,8 +2734,8 @@
       "play": "Syracuse -3",
       "odds": -120,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -1,
       "post": ""
     },
     {

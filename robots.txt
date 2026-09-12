@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ramblingngambling.github.io/sitemap.xml

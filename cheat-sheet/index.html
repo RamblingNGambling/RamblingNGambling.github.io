@@ -855,6 +855,9 @@ body.nopost .cstat,body.nopost .rng{display:none}
   max-width:56ch;margin:10px auto 0}
 .receipts b{color:var(--lilac);font-weight:400}
 .receipts a{color:var(--lilac)}
+/* The box is shrink-to-fit in the corner, so the sentence inside it has to be
+   allowed to wrap rather than set the width. */
+.calc{max-width:300px}
 .calc .unitline{font:400 13px var(--read);color:var(--grey);line-height:1.55;
   margin-top:10px;text-align:left;max-width:none}
 @media(max-width:820px){

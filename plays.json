@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 13, 2026, 12:29 AM EDT",
+  "updated": "Sep 13, 2026, 12:34 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2770,8 +2770,8 @@
       "play": "USM + Navy + IOWA + UGA + GT",
       "odds": 2083,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.1,
       "post": ""
     },
     {

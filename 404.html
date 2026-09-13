@@ -2,24 +2,29 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#100D14">
+<meta name="theme-color" content="#0B0B0D" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#F4F4F7" media="(prefers-color-scheme:light)">
 <meta name="robots" content="noindex,follow">
 <title>Page not found · Public Tracker</title>
 <style>
+:root{--bg:#0B0B0D;--fg:#F4F4F5;--dim:#8E8E97;--rule:#26262C;--acc:#C08BF5}
+@media(prefers-color-scheme:light){
+  :root{--bg:#F4F4F7;--fg:#121215;--dim:#64646D;--rule:#E2E2E9;--acc:#6E28B8}}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#100D14;color:#BAB8BB;min-height:100vh;display:flex;
+body{background:var(--bg);color:var(--fg);min-height:100vh;display:flex;
   align-items:center;justify-content:center;padding:32px 20px;
   font:400 17px/1.6 ui-monospace,"SF Mono",Menlo,Consolas,monospace}
 main{max-width:560px;width:100%}
-.n{font-size:76px;line-height:1;color:#AC8EB8;letter-spacing:2px}
-h1{font:400 21px/1.4 inherit;color:#BAB8BB;margin:18px 0 10px;letter-spacing:1px}
-p{color:#8F8D90;margin-bottom:22px}
+.n{font-size:76px;line-height:1;color:var(--acc);letter-spacing:2px;font-weight:700}
+h1{font:700 21px/1.4 inherit;color:var(--fg);margin:18px 0 10px;letter-spacing:1px}
+p{color:var(--dim);margin-bottom:22px}
 nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
-nav a{color:#BAB8BB;text-decoration:none;border:1px solid #2A2333;
+nav a{color:var(--fg);text-decoration:none;border:1px solid var(--rule);
   border-radius:999px;padding:7px 14px;font-size:15px}
-nav a:hover{border-color:#AC8EB8;color:#D5A6E7}
-.home{display:inline-block;color:#100D14;background:#AC8EB8;text-decoration:none;
-  border-radius:8px;padding:10px 18px;font-size:15px;letter-spacing:1px}
+nav a:hover{border-color:var(--acc);color:var(--acc)}
+nav a:focus-visible,.home:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.home{display:inline-block;color:var(--bg);background:var(--acc);text-decoration:none;
+  border-radius:8px;padding:10px 18px;font-size:15px;letter-spacing:1px;font-weight:700}
 </style></head><body><main>
   <div class="n">404</div>
   <h1>That page is not here.</h1>

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 12, 2026, 7:32 PM EDT",
+  "updated": "Sep 12, 2026, 11:09 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2758,8 +2758,8 @@
       "play": "Middle Tennessee +15/15.5",
       "odds": -115,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.8696,
       "post": ""
     },
     {

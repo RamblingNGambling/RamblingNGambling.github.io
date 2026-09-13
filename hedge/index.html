@@ -57,7 +57,6 @@ if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',
   --shadow:0 1px 0 rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.45);
   --shadow-lift:0 2px 0 rgba(0,0,0,.45),0 18px 40px rgba(0,0,0,.6);
   --scrim:rgba(0,0,0,.62);
-  --tipshadow:0 8px 22px rgba(0,0,0,.62);
   --cell:#141418;--grid:#1E1E24;--zero:#5C5C66;--faint:#6E6E79;
   /* §5 two curves: one for local tints, one for anything that travels */
   --e-local:cubic-bezier(.22,.61,.36,1);
@@ -79,7 +78,6 @@ if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',
     --shadow:0 1px 0 rgba(16,16,24,.04),0 6px 18px rgba(16,16,24,.08);
     --shadow-lift:0 2px 0 rgba(16,16,24,.05),0 14px 32px rgba(16,16,24,.13);
     --scrim:rgba(18,18,26,.45);
-    --tipshadow:0 8px 22px rgba(16,16,24,.16);
     --cell:#FFFFFF;--grid:#E7E7EE;--zero:#9A9AA6;--faint:#84848F;
   }
 }
@@ -94,7 +92,6 @@ if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',
     --shadow:0 1px 0 rgba(16,16,24,.04),0 6px 18px rgba(16,16,24,.08);
     --shadow-lift:0 2px 0 rgba(16,16,24,.05),0 14px 32px rgba(16,16,24,.13);
     --scrim:rgba(18,18,26,.45);
-    --tipshadow:0 8px 22px rgba(16,16,24,.16);
     --cell:#FFFFFF;--grid:#E7E7EE;--zero:#9A9AA6;--faint:#84848F;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -290,7 +287,7 @@ details.card .body{padding:0 20px 20px}
 svg.curve{display:block;width:100%;cursor:crosshair;touch-action:none}
 .tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--lilac);
   border-radius:8px;padding:11px 15px;font:400 17px var(--mono);white-space:nowrap;opacity:0;
-  transition:opacity .1s;transform:translate(-50%,-118%);z-index:5;box-shadow:var(--tipshadow)}
+  transition:opacity .1s;transform:translate(-50%,-118%);z-index:5}
 .tip.on{opacity:1}
 .tip .d{color:var(--grey);font-weight:400;font-size:15px;display:block;margin-bottom:4px;letter-spacing:.5px}
 
@@ -2898,7 +2895,7 @@ if(REAL){
 
 
 /* ---------- about: written from the desk on export ---------- */
-var ABOUT={"lede":"I post plays on X and log them here.\n\na little more about me:\n\n24 y/o\nNYC\nplay league(aram mayhem only) + valorant (a2)\nlove poker\n\nplease feel free to reach out and connect <3","close":"","lists":[{"title":"Currently watching","items":["Reacher","Dark Matter","Lanterns","Mindhunter","The Mentalist"]},{"title":"Just finished","items":["Silo","Lucky","White Collar"]}],"books":[{"name":"FanDuel","url":""},{"name":"DraftKings","url":""},{"name":"BetMGM","url":""},{"name":"theScore Bet","url":""},{"name":"Fanatics","url":""},{"name":"Bally Bet","url":""},{"name":"Novig","url":""},{"name":"Kalshi","url":"https://kalshi.com/r/9bbb8bb4-edca-4590-b276-ffcd83e209c8"}]};
+var ABOUT={"lede":"I post plays on X and log them here.\n\na little more about me:\n\n24 y/o\nNYC\nplay league (aram mayhem only) + valorant (a2)\nlove poker\n\nplease feel free to reach out and connect <3","close":"","lists":[{"title":"Currently watching","items":["Reacher","Dark Matter","Lanterns","Mindhunter","The Mentalist"]},{"title":"Just finished","items":["Silo","Lucky","White Collar"]}],"books":[{"name":"FanDuel","url":""},{"name":"DraftKings","url":""},{"name":"BetMGM","url":""},{"name":"theScore Bet","url":""},{"name":"Fanatics","url":""},{"name":"Bally Bet","url":""},{"name":"Novig","url":""},{"name":"Kalshi","url":"https://kalshi.com/r/9bbb8bb4-edca-4590-b276-ffcd83e209c8"}]};
 /* The About text is typed into a textarea on the desk, so its line breaks are
    the layout. A blank line starts a paragraph; a single newline breaks a line. */
 function asTyped(node,text){
@@ -3160,9 +3157,9 @@ function drawCurve(){
   var AXF=W<520?13:16,L=W<520?52:76,R=18,T=16,BM=42;
   var cs=getComputedStyle(document.documentElement);
   function tok(n,f){var v=cs.getPropertyValue(n);return v?v.trim():f}
-  var C_GRID=tok('--grid','#241E30'),C_GREY=tok('--grey','#8F8D90'),C_ZERO=tok('--zero','#6B5A7E'),
-      C_LILAC=tok('--lilac','#AC8EB8'),C_FAINT=tok('--faint','#7A6A8C'),
-      C_UP=tok('--up','#D5A6E7'),C_DN=tok('--down','#C4677E'),C_INK=tok('--ink','#100D14');
+  var C_GRID=tok('--grid','#1E1E24'),C_GREY=tok('--grey','#8E8E97'),C_ZERO=tok('--zero','#5C5C66'),
+      C_LILAC=tok('--lilac','#C08BF5'),C_FAINT=tok('--faint','#6E6E79'),
+      C_UP=tok('--up','#C08BF5'),C_DN=tok('--down','#E4677F'),C_INK=tok('--ink','#0B0B0D');
   var vals=VS.map(function(p){return p.v}).concat([0]);
   var hi=Math.max.apply(null,vals),lo=Math.min.apply(null,vals);
   var padv=Math.max((hi-lo)*0.12,0.5);hi+=padv;lo-=padv;
@@ -3305,8 +3302,8 @@ function drawMonthBars(first){
   var NS='http://www.w3.org/2000/svg';
   var cs=getComputedStyle(document.documentElement);
   function tok(n,f){var v=cs.getPropertyValue(n);return v?v.trim():f}
-  var UP=tok('--up','#D5A6E7'),DN=tok('--down','#C4677E'),LINE=tok('--line2','#3B3149'),
-      GREY=tok('--grey','#8F8D90'),BONE=tok('--bone','#BAB8BB');
+  var UP=tok('--up','#C08BF5'),DN=tok('--down','#E4677F'),LINE=tok('--line2','#34343C'),
+      GREY=tok('--grey','#8E8E97'),BONE=tok('--bone','#F4F4F5');
   var MONO="'Departure Mono',ui-monospace,Menlo,monospace";
   /* The chart is drawn into a fixed 840-unit box and stretched to its container,
      so a size given in viewBox units is a different size on screen at every

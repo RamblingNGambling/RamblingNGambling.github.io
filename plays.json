@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 13, 2026, 12:58 AM EDT",
+  "updated": "Sep 13, 2026, 5:44 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2782,8 +2782,8 @@
       "play": "David Montgomery Over 7.5 Receiving Yards",
       "odds": -125,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4,
       "post": ""
     },
     {
@@ -2794,8 +2794,8 @@
       "play": "Sam LaPorta Over 38.5 Rec Yards",
       "odds": -116,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.431,
       "post": ""
     },
     {
@@ -2806,8 +2806,8 @@
       "play": "Boutte 15+ LaPorta 30+ Coker 30+ Receiving Yards",
       "odds": 228,
       "units": 0.15,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.342,
       "post": ""
     },
     {
@@ -2854,8 +2854,8 @@
       "play": "Drake London Over 60+ Receiving Yards",
       "odds": -115,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": ""
     },
     {
@@ -2878,8 +2878,8 @@
       "play": "Joe Burrow Over 266.5 Passing Yards",
       "odds": -114,
       "units": 0.4,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.4,
       "post": ""
     },
     {
@@ -2890,8 +2890,56 @@
       "play": "Sam LaPorta Over 4.5 Receptions",
       "odds": 137,
       "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.685,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Other",
+      "game": "",
+      "play": "Each Team to Score 1+ FG in the 4:05PM & 4:25PM (ET) Games",
+      "odds": 270,
+      "units": 0.4,
       "result": "Pending",
       "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Other",
+      "game": "",
+      "play": "Each Team to Score 1+ FG in the 1:00PM (ET) Games",
+      "odds": 1100,
+      "units": 0.15,
+      "result": "Win",
+      "units_pl": 1.65,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Other",
+      "game": "",
+      "play": "Each Team to Score 1+ FG in the 1:00PM & 4:05PM & 4:25PM (ET) Games",
+      "odds": 4500,
+      "units": 0.05,
+      "result": "Pending",
+      "units_pl": null,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Keenan Allen Over 26.5 Receiving Yards",
+      "odds": -113,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4425,
       "post": ""
     },
     {

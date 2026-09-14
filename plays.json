@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 13, 2026, 5:44 PM EDT",
+  "updated": "Sep 13, 2026, 11:33 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2818,8 +2818,8 @@
       "play": "Kyle Pitts 4+ Receptions Jauan Jennings 2+ Receptions",
       "odds": 120,
       "units": 0.4,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.4,
       "post": ""
     },
     {
@@ -2830,8 +2830,8 @@
       "play": "Matthew Golden Over 40+ Receiving Yards",
       "odds": -104,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4808,
       "post": ""
     },
     {
@@ -2842,8 +2842,8 @@
       "play": "Christian Watson Over 53.5 Receiving Yards",
       "odds": -115,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4348,
       "post": ""
     },
     {
@@ -2866,8 +2866,8 @@
       "play": "Jaylen Reed Over 40+ Receiving Yards",
       "odds": -108,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": ""
     },
     {
@@ -2902,8 +2902,8 @@
       "play": "Each Team to Score 1+ FG in the 4:05PM & 4:25PM (ET) Games",
       "odds": 270,
       "units": 0.4,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.4,
       "post": ""
     },
     {
@@ -2926,8 +2926,8 @@
       "play": "Each Team to Score 1+ FG in the 1:00PM & 4:05PM & 4:25PM (ET) Games",
       "odds": 4500,
       "units": 0.05,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.05,
       "post": ""
     },
     {
@@ -2940,6 +2940,18 @@
       "units": 0.5,
       "result": "Win",
       "units_pl": 0.4425,
+      "post": ""
+    },
+    {
+      "date": "2026-09-13",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "George Pickens Over 69.5 Receiving Yards",
+      "odds": 105,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": ""
     },
     {

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 13, 2026, 11:33 PM EDT",
+  "updated": "Sep 15, 2026, 1:46 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -2962,8 +2962,44 @@
       "play": "Rashee Rice Under 58.5 Receiving Yards",
       "odds": -115,
       "units": 0.4,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.3478,
+      "post": ""
+    },
+    {
+      "date": "2026-09-14",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Kelce or Worthy TD",
+      "odds": 120,
+      "units": 0.4,
+      "result": "Loss",
+      "units_pl": -0.4,
+      "post": ""
+    },
+    {
+      "date": "2026-09-14",
+      "sport": "NFL",
+      "market": "Total",
+      "game": "",
+      "play": "Patrick Mahomes Over 3.5 Rushing Attempts",
+      "odds": 113,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.565,
+      "post": ""
+    },
+    {
+      "date": "2026-09-14",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Bo Nix Over 225 Passing Yards",
+      "odds": -112,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": ""
     }
   ]

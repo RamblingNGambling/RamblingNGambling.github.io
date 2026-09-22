@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 15, 2026, 1:46 AM EDT",
+  "updated": "Sep 21, 2026, 11:25 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -3000,6 +3000,78 @@
       "units": 0.5,
       "result": "Loss",
       "units_pl": -0.5,
+      "post": ""
+    },
+    {
+      "date": "2026-09-20",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Isaac TeSlaa ATD",
+      "odds": 550,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1,
+      "post": ""
+    },
+    {
+      "date": "2026-09-20",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Roman Wilson Over 16.5 Receiving Yards",
+      "odds": -114,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4386,
+      "post": ""
+    },
+    {
+      "date": "2026-09-20",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Garrett Wilson Over 61.5 Receiving Yards",
+      "odds": -113,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": ""
+    },
+    {
+      "date": "2026-09-21",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Malik Nabers Over 59.5 Receiving Yards",
+      "odds": -112,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": ""
+    },
+    {
+      "date": "2026-09-21",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Devin Singletary Over 1.5 Receptions",
+      "odds": 150,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": ""
+    },
+    {
+      "date": "2026-09-21",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Davante Adams Over 0.5 TD",
+      "odds": -102,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4902,
       "post": ""
     }
   ]

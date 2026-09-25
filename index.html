@@ -6,12 +6,12 @@
 <meta name="theme-color" content="#F4F4F7" media="(prefers-color-scheme:light)">
 <title>Public Tracker</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0B0D'/%3E%3Cpath d='M5 21.5 L11.5 13 L17 17 L27 6.5' stroke='%23C08BF5' stroke-width='3.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<meta name="description" content="Every play @gamblingv1ctim posts on X, logged here win or lose. 256 settled plays, +24.81u, 13.9% ROI. Free arbitrage, hedge, parlay, payout, odds and devig calculators.">
+<meta name="description" content="Every play @gamblingv1ctim posts on X, logged here win or lose. 256 settled plays, +24.81u, 13.9% ROI. Free arbitrage, hedge, parlay, payout, odds and devig calculators, and a poker settle-up.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://ramblingngambling.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Public Tracker">
-<meta property="og:description" content="Every play @gamblingv1ctim posts on X, logged here win or lose. 256 settled plays, +24.81u, 13.9% ROI. Free arbitrage, hedge, parlay, payout, odds and devig calculators.">
+<meta property="og:description" content="Every play @gamblingv1ctim posts on X, logged here win or lose. 256 settled plays, +24.81u, 13.9% ROI. Free arbitrage, hedge, parlay, payout, odds and devig calculators, and a poker settle-up.">
 <meta property="og:site_name" content="@gamblingv1ctim">
 <meta property="og:url" content="https://ramblingngambling.github.io/">
 <meta property="og:image" content="https://ramblingngambling.github.io/og.png">
@@ -21,10 +21,10 @@
 <meta property="og:image:alt" content="Public Tracker — the running record">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Public Tracker">
-<meta name="twitter:description" content="Every play @gamblingv1ctim posts on X, logged here win or lose. 256 settled plays, +24.81u, 13.9% ROI. Free arbitrage, hedge, parlay, payout, odds and devig calculators.">
+<meta name="twitter:description" content="Every play @gamblingv1ctim posts on X, logged here win or lose. 256 settled plays, +24.81u, 13.9% ROI. Free arbitrage, hedge, parlay, payout, odds and devig calculators, and a poker settle-up.">
 <meta name="twitter:creator" content="@gamblingv1ctim">
 <meta name="twitter:image" content="https://ramblingngambling.github.io/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Public Tracker","url":"https://ramblingngambling.github.io/","description":"Every play @gamblingv1ctim posts on X, logged here win or lose. 256 settled plays, +24.81u, 13.9% ROI. Free arbitrage, hedge, parlay, payout, odds and devig calculators.","publisher":{"@type":"Person","name":"@gamblingv1ctim","url":"https://x.com/gamblingv1ctim"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Public Tracker","url":"https://ramblingngambling.github.io/","description":"Every play @gamblingv1ctim posts on X, logged here win or lose. 256 settled plays, +24.81u, 13.9% ROI. Free arbitrage, hedge, parlay, payout, odds and devig calculators, and a poker settle-up.","publisher":{"@type":"Person","name":"@gamblingv1ctim","url":"https://x.com/gamblingv1ctim"}}</script>
 <script>/* before first paint, so a forced theme never flashes the other one */
 try{var _t=localStorage.getItem('rg.theme');
 if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',_t);
@@ -955,6 +955,102 @@ a.src .x{letter-spacing:1px}
 #rb-theme{cursor:pointer;font:inherit;text-align:left}
 #rb-theme .ric{opacity:.85}
 #rb-theme:hover .ric{opacity:1}
+
+/* ---- poker settle-up ---- */
+.pknew,.pkcopy{background:transparent;border:1px solid var(--line2);border-radius:6px;color:var(--grey);
+  font:400 13px var(--mono);letter-spacing:1px;padding:6px 11px;cursor:pointer}
+.pknew:hover{color:var(--bone);border-color:var(--lilac)}
+.pknew.arm{color:var(--down);border-color:var(--downbd);background:var(--downbg)}
+.pkcopy:hover{color:var(--lilac);border-color:var(--lilac)}
+.pkcopy.done{color:var(--up);border-color:var(--upbd)}
+.pkcopy[disabled]{opacity:.4;cursor:not-allowed}
+.pkcopy[disabled]:hover{color:var(--grey);border-color:var(--line2)}
+.pknew:focus-visible,.pkcopy:focus-visible{outline:2px solid var(--lilac);outline-offset:1px}
+.pkset{display:grid;grid-template-columns:190px minmax(0,1fr) auto;grid-template-areas:"buy name add";
+  gap:12px;align-items:end;max-width:760px}
+.pkbuy{grid-area:buy}.pkadd{grid-area:name}#pk-add{grid-area:add;height:48px;white-space:nowrap}
+.pkset .ah{display:block;margin-bottom:7px}
+.tin .pkset input{width:100%}
+.tin #pk-name{text-align:left}
+.pktab{margin-top:18px;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.pkrow{display:grid;grid-template-columns:minmax(0,1.5fr) 136px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 44px;
+  grid-template-areas:"nm st in out net x";column-gap:10px;align-items:center;padding:8px 12px;
+  border-bottom:1px solid var(--line)}
+.pkrow:last-child{border-bottom:0}
+.pkctl{display:contents}
+.pkc.pnm{grid-area:nm;min-width:0}.pkc.pst{grid-area:st}.pkc.pin{grid-area:in}
+.pkc.pout{grid-area:out}.pkc.pnet{grid-area:net}.pkc.px{grid-area:x;text-align:right}
+.pkl{display:none}
+.pkrow.hd{background:var(--panel2);padding-top:10px;padding-bottom:10px}
+.pkrow.hd .pkc{font:400 13px var(--mono);letter-spacing:1.6px;color:var(--grey);text-transform:uppercase}
+.pkrow.hd .pkc.pin,.pkrow.hd .pkc.pout,.pkrow.hd .pkc.pnet{text-align:right}
+.pkrow.hd .pkc.pst{text-align:center}
+.tin .pkrow input{font-size:19px;padding:9px 11px;width:100%}
+.tin .pkrow .mi input{padding-left:24px}
+.pkrow .mi span{left:10px;font-size:16px}
+.tin .pkrow input.pkname{text-align:left;background:transparent;border-color:transparent;padding-left:6px;
+  text-overflow:ellipsis}
+.tin .pkrow input.pkname:hover{border-color:var(--line2)}
+.tin .pkrow input.pkname:focus{background:var(--ink);border-color:var(--lilac)}
+.tin .pkrow input.pkname.bad{border-color:var(--downbd)}
+.pkstep{display:flex;align-items:center;height:44px;background:var(--ink);border:1px solid var(--line2);
+  border-radius:6px}
+.pkstep button{flex:0 0 38px;height:100%;background:transparent;border:0;color:var(--grey);
+  font:400 22px var(--mono);line-height:1;cursor:pointer}
+.pkstep button:hover{color:var(--lilac)}
+.pkstep button:disabled{opacity:.3;cursor:default;color:var(--grey)}
+.pkstep button:focus-visible{outline:2px solid var(--lilac);outline-offset:-2px;border-radius:6px}
+.pkstep span{flex:1;min-width:0;text-align:center;font:400 19px var(--mono);color:var(--bone);white-space:nowrap}
+.pkstep span.sm{font-size:15px}
+.pkc.pnet{text-align:right;font:700 19px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pkc.pnet i{display:block;font:400 13px var(--mono);font-style:normal;color:var(--grey);margin-top:3px}
+.pkrow.arm{background:var(--downbg)}
+.pkrow.arm .legx{color:var(--down);border-color:var(--downbd)}
+.pkrow.tot{background:var(--panel2)}
+.pkrow.tot .pkc{font:400 17px var(--mono);color:var(--grey);font-variant-numeric:tabular-nums}
+.pkrow.tot .pkc.pst{text-align:center}
+.pkrow.tot .pkc.pin,.pkrow.tot .pkc.pout{text-align:right}
+.pkrow.tot .v{color:var(--bone)}
+.pkrow.tot .pkc.pnet{font-weight:700}
+.pkempty{padding:22px 16px;font:400 16px var(--read);color:var(--grey);text-align:center}
+#pk-sum{margin-top:0;padding-top:0;border-top:0;gap:10px}
+/* four figures share one narrow column, as on the payout page */
+#pk-sum b{font-size:12px;letter-spacing:1.2px}
+#pk-sum span{font-size:22px}
+#pk-sum .sep{padding-left:10px}
+.tin .pkmsg{margin-top:16px}
+.pkmsg .loss{color:var(--down)}
+.pksplit{margin-top:12px}
+.pksplit[hidden],.pkpay[hidden]{display:none}
+.pkpay .prow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.9fr);min-width:0}
+.pkpay .prow>*{color:var(--bone);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pkpay .prow>*:nth-child(2){text-align:left}
+.pkpay .prow.hd>*{color:var(--grey)}
+.pkpay .prow .num{font-weight:700}
+@media(max-width:820px){
+  .pkcard .tin{padding:16px 12px}
+  .pkset{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"buy buy" "name add";max-width:none}
+  .pkbuy{max-width:200px}
+  .pkrow{grid-template-columns:minmax(0,1fr) auto 38px;grid-template-areas:"nm net x" "ctl ctl ctl";
+    row-gap:8px;column-gap:8px;padding:10px}
+  .pkrow.hd{display:none}
+  .pkctl{display:grid;grid-area:ctl;grid-template-columns:92px minmax(0,1fr) minmax(0,1fr);gap:8px;
+    align-items:end}
+  .pkctl>.pkc{grid-area:auto}
+  .pkl{display:block;font:400 11px var(--mono);letter-spacing:1.4px;color:var(--grey);
+    text-transform:uppercase;margin-bottom:4px}
+  .pkrow.tot .pkc.pst,.pkrow.tot .pkc.pin,.pkrow.tot .pkc.pout{text-align:left}
+  .pkstep{height:42px}
+  .pkstep button{flex-basis:26px}
+  .pkstep span.sm{font-size:12px}
+  /* three fields share about 290px, so a cash-out like 1250.50 needs every pixel */
+  .tin .pkrow input{font-size:16px;padding:8px 7px}
+  .tin .pkrow .mi input{padding-left:19px}
+  .pkrow .mi span{left:7px;font-size:14px}
+  .pkc.pnet{font-size:17px}
+  .pkpay .prow{font-size:15px}
+  #pk-sum .sep{padding-left:0}
+}
 </style></head><body><div class="wrap">
 
 <aside class="side"><div class="sidein">
@@ -969,6 +1065,7 @@ a.src .x{letter-spacing:1px}
     <a class="rbtn" id="rb-odds" href="#odds" data-v="odds"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="7.5" cy="7.5" r="2.6"/><circle cx="16.5" cy="16.5" r="2.6"/></svg><span class="rlab">Odds</span></a>
     <a class="rbtn sub" id="rb-cheat" href="#cheat" data-v="cheat"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span class="rlab">Cheat Sheet</span></a>
     <a class="rbtn" id="rb-devig" href="#devig" data-v="devig"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18l-7 8v7l-4 2v-9z"/></svg><span class="rlab">Devig</span></a>
+    <a class="rbtn" id="rb-poker" href="#poker" data-v="poker"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.2"/><path d="M12 3v3.6M12 17.4V21M3 12h3.6M17.4 12H21"/></svg><span class="rlab">Poker</span></a>
   </nav>
   <div class="railfoot">
     <button class="rbtn" id="rb-theme" type="button" aria-label="Theme: follow the device"><svg class="ric" id="th-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17" fill="none"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></svg><span class="rlab" id="th-lab">Auto</span></button>
@@ -1017,7 +1114,7 @@ a.src .x{letter-spacing:1px}
     <p>Units only. One unit is one standard bet, so the record reads the same
     whatever anybody stakes.</p>
     <p>The tools in the sidebar work now: arbitrage, hedge, parlay, payout,
-    odds conversion and devig.</p>
+    odds conversion, devig, and a poker settle-up.</p>
   </div>
   <div class="form" id="formstrip"></div>
   <div class="pipwrap" id="pipwrap" hidden>
@@ -1598,17 +1695,87 @@ a.src .x{letter-spacing:1px}
     100%. Use the <a href="#devig">devig tool</a> to strip that out first, then come back here.</p>
   </div>
 </div>
+
+<div class="view" id="view-poker" hidden>
+  <div class="crumb">Tools / Poker</div>
+  <h1 class="th">Poker<br>Settlement</h1>
+  <p class="lede">Put in every player, their buy-ins and what they cashed out. The page works out who
+  pays whom, in as few payments as it can.</p>
+  <div class="tcard pkcard">
+    <div class="thead"><b>The table</b><button class="tlink" data-k="poker">Copy link</button><button class="pknew" id="pk-new" type="button">New game &times;</button></div>
+    <div class="tgrid one">
+      <div class="tin">
+        <input type="hidden" id="pk-game">
+        <div class="pkset">
+          <div class="pkbuy"><label class="ah" for="pk-buy">Buy-in</label>
+            <div class="mi"><span>$</span><input type="text" id="pk-buy" value="100" inputmode="decimal" autocomplete="off"></div></div>
+          <div class="pkadd"><label class="ah" for="pk-name">Add a player</label>
+            <input type="text" id="pk-name" placeholder="Name" maxlength="24" autocomplete="off" spellcheck="false" enterkeyhint="done"></div>
+          <button class="btn2" id="pk-add" type="button">+ ADD</button>
+        </div>
+        <div class="pktab" id="pk-rows"></div>
+        <div class="fine" id="pk-fine"></div>
+      </div>
+    </div>
+  </div>
+  <div class="tcard" style="margin-top:18px">
+    <div class="thead"><b>Who pays whom</b><button class="pkcopy" id="pk-copy" type="button" disabled>Copy results</button></div>
+    <div class="tgrid">
+      <div class="tin">
+        <div class="asum four" id="pk-sum">
+          <div><b>Players</b><span class="num" id="pk-np">0</span></div>
+          <div><b>Bought in</b><span class="num" id="pk-tin">$0.00</span></div>
+          <div><b>Cashed out</b><span class="num" id="pk-tout">$0.00</span></div>
+          <div class="sep"><b>Difference</b><span class="num mut" id="pk-gap">--</span><i id="pk-gapn"></i></div>
+        </div>
+        <div class="fine pkmsg" id="pk-msg" aria-live="polite"></div>
+        <button class="btn2 pksplit" id="pk-split" type="button" hidden></button>
+        <div class="ptab pkpay" id="pk-pay" hidden></div>
+      </div>
+      <div class="tnote"><b>How to read it</b>
+        <p>Set the buy-in, then add everyone at the table. Each player starts on one buy-in. Press + for
+        each rebuy. For an odd amount, such as a half buy-in, type the total into the In column.</p>
+        <p>At the end, type what each player cashed out. Type 0 for a player who lost it all.</p>
+        <p>When every cash-out is in and they add up to the buy-ins, the payments show here. If they do
+        not add up, the page says by how much. Recount, or split the difference.</p>
+      </div>
+    </div>
+  </div>
+  <div class="prose">
+    <h2>How the payments are worked out</h2>
+    <p>Each player&rsquo;s result is what they cashed out less what they put in. The player who is down
+    the most pays the player who is up the most, as much as one of them needs. That repeats until
+    everyone is square. A table of eight settles in seven payments or fewer.</p>
+    <p>Nobody pays the host and waits to be paid back. Every payment goes straight from a loser to a
+    winner.</p>
+    <h2>When the count is off</h2>
+    <p>Chips go missing. A rebuy goes unrecorded. A stack is counted wrong. Then the cash-outs do not add
+    up to the buy-ins, and there is no way to pay everyone exactly.</p>
+    <p>Recount first. If the gap is still there, Split shares it across the table by the size of each
+    result. A player up $200 takes twice the share of a player down $100. A player who broke even takes
+    none.</p>
+    <p>When chips are missing, the gap is handed back: winners collect a little more and losers pay a
+    little less. When the count comes out over, it works the other way.</p>
+    <p>Say $10 is missing, and three players are up $190, down $100 and down $100. The results come to
+    $390 between them, so the winner takes 190/390 of the $10 and each loser 100/390. The winner collects
+    $194.87, and the losers pay $97.43 and $97.44. The odd cent has to land somewhere.</p>
+    <h2>Your game stays on your device</h2>
+    <p>The table is kept in this browser only, so a reload in the middle of a game loses nothing. New
+    game clears it. Copy link puts the whole table into the address, so anyone you send it to opens the
+    same numbers.</p>
+  </div>
+</div>
 </main>
 </div>
 <script>
-var D={"title":"Public Tracker","built":"Sep 21, 2026, 11:25 PM EDT","repo":"https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main","bets":[{"d":"2026-07-19","s":"WNBA","m":"Total","g":"","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2078935318087004374"},{"d":"2026-07-19","s":"WNBA","m":"Total","g":"","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2078935318087004374"},{"d":"2026-07-20","s":"WNBA","m":"Spread","g":"","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2079243217468260585"},{"d":"2026-07-20","s":"WNBA","m":"Spread","g":"","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2079243217468260585"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2080059585562300721"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455,"x":"https://x.com/gamblingv1ctim/status/2080020133745946839"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2080059585562300721"},{"d":"2026-07-25","s":"MLB","m":"Moneyline","g":"","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081089594917785955"},{"d":"2026-07-25","s":"MLB","m":"Moneyline","g":"","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024,"x":"https://x.com/gamblingv1ctim/status/2081050904833176053"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Spread","g":"","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081786311275356504"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Spread","g":"","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-28","s":"WNBA","m":"Spread","g":"","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"WNBA","m":"Spread","g":"","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"MLB","m":"Spread","g":"","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-28","s":"WNBA","m":"Total","g":"","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"MLB","m":"Spread","g":"","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-28","s":"MLB","m":"Moneyline","g":"","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Phillies","o":-148,"u":1,"r":"Win","p":0.6757,"x":"https://x.com/gamblingv1ctim/status/2082321817595777147"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Phillies -0.5","o":-118,"u":1,"r":"Win","p":0.8475,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"Rays ML","o":-141,"u":1,"r":"Win","p":0.7092,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Total","g":"","t":"Over 9.5","o":-115,"u":1,"r":"Win","p":0.8696,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"Cubs","o":-105,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2082500560616399346"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Rockies ML","o":123,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2082538597178056854"},{"d":"2026-07-29","s":"MLB","m":"Spread","g":"","t":"1H Yankees -0.5","o":-107,"u":1,"r":"Win","p":0.9346,"x":"https://x.com/gamblingv1ctim/status/2082595650814799989"},{"d":"2026-07-29","s":"WNBA","m":"Spread","g":"","t":"Valks -3.5","o":-110,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2082620919252455524"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"Rays","o":-140,"u":1,"r":"Win","p":0.7143,"x":"https://x.com/gamblingv1ctim/status/2082685194117538171"},{"d":"2026-07-30","s":"MLB","m":"Spread","g":"","t":"Nationals +1.5","o":-150,"u":1,"r":"Win","p":0.6667,"x":"https://x.com/gamblingv1ctim/status/2082860119369421091"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"Twins","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2082864844672221355"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"1H Nationals ML","o":117,"u":0.5,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2082946350572818815"},{"d":"2026-07-31","s":"MLB","m":"Moneyline","g":"","t":"1H Nationals ML","o":-110,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Nationals -0.5","o":118,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Tigers -0.5","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Rays -0.5","o":-108,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Moneyline","g":"Phillies @ Orioles","t":"1H Orioles ML","o":-118,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Total","g":"Storm @ Dream","t":"Over 178.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Spread","g":"Wings @ Mystics","t":"Mystics +3.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Spread","g":"Fever @ Fire","t":"Fever -7.5","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"White Sox @ Rays","t":"Rays -1","o":-110,"u":1,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2083419117009125584"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"Phillies @ Orioles","t":"1H Phillies -0.5","o":100,"u":1,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2083419117009125584"},{"d":"2026-08-01","s":"MLB","m":"Moneyline","g":"Nationals @ Braves","t":"1H Nationals ML","o":130,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"MLB","m":"Moneyline","g":"Rangers @ Astros","t":"Rangers ML","o":-120,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"WNBA","m":"Spread","g":"Aces @ Sky","t":"Sky +6.5","o":-120,"u":2.5,"r":"Win","p":2.0833,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"MLB","m":"Total","g":"Red Sox @ Dodgers","t":"Under 8","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2083608901447020803"},{"d":"2026-08-01","s":"MLB","m":"Total","g":"Marlins @ Mets","t":"Over 9","o":-105,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083608901447020803"},{"d":"2026-08-02","s":"MLB","m":"Spread","g":"Pirates @ Reds","t":"1H Reds -0.5","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2083791414169583643"},{"d":"2026-08-02","s":"MLB","m":"Moneyline","g":"Red Sox @ Dodgers","t":"1H Red Sox ML","o":134,"u":0.75,"r":"Win","p":1.005,"x":"https://x.com/gamblingv1ctim/status/2083791414169583643"},{"d":"2026-08-02","s":"WNBA","m":"Spread","g":"Fever @ Lynx","t":"Lynx -5","o":-110,"u":2.75,"r":"Win","p":2.5,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-02","s":"WNBA","m":"Spread","g":"Tempo @ Valkyries","t":"Tempo +13.5","o":-114,"u":2.75,"r":"Loss","p":-2.75,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-02","s":"MLB","m":"Spread","g":"Nationals @ Braves","t":"1H Nationals -0.5","o":120,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-03","s":"WNBA","m":"Moneyline","g":"Mercury @ Sky","t":"Sky ML","o":-105,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2084137554949865611"},{"d":"2026-08-03","s":"WNBA","m":"Moneyline","g":"Mercury @ Sky","t":"Sky ML","o":115,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2084137554949865611"},{"d":"2026-08-03","s":"MLB","m":"Total","g":"Pirates @ Brewers","t":"Over 8.5 Runs","o":102,"u":1,"r":"Loss","p":-1},{"d":"2026-08-03","s":"MLB","m":"Moneyline","g":"Giants @ Rangers","t":"Giants ML","o":110,"u":0.75,"r":"Win","p":0.825},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Jays @ Astros","t":"Astros ML","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Tigers @ Mariners","t":"1H Tigers ML","o":104,"u":1,"r":"Win","p":1.04,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"Red Sox ML","o":-125,"u":1,"r":"Win","p":0.8,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Dodgers @ Cubs","t":"Cubs ML","o":178,"u":0.5,"r":"Win","p":0.89,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Rays @ Rockies","t":"1H Rockies ML","o":138,"u":0.5,"r":"Win","p":0.69,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Spread","g":"Padres @ Diamondbacks","t":"1H Diamondbacks -0.5","o":104,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-05","s":"MLB","m":"Spread","g":"Rays @ Rockies","t":"1H Rays -0.5","o":-108,"u":1,"r":"Win","p":0.9259,"x":"https://x.com/gamblingv1ctim/status/2085048377402695895"},{"d":"2026-08-05","s":"MLB","m":"Moneyline","g":"Dodgers @ Cubs","t":"Dodgers ML","o":115,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2085048377402695895"},{"d":"2026-08-05","s":"MLB","m":"Total","g":"Jays @ Astros","t":"Under 8.5","o":115,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085095667957948880"},{"d":"2026-08-05","s":"MLB","m":"Total","g":"Nationals @ Phillies","t":"Under 9.5","o":-102,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085130379887882633"},{"d":"2026-08-05","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"White Sox ML","o":131,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085130379887882633"},{"d":"2026-08-06","s":"MLB","m":"Total","g":"Jays @ Cubs","t":"Under 7.5","o":104,"u":1,"r":"Win","p":1.04,"x":"https://x.com/gamblingv1ctim/status/2085435642842914862"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"Red Sox ML","o":153,"u":1,"r":"Win","p":1.53,"x":"https://x.com/gamblingv1ctim/status/2085515295179866354"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"White Sox @ Red Sox","t":"Red Sox -1","o":-137,"u":1,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2085395431781998743"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"Angels @ Orioles","t":"1H Orioles -0.5","o":-125,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085234786059129020"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"Jays @ Cubs","t":"Jays ML","o":-102,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2085428385493246422"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"Marlins @ Braves","t":"Marlins ML","o":150,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085483257458577583"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"Marlins @ Braves","t":"Marlins +1","o":103,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085483257458577583"},{"d":"2026-08-07","s":"MLB","m":"Spread","g":"Angels @ Marlins","t":"1H Marlins -0.5","o":-115,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085587641018257646"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 5+ Assists","o":100,"u":0.25,"r":"Win","p":0.25,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 6+ Assists","o":270,"u":0.125,"r":"Loss","p":-0.125,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 8+ Assists","o":880,"u":0.125,"r":"Loss","p":-0.125,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Spread","g":"","t":"Lynx -4.5","o":-108,"u":2.5,"r":"Win","p":2.3148,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"PIT ML","o":-115,"u":0.5,"r":"Win","p":0.4348,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"PIT 1H ML","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"Braves 1H ML","o":-150,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-09","s":"WNBA","m":"Total","g":"Mercury @ Mystics","t":"Over 167.5","o":100,"u":2.5,"r":"Win","p":2.5,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-09","s":"MLB","m":"Spread","g":"","t":"Brewers -1.5","o":-104,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-09","s":"MLB","m":"Moneyline","g":"","t":"Tigers 1H ML","o":-115,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-10","s":"MLB","m":"Total","g":"Brewers @ Padres","t":"Under 7.5","o":-115,"u":1,"r":"Win","p":0.8696,"x":"https://x.com/gamblingv1ctim/status/2086688126072758284"},{"d":"2026-08-10","s":"MLB","m":"Moneyline","g":"Orioles @ Twins","t":"Orioles ML","o":101,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2086901406091387153"},{"d":"2026-08-10","s":"MLB","m":"Total","g":"Red Sox @ Jays","t":"Under 8.5","o":-108,"u":1,"r":"Win","p":0.9259,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"MLB","m":"Moneyline","g":"Phillies @ Cardinals","t":"Cardinals ML","o":108,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"MLB","m":"Spread","g":"Phillies @ Cardinals","t":"Cardinals +1.5","o":-150,"u":0.5,"r":"Win","p":0.3333,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O15.5 Points","o":-104,"u":0.2,"r":"Win","p":0.1923,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O19.5 Points","o":290,"u":0.15,"r":"Loss","p":-0.15,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O24.5 Points","o":900,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O29.5 Points","o":2800,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-11","s":"MLB","m":"Moneyline","g":"Pirates @ Marlins","t":"PIT ML","o":-104,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Spread","g":"Pirates @ Marlins","t":"PIT -1","o":117,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Spread","g":"Liberty @ Fever","t":"Fever -2.5","o":100,"u":0.75,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Spread","g":"Mystics @ Aces","t":"Mystics +7.5","o":-122,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Total","g":"Phillies @ Cardinals","t":"1H Under 4.5","o":-111,"u":1,"r":"Win","p":0.9009,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Spread","g":"Reds @ White Sox","t":"White Sox -1","o":-112,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 6+ Rebounds","o":-108,"u":0.3,"r":"Win","p":0.2778,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 8+ Rebounds","o":375,"u":0.1,"r":"Win","p":0.375,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 10+ Rebounds","o":1050,"u":0.1,"r":"Win","p":1.05,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 5+ Rebounds","o":117,"u":0.3,"r":"Loss","p":-0.3,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 6+ Rebounds","o":230,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 8+ Rebounds","o":880,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"MLB","m":"Total","g":"Reds @ White Sox","t":"Under 8","o":-118,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2087301352753889660"},{"d":"2026-08-12","s":"MLB","m":"Total","g":"Orioles @ Twins","t":"Under 9","o":-118,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2087595032391913946"},{"d":"2026-08-12","s":"MLB","m":"Spread","g":"Rockies @ Diamondbacks","t":"Diamondbacks -1","o":-135,"u":1.5,"r":"Loss","p":-1.5,"x":"https://x.com/gamblingv1ctim/status/2087617340082934133"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 4+ Assists","o":-144,"u":0.35,"r":"Win","p":0.2431,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 6+ Assists","o":320,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 8+ Assists","o":1200,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 7+ Points","o":-111,"u":0.35,"r":"Win","p":0.3153,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 10+ Points","o":240,"u":0.2,"r":"Win","p":0.48,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 15+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-13","s":"MLB","m":"Other","g":"Brewers @ Dodgers","t":"NRFI","o":102,"u":1,"r":"Win","p":1.02,"x":"https://x.com/gamblingv1ctim/status/2088009926891159798"},{"d":"2026-08-14","s":"MLB","m":"Total","g":"Marlins @ Reds","t":"Under 8 Total Runs","o":-115,"u":0.75,"r":"Win","p":0.6522,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 7+ Points","o":-130,"u":0.2,"r":"Win","p":0.1538,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 10+ Points","o":205,"u":0.2,"r":"Win","p":0.41,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 15+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"MLB","m":"Moneyline","g":"Nationals @ Mets","t":"1H Nationals ML","o":-104,"u":0.75,"r":"Win","p":0.7212,"x":"https://x.com/gamblingv1ctim/status/2088306091721453937"},{"d":"2026-08-14","s":"MLB","m":"Moneyline","g":"Marlins @ Reds","t":"1H Red ML","o":-117,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2088306091721453937"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 20+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 15+ Points","o":325,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 11+ Points","o":-121,"u":0.2,"r":"Win","p":0.1653,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"MLB","m":"Player prop","g":"","t":"Acuna x Seager HR","o":2154,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2088728828491280803"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Burger HR","o":3558,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Carroll HR","o":3124,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Burger HR + Carroll HR","o":2968,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Burger HR + Carroll HR","o":18922,"u":0.025,"r":"Loss","p":-0.025,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Corbin Carroll Over 0.5 Stolen Bases","o":500,"u":0.1,"r":"Win","p":0.5,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Ronald Acuna Jr. Over 0.5 Stolen Bases","o":750,"u":0.1,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Fernado Tatis Jr. Over 0.5 Stolen Bases","o":840,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Randy Arozarena Over 0.5 Stolen Bases","o":500,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Elly De La Cruz Over 0.5 Stolen Bases","o":240,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Alonso HR + Ohtani HR","o":1894,"u":0.1,"r":"Win","p":1.894,"x":"https://x.com/gamblingv1ctim/status/2089436930182144317"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + o/uU Over 0.5 + Carrigg Over 0.5 Stolen Bases","o":13745,"u":0.025,"r":"Loss","p":-0.025,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + Tatis Over 0.5 Stolen Bases","o":2943,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases","o":2239,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Tatis Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases","o":2594,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Total","g":"Dodgers @ Rockies","t":"Under 11 Runs","o":-115,"u":0.5748,"r":"Loss","p":-0.5748,"x":"https://x.com/gamblingv1ctim/status/2089370147693764957"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Padres @ Mets","t":"Padres ML","o":-106,"u":0.75,"r":"Win","p":0.7075,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Spread","g":"Giants @ Guardians","t":"Guardians -1","o":-136,"u":0.5,"r":"Win","p":0.3676,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Diamondbacks @ Red Sox","t":"YRFI","o":127,"u":0.75,"r":"Win","p":0.9525,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"","t":"Jonah Cox Over 0.5 Stolen Bases","o":600,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089765610389373076"},{"d":"2026-08-18","s":"WNBA","m":"Player prop","g":"Los Angeles Sparks @ Connecticut Sun","t":"Olivia Nelson-Ododa Score 15+ Points","o":192,"u":0.15,"r":"Win","p":0.288,"x":"https://x.com/gamblingv1ctim/status/2089791480994861524"},{"d":"2026-08-18","s":"WNBA","m":"Player prop","g":"Los Angeles Sparks @ Connecticut Sun","t":"Olivia Nelson-Ododa Score 20+ Points","o":670,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089791480994861524"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"","t":"Shohei Ohtani Over 0.5 Stolen Bases","o":650,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089797146379706475"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"Athletics @ Kansas City Royals","t":"Lawrence Butler HR","o":710,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089806248472424883"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Diamondbacks @ Red Sox","t":"1H Red Sox ML","o":-160,"u":1,"r":"Win","p":0.625,"x":"https://x.com/gamblingv1ctim/status/2089826173672943869"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Mariners @ Brewers","t":"Mariners ML","o":156,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2089826997803381087"},{"d":"2026-08-19","s":"MLB","m":"Player prop","g":"","t":"Nasim Nunez Over 0.5 Stolen Bases","o":340,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090112446484590746"},{"d":"2026-08-20","s":"MLB","m":"Moneyline","g":"Athletics @ Royals","t":"1H Athletics ML","o":105,"u":0.6,"r":"Loss","p":-0.6,"x":"https://x.com/gamblingv1ctim/status/2090305553671037179"},{"d":"2026-08-20","s":"MLB","m":"Parlay","g":"","t":"Caminero HR + Alonso HR","o":1738,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2090483778040873252"},{"d":"2026-08-20","s":"MLB","m":"Total","g":"Athletics @ Royals","t":"Under 9.5","o":115,"u":0.5,"r":"Win","p":0.575,"x":"https://x.com/gamblingv1ctim/status/2090544227448938856"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 30+ Points","o":1300,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 25+ Points","o":415,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 20+ Points","o":108,"u":0.2,"r":"Win","p":0.216,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 20+ Points","o":980,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 15+ Points","o":275,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 11+ Points","o":-120,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"MLB","m":"Parlay","g":"","t":"Witt HR + Crow-Armstrong HR","o":2921,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2090679196464898128"},{"d":"2026-08-21","s":"MLB","m":"Player prop","g":"","t":"Nasim Nunez Over 0.5 Stolen Bases","o":450,"u":0.2,"r":"Win","p":0.9,"x":"https://x.com/gamblingv1ctim/status/2090842091999928672"},{"d":"2026-08-21","s":"MLB","m":"Player prop","g":"","t":"Jose Caballero Over 0.5 Stolen Bases","o":222,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090842091999928672"},{"d":"2026-08-21","s":"MLB","m":"Moneyline","g":"Mets @ White Sox","t":"White Sox ML","o":-133,"u":0.5,"r":"Win","p":0.3759,"x":"https://x.com/gamblingv1ctim/status/2090831275175092616"},{"d":"2026-08-22","s":"MLB","m":"Player prop","g":"","t":"AJ Ewing OVer 0.5 Stolen Bases","o":600,"u":0.125,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2091230456070975759"},{"d":"2026-08-22","s":"UFC","m":"Moneyline","g":"","t":"Shanelle Dyer by KO, TKO, or DQ","o":135,"u":0.5,"r":"Win","p":0.675,"x":"https://x.com/gamblingv1ctim/status/2091218119771533748"},{"d":"2026-08-22","s":"MLB","m":"Spread","g":"Braves @ Brewers","t":"1H Brewers -0.5","o":-122,"u":0.75,"r":"Win","p":0.6148,"x":"https://x.com/gamblingv1ctim/status/2091018989526724997"},{"d":"2026-08-22","s":"MLB","m":"Total","g":"Jays @ Yankees","t":"Under 7","o":-115,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2091018989526724997"},{"d":"2026-08-23","s":"MLB","m":"Moneyline","g":"Braves @ Brewers","t":"Brewers ML","o":130,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2091671227995759055"},{"d":"2026-08-23","s":"MLB","m":"Moneyline","g":"Guardians @ Rockies","t":"Rockies ML","o":150,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2091597564369945073"},{"d":"2026-08-23","s":"NFL","m":"Spread","g":"Seahawks @ Titans","t":"Seahawks +3.5","o":-118,"u":0.5,"r":"Win","p":0.4237,"x":"https://x.com/gamblingv1ctim/status/2091677016491713018"},{"d":"2026-08-24","s":"MLB","m":"Total","g":"Guardians @ Angels","t":"Under 8.5 Total Runs","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2091902504082502134"},{"d":"2026-08-25","s":"MLB","m":"Moneyline","g":"Cubs @ Diamondbacks","t":"Diamondbacks","o":102,"u":0.5,"r":"Win","p":0.51,"x":"https://x.com/gamblingv1ctim/status/2092347728697217343"},{"d":"2026-08-25","s":"MLB","m":"Total","g":"Rays @ Tigers","t":"Under 7","o":-130,"u":0.5,"r":"Win","p":0.3846,"x":"https://x.com/gamblingv1ctim/status/2092388541590356070"},{"d":"2026-08-25","s":"MLB","m":"Moneyline","g":"Reds @ Giants","t":"Reds ML","o":102,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2092424464063447538"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Pirates @ Padres","t":"Padres ML","o":-127,"u":0.5,"r":"Win","p":0.3937,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Reds @ Giants","t":"Reds ML","o":110,"u":0.5,"r":"Win","p":0.55,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Phillies @ Mariners","t":"1H Phillies ML","o":-130,"u":0.65,"r":"Win","p":0.5,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Phillies @ Mariners","t":"Phillies ML","o":-125,"u":0.35,"r":"Win","p":0.28,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-27","s":"NCAAF","m":"Spread","g":"Maine vs Towson","t":"UMAINE +3.5","o":-112,"u":0.5,"r":"Win","p":0.4464,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-27","s":"NCAAF","m":"Total","g":"Stony Brook vs Delaware State","t":"Under 51.5","o":-108,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-27","s":"WNBA","m":"Spread","g":"Mystics @ Mercury","t":"Mystics -1.5","o":-150,"u":1.5,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2093087677117595675"},{"d":"2026-08-27","s":"NCAAF","m":"Spread","g":"Mercyhurst vs Youngstown State","t":"Mercyhurst +30.5","o":-107,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093095928043282910"},{"d":"2026-08-28","s":"MLB","m":"Parlay","g":"","t":"Dodgers x Under 9.5 x Pirates +1","o":224,"u":0.3,"r":"Loss","p":-0.3,"x":"https://x.com/gamblingv1ctim/status/2093427522406859002"},{"d":"2026-08-28","s":"MLB","m":"Parlay","g":"CIN Reds @ CHI Cubs","t":"Dodgers x Pirates +1","o":133,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2093433064319836324"},{"d":"2026-08-28","s":"NFL","m":"Total","g":"Giants @ Jets","t":"Under 37","o":-115,"u":0.5,"r":"Win","p":0.4348,"x":"https://x.com/gamblingv1ctim/status/2093450373872640315"},{"d":"2026-08-28","s":"NFL","m":"Spread","g":"Falcons @ Dolphins","t":"Dolphins +5.5","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2093450373872640315"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 7.5+ Points","o":125,"u":0.35,"r":"Loss","p":-0.35,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 9.5+ Points","o":235,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 14.5+ Points","o":1172,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-29","s":"NCAAF","m":"Spread","g":"NC State vs Virginia","t":"NCS +4.5","o":-110,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-29","s":"NCAAF","m":"Parlay","g":"","t":"CCSU v SDAK Under 51.5 + SUU vs MONT Over 58.5","o":253,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2093731234694283527"},{"d":"2026-08-29","s":"NCAAF","m":"Spread","g":"UNC vs TCU (LIVE)","t":"TCU -5.5","o":-120,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093745072139379085"},{"d":"2026-08-29","s":"NCAAF","m":"Spread","g":"NCST vs UVA","t":"UVA -3","o":-134,"u":0.5,"r":"Win","p":0.3731,"x":"https://x.com/gamblingv1ctim/status/2093745072139379085"},{"d":"2026-08-29","s":"MLB","m":"Moneyline","g":"Pirates @ Cardinals","t":"Cardinals ML","o":105,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093766855995310486"},{"d":"2026-08-29","s":"NCAAF","m":"Total","g":"NCST vs UVA","t":"Under 52.5","o":-135,"u":0.5,"r":"Win","p":0.3704,"x":"https://x.com/gamblingv1ctim/status/2093774114288701632"},{"d":"2026-08-31","s":"MLB","m":"Parlay","g":"","t":"Tatis Over 0.5 Stolen Bases + Caballero Over 0.5 Stolen Bases","o":3013,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-01","s":"MLB","m":"Parlay","g":"","t":"Gunnar Henderson x Max Muncy HRs","o":3475,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-01","s":"MLB","m":"Parlay","g":"","t":"Juan Soto x Salvador Perez","o":2737,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-01","s":"MLB","m":"Parlay","g":"","t":"Soto x Henderson x Muncy x Perez","o":77759,"u":0.05,"r":"Loss","p":-0.05},{"d":"2026-09-01","s":"MLB","m":"Moneyline","g":"","t":"Orioles x Brewers ML","o":260,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-03","s":"MLB","m":"Moneyline","g":"Marlins @ Royals","t":"Royals ML","o":-111,"u":0.5,"r":"Win","p":0.4505},{"d":"2026-09-03","s":"NCAAF","m":"Parlay","g":"","t":"Over 51.0 Colorado @ Georgia Tech + Over 51.5 Boise State @ Oregon + Over 55.5 North Texas @ Indiana + Utah -35.0","o":1101,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-03","s":"NCAAF","m":"Spread","g":"","t":"Colorado +7.5","o":-135,"u":0.5,"r":"Win","p":0.3704},{"d":"2026-09-04","s":"MLB","m":"Moneyline","g":"","t":"NYY First 5 Moneyline","o":-122,"u":0.5,"r":"Push","p":0},{"d":"2026-09-04","s":"MLB","m":"Player prop","g":"","t":"Alvarez x Lindor HRs","o":1983,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-04","s":"MLB","m":"Player prop","g":"","t":"Max Fried Over 3.5 Strikeouts","o":-147,"u":0.5,"r":"Win","p":0.3401},{"d":"2026-09-04","s":"NCAAF","m":"Total","g":"Indiana State @ Purdue","t":"Purdue: Team Total Points Over 45.5","o":100,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-04","s":"NCAAF","m":"Spread","g":"SJSU @ EMU","t":"SJSU +2.5","o":-108,"u":0.81,"r":"Win","p":0.75},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"FIU @ South Florida","t":"South Florida -14","o":-120,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-05","s":"NCAAF","m":"Moneyline","g":"TSU vs BGSU","t":"TSU ML","o":110,"u":0.6,"r":"Win","p":0.66},{"d":"2026-09-05","s":"MLB","m":"Parlay","g":"","t":"BAL Orioles ML STL Cardinals ML","o":291,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"North Texas @ Indiana","t":"Indiana 1H Spread -23.5","o":-118,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"TXST @ TEX","t":"TEX -16.5 1H Spread","o":-122,"u":0.5,"r":"Win","p":0.4098},{"d":"2026-09-05","s":"NCAAF","m":"Total","g":"Georgia v Tennessee State","t":"Under 65.5","o":140,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"Boise State @ Oregon","t":"Oregon -3","o":-160,"u":0.5,"r":"Win","p":0.3125},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"Clemson @ LSU","t":"Clemson +10","o":-104,"u":1,"r":"Loss","p":-1},{"d":"2026-09-06","s":"NCAAF","m":"Spread","g":"WISC @ ND","t":"WISC +22.5","o":-120,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-06","s":"NCAAF","m":"Total","g":"SCST v FAMU","t":"Under 54.5","o":-125,"u":0.5,"r":"Win","p":0.4},{"d":"2026-09-07","s":"NCAAF","m":"Parlay","g":"","t":"James Madison -6.5 + SMU ML","o":203,"u":0.3,"r":"Win","p":0.609},{"d":"2026-09-07","s":"NCAAF","m":"Parlay","g":"","t":"Diamondback +1.5 x Over 54.5","o":184,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-08","s":"MLB","m":"Parlay","g":"","t":"NYY x Soto x Harper","o":310,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-08","s":"MLB","m":"Player prop","g":"Rockies @ Yankees","t":"Aaron Judge HR","o":290,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-09","s":"NFL","m":"Player prop","g":"Patriots v Seahawks","t":"Rashid Shaheed Over 2.5 Receptions","o":106,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-09","s":"MLB","m":"Parlay","g":"","t":"Mateo + PCA + Cox RR","o":6162,"u":0.1752,"r":"Loss","p":-0.1752},{"d":"2026-09-11","s":"NCAAF","m":"Spread","g":"Missouri @ Kansas","t":"Missouri -3","o":-120,"u":0.4,"r":"Win","p":0.3333},{"d":"2026-09-12","s":"NCAAF","m":"Spread","g":"CAL @ SYR","t":"Syracuse -3","o":-120,"u":1,"r":"Loss","p":-1},{"d":"2026-09-12","s":"NCAAF","m":"Spread","g":"ARIZ @ BYU","t":"BYU -7.5","o":-110,"u":1,"r":"Win","p":0.9091},{"d":"2026-09-12","s":"NCAAF","m":"Spread","g":"MTSU @ MRSH","t":"Middle Tennessee +15/15.5","o":-115,"u":1,"r":"Win","p":0.8696},{"d":"2026-09-12","s":"NCAAF","m":"Parlay","g":"","t":"USM + Navy + IOWA + UGA + GT","o":2083,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"Bills @ Texans","t":"David Montgomery Over 7.5 Receiving Yards","o":-125,"u":0.5,"r":"Win","p":0.4},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"Saints @ Lions","t":"Sam LaPorta Over 38.5 Rec Yards","o":-116,"u":0.5,"r":"Win","p":0.431},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Boutte 15+ LaPorta 30+ Coker 30+ Receiving Yards","o":228,"u":0.15,"r":"Win","p":0.342},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Kyle Pitts 4+ Receptions Jauan Jennings 2+ Receptions","o":120,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Matthew Golden Over 40+ Receiving Yards","o":-104,"u":0.5,"r":"Win","p":0.4808},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Christian Watson Over 53.5 Receiving Yards","o":-115,"u":0.5,"r":"Win","p":0.4348},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Drake London Over 60+ Receiving Yards","o":-115,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Jaylen Reed Over 40+ Receiving Yards","o":-108,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Joe Burrow Over 266.5 Passing Yards","o":-114,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Sam LaPorta Over 4.5 Receptions","o":137,"u":0.5,"r":"Win","p":0.685},{"d":"2026-09-13","s":"NFL","m":"Other","g":"","t":"Each Team to Score 1+ FG in the 4:05PM & 4:25PM (ET) Games","o":270,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-13","s":"NFL","m":"Other","g":"","t":"Each Team to Score 1+ FG in the 1:00PM (ET) Games","o":1100,"u":0.15,"r":"Win","p":1.65},{"d":"2026-09-13","s":"NFL","m":"Other","g":"","t":"Each Team to Score 1+ FG in the 1:00PM & 4:05PM & 4:25PM (ET) Games","o":4500,"u":0.05,"r":"Loss","p":-0.05},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Keenan Allen Over 26.5 Receiving Yards","o":-113,"u":0.5,"r":"Win","p":0.4425},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"George Pickens Over 69.5 Receiving Yards","o":105,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-14","s":"NFL","m":"Player prop","g":"","t":"Rashee Rice Under 58.5 Receiving Yards","o":-115,"u":0.4,"r":"Win","p":0.3478},{"d":"2026-09-14","s":"NFL","m":"Player prop","g":"","t":"Kelce or Worthy TD","o":120,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-14","s":"NFL","m":"Total","g":"","t":"Patrick Mahomes Over 3.5 Rushing Attempts","o":113,"u":0.5,"r":"Win","p":0.565},{"d":"2026-09-14","s":"NFL","m":"Player prop","g":"","t":"Bo Nix Over 225 Passing Yards","o":-112,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-20","s":"NFL","m":"Player prop","g":"","t":"Isaac TeSlaa ATD","o":550,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-20","s":"NFL","m":"Player prop","g":"","t":"Roman Wilson Over 16.5 Receiving Yards","o":-114,"u":0.5,"r":"Win","p":0.4386},{"d":"2026-09-20","s":"NFL","m":"Player prop","g":"","t":"Garrett Wilson Over 61.5 Receiving Yards","o":-113,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-21","s":"NFL","m":"Player prop","g":"","t":"Malik Nabers Over 59.5 Receiving Yards","o":-112,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-21","s":"NFL","m":"Player prop","g":"","t":"Devin Singletary Over 1.5 Receptions","o":150,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-21","s":"NFL","m":"Player prop","g":"","t":"Davante Adams Over 0.5 TD","o":-102,"u":0.5,"r":"Win","p":0.4902}]};
+var D={"title":"Public Tracker","built":"Sep 24, 2026, 11:28 PM EDT","repo":"https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main","bets":[{"d":"2026-07-19","s":"WNBA","m":"Total","g":"","t":"Under 167","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2078935318087004374"},{"d":"2026-07-19","s":"WNBA","m":"Total","g":"","t":"Under 167.5","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2078935318087004374"},{"d":"2026-07-20","s":"WNBA","m":"Spread","g":"","t":"Tempo +11.5","o":-115,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2079243217468260585"},{"d":"2026-07-20","s":"WNBA","m":"Spread","g":"","t":"Tempo +11","o":-105,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2079243217468260585"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Mystics +7","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2080059585562300721"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Sky +8","o":-110,"u":5,"r":"Win","p":4.5455,"x":"https://x.com/gamblingv1ctim/status/2080020133745946839"},{"d":"2026-07-22","s":"WNBA","m":"Spread","g":"","t":"Mystics +6.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2080059585562300721"},{"d":"2026-07-25","s":"MLB","m":"Moneyline","g":"","t":"1H Red Sox","o":110,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081089594917785955"},{"d":"2026-07-25","s":"MLB","m":"Moneyline","g":"","t":"1H Washington","o":-166,"u":1,"r":"Win","p":0.6024,"x":"https://x.com/gamblingv1ctim/status/2081050904833176053"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Brewers","o":-132,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Spread","g":"","t":"Red Sox -1.5","o":100,"u":1,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Mariners","o":-123,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081786311275356504"},{"d":"2026-07-27","s":"MLB","m":"Moneyline","g":"","t":"Yankees","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-27","s":"MLB","m":"Spread","g":"","t":"Phillies -1","o":-132,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081610460852257081"},{"d":"2026-07-28","s":"WNBA","m":"Spread","g":"","t":"Mystics -6","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"WNBA","m":"Spread","g":"","t":"Liberty -3.5","o":-125,"u":2.5,"r":"Win","p":2,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"MLB","m":"Spread","g":"","t":"Red Sox -1","o":-127,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-28","s":"WNBA","m":"Total","g":"","t":"Under 179.5","o":-110,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2081970837096108118"},{"d":"2026-07-28","s":"MLB","m":"Spread","g":"","t":"Tigers -0.5 First 5","o":-112,"u":1,"r":"Win","p":0.8929,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-28","s":"MLB","m":"Moneyline","g":"","t":"Brewers","o":-134,"u":1,"r":"Win","p":0.7463,"x":"https://x.com/gamblingv1ctim/status/2081974618068234242"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Phillies","o":-148,"u":1,"r":"Win","p":0.6757,"x":"https://x.com/gamblingv1ctim/status/2082321817595777147"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Phillies -0.5","o":-118,"u":1,"r":"Win","p":0.8475,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"Rays ML","o":-141,"u":1,"r":"Win","p":0.7092,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Total","g":"","t":"Over 9.5","o":-115,"u":1,"r":"Win","p":0.8696,"x":"https://x.com/gamblingv1ctim/status/2082481665130045936"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"Cubs","o":-105,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2082500560616399346"},{"d":"2026-07-29","s":"MLB","m":"Moneyline","g":"","t":"1H Rockies ML","o":123,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2082538597178056854"},{"d":"2026-07-29","s":"MLB","m":"Spread","g":"","t":"1H Yankees -0.5","o":-107,"u":1,"r":"Win","p":0.9346,"x":"https://x.com/gamblingv1ctim/status/2082595650814799989"},{"d":"2026-07-29","s":"WNBA","m":"Spread","g":"","t":"Valks -3.5","o":-110,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2082620919252455524"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"Rays","o":-140,"u":1,"r":"Win","p":0.7143,"x":"https://x.com/gamblingv1ctim/status/2082685194117538171"},{"d":"2026-07-30","s":"MLB","m":"Spread","g":"","t":"Nationals +1.5","o":-150,"u":1,"r":"Win","p":0.6667,"x":"https://x.com/gamblingv1ctim/status/2082860119369421091"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"Twins","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2082864844672221355"},{"d":"2026-07-30","s":"MLB","m":"Moneyline","g":"","t":"1H Nationals ML","o":117,"u":0.5,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2082946350572818815"},{"d":"2026-07-31","s":"MLB","m":"Moneyline","g":"","t":"1H Nationals ML","o":-110,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Nationals -0.5","o":118,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Tigers -0.5","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"","t":"1H Rays -0.5","o":-108,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083055933630853596"},{"d":"2026-07-31","s":"MLB","m":"Moneyline","g":"Phillies @ Orioles","t":"1H Orioles ML","o":-118,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Total","g":"Storm @ Dream","t":"Over 178.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Spread","g":"Wings @ Mystics","t":"Mystics +3.5","o":-110,"u":2.5,"r":"Win","p":2.2727,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"WNBA","m":"Spread","g":"Fever @ Fire","t":"Fever -7.5","o":-115,"u":2.5,"r":"Win","p":2.1739,"x":"https://x.com/gamblingv1ctim/status/2083243921153355855"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"White Sox @ Rays","t":"Rays -1","o":-110,"u":1,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2083419117009125584"},{"d":"2026-07-31","s":"MLB","m":"Spread","g":"Phillies @ Orioles","t":"1H Phillies -0.5","o":100,"u":1,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2083419117009125584"},{"d":"2026-08-01","s":"MLB","m":"Moneyline","g":"Nationals @ Braves","t":"1H Nationals ML","o":130,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"MLB","m":"Moneyline","g":"Rangers @ Astros","t":"Rangers ML","o":-120,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"WNBA","m":"Spread","g":"Aces @ Sky","t":"Sky +6.5","o":-120,"u":2.5,"r":"Win","p":2.0833,"x":"https://x.com/gamblingv1ctim/status/2083595124127223864"},{"d":"2026-08-01","s":"MLB","m":"Total","g":"Red Sox @ Dodgers","t":"Under 8","o":-135,"u":1,"r":"Win","p":0.7407,"x":"https://x.com/gamblingv1ctim/status/2083608901447020803"},{"d":"2026-08-01","s":"MLB","m":"Total","g":"Marlins @ Mets","t":"Over 9","o":-105,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2083608901447020803"},{"d":"2026-08-02","s":"MLB","m":"Spread","g":"Pirates @ Reds","t":"1H Reds -0.5","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2083791414169583643"},{"d":"2026-08-02","s":"MLB","m":"Moneyline","g":"Red Sox @ Dodgers","t":"1H Red Sox ML","o":134,"u":0.75,"r":"Win","p":1.005,"x":"https://x.com/gamblingv1ctim/status/2083791414169583643"},{"d":"2026-08-02","s":"WNBA","m":"Spread","g":"Fever @ Lynx","t":"Lynx -5","o":-110,"u":2.75,"r":"Win","p":2.5,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-02","s":"WNBA","m":"Spread","g":"Tempo @ Valkyries","t":"Tempo +13.5","o":-114,"u":2.75,"r":"Loss","p":-2.75,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-02","s":"MLB","m":"Spread","g":"Nationals @ Braves","t":"1H Nationals -0.5","o":120,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2083941070849573281"},{"d":"2026-08-03","s":"WNBA","m":"Moneyline","g":"Mercury @ Sky","t":"Sky ML","o":-105,"u":2.5,"r":"Loss","p":-2.5,"x":"https://x.com/gamblingv1ctim/status/2084137554949865611"},{"d":"2026-08-03","s":"WNBA","m":"Moneyline","g":"Mercury @ Sky","t":"Sky ML","o":115,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2084137554949865611"},{"d":"2026-08-03","s":"MLB","m":"Total","g":"Pirates @ Brewers","t":"Over 8.5 Runs","o":102,"u":1,"r":"Loss","p":-1},{"d":"2026-08-03","s":"MLB","m":"Moneyline","g":"Giants @ Rangers","t":"Giants ML","o":110,"u":0.75,"r":"Win","p":0.825},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Jays @ Astros","t":"Astros ML","o":-120,"u":1,"r":"Win","p":0.8333,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Tigers @ Mariners","t":"1H Tigers ML","o":104,"u":1,"r":"Win","p":1.04,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"Red Sox ML","o":-125,"u":1,"r":"Win","p":0.8,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Dodgers @ Cubs","t":"Cubs ML","o":178,"u":0.5,"r":"Win","p":0.89,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Moneyline","g":"Rays @ Rockies","t":"1H Rockies ML","o":138,"u":0.5,"r":"Win","p":0.69,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-04","s":"MLB","m":"Spread","g":"Padres @ Diamondbacks","t":"1H Diamondbacks -0.5","o":104,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2084734913828311195"},{"d":"2026-08-05","s":"MLB","m":"Spread","g":"Rays @ Rockies","t":"1H Rays -0.5","o":-108,"u":1,"r":"Win","p":0.9259,"x":"https://x.com/gamblingv1ctim/status/2085048377402695895"},{"d":"2026-08-05","s":"MLB","m":"Moneyline","g":"Dodgers @ Cubs","t":"Dodgers ML","o":115,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2085048377402695895"},{"d":"2026-08-05","s":"MLB","m":"Total","g":"Jays @ Astros","t":"Under 8.5","o":115,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085095667957948880"},{"d":"2026-08-05","s":"MLB","m":"Total","g":"Nationals @ Phillies","t":"Under 9.5","o":-102,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085130379887882633"},{"d":"2026-08-05","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"White Sox ML","o":131,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085130379887882633"},{"d":"2026-08-06","s":"MLB","m":"Total","g":"Jays @ Cubs","t":"Under 7.5","o":104,"u":1,"r":"Win","p":1.04,"x":"https://x.com/gamblingv1ctim/status/2085435642842914862"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"White Sox @ Red Sox","t":"Red Sox ML","o":153,"u":1,"r":"Win","p":1.53,"x":"https://x.com/gamblingv1ctim/status/2085515295179866354"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"White Sox @ Red Sox","t":"Red Sox -1","o":-137,"u":1,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2085395431781998743"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"Angels @ Orioles","t":"1H Orioles -0.5","o":-125,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085234786059129020"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"Jays @ Cubs","t":"Jays ML","o":-102,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2085428385493246422"},{"d":"2026-08-06","s":"MLB","m":"Moneyline","g":"Marlins @ Braves","t":"Marlins ML","o":150,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085483257458577583"},{"d":"2026-08-06","s":"MLB","m":"Spread","g":"Marlins @ Braves","t":"Marlins +1","o":103,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2085483257458577583"},{"d":"2026-08-07","s":"MLB","m":"Spread","g":"Angels @ Marlins","t":"1H Marlins -0.5","o":-115,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2085587641018257646"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 5+ Assists","o":100,"u":0.25,"r":"Win","p":0.25,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 6+ Assists","o":270,"u":0.125,"r":"Loss","p":-0.125,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Player prop","g":"Storm @ Fire","t":"Jade Melbourne 8+ Assists","o":880,"u":0.125,"r":"Loss","p":-0.125,"x":"https://x.com/gamblingv1ctim/status/2085592971882135825"},{"d":"2026-08-08","s":"WNBA","m":"Spread","g":"","t":"Lynx -4.5","o":-108,"u":2.5,"r":"Win","p":2.3148,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"PIT ML","o":-115,"u":0.5,"r":"Win","p":0.4348,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"PIT 1H ML","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-08","s":"MLB","m":"Moneyline","g":"","t":"Braves 1H ML","o":-150,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2086137807106417029"},{"d":"2026-08-09","s":"WNBA","m":"Total","g":"Mercury @ Mystics","t":"Over 167.5","o":100,"u":2.5,"r":"Win","p":2.5,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-09","s":"MLB","m":"Spread","g":"","t":"Brewers -1.5","o":-104,"u":0.75,"r":"Loss","p":-0.75,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-09","s":"MLB","m":"Moneyline","g":"","t":"Tigers 1H ML","o":-115,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2086493174231441491"},{"d":"2026-08-10","s":"MLB","m":"Total","g":"Brewers @ Padres","t":"Under 7.5","o":-115,"u":1,"r":"Win","p":0.8696,"x":"https://x.com/gamblingv1ctim/status/2086688126072758284"},{"d":"2026-08-10","s":"MLB","m":"Moneyline","g":"Orioles @ Twins","t":"Orioles ML","o":101,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2086901406091387153"},{"d":"2026-08-10","s":"MLB","m":"Total","g":"Red Sox @ Jays","t":"Under 8.5","o":-108,"u":1,"r":"Win","p":0.9259,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"MLB","m":"Moneyline","g":"Phillies @ Cardinals","t":"Cardinals ML","o":108,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"MLB","m":"Spread","g":"Phillies @ Cardinals","t":"Cardinals +1.5","o":-150,"u":0.5,"r":"Win","p":0.3333,"x":"https://x.com/gamblingv1ctim/status/2086901685335540169"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O15.5 Points","o":-104,"u":0.2,"r":"Win","p":0.1923,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O19.5 Points","o":290,"u":0.15,"r":"Loss","p":-0.15,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O24.5 Points","o":900,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-10","s":"WNBA","m":"Player prop","g":"Sky @ Storm","t":"Hiedeman O29.5 Points","o":2800,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2086948873604386866"},{"d":"2026-08-11","s":"MLB","m":"Moneyline","g":"Pirates @ Marlins","t":"PIT ML","o":-104,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Spread","g":"Pirates @ Marlins","t":"PIT -1","o":117,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Spread","g":"Liberty @ Fever","t":"Fever -2.5","o":100,"u":0.75,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Spread","g":"Mystics @ Aces","t":"Mystics +7.5","o":-122,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Total","g":"Phillies @ Cardinals","t":"1H Under 4.5","o":-111,"u":1,"r":"Win","p":0.9009,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"MLB","m":"Spread","g":"Reds @ White Sox","t":"White Sox -1","o":-112,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2087242948731650171"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 6+ Rebounds","o":-108,"u":0.3,"r":"Win","p":0.2778,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 8+ Rebounds","o":375,"u":0.1,"r":"Win","p":0.375,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"NaLyssa Smith 10+ Rebounds","o":1050,"u":0.1,"r":"Win","p":1.05,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 5+ Rebounds","o":117,"u":0.3,"r":"Loss","p":-0.3,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 6+ Rebounds","o":230,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"WNBA","m":"Player prop","g":"Mystics @ Aces","t":"Jackie Young 8+ Rebounds","o":880,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2087287587765408208"},{"d":"2026-08-11","s":"MLB","m":"Total","g":"Reds @ White Sox","t":"Under 8","o":-118,"u":1,"r":"Loss","p":-1,"x":"https://x.com/gamblingv1ctim/status/2087301352753889660"},{"d":"2026-08-12","s":"MLB","m":"Total","g":"Orioles @ Twins","t":"Under 9","o":-118,"u":1.25,"r":"Loss","p":-1.25,"x":"https://x.com/gamblingv1ctim/status/2087595032391913946"},{"d":"2026-08-12","s":"MLB","m":"Spread","g":"Rockies @ Diamondbacks","t":"Diamondbacks -1","o":-135,"u":1.5,"r":"Loss","p":-1.5,"x":"https://x.com/gamblingv1ctim/status/2087617340082934133"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 4+ Assists","o":-144,"u":0.35,"r":"Win","p":0.2431,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 6+ Assists","o":320,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Marina Mabrey Over 8+ Assists","o":1200,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 7+ Points","o":-111,"u":0.35,"r":"Win","p":0.3153,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 10+ Points","o":240,"u":0.2,"r":"Win","p":0.48,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-12","s":"WNBA","m":"Player prop","g":"Tempo @ Wings","t":"Awak Kuier Over 15+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2087663276129755392"},{"d":"2026-08-13","s":"MLB","m":"Other","g":"Brewers @ Dodgers","t":"NRFI","o":102,"u":1,"r":"Win","p":1.02,"x":"https://x.com/gamblingv1ctim/status/2088009926891159798"},{"d":"2026-08-14","s":"MLB","m":"Total","g":"Marlins @ Reds","t":"Under 8 Total Runs","o":-115,"u":0.75,"r":"Win","p":0.6522,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 7+ Points","o":-130,"u":0.2,"r":"Win","p":0.1538,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 10+ Points","o":205,"u":0.2,"r":"Win","p":0.41,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"WNBA","m":"Player prop","g":"Fire @ Storm","t":"Ezi Magbegor Over 15+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088130171165368785"},{"d":"2026-08-14","s":"MLB","m":"Moneyline","g":"Nationals @ Mets","t":"1H Nationals ML","o":-104,"u":0.75,"r":"Win","p":0.7212,"x":"https://x.com/gamblingv1ctim/status/2088306091721453937"},{"d":"2026-08-14","s":"MLB","m":"Moneyline","g":"Marlins @ Reds","t":"1H Red ML","o":-117,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2088306091721453937"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 20+ Points","o":900,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 15+ Points","o":325,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"WNBA","m":"Player prop","g":"Liberty @ Sun","t":"Diamond Miller Over 11+ Points","o":-121,"u":0.2,"r":"Win","p":0.1653,"x":"https://x.com/gamblingv1ctim/status/2088670808054931727"},{"d":"2026-08-15","s":"MLB","m":"Player prop","g":"","t":"Acuna x Seager HR","o":2154,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2088728828491280803"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Burger HR","o":3558,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Carroll HR","o":3124,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Burger HR + Carroll HR","o":2968,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-15","s":"MLB","m":"Parlay","g":"","t":"Contreras HR + Burger HR + Carroll HR","o":18922,"u":0.025,"r":"Loss","p":-0.025,"x":"https://x.com/gamblingv1ctim/status/2088758871569428604"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Corbin Carroll Over 0.5 Stolen Bases","o":500,"u":0.1,"r":"Win","p":0.5,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Ronald Acuna Jr. Over 0.5 Stolen Bases","o":750,"u":0.1,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Fernado Tatis Jr. Over 0.5 Stolen Bases","o":840,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Randy Arozarena Over 0.5 Stolen Bases","o":500,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-16","s":"MLB","m":"Player prop","g":"","t":"Elly De La Cruz Over 0.5 Stolen Bases","o":240,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089042416187695312"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Alonso HR + Ohtani HR","o":1894,"u":0.1,"r":"Win","p":1.894,"x":"https://x.com/gamblingv1ctim/status/2089436930182144317"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + o/uU Over 0.5 + Carrigg Over 0.5 Stolen Bases","o":13745,"u":0.025,"r":"Loss","p":-0.025,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + Tatis Over 0.5 Stolen Bases","o":2943,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Carroll Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases","o":2239,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Parlay","g":"","t":"Tatis Over 0.5 Stolen Bases + Carrigg Over 0.5 Stolen Bases","o":2594,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089446254262591642"},{"d":"2026-08-17","s":"MLB","m":"Total","g":"Dodgers @ Rockies","t":"Under 11 Runs","o":-115,"u":0.5748,"r":"Loss","p":-0.5748,"x":"https://x.com/gamblingv1ctim/status/2089370147693764957"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Padres @ Mets","t":"Padres ML","o":-106,"u":0.75,"r":"Win","p":0.7075,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Spread","g":"Giants @ Guardians","t":"Guardians -1","o":-136,"u":0.5,"r":"Win","p":0.3676,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Diamondbacks @ Red Sox","t":"YRFI","o":127,"u":0.75,"r":"Win","p":0.9525,"x":"https://x.com/gamblingv1ctim/status/2089759727789932959"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"","t":"Jonah Cox Over 0.5 Stolen Bases","o":600,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089765610389373076"},{"d":"2026-08-18","s":"WNBA","m":"Player prop","g":"Los Angeles Sparks @ Connecticut Sun","t":"Olivia Nelson-Ododa Score 15+ Points","o":192,"u":0.15,"r":"Win","p":0.288,"x":"https://x.com/gamblingv1ctim/status/2089791480994861524"},{"d":"2026-08-18","s":"WNBA","m":"Player prop","g":"Los Angeles Sparks @ Connecticut Sun","t":"Olivia Nelson-Ododa Score 20+ Points","o":670,"u":0.05,"r":"Loss","p":-0.05,"x":"https://x.com/gamblingv1ctim/status/2089791480994861524"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"","t":"Shohei Ohtani Over 0.5 Stolen Bases","o":650,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089797146379706475"},{"d":"2026-08-18","s":"MLB","m":"Player prop","g":"Athletics @ Kansas City Royals","t":"Lawrence Butler HR","o":710,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2089806248472424883"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Diamondbacks @ Red Sox","t":"1H Red Sox ML","o":-160,"u":1,"r":"Win","p":0.625,"x":"https://x.com/gamblingv1ctim/status/2089826173672943869"},{"d":"2026-08-18","s":"MLB","m":"Moneyline","g":"Mariners @ Brewers","t":"Mariners ML","o":156,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2089826997803381087"},{"d":"2026-08-19","s":"MLB","m":"Player prop","g":"","t":"Nasim Nunez Over 0.5 Stolen Bases","o":340,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090112446484590746"},{"d":"2026-08-20","s":"MLB","m":"Moneyline","g":"Athletics @ Royals","t":"1H Athletics ML","o":105,"u":0.6,"r":"Loss","p":-0.6,"x":"https://x.com/gamblingv1ctim/status/2090305553671037179"},{"d":"2026-08-20","s":"MLB","m":"Parlay","g":"","t":"Caminero HR + Alonso HR","o":1738,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2090483778040873252"},{"d":"2026-08-20","s":"MLB","m":"Total","g":"Athletics @ Royals","t":"Under 9.5","o":115,"u":0.5,"r":"Win","p":0.575,"x":"https://x.com/gamblingv1ctim/status/2090544227448938856"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 30+ Points","o":1300,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 25+ Points","o":415,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Lynx @ Mystics (Friday)","t":"Olivia Miles Over 20+ Points","o":108,"u":0.2,"r":"Win","p":0.216,"x":"https://x.com/gamblingv1ctim/status/2090546725911932987"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 20+ Points","o":980,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 15+ Points","o":275,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"WNBA","m":"Player prop","g":"Fire @ Tempo","t":"Aneesah Morrow Over 11+ Points","o":-120,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090648823303405623"},{"d":"2026-08-21","s":"MLB","m":"Parlay","g":"","t":"Witt HR + Crow-Armstrong HR","o":2921,"u":0.1,"r":"Loss","p":-0.1,"x":"https://x.com/gamblingv1ctim/status/2090679196464898128"},{"d":"2026-08-21","s":"MLB","m":"Player prop","g":"","t":"Nasim Nunez Over 0.5 Stolen Bases","o":450,"u":0.2,"r":"Win","p":0.9,"x":"https://x.com/gamblingv1ctim/status/2090842091999928672"},{"d":"2026-08-21","s":"MLB","m":"Player prop","g":"","t":"Jose Caballero Over 0.5 Stolen Bases","o":222,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2090842091999928672"},{"d":"2026-08-21","s":"MLB","m":"Moneyline","g":"Mets @ White Sox","t":"White Sox ML","o":-133,"u":0.5,"r":"Win","p":0.3759,"x":"https://x.com/gamblingv1ctim/status/2090831275175092616"},{"d":"2026-08-22","s":"MLB","m":"Player prop","g":"","t":"AJ Ewing OVer 0.5 Stolen Bases","o":600,"u":0.125,"r":"Win","p":0.75,"x":"https://x.com/gamblingv1ctim/status/2091230456070975759"},{"d":"2026-08-22","s":"UFC","m":"Moneyline","g":"","t":"Shanelle Dyer by KO, TKO, or DQ","o":135,"u":0.5,"r":"Win","p":0.675,"x":"https://x.com/gamblingv1ctim/status/2091218119771533748"},{"d":"2026-08-22","s":"MLB","m":"Spread","g":"Braves @ Brewers","t":"1H Brewers -0.5","o":-122,"u":0.75,"r":"Win","p":0.6148,"x":"https://x.com/gamblingv1ctim/status/2091018989526724997"},{"d":"2026-08-22","s":"MLB","m":"Total","g":"Jays @ Yankees","t":"Under 7","o":-115,"u":0.75,"r":"Push","p":0,"x":"https://x.com/gamblingv1ctim/status/2091018989526724997"},{"d":"2026-08-23","s":"MLB","m":"Moneyline","g":"Braves @ Brewers","t":"Brewers ML","o":130,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2091671227995759055"},{"d":"2026-08-23","s":"MLB","m":"Moneyline","g":"Guardians @ Rockies","t":"Rockies ML","o":150,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2091597564369945073"},{"d":"2026-08-23","s":"NFL","m":"Spread","g":"Seahawks @ Titans","t":"Seahawks +3.5","o":-118,"u":0.5,"r":"Win","p":0.4237,"x":"https://x.com/gamblingv1ctim/status/2091677016491713018"},{"d":"2026-08-24","s":"MLB","m":"Total","g":"Guardians @ Angels","t":"Under 8.5 Total Runs","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2091902504082502134"},{"d":"2026-08-25","s":"MLB","m":"Moneyline","g":"Cubs @ Diamondbacks","t":"Diamondbacks","o":102,"u":0.5,"r":"Win","p":0.51,"x":"https://x.com/gamblingv1ctim/status/2092347728697217343"},{"d":"2026-08-25","s":"MLB","m":"Total","g":"Rays @ Tigers","t":"Under 7","o":-130,"u":0.5,"r":"Win","p":0.3846,"x":"https://x.com/gamblingv1ctim/status/2092388541590356070"},{"d":"2026-08-25","s":"MLB","m":"Moneyline","g":"Reds @ Giants","t":"Reds ML","o":102,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2092424464063447538"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Pirates @ Padres","t":"Padres ML","o":-127,"u":0.5,"r":"Win","p":0.3937,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Reds @ Giants","t":"Reds ML","o":110,"u":0.5,"r":"Win","p":0.55,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Phillies @ Mariners","t":"1H Phillies ML","o":-130,"u":0.65,"r":"Win","p":0.5,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-26","s":"MLB","m":"Moneyline","g":"Phillies @ Mariners","t":"Phillies ML","o":-125,"u":0.35,"r":"Win","p":0.28,"x":"https://x.com/gamblingv1ctim/status/2092677706408194060"},{"d":"2026-08-27","s":"NCAAF","m":"Spread","g":"Maine vs Towson","t":"UMAINE +3.5","o":-112,"u":0.5,"r":"Win","p":0.4464,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-27","s":"NCAAF","m":"Total","g":"Stony Brook vs Delaware State","t":"Under 51.5","o":-108,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-27","s":"WNBA","m":"Spread","g":"Mystics @ Mercury","t":"Mystics -1.5","o":-150,"u":1.5,"r":"Win","p":1,"x":"https://x.com/gamblingv1ctim/status/2093087677117595675"},{"d":"2026-08-27","s":"NCAAF","m":"Spread","g":"Mercyhurst vs Youngstown State","t":"Mercyhurst +30.5","o":-107,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093095928043282910"},{"d":"2026-08-28","s":"MLB","m":"Parlay","g":"","t":"Dodgers x Under 9.5 x Pirates +1","o":224,"u":0.3,"r":"Loss","p":-0.3,"x":"https://x.com/gamblingv1ctim/status/2093427522406859002"},{"d":"2026-08-28","s":"MLB","m":"Parlay","g":"CIN Reds @ CHI Cubs","t":"Dodgers x Pirates +1","o":133,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2093433064319836324"},{"d":"2026-08-28","s":"NFL","m":"Total","g":"Giants @ Jets","t":"Under 37","o":-115,"u":0.5,"r":"Win","p":0.4348,"x":"https://x.com/gamblingv1ctim/status/2093450373872640315"},{"d":"2026-08-28","s":"NFL","m":"Spread","g":"Falcons @ Dolphins","t":"Dolphins +5.5","o":-120,"u":0.5,"r":"Win","p":0.4167,"x":"https://x.com/gamblingv1ctim/status/2093450373872640315"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 7.5+ Points","o":125,"u":0.35,"r":"Loss","p":-0.35,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 9.5+ Points","o":235,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-28","s":"WNBA","m":"Player prop","g":"","t":"Lauren Betts Over 14.5+ Points","o":1172,"u":0.2,"r":"Loss","p":-0.2,"x":"https://x.com/gamblingv1ctim/status/2093454569531470012"},{"d":"2026-08-29","s":"NCAAF","m":"Spread","g":"NC State vs Virginia","t":"NCS +4.5","o":-110,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093085836212392229"},{"d":"2026-08-29","s":"NCAAF","m":"Parlay","g":"","t":"CCSU v SDAK Under 51.5 + SUU vs MONT Over 58.5","o":253,"u":0.25,"r":"Loss","p":-0.25,"x":"https://x.com/gamblingv1ctim/status/2093731234694283527"},{"d":"2026-08-29","s":"NCAAF","m":"Spread","g":"UNC vs TCU (LIVE)","t":"TCU -5.5","o":-120,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093745072139379085"},{"d":"2026-08-29","s":"NCAAF","m":"Spread","g":"NCST vs UVA","t":"UVA -3","o":-134,"u":0.5,"r":"Win","p":0.3731,"x":"https://x.com/gamblingv1ctim/status/2093745072139379085"},{"d":"2026-08-29","s":"MLB","m":"Moneyline","g":"Pirates @ Cardinals","t":"Cardinals ML","o":105,"u":0.5,"r":"Loss","p":-0.5,"x":"https://x.com/gamblingv1ctim/status/2093766855995310486"},{"d":"2026-08-29","s":"NCAAF","m":"Total","g":"NCST vs UVA","t":"Under 52.5","o":-135,"u":0.5,"r":"Win","p":0.3704,"x":"https://x.com/gamblingv1ctim/status/2093774114288701632"},{"d":"2026-08-31","s":"MLB","m":"Parlay","g":"","t":"Tatis Over 0.5 Stolen Bases + Caballero Over 0.5 Stolen Bases","o":3013,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-01","s":"MLB","m":"Parlay","g":"","t":"Gunnar Henderson x Max Muncy HRs","o":3475,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-01","s":"MLB","m":"Parlay","g":"","t":"Juan Soto x Salvador Perez","o":2737,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-01","s":"MLB","m":"Parlay","g":"","t":"Soto x Henderson x Muncy x Perez","o":77759,"u":0.05,"r":"Loss","p":-0.05},{"d":"2026-09-01","s":"MLB","m":"Moneyline","g":"","t":"Orioles x Brewers ML","o":260,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-03","s":"MLB","m":"Moneyline","g":"Marlins @ Royals","t":"Royals ML","o":-111,"u":0.5,"r":"Win","p":0.4505},{"d":"2026-09-03","s":"NCAAF","m":"Parlay","g":"","t":"Over 51.0 Colorado @ Georgia Tech + Over 51.5 Boise State @ Oregon + Over 55.5 North Texas @ Indiana + Utah -35.0","o":1101,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-03","s":"NCAAF","m":"Spread","g":"","t":"Colorado +7.5","o":-135,"u":0.5,"r":"Win","p":0.3704},{"d":"2026-09-04","s":"MLB","m":"Moneyline","g":"","t":"NYY First 5 Moneyline","o":-122,"u":0.5,"r":"Push","p":0},{"d":"2026-09-04","s":"MLB","m":"Player prop","g":"","t":"Alvarez x Lindor HRs","o":1983,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-04","s":"MLB","m":"Player prop","g":"","t":"Max Fried Over 3.5 Strikeouts","o":-147,"u":0.5,"r":"Win","p":0.3401},{"d":"2026-09-04","s":"NCAAF","m":"Total","g":"Indiana State @ Purdue","t":"Purdue: Team Total Points Over 45.5","o":100,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-04","s":"NCAAF","m":"Spread","g":"SJSU @ EMU","t":"SJSU +2.5","o":-108,"u":0.81,"r":"Win","p":0.75},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"FIU @ South Florida","t":"South Florida -14","o":-120,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-05","s":"NCAAF","m":"Moneyline","g":"TSU vs BGSU","t":"TSU ML","o":110,"u":0.6,"r":"Win","p":0.66},{"d":"2026-09-05","s":"MLB","m":"Parlay","g":"","t":"BAL Orioles ML STL Cardinals ML","o":291,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"North Texas @ Indiana","t":"Indiana 1H Spread -23.5","o":-118,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"TXST @ TEX","t":"TEX -16.5 1H Spread","o":-122,"u":0.5,"r":"Win","p":0.4098},{"d":"2026-09-05","s":"NCAAF","m":"Total","g":"Georgia v Tennessee State","t":"Under 65.5","o":140,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"Boise State @ Oregon","t":"Oregon -3","o":-160,"u":0.5,"r":"Win","p":0.3125},{"d":"2026-09-05","s":"NCAAF","m":"Spread","g":"Clemson @ LSU","t":"Clemson +10","o":-104,"u":1,"r":"Loss","p":-1},{"d":"2026-09-06","s":"NCAAF","m":"Spread","g":"WISC @ ND","t":"WISC +22.5","o":-120,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-06","s":"NCAAF","m":"Total","g":"SCST v FAMU","t":"Under 54.5","o":-125,"u":0.5,"r":"Win","p":0.4},{"d":"2026-09-07","s":"NCAAF","m":"Parlay","g":"","t":"James Madison -6.5 + SMU ML","o":203,"u":0.3,"r":"Win","p":0.609},{"d":"2026-09-07","s":"NCAAF","m":"Parlay","g":"","t":"Diamondback +1.5 x Over 54.5","o":184,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-08","s":"MLB","m":"Parlay","g":"","t":"NYY x Soto x Harper","o":310,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-08","s":"MLB","m":"Player prop","g":"Rockies @ Yankees","t":"Aaron Judge HR","o":290,"u":0.25,"r":"Loss","p":-0.25},{"d":"2026-09-09","s":"NFL","m":"Player prop","g":"Patriots v Seahawks","t":"Rashid Shaheed Over 2.5 Receptions","o":106,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-09","s":"MLB","m":"Parlay","g":"","t":"Mateo + PCA + Cox RR","o":6162,"u":0.1752,"r":"Loss","p":-0.1752},{"d":"2026-09-11","s":"NCAAF","m":"Spread","g":"Missouri @ Kansas","t":"Missouri -3","o":-120,"u":0.4,"r":"Win","p":0.3333},{"d":"2026-09-12","s":"NCAAF","m":"Spread","g":"CAL @ SYR","t":"Syracuse -3","o":-120,"u":1,"r":"Loss","p":-1},{"d":"2026-09-12","s":"NCAAF","m":"Spread","g":"ARIZ @ BYU","t":"BYU -7.5","o":-110,"u":1,"r":"Win","p":0.9091},{"d":"2026-09-12","s":"NCAAF","m":"Spread","g":"MTSU @ MRSH","t":"Middle Tennessee +15/15.5","o":-115,"u":1,"r":"Win","p":0.8696},{"d":"2026-09-12","s":"NCAAF","m":"Parlay","g":"","t":"USM + Navy + IOWA + UGA + GT","o":2083,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"Bills @ Texans","t":"David Montgomery Over 7.5 Receiving Yards","o":-125,"u":0.5,"r":"Win","p":0.4},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"Saints @ Lions","t":"Sam LaPorta Over 38.5 Rec Yards","o":-116,"u":0.5,"r":"Win","p":0.431},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Boutte 15+ LaPorta 30+ Coker 30+ Receiving Yards","o":228,"u":0.15,"r":"Win","p":0.342},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Kyle Pitts 4+ Receptions Jauan Jennings 2+ Receptions","o":120,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Matthew Golden Over 40+ Receiving Yards","o":-104,"u":0.5,"r":"Win","p":0.4808},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Christian Watson Over 53.5 Receiving Yards","o":-115,"u":0.5,"r":"Win","p":0.4348},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Drake London Over 60+ Receiving Yards","o":-115,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Jaylen Reed Over 40+ Receiving Yards","o":-108,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Joe Burrow Over 266.5 Passing Yards","o":-114,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Sam LaPorta Over 4.5 Receptions","o":137,"u":0.5,"r":"Win","p":0.685},{"d":"2026-09-13","s":"NFL","m":"Other","g":"","t":"Each Team to Score 1+ FG in the 4:05PM & 4:25PM (ET) Games","o":270,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-13","s":"NFL","m":"Other","g":"","t":"Each Team to Score 1+ FG in the 1:00PM (ET) Games","o":1100,"u":0.15,"r":"Win","p":1.65},{"d":"2026-09-13","s":"NFL","m":"Other","g":"","t":"Each Team to Score 1+ FG in the 1:00PM & 4:05PM & 4:25PM (ET) Games","o":4500,"u":0.05,"r":"Loss","p":-0.05},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"Keenan Allen Over 26.5 Receiving Yards","o":-113,"u":0.5,"r":"Win","p":0.4425},{"d":"2026-09-13","s":"NFL","m":"Player prop","g":"","t":"George Pickens Over 69.5 Receiving Yards","o":105,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-14","s":"NFL","m":"Player prop","g":"","t":"Rashee Rice Under 58.5 Receiving Yards","o":-115,"u":0.4,"r":"Win","p":0.3478},{"d":"2026-09-14","s":"NFL","m":"Player prop","g":"","t":"Kelce or Worthy TD","o":120,"u":0.4,"r":"Loss","p":-0.4},{"d":"2026-09-14","s":"NFL","m":"Total","g":"","t":"Patrick Mahomes Over 3.5 Rushing Attempts","o":113,"u":0.5,"r":"Win","p":0.565},{"d":"2026-09-14","s":"NFL","m":"Player prop","g":"","t":"Bo Nix Over 225 Passing Yards","o":-112,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-20","s":"NFL","m":"Player prop","g":"","t":"Isaac TeSlaa ATD","o":550,"u":0.1,"r":"Loss","p":-0.1},{"d":"2026-09-20","s":"NFL","m":"Player prop","g":"","t":"Roman Wilson Over 16.5 Receiving Yards","o":-114,"u":0.5,"r":"Win","p":0.4386},{"d":"2026-09-20","s":"NFL","m":"Player prop","g":"","t":"Garrett Wilson Over 61.5 Receiving Yards","o":-113,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-21","s":"NFL","m":"Player prop","g":"","t":"Malik Nabers Over 59.5 Receiving Yards","o":-112,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-21","s":"NFL","m":"Player prop","g":"","t":"Devin Singletary Over 1.5 Receptions","o":150,"u":0.5,"r":"Loss","p":-0.5},{"d":"2026-09-21","s":"NFL","m":"Player prop","g":"","t":"Davante Adams Over 0.5 TD","o":-102,"u":0.5,"r":"Win","p":0.4902}]};
 var B=D.bets,DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 /* Every view has a real address. The tracker is the root; the rest are folders,
    so each one is a page a search engine can hold on its own. These three are
    read from more than one closure, so they live at the top of the script. */
 var PATHS={tracker:'/',about:'/about/',read:'/how-to-read/',arb:'/arbitrage/',
   hedge:'/hedge/',parlay:'/parlay/',payout:'/payout/',odds:'/odds/',
-  devig:'/devig/',cheat:'/cheat-sheet/'};
+  devig:'/devig/',cheat:'/cheat-sheet/',poker:'/poker/'};
 /* SOLO is set on the per-tool copies. REAL is false inside the desk's preview
    window, which is an about:blank document where a path cannot resolve, so
    that one keeps the old hash routing. */
@@ -1803,9 +1970,10 @@ function repaintCharts(){
    A reader who lands on one tool from a search should be able to see the rest
    without going back to the rail. */
 (function(){
-  var TOOLS=['arb','hedge','parlay','payout','odds','cheat','devig'];
+  var TOOLS=['arb','hedge','parlay','payout','odds','cheat','devig','poker'];
   var LABEL={arb:'Arbitrage',hedge:'Hedge',parlay:'Parlay and round robin',
-    payout:'Payout',odds:'Odds converter',cheat:'Percent to odds',devig:'Devig'};
+    payout:'Payout',odds:'Odds converter',cheat:'Percent to odds',devig:'Devig',
+    poker:'Poker settlement'};
   TOOLS.forEach(function(v){
     var view=$('#view-'+v);if(!view)return;
     var box=el('div','morecalc');
@@ -1976,9 +2144,69 @@ function cash(v){
 function p2(x){return (x*100).toFixed(2)+'%'}
 function fine(id,html){$(id).innerHTML=html}
 function mark(inp,ok){inp.className=ok?'':'bad'}
+/* -- poker: whole cents throughout, so a split never loses or invents a cent -- */
+function pkCents(s){
+  s=String(s==null?'':s).replace(/[\s,$]/g,'');
+  if(!s)return null;
+  if(!/^(\d+\.?\d{0,2}|\.\d{1,2})$/.test(s))return NaN;
+  return Math.round(parseFloat(s)*100);
+}
+function pkMoney(c){
+  return '$'+(Math.abs(c)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function pkSigned(c){return (c>0?'+':c<0?'-':'')+pkMoney(c)}
+/* Share the gap across the table by the size of each result. nets are cents and
+   add up to the gap; the adjusted nets add up to zero. A player who broke even
+   takes none of it. Cents that do not divide go to the largest remainders. */
+function pkSplit(nets){
+  var gap=0,w=0,i;
+  for(i=0;i<nets.length;i++){gap+=nets[i];w+=Math.abs(nets[i])}
+  var share=nets.map(function(){return 0});
+  if(!gap||!w)return {gap:gap,share:share,net:nets.slice()};
+  var g=Math.abs(gap),sign=gap>0?1:-1,used=0,rem=[];
+  for(i=0;i<nets.length;i++){
+    var exact=g*Math.abs(nets[i])/w,f=Math.floor(exact+1e-9);
+    share[i]=f;used+=f;
+    rem.push({i:i,r:exact-f,w:Math.abs(nets[i])});
+  }
+  rem.sort(function(a,b){return (b.r-a.r)||(b.w-a.w)||(a.i-b.i)});
+  for(i=0;used<g;i++,used++)share[rem[i%rem.length].i]++;
+  share=share.map(function(s){return s*sign});
+  return {gap:gap,share:share,net:nets.map(function(n,k){return n-share[k]})};
+}
+/* Who pays whom. Exact matches go first, since each one squares two players in
+   one payment. Then the biggest debt meets the biggest credit, again and again,
+   which settles n players in at most n-1 payments. */
+function pkSettle(people){
+  var cr=[],db=[],out=[],i,j;
+  people.forEach(function(p){
+    if(p.net>0)cr.push({name:p.name,v:p.net});
+    else if(p.net<0)db.push({name:p.name,v:-p.net});
+  });
+  function big(a,b){return (b.v-a.v)||(a.name.toLowerCase()<b.name.toLowerCase()?-1:1)}
+  db.sort(big);cr.sort(big);
+  for(i=0;i<db.length;i++)for(j=0;j<cr.length;j++){
+    if(db[i].v&&cr[j].v===db[i].v){
+      out.push({from:db[i].name,to:cr[j].name,amt:db[i].v});cr[j].v=0;db[i].v=0;break;
+    }
+  }
+  for(;;){
+    db=db.filter(function(x){return x.v>0}).sort(big);
+    cr=cr.filter(function(x){return x.v>0}).sort(big);
+    if(!db.length||!cr.length)break;
+    var amt=Math.min(db[0].v,cr[0].v);
+    out.push({from:db[0].name,to:cr[0].name,amt:amt});
+    db[0].v-=amt;cr[0].v-=amt;
+  }
+  out.sort(function(a,b){
+    var x=a.from.toLowerCase(),y=b.from.toLowerCase();
+    return x<y?-1:x>y?1:(b.amt-a.amt);
+  });
+  return out;
+}
 
 /* -- pages: the rail swaps the whole view, and the hash keeps back and forward working -- */
-var VIEWS=['tracker','about','read','arb','hedge','parlay','payout','odds','devig','cheat'];
+var VIEWS=['tracker','about','read','arb','hedge','parlay','payout','odds','devig','cheat','poker'];
 function show(v){
   if(VIEWS.indexOf(v)<0)v='tracker';
   $('.rail').classList.toggle('showsub',v==='odds'||v==='cheat');
@@ -1994,7 +2222,8 @@ function show(v){
 var NAMES={about:'About',read:'How to read it',arb:'Arbitrage calculator',hedge:'Hedge calculator',
            parlay:'Parlay and round robin',payout:'Payout calculator',
            odds:'Odds converter',
-           devig:'Devig calculator',cheat:'Percent to American odds'},
+           devig:'Devig calculator',cheat:'Percent to American odds',
+           poker:'Poker settlement calculator'},
     PAGE_TITLE=(D.title||document.title);
 function route(){show((location.hash||'#tracker').slice(1).split('?')[0])}
 if(REAL){
@@ -2890,6 +3119,363 @@ if(REAL){
   drawLegs();paintP();render();
 })();
 
+/* -- 8. poker settle-up --
+   Buy-ins and cash-outs in, payments out. The table is kept in this browser, so
+   a reload in the middle of a game loses nothing. Copy link carries the whole
+   table in the address, through the hidden #pk-game field. */
+(function(){
+  var rows=$('#pk-rows');if(!rows)return;
+  var KEY='rg.poker.v1',MAXP=24,CAP=100000000;   /* $1,000,000: past that it is a typo */
+  var G=fresh(10000),R={},TOT=null,armed='',armT=null,warn='',LAST=null;
+
+  function fresh(buy){return {buy:buy,split:false,seq:0,ps:[]}}
+  function inOf(p){return p.n*G.buy+p.extra}
+  function plain(c){return c%100?(c/100).toFixed(2):String(c/100)}
+  function count(c){
+    if(!(G.buy>0))return '--';
+    var v=c/G.buy;
+    return Math.abs(v-Math.round(v))<1e-9?String(Math.round(v)):String(+v.toFixed(2));
+  }
+  function cleanName(s){return String(s||'').replace(/\s+/g,' ').trim().slice(0,24)}
+  /* the other player already using this name, if any */
+  function taken(name,id){
+    var k=name.toLowerCase();
+    return G.ps.filter(function(p){return p.id!==id&&p.name.toLowerCase()===k})[0]||null;
+  }
+  function flag(inp,ok){inp.classList.toggle('bad',!ok)}
+  function whole(v,lo,hi){return typeof v==='number'&&v===Math.floor(v)&&v>=lo&&v<=hi}
+  function valid(g){
+    if(!g||!whole(g.buy,0,CAP)||!Array.isArray(g.ps)||g.ps.length>MAXP)return false;
+    return g.ps.every(function(p){
+      return p&&whole(p.id,1,1e9)&&typeof p.name==='string'&&!!p.name&&whole(p.n,0,999)&&
+        whole(p.extra,0,CAP)&&(p.out===null||whole(p.out,0,CAP));
+    });
+  }
+  function names(a){
+    if(a.length>4)return a.slice(0,3).join(', ')+' and '+(a.length-3)+' others';
+    return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1];
+  }
+
+  /* the whole table as one short string, for the address bar */
+  function encode(){
+    return ['1',G.buy,G.split?1:0,G.ps.map(function(p){
+      return [encodeURIComponent(p.name),p.n,p.extra,p.out===null?'':p.out].join(':');
+    }).join(',')].join('|');
+  }
+  function decode(s){
+    var a=String(s||'').split('|');
+    if(a.length!==4||a[0]!=='1')return null;
+    var g=fresh(+a[1]);g.split=(a[2]==='1');
+    try{
+      (a[3]?a[3].split(','):[]).forEach(function(t){
+        var f=t.split(':');if(f.length!==4)throw 0;
+        g.ps.push({id:++g.seq,name:cleanName(decodeURIComponent(f[0])),n:+f[1],extra:+f[2],
+          out:f[3]===''?null:+f[3]});
+      });
+    }catch(e){return null}
+    return valid(g)?g:null;
+  }
+  function load(){
+    try{
+      var g=JSON.parse(localStorage.getItem(KEY)||'null');
+      if(valid(g)){
+        G=g;G.split=!!G.split;
+        G.seq=G.ps.reduce(function(m,p){return Math.max(m,p.id)},0);
+      }
+    }catch(e){}
+  }
+  function save(){
+    try{localStorage.setItem(KEY,JSON.stringify(G))}catch(e){}
+    $('#pk-game').value=encode();
+  }
+
+  /* a destructive button asks twice: the first press arms it, the second acts */
+  function arm(k){armed=k;clearTimeout(armT);armT=setTimeout(disarm,3500);paint()}
+  function disarm(){armed='';clearTimeout(armT);paint()}
+
+  function cell(cls,label){
+    var c=el('div','pkc '+cls);
+    if(label)c.appendChild(el('span','pkl',label));
+    return c;
+  }
+  function moneyIn(val,aria){
+    var w=el('div','mi'),i=document.createElement('input');
+    w.appendChild(el('span','','$'));
+    i.type='text';i.inputMode='decimal';i.autocomplete='off';i.value=val;
+    i.setAttribute('aria-label',aria);
+    w.appendChild(i);
+    return {w:w,i:i};
+  }
+  /* Enter moves down the column, so a whole table of cash-outs can be typed in one go */
+  function onEnter(inp,p,which){
+    inp.addEventListener('keydown',function(e){
+      if(e.key!=='Enter')return;
+      e.preventDefault();
+      var nx=G.ps[G.ps.indexOf(p)+1];
+      if(nx&&R[nx.id])R[nx.id][which].focus();else inp.blur();
+    });
+  }
+
+  function drawRows(){
+    rows.innerHTML='';R={};TOT=null;
+    if(!G.ps.length){
+      rows.appendChild(el('div','pkempty','No players yet. Add everyone at the table above.'));
+      paint();return;
+    }
+    var hd=el('div','pkrow hd');
+    [['pnm','Player'],['pst','Buy-ins'],['pin','In'],['pout','Cash-out'],['pnet','Net'],['px','']]
+      .forEach(function(h){hd.appendChild(el('div','pkc '+h[0],h[1]))});
+    rows.appendChild(hd);
+
+    G.ps.forEach(function(p){
+      var row=el('div','pkrow'),ctl=el('div','pkctl');
+
+      var nm=cell('pnm'),ni=document.createElement('input');
+      ni.type='text';ni.className='pkname';ni.value=p.name;ni.maxLength=24;
+      ni.autocomplete='off';ni.spellcheck=false;ni.setAttribute('aria-label','Player name');
+      ni.addEventListener('input',function(){
+        var v=cleanName(ni.value),ok=!!v&&!taken(v,p.id);
+        flag(ni,ok);
+        if(ok){p.name=v;save();paint()}
+      });
+      ni.addEventListener('blur',function(){ni.value=p.name;flag(ni,true)});
+      nm.appendChild(ni);row.appendChild(nm);
+
+      var st=cell('pst','Buy-ins'),stp=el('div','pkstep'),
+          minus=el('button','','−'),cnt=el('span','num'),plus=el('button','','+');
+      minus.type='button';plus.type='button';
+      minus.setAttribute('aria-label','One fewer buy-in');
+      plus.setAttribute('aria-label','One more buy-in');
+      minus.addEventListener('click',function(){if(p.n>0)p.n--;else p.extra=0;save();paint()});
+      plus.addEventListener('click',function(){if(p.n<999)p.n++;save();paint()});
+      stp.appendChild(minus);stp.appendChild(cnt);stp.appendChild(plus);
+      st.appendChild(stp);ctl.appendChild(st);
+
+      var ic=cell('pin','In'),mi=moneyIn(plain(inOf(p)),'Money in');
+      mi.i.addEventListener('input',function(){
+        var c=pkCents(mi.i.value);
+        if(c!==c||c>CAP){flag(mi.i,false);return}
+        flag(mi.i,true);c=c||0;
+        if(G.buy>0){p.n=Math.min(999,Math.floor(c/G.buy));p.extra=c-p.n*G.buy}
+        else{p.n=0;p.extra=c}
+        save();paint();
+      });
+      mi.i.addEventListener('blur',function(){mi.i.value=plain(inOf(p));flag(mi.i,true)});
+      onEnter(mi.i,p,'inI');
+      ic.appendChild(mi.w);ctl.appendChild(ic);
+
+      var oc=cell('pout','Cash-out'),mo=moneyIn(p.out===null?'':plain(p.out),'Cash-out');
+      mo.i.addEventListener('input',function(){
+        var c=pkCents(mo.i.value);
+        if(c!==c||c>CAP){flag(mo.i,false);return}
+        flag(mo.i,true);p.out=c;save();paint();
+      });
+      mo.i.addEventListener('blur',function(){mo.i.value=p.out===null?'':plain(p.out);flag(mo.i,true)});
+      onEnter(mo.i,p,'outI');
+      oc.appendChild(mo.w);ctl.appendChild(oc);
+      row.appendChild(ctl);
+
+      var net=el('div','pkc pnet num');row.appendChild(net);
+      var xc=cell('px'),x=el('button','legx','×');
+      x.type='button';
+      x.addEventListener('click',function(){
+        if(armed!=='rm'+p.id){arm('rm'+p.id);return}
+        armed='';clearTimeout(armT);
+        G.ps=G.ps.filter(function(q){return q!==p});
+        save();drawRows();
+      });
+      xc.appendChild(x);row.appendChild(xc);
+
+      rows.appendChild(row);
+      R[p.id]={row:row,cnt:cnt,minus:minus,inI:mi.i,outI:mo.i,net:net,x:x};
+    });
+
+    var tot=el('div','pkrow tot'),tc=el('div','pkctl');
+    var tn=cell('pnm');tn.appendChild(el('span','','Total'));tot.appendChild(tn);
+    TOT={st:el('span','v num'),inn:el('span','v num'),out:el('span','v num'),net:el('div','pkc pnet num')};
+    var a=cell('pst','Buy-ins'),b=cell('pin','In'),c=cell('pout','Cash-out');
+    a.appendChild(TOT.st);b.appendChild(TOT.inn);c.appendChild(TOT.out);
+    tc.appendChild(a);tc.appendChild(b);tc.appendChild(c);tot.appendChild(tc);
+    tot.appendChild(TOT.net);tot.appendChild(cell('px'));
+    rows.appendChild(tot);
+    paint();
+  }
+
+  function paint(){
+    var ps=G.ps,n=ps.length,tin=0,tout=0,miss=[];
+    ps.forEach(function(p){tin+=inOf(p);if(p.out===null)miss.push(p.name);else tout+=p.out});
+    var ready=n>=2&&!miss.length,gap=ready?tout-tin:0;
+    /* a split answers one gap; once the count is square it is spent */
+    if(ready&&!gap&&G.split){G.split=false;save()}
+    var nets=ps.map(function(p){return p.out===null?null:p.out-inOf(p)});
+    var sp=(ready&&gap&&G.split)?pkSplit(nets):null;
+
+    var nb=$('#pk-new');
+    nb.textContent=armed==='new'?'Clear the table?':'New game ×';
+    nb.classList.toggle('arm',armed==='new');
+
+    ps.forEach(function(p,i){
+      var r=R[p.id];if(!r)return;
+      var c=inOf(p),hot=(armed==='rm'+p.id);
+      var ct=count(c);
+      r.cnt.textContent=ct;
+      r.cnt.className='num'+(ct.length>3?' sm':'');   /* "12.51" has to fit a phone's stepper */
+      r.minus.disabled=!(c>0);
+      if(document.activeElement!==r.inI)r.inI.value=plain(c);
+      r.x.setAttribute('aria-label',hot?'Press again to remove '+p.name:'Remove '+p.name);
+      r.row.classList.toggle('arm',hot);
+      if(hot){r.net.className='pkc pnet loss';r.net.textContent='Remove?';return}
+      if(nets[i]===null){r.net.className='pkc pnet num mut';r.net.textContent='--';return}
+      var v=sp?sp.net[i]:nets[i];
+      r.net.className='pkc pnet num '+(v>0?'win':v<0?'loss':'mut');
+      r.net.textContent=pkSigned(v);
+      if(sp&&sp.share[i])r.net.appendChild(el('i','','split '+pkSigned(-sp.share[i])));
+    });
+    if(TOT){
+      TOT.st.textContent=count(tin);
+      TOT.inn.textContent=pkMoney(tin);
+      TOT.out.textContent=pkMoney(tout);
+      TOT.net.className='pkc pnet num '+(ready?(gap?'loss':'mut'):'mut');
+      TOT.net.textContent=ready?pkSigned(gap):'--';
+    }
+
+    var f=$('#pk-fine');f.innerHTML='';
+    if(warn)f.appendChild(el('span','loss',warn));
+    else if(!n)f.textContent='Set the buy-in, then add everyone at the table.';
+    else f.textContent=n+(n===1?' player':' players')+
+      (G.buy>0?' · '+count(tin)+' buy-ins':'')+' · '+pkMoney(tin)+' in';
+
+    /* the settle-up card */
+    $('#pk-np').textContent=String(n);
+    $('#pk-tin').textContent=pkMoney(tin);
+    $('#pk-tout').textContent=pkMoney(tout);
+    var ge=$('#pk-gap'),gn=$('#pk-gapn');
+    if(!ready){ge.textContent='--';ge.className='num mut';gn.textContent=n>=2?'waiting':''}
+    else if(!gap){ge.textContent='$0.00';ge.className='num';gn.textContent='square'}
+    else{ge.textContent=pkMoney(gap);ge.className='num loss';gn.textContent=gap<0?'short':'over'}
+
+    var msg,btn=$('#pk-split'),pay=$('#pk-pay'),showPay=ready&&(!gap||G.split),tx=[];
+    if(n<2)msg=n?'Add at least one more player.':'Add the players to start.';
+    else if(miss.length)msg='Waiting on a cash-out from '+names(miss)+'.';
+    else if(!gap)msg='The count is square.';
+    else if(!G.split)msg='The cash-outs come to '+pkMoney(tout)+' against '+pkMoney(tin)+
+      ' bought in, so '+pkMoney(gap)+(gap<0?' is missing.':' more is claimed than was put in.')+
+      ' Recount the chips, or split the gap across the table.';
+    else msg=pkMoney(gap)+(gap<0?' was missing':' too much was counted')+
+      '. It is split across the table by the size of each result.';
+    btn.hidden=!(ready&&gap);
+    btn.textContent=G.split?'UNDO SPLIT':'SPLIT THE '+pkMoney(gap);
+
+    LAST=null;pay.innerHTML='';
+    if(showPay){
+      var people=ps.map(function(p,i){return {name:p.name,net:sp?sp.net[i]:nets[i]}});
+      tx=pkSettle(people);
+      msg+=' '+(tx.length?tx.length+(tx.length===1?' payment settles':' payments settle')+' the table.'
+        :'Nobody owes anything.');
+      var h=el('div','prow hd');
+      ['Pays','To','Amount'].forEach(function(t){h.appendChild(el('div','',t))});
+      pay.appendChild(h);
+      tx.forEach(function(t){
+        var r=el('div','prow');
+        r.appendChild(el('div','',t.from));r.appendChild(el('div','',t.to));
+        r.appendChild(el('div','num',pkMoney(t.amt)));
+        pay.appendChild(r);
+      });
+      LAST={tin:tin,gap:sp?gap:0,people:people,tx:tx};
+    }
+    pay.hidden=!(showPay&&tx.length);
+    $('#pk-msg').textContent=msg;
+    $('#pk-copy').disabled=!LAST;
+  }
+
+  /* the results as plain text, for the group chat */
+  function report(){
+    if(!LAST)return '';
+    var L=[],d=new Date();
+    L.push('Poker settle-up · '+d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}));
+    L.push((G.buy>0?'$'+plain(G.buy)+' buy-in · ':'')+G.ps.length+' players · '+pkMoney(LAST.tin)+' in');
+    L.push('');
+    LAST.people.slice().sort(function(a,b){return b.net-a.net})
+      .forEach(function(p){L.push(p.name+' '+pkSigned(p.net))});
+    if(LAST.tx.length){
+      L.push('');
+      LAST.tx.forEach(function(t){L.push(t.from+' pays '+t.to+' '+pkMoney(t.amt))});
+    }
+    if(LAST.gap){
+      L.push('');
+      L.push(pkMoney(LAST.gap)+(LAST.gap<0?' was missing from the count':' too much was counted')+
+        ', split across the table by the size of each result.');
+    }
+    if(REAL)L.push('',location.host+PATHS.poker);
+    return L.join('\n');
+  }
+
+  function add(){
+    var inp=$('#pk-name'),name=cleanName(inp.value),dup=taken(name,0);
+    if(!name){inp.focus();return}
+    if(G.ps.length>=MAXP)warn='The table is full at '+MAXP+' players.';
+    else if(dup)warn=dup.name+' is already at the table.';
+    else{
+      warn='';
+      G.ps.push({id:++G.seq,name:name,n:1,extra:0,out:null});
+      inp.value='';save();drawRows();
+    }
+    flag(inp,!warn);paint();inp.focus();
+  }
+  $('#pk-add').addEventListener('click',add);
+  $('#pk-name').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();add()}});
+  $('#pk-name').addEventListener('input',function(){
+    if(warn){warn='';flag($('#pk-name'),true);paint()}
+  });
+
+  var bi=$('#pk-buy');
+  bi.addEventListener('input',function(){
+    var c=pkCents(bi.value);
+    if(c!==c||c>CAP){flag(bi,false);return}
+    flag(bi,true);G.buy=c||0;save();paint();
+  });
+  bi.addEventListener('blur',function(){bi.value=G.buy?plain(G.buy):'';flag(bi,true)});
+  bi.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault();$('#pk-name').focus()}
+  });
+
+  $('#pk-new').addEventListener('click',function(){
+    if(!G.ps.length){$('#pk-name').focus();return}
+    if(armed!=='new'){arm('new');return}
+    armed='';clearTimeout(armT);warn='';
+    G=fresh(G.buy);save();drawRows();$('#pk-name').focus();
+  });
+  $('#pk-split').addEventListener('click',function(){G.split=!G.split;save();paint()});
+  $('#pk-copy').addEventListener('click',function(){
+    var t=report(),b=this;if(!t)return;
+    function ok(){
+      b.textContent='Copied';b.classList.add('done');
+      setTimeout(function(){b.textContent='Copy results';b.classList.remove('done')},1600);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText)
+      navigator.clipboard.writeText(t).then(ok,function(){window.prompt('Copy the results',t)});
+    else window.prompt('Copy the results',t);
+  });
+
+  /* a shared link lands here: the address fills #pk-game, and the table it
+     carries replaces this browser's own */
+  $('#pk-game').addEventListener('input',function(){
+    var g=decode(this.value);if(!g)return;
+    G=g;armed='';warn='';save();
+    bi.value=G.buy?plain(G.buy):'';
+    drawRows();
+    /* the address has done its job; a reload should show later edits, not the link again */
+    if(REAL&&SOLO==='poker'&&history.replaceState){
+      try{history.replaceState(null,'',PATHS.poker)}catch(e){}
+    }
+  });
+
+  load();
+  bi.value=G.buy?plain(G.buy):'';
+  $('#pk-game').value=encode();
+  drawRows();
+})();
+
 })();
 
 
@@ -2948,7 +3534,8 @@ function asTyped(node,text){
     odds:['pc-in','pc-o','pc-m'],
     devig:['dv-a','dv-b'],
     parlay:['pl-s'],
-    payout:['py-s','py-f','py-dec','py-ps','py-pf']
+    payout:['py-s','py-f','py-dec','py-ps','py-pf'],
+    poker:['pk-game']
   };
   function q(){
     /* a solo page carries its state in the query string, the preview in the hash */

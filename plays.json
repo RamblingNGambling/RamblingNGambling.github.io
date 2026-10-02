@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Sep 28, 2026, 1:12 AM EDT",
+  "updated": "Oct 2, 2026, 12:07 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -3252,6 +3252,102 @@
       "units": 0.5,
       "result": "Win",
       "units_pl": 0.5,
+      "post": ""
+    },
+    {
+      "date": "2026-10-01",
+      "sport": "NFL",
+      "market": "Parlay",
+      "game": "",
+      "play": "Pittman + Judkins",
+      "odds": 1050,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05,
+      "post": ""
+    },
+    {
+      "date": "2026-10-01",
+      "sport": "NFL",
+      "market": "Parlay",
+      "game": "",
+      "play": "Fannin + Boston + Concepcion",
+      "odds": 11000,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05,
+      "post": ""
+    },
+    {
+      "date": "2026-10-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jaylen Warren Over 67.5 Rushing Yards",
+      "odds": -144,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.3472,
+      "post": ""
+    },
+    {
+      "date": "2026-10-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Denzel Boston Over 36.5 Receiving Yards",
+      "odds": -108,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.463,
+      "post": ""
+    },
+    {
+      "date": "2026-10-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Harold Fannin Over 39.5 Receiving Yards",
+      "odds": -106,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": ""
+    },
+    {
+      "date": "2026-10-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "KC Concepcion Over 4.5 Receptions",
+      "odds": 130,
+      "units": 0.4,
+      "result": "Win",
+      "units_pl": 0.52,
+      "post": ""
+    },
+    {
+      "date": "2026-10-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jaylen Warren Over 15.5 Rushing Attempts",
+      "odds": -112,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4464,
+      "post": ""
+    },
+    {
+      "date": "2026-10-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Quinshon Judkins Over 54.5 Rush Yards",
+      "odds": -115,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": ""
     }
   ]

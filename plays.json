@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 5, 2026, 2:01 PM EDT",
+  "updated": "Oct 6, 2026, 1:51 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -3514,9 +3514,45 @@
       "play": "Tyler Shough Over 32.5 Passing Attempts",
       "odds": -120,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4167,
       "post": "https://x.com/gamblingv1ctim/status/2106774915172950098"
+    },
+    {
+      "date": "2026-10-05",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Shough Over 299.5 Passing Yards",
+      "odds": 239,
+      "units": 0.3,
+      "result": "Loss",
+      "units_pl": -0.3,
+      "post": ""
+    },
+    {
+      "date": "2026-10-05",
+      "sport": "NFL",
+      "market": "Parlay",
+      "game": "",
+      "play": "Bijan x Juwan ATDs",
+      "odds": 395,
+      "units": 0.2,
+      "result": "Loss",
+      "units_pl": -0.2,
+      "post": ""
+    },
+    {
+      "date": "2026-10-05",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Pitts Over 2.5 Receptions",
+      "odds": -147,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.3401,
+      "post": ""
     }
   ]
 }

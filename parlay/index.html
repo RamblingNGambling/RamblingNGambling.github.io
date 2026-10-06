@@ -1209,7 +1209,7 @@ a.src .x{letter-spacing:1px}
 
     <h2>ROI is the number that counts</h2>
     <p>ROI here is profit divided by everything risked. Not profit over a bankroll, and not
-    profit over the number of bets &mdash; over the units actually put at risk.</p>
+    profit over the number of bets &mdash; over the units actually put at risk. Voided stakes are excluded. Push stakes are included.</p>
     <p>A positive ROI over a long run means the prices taken were better than the outcomes
     deserved. That is the only claim this page makes.</p>
 
@@ -1224,7 +1224,7 @@ a.src .x{letter-spacing:1px}
     are not in the record until they land.</p>
     <p><b>Push</b> is a tie against the line. The stake comes back and it counts as neither a
     win nor a loss, which is why the record has three numbers.</p>
-    <p><b>Void</b> is a bet the book cancelled. Same effect: stake back, no result.</p>
+    <p><b>Void</b> is a bet the book cancelled or refunded. It stays in the log. It is shown separately from pushes and excluded from the record, win rate and ROI stake total.</p>
 
     <h2>How to check any of it</h2>
     <p>Most plays on this page link to the post that called them, marked with an X at the end
@@ -1805,9 +1805,10 @@ function play(b,short){
   a.title='See the post where this was called';
   a.appendChild(el('span','x',short?'X':'POST'));
   return a}
-function ag(list){var r={n:0,w:0,l:0,p:0,u:0,risk:0,pend:0,pu:0,im:0};
+function ag(list){var r={n:0,w:0,l:0,p:0,v:0,u:0,risk:0,pend:0,pu:0,im:0};
   list.forEach(function(b){
     if(b.p===null){r.pend++;r.pu+=b.u;return}
+    if(b.r==='Void'){r.v++;return}
     r.n++;if(b.p>1e-4)r.w++;else if(b.p<-1e-4)r.l++;else r.p++;
     r.u+=b.p;r.risk+=b.u;r.im+=imp(b.o)});
   r.roi=r.risk>0?r.u/r.risk:0;r.wr=(r.w+r.l)>0?r.w/(r.w+r.l):0;r.ai=r.n?r.im/r.n:0;return r}
@@ -1819,12 +1820,12 @@ function tbl(id,keyfn){
      bars off a centre line take one, so the bar is scaled to the biggest row
      in this table and sits beside the figure it draws. */
   var rows=[],max=0;
-  o.forEach(function(k){var a=ag(g[k]);if(!a.n&&!a.pend)return;
+  o.forEach(function(k){var a=ag(g[k]);if(!a.n&&!a.pend&&!a.v)return;
     rows.push([k,a]);max=Math.max(max,Math.abs(a.u))});
   rows.forEach(function(r){var k=r[0],a=r[1],tr=el('tr');
     tr.appendChild(el('td','l',k));
     tr.appendChild(el('td','n',a.n+(a.pend?' +'+a.pend:'')));
-    tr.appendChild(el('td','n',a.w+'-'+a.l+'-'+a.p));
+    tr.appendChild(el('td','n',a.w+'-'+a.l+'-'+a.p+(a.v?' / '+a.v+' void':'')));
     tr.appendChild(el('td','n '+cl(a.u),fu(a.u)));
     var bc=el('td','bar'),bb=el('div','bb'),lh=el('div','bh l'),rh=el('div','bh r'),
         w=max>0?Math.max(Math.abs(a.u)/max*100,a.u===0?0:3):0;
@@ -1874,7 +1875,7 @@ if(!B.length)document.body.classList.add('nopost');
 
 /* ---------- KPI row ---------- */
 [['ROI',A.risk>0?pc(A.roi):'--',cl(A.roi),0],
- ['Record',A.w+'-'+A.l+'-'+A.p,'',0],
+ ['Record',A.w+'-'+A.l+'-'+A.p+(A.v?' / '+A.v+' void':''),'',0],
  ['Win rate',A.n?pc(A.wr):'--','',0],
  ['Open plays',String(A.pend),A.pend?'pend':'',1]
 ].forEach(function(k,i){
@@ -2064,7 +2065,7 @@ setTimeout(armReveal,0);
    can, and they read in about a second. */
 (function(){
   var host=$('#pips'),wrap=$('#pipwrap');if(!host||!wrap)return;
-  var st=B.filter(function(b){return b.p!==null});
+  var st=B.filter(function(b){return b.p!==null&&b.r!=='Void'});
   if(!st.length)return;
   var last=st.slice(-15),u=0;
   last.forEach(function(b,i){
@@ -2096,7 +2097,7 @@ setTimeout(armReveal,0);
    browser, and a first visit shows nothing. */
 (function(){
   var e=$('#since');if(!e)return;
-  var K='rg.seen.v1',st=B.filter(function(b){return b.p!==null});
+  var K='rg.seen.v1',st=B.filter(function(b){return b.p!==null&&b.r!=='Void'});
   if(!st.length)return;
   var now={n:st.length,last:st[st.length-1].d},prev=null;
   try{prev=JSON.parse(localStorage.getItem(K)||'null')}catch(err){prev=null}
@@ -2257,7 +2258,7 @@ if(REAL){
   var inp=$('#usz'),out=$('#uout');
   function paint(){
     var v=parseFloat(inp.value);
-    if(!(v>0)){out.textContent='--';out.className='out num mut';return}
+    if(!positiveNumber(v)){out.textContent='--';out.className='out num mut';return}
     out.textContent=money(A.u*v);out.className='out num '+cl(A.u);
   }
   inp.addEventListener('input',paint);
@@ -3481,7 +3482,7 @@ if(REAL){
 
 
 /* ---------- about: written from the desk on export ---------- */
-var ABOUT={"lede":"I post plays on X and log them here.\n\na little more about me:\n\n24 y/o\nNYC\nplay league (aram mayhem only) + valorant (a2)\nlove poker\n\nplease feel free to reach out and connect <3","close":"","lists":[{"title":"Currently watching","items":["Reacher","Dark Matter","Lanterns","Mindhunter","The Mentalist"]},{"title":"Just finished","items":["Silo","Lucky","White Collar"]}],"books":[{"name":"FanDuel","url":""},{"name":"DraftKings","url":""},{"name":"BetMGM","url":""},{"name":"theScore Bet","url":""},{"name":"Fanatics","url":""},{"name":"Bally Bet","url":""},{"name":"Novig","url":""},{"name":"Kalshi","url":"https://kalshi.com/r/9bbb8bb4-edca-4590-b276-ffcd83e209c8"}]};
+var ABOUT={"lede":"I post plays on X and log them here.\n\na little more about me:\n\n24 y/o\nNYC\nplay league (aram mayhem only) + valorant (a2)\nlove poker\n\nplease feel free to reach out and connect \u003c3","close":"","lists":[{"title":"Currently watching","items":["Reacher","Dark Matter","Lanterns","Mindhunter","The Mentalist"]},{"title":"Just finished","items":["Silo","Lucky","White Collar"]}],"books":[{"name":"FanDuel","url":""},{"name":"DraftKings","url":""},{"name":"BetMGM","url":""},{"name":"theScore Bet","url":""},{"name":"Fanatics","url":""},{"name":"Bally Bet","url":""},{"name":"Novig","url":""},{"name":"Kalshi","url":"https://kalshi.com/r/9bbb8bb4-edca-4590-b276-ffcd83e209c8"}]};
 /* The About text is typed into a textarea on the desk, so its line breaks are
    the layout. A blank line starts a paragraph; a single newline breaks a line. */
 function asTyped(node,text){
@@ -3873,7 +3874,7 @@ drawCurve();drawStat();
     var nm=new Date(+p[0],+p[1]-1,1).toLocaleString('en-US',{month:'short'})+' '+p[0];
     tr.appendChild(el('td','l',nm));
     tr.appendChild(el('td','n',a.n+(a.pend?' +'+a.pend:'')));
-    tr.appendChild(el('td','n',a.w+'-'+a.l+'-'+a.p));
+    tr.appendChild(el('td','n',a.w+'-'+a.l+'-'+a.p+(a.v?' / '+a.v+' void':'')));
     tr.appendChild(el('td','n '+cl(a.u),fu(a.u)));
     tr.appendChild(el('td','n '+cl(a.roi),a.risk>0?pc(a.roi):'--'));
     $('#months').appendChild(tr)});

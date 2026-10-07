@@ -94,7 +94,10 @@ button,select,input{font:inherit;color:inherit}
 .theme svg{width:15px;height:15px;transition:transform .4s var(--ease)}
 
 /* ---- 01 record (hero) ---- */
-.record{padding:36px 0 0}
+.record{padding:36px 0 0;position:relative}
+.record::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(640px 400px at 20% 0%,rgba(192,139,245,.06),transparent 70%)}
+:root[data-theme="light"] .record::before{display:none}
 .record>.eyebrow .ey-r{margin-left:auto;text-transform:none;letter-spacing:0;font-size:13.5;font-weight:400}
 .ey-r a{color:var(--fg2);text-underline-offset:3px;text-decoration-color:var(--line3)}
 .ey-r a:hover{color:var(--fg)}

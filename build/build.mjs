@@ -402,7 +402,7 @@ const homeBody = `<main class="wrap" id="main">
           <dt>At −110</dt><dd>52.4% to break even</dd>
           <dt>At +150</dt><dd>40.0% to break even</dd>
         </dl>
-        <p>So the win rate on its own says very little. <b>ROI</b> is the number that counts, and the <b>sample size</b> beside it matters as much.</p>
+        <p>So the win rate on its own says very little. <b>ROI</b> is the number that counts.</p>
         <div class="links">
           <a class="lbtn pri" href="how-to-read/">How to read the record</a>
           <a class="lbtn" href="about/">About</a>

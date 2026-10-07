@@ -8,7 +8,10 @@ filter counts worked out straight from plays.json.
 
 Serves dist/ on 127.0.0.1 and, for every page at 390px and 1440px:
   - no console errors or page errors
-  - no request leaves 127.0.0.1 (no CDN, no web font, no fetch)
+  - no request leaves 127.0.0.1 (no CDN, no web font, no fetch), except
+    exactly one: the Umami script at UMAMI_SRC, stubbed with empty JS so the
+    checks need no network and send no test traffic
+  - the Umami snippet, with the right website ID, exactly once
   - no horizontal overflow
 Then on the home page: every filter combination against expected.json, the
 equity curve end against the hero figure, reduced motion, the theme toggle,
@@ -33,6 +36,11 @@ PAGE = 15    # rows the log shows before "Show more" (home.js PAGE)
 SHOTS = ROOT / "verify" / "shots"   # screenshots for review (git-ignored)
 SEEN = "try{localStorage.setItem('pt-follow-seen','1')}catch(e){}"   # a returning reader: no follow nudge
 VIEWPORTS = {"390": {"width": 390, "height": 844}, "1440": {"width": 1440, "height": 900}}
+# The one allowed external request. Only this exact URL; the rest of the domain
+# (including the beacon the real script would send) still counts as off-box.
+UMAMI_SRC = "https://cloud.umami.is/script.js"
+UMAMI_ID = "55eb5498-a3ca-4912-846f-c48e59a9971a"
+UMAMI = f'<script defer src="{UMAMI_SRC}" data-website-id="{UMAMI_ID}"></script>'
 
 fails = 0
 def check(cond, msg):
@@ -56,12 +64,15 @@ def browser_exe():
 
 def watch(pg):
     """Collect console errors, page errors, failed loads and off-box requests."""
-    log = {"errors": [], "external": [], "failed": []}
+    log = {"errors": [], "external": [], "failed": [], "umami": 0}
     pg.on("console", lambda m: m.type == "error" and log["errors"].append(m.text))
     pg.on("pageerror", lambda e: log["errors"].append(str(e)))
     def on_req(r):
         u = urlparse(r.url)
         if u.scheme in ("data", "blob", "about"):
+            return
+        if r.url == UMAMI_SRC:   # answered by the stub in context()
+            log["umami"] += 1
             return
         if u.hostname not in ("127.0.0.1", "localhost"):
             log["external"].append(r.url)
@@ -88,10 +99,26 @@ with sync_playwright() as p:
     exe = browser_exe()
     b = p.chromium.launch(executable_path=exe, env=env) if exe else p.chromium.launch(env=env)
 
+    def context(**kw):
+        """A browser context whose Umami script request is fulfilled locally with
+        empty JS: nothing reaches cloud.umami.is."""
+        c = b.new_context(**kw)
+        c.route(lambda u: u == UMAMI_SRC,
+                lambda route: route.fulfill(status=200, content_type="application/javascript", body=""))
+        return c
+
+    # ---- the analytics snippet, in the built files ----
+    for path in PAGES:
+        f = DIST / (path if path.endswith(".html") else path + "index.html")
+        html = f.read_text()
+        check(html.count(UMAMI) == 1 and html.count("cloud.umami.is") == 1 and html.count("data-website-id") == 1
+              and html.rstrip().endswith(UMAMI + "\n</body>\n</html>"),
+              f"/{path} carries the Umami snippet once, website ID {UMAMI_ID}, just before </body>")
+
     # ---- every page, both widths ----
     for vname, vp in VIEWPORTS.items():
         for path in PAGES:
-            ctx = b.new_context(viewport=vp, color_scheme="dark", has_touch=(vname == "390"))
+            ctx = context(viewport=vp, color_scheme="dark", has_touch=(vname == "390"))
             pg = ctx.new_page()
             log = watch(pg)
             pg.goto(BASE + path, wait_until="load")
@@ -100,14 +127,17 @@ with sync_playwright() as p:
             hidden = pg.evaluate("[...document.querySelectorAll('[data-rv]')].filter(e=>getComputedStyle(e).opacity<0.99).length")
             name = f"{vname:>4}px /{path}"
             check(not log["errors"], f"{name} console clean {log['errors'][:3] if log['errors'] else ''}")
-            check(not log["external"], f"{name} no external requests {log['external'][:3] if log['external'] else ''}")
+            check(not log["external"], f"{name} no external requests but Umami {log['external'][:3] if log['external'] else ''}")
+            tags = pg.evaluate("[...document.scripts].filter(s=>/umami/i.test(s.outerHTML)).map(s=>[s.src,s.dataset.websiteId,s.defer])")
+            check(tags == [[UMAMI_SRC, UMAMI_ID, True]] and log["umami"] == 1,
+                  f"{name} one Umami script, right ID, deferred, loaded once from the stub ({tags}, {log['umami']} request(s))")
             check(not log["failed"], f"{name} no failed loads {log['failed'][:3] if log['failed'] else ''}")
             check(over <= 0, f"{name} no horizontal overflow (scrollWidth - clientWidth = {over})")
             check(hidden == 0, f"{name} every revealed section visible after scrolling ({hidden} still hidden)")
             ctx.close()
 
     # ---- home: equity curve, filters, motion, theme ----
-    ctx = b.new_context(viewport=VIEWPORTS["1440"], color_scheme="dark", reduced_motion="reduce")
+    ctx = context(viewport=VIEWPORTS["1440"], color_scheme="dark", reduced_motion="reduce")
     ctx.add_init_script(SEEN)   # the follow nudge has its own checks below
     pg = ctx.new_page()
     log = watch(pg)
@@ -161,7 +191,7 @@ with sync_playwright() as p:
     check(not log["errors"], f"home interactions console clean {log['errors'][:3]}")
     ctx.close()
 
-    ctx = b.new_context(viewport=VIEWPORTS["1440"], color_scheme="dark")
+    ctx = context(viewport=VIEWPORTS["1440"], color_scheme="dark")
     ctx.add_init_script(SEEN)
     pg = ctx.new_page(); log = watch(pg); pg.goto(BASE, wait_until="load")
     check(pg.evaluate("document.documentElement.classList.contains('motion')"), "motion on when the reader allows it")
@@ -189,7 +219,7 @@ with sync_playwright() as p:
         pg.evaluate(f"window.scrollTo(0, document.documentElement.scrollHeight*{f} - innerHeight + {nudge})")
     SHOTS.mkdir(exist_ok=True)
     for vname, vp in VIEWPORTS.items():
-        ctx = b.new_context(viewport=vp, color_scheme="dark", has_touch=(vname == "390"))
+        ctx = context(viewport=vp, color_scheme="dark", has_touch=(vname == "390"))
         ctx.add_init_script("window.__ls=[];new PerformanceObserver(l=>l.getEntries().forEach(e=>window.__ls.push([e.startTime,e.value])))"
                             ".observe({type:'layout-shift',buffered:true})")
         pg = ctx.new_page(); log = watch(pg); pg.goto(BASE, wait_until="load")
@@ -226,7 +256,7 @@ with sync_playwright() as p:
         check(not log["errors"], f"{n}: console clean {log['errors'][:3]}")
         ctx.close()
     # The 25-second trigger on a fake clock, reduced motion, and the follow link.
-    ctx = b.new_context(viewport=VIEWPORTS["1440"], color_scheme="dark", reduced_motion="reduce")
+    ctx = context(viewport=VIEWPORTS["1440"], color_scheme="dark", reduced_motion="reduce")
     pg = ctx.new_page(); log = watch(pg); pg.clock.install(); pg.goto(BASE, wait_until="load")
     pg.evaluate("document.getElementById('f-mkt').focus({preventScroll:true})")
     pg.clock.run_for(23000)
@@ -249,7 +279,7 @@ with sync_playwright() as p:
 
     # ---- calculators: one worked example each ----
     def tool(path, steps, probe, want, label):
-        c = b.new_context(viewport=VIEWPORTS["1440"], reduced_motion="reduce")
+        c = context(viewport=VIEWPORTS["1440"], reduced_motion="reduce")
         q = c.new_page(); lg = watch(q); q.goto(BASE + path, wait_until="load")
         for s in steps:
             s(q)

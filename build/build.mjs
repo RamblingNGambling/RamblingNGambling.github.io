@@ -5,8 +5,10 @@
 
    Reads plays.json, works out every figure the pages show, and writes the
    site to ./dist. Page bodies live in ./src/pages, the design system in
-   ./src/site.css and ./src/site.js. The output makes no external requests:
-   all data is inlined, and the assets are local files. */
+   ./src/site.css and ./src/site.js. External requests: local assets plus
+   exactly one analytics script (Umami, UMAMI below, on every page). All data
+   is inlined and every other asset is a local file. Nothing else leaves the
+   site. */
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
@@ -155,6 +157,11 @@ const PREPAINT = `<script>
 })();
 </script>`;
 
+// The one external request: Umami analytics, cookie-free. Every page carries
+// it once, just before </body>. verify/check-pages.py allows this exact URL
+// and nothing else.
+const UMAMI = `<script defer src="https://cloud.umami.is/script.js" data-website-id="55eb5498-a3ca-4912-846f-c48e59a9971a"></script>`;
+
 const TOOLS = [
   ["arbitrage", "Arbitrage", "Split stakes across books to lock a profit"],
   ["hedge", "Hedge", "Lock a profit on a bet you already hold"],
@@ -269,6 +276,7 @@ ${footer(rel, home)}
 
 <script src="${rel}${ASSET["site.js"]}"></script>
 ${scripts.map(s => `<script src="${rel}${ASSET[s]}"></script>`).join("\n")}
+${UMAMI}
 </body>
 </html>
 `;
@@ -483,6 +491,7 @@ ${header("/", "", false)}
   </div>
 </main>
 <script>${js}</script>
+${UMAMI}
 </body>
 </html>
 `;

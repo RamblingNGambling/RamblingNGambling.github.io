@@ -402,7 +402,7 @@ const homeBody = `<main class="wrap" id="main">
           <dt>At −110</dt><dd>52.4% to break even</dd>
           <dt>At +150</dt><dd>40.0% to break even</dd>
         </dl>
-        <p>So the win rate on its own says very little. <b>ROI</b> is the number that counts, and the <b>sample size</b> beside it matters as much.</p>
+        <p>So the win rate on its own says very little. <b>ROI</b> is the number that counts.</p>
         <div class="links">
           <a class="lbtn pri" href="how-to-read/">How to read the record</a>
           <a class="lbtn" href="about/">About</a>
@@ -450,7 +450,7 @@ const moreTools = skip => `<section class="morecalc" aria-labelledby="more-h">
 built.push(page({slug: "about", title: "About", desc: "Who is behind this tracker, the books used, and the disclosure.",
   active: "about", body: read("about.html")}));
 built.push(page({slug: "how-to-read", title: "How to read it",
-  desc: "What the numbers on the tracker mean: units, ROI, win rate, sample size, pushes and voids.",
+  desc: "What the numbers on the tracker mean: units, win rate, ROI and break-even by price.",
   active: "read", body: read("how-to-read.html")}));
 
 const TOOL_PAGES = [

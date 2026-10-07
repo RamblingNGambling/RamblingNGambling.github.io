@@ -308,6 +308,7 @@ table{width:100%;border-collapse:collapse}
 .tool .pth{grid-area:pth;justify-self:end;font:11px var(--mono);color:var(--fg3)}
 .tool .nm{grid-area:nm;margin-top:10px;font-size:15px;font-weight:500;letter-spacing:-.012em}
 .tool .ds{grid-area:ds;margin-top:5px;font-size:13px;line-height:1.5;color:var(--fg2)}
+.tool .sd{grid-area:ds;margin-top:4px;font-size:12.5px;line-height:1.45;color:var(--fg3)}
 .tool:focus-visible{outline-offset:-2px}
 
 /* ---- footer ---- */
@@ -589,6 +590,9 @@ a.bk:hover .bw{color:var(--acc)}
   .books{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:860px){
+  /* the nav wraps to a second header row (95px tall here, 57px above); keep
+     the same 15px of clearance below it that desktop anchors get */
+  html{scroll-padding-top:110px}
   .top .wrap{flex-wrap:wrap;gap:0 12px;padding-top:4px}
   .theme{margin-left:auto}
   .nav{order:3;width:calc(100% + 2*var(--gut));margin:0 calc(-1*var(--gut));
@@ -636,7 +640,7 @@ a.bk:hover .bw{color:var(--acc)}
   .log td.c-res{position:absolute;left:12px;top:11px}
   .log .res .w-txt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .log td.c-play{order:1;flex:1 1 0;line-height:1.4;font-size:13.5px}
-  .log td.c-play .g{display:none}
+  .log td.c-play .g{display:block;margin:1px 0 0;font-size:11.5px;line-height:1.35}
   .log td.c-pl{order:2}
   .log td.c-date,.log td.c-sport,.log td.c-mkt,.log td.c-odds,.log td.c-stake{order:3;font:11.5px var(--mono);color:var(--fg3)}
   .log td.c-mkt{font-family:var(--sans);font-size:12px}
@@ -690,6 +694,7 @@ a.bk:hover .bw{color:var(--acc)}
   .tool .nm{margin-top:8px;font-size:14.5px}
   .tool .ds{display:none}
   .tool .pth{display:none}
+  .tool .sd{font-size:12px;margin-top:3px}
   .tin{padding:14px}
   .tbar{padding:10px 14px}
   .agrid{grid-template-columns:56px minmax(0,1fr) minmax(0,1fr);gap:8px}

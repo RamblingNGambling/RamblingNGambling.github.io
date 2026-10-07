@@ -156,19 +156,30 @@ const PREPAINT = `<script>
 </script>`;
 
 const TOOLS = [
-  ["arbitrage", "Arbitrage", "Put two prices on the same market side by side. See the stake split, the return, and whether the pair locks a profit."],
-  ["hedge", "Hedge", "You already hold a bet. Work out what goes on the other side to lock a profit, and whether that beats the cash-out."],
-  ["parlay", "Parlay", "Price a parlay from its legs, or break the same legs into a round robin and see what each count of winning legs pays."],
-  ["payout", "Payout", "Enter the risk and the price in any form: American, decimal, fractional, a percentage, or a Kalshi multiplier."],
-  ["odds", "Odds converter", "Turn a percentage into a price, a price back into a percentage, and a multiplier into an American price."],
-  ["devig", "Devig", "Take the book's margin out of a two-way market and get the fair price behind it."],
-  ["poker", "Poker settle-up", "Enter every player, their buy-ins and what they cashed out. It works out who pays whom, in as few payments as it can."],
-  ["cheat-sheet", "Percent to odds", "Every percentage from 1 to 99, whole or in halves, with the American and decimal price that pays fairly for it."]
+  ["arbitrage", "Arbitrage", "Put two prices on the same market side by side. See the stake split, the return, and whether the pair locks a profit.",
+    "Split stakes across books to lock a profit"],
+  ["hedge", "Hedge", "You already hold a bet. Work out what goes on the other side to lock a profit, and whether that beats the cash-out.",
+    "Lock a profit on a bet you already hold"],
+  ["parlay", "Parlay", "Price a parlay from its legs, or break the same legs into a round robin and see what each count of winning legs pays.",
+    "Price a parlay or a round robin"],
+  ["payout", "Payout", "Enter the risk and the price in any form: American, decimal, fractional, a percentage, or a Kalshi multiplier.",
+    "What a stake returns at any price"],
+  ["odds", "Odds converter", "Turn a percentage into a price, a price back into a percentage, and a multiplier into an American price.",
+    "Convert between percentages and prices"],
+  ["devig", "Devig", "Take the book's margin out of a two-way market and get the fair price behind it.",
+    "Strip the margin to find the fair price"],
+  ["poker", "Poker settle-up", "Enter every player, their buy-ins and what they cashed out. It works out who pays whom, in as few payments as it can.",
+    "Who pays whom after a home game"],
+  ["cheat-sheet", "Percent to odds", "Every percentage from 1 to 99, whole or in halves, with the American and decimal price that pays fairly for it.",
+    "Fair odds for every percent, 1 to 99"]
 ];
-// The home index lists names and paths only; the inner pages' "More tools" keeps the descriptions.
-const toolIndex = (rel, skip, desc = true) => TOOLS.filter(t => t[0] !== skip).map((t, i) =>
-  `<a class="tool" data-rv href="${rel}${t[0]}/"><span class="i">${String(i + 1).padStart(2, "0")}</span><span class="nm">${h(t[1])}</span><span class="pth">/${t[0]}</span>${desc ? `
-        <span class="ds">${h(t[2])}</span>` : ""}</a>`).join("\n      ");
+// The home index gives each tool a one-line summary at every width; the inner
+// pages' "More tools" keeps the paths and the longer descriptions.
+const toolIndex = (rel, skip, short = false) => TOOLS.filter(t => t[0] !== skip).map((t, i) =>
+  `<a class="tool" data-rv href="${rel}${t[0]}/"><span class="i">${String(i + 1).padStart(2, "0")}</span><span class="nm">${h(t[1])}</span>${short
+    ? `<span class="sd">${h(t[3])}</span>`
+    : `<span class="pth">/${t[0]}</span>
+        <span class="ds">${h(t[2])}</span>`}</a>`).join("\n      ");
 
 const XSVG = '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x=".5" y=".5" width="31" height="31" rx="7" fill="#0B0B0D" stroke="var(--line2)"/><path d="M5 21.5 L11.5 13 L17 17 L27 6.5" stroke="#C08BF5" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -396,7 +407,7 @@ const homeBody = `<main class="wrap" id="main">
       <div><p class="eyebrow"><span class="no">04</span><span>Tools</span></p><h2 id="tools-h">The arithmetic around a bet slip</h2></div>
     </div>
     <nav class="tools" aria-label="Tools">
-      ${toolIndex("", "", false)}
+      ${toolIndex("", "", true)}
     </nav>
   </section>
 </main>

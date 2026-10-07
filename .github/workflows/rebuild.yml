@@ -1,0 +1,35 @@
+name: Rebuild site from plays.json
+on:
+  push:
+    branches: [main]
+    paths: ['plays.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build site
+        run: node build/build.mjs
+      - name: Deploy to site branch
+        run: |
+          cp -r build/dist /tmp/dist-new
+          git fetch origin site
+          git switch site
+          git reset --hard origin/site
+          for f in 404.html index.html robots.txt sitemap.xml og.png about arbitrage cheat-sheet devig hedge how-to-read odds parlay payout poker plays.json build; do rm -rf "$f"; done
+          cp -r /tmp/dist-new/. .
+          git add -A
+          git diff --cached --quiet && echo "no changes to publish" && exit 0
+          git commit -m "Rebuild site from plays.json"
+          git push origin site

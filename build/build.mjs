@@ -320,7 +320,7 @@ const homeBody = `<main class="wrap" id="main">
         <div data-rv><dt>Settled</dt><dd><span data-cu="${A.n}">${A.n}</span></dd><p>${OPEN} open right now</p></div>
         <div data-rv><dt>ROI</dt><dd>${A.roi < 0 ? MINUS : A.roi > 0 ? "+" : ""}<span data-cu="${Math.abs(A.roi * 100).toFixed(1)}" data-dp="1">${Math.abs(A.roi * 100).toFixed(1)}</span><small>%</small></dd><p>on ${A.risk.toFixed(2)}u risked</p></div>
         <div data-rv><dt>W-L-P</dt><dd>${A.w}-${A.l}-${A.p}</dd><p>pushes return the stake</p></div>
-        <div data-rv><dt>Win rate</dt><dd>${(A.wr * 100).toFixed(1)}<small>%</small></dd><p>${A.wr < 0.5 && A.u > 0 ? "Under half, still up. " : ""}<a href="#reading">Why</a></p></div>
+        <div data-rv><dt>Win rate</dt><dd>${(A.wr * 100).toFixed(1)}<small>%</small></dd><p>${A.wr < 0.5 && A.u > 0 ? "Under half, still up. " : ""}<a href="cheat-sheet/">Why</a></p></div>
         <div class="lform" data-rv><dt>Last ${form.length}, oldest first</dt><dd><div class="pips" id="pips" role="img"></div></dd></div>
       </dl>
     </div>
@@ -389,18 +389,16 @@ const homeBody = `<main class="wrap" id="main">
               <th scope="col" class="c-bar"><span class="sr">Units, drawn from zero</span></th><th scope="col" class="num">Units</th><th scope="col" class="num">ROI</th></tr></thead>
             <tbody id="brk-rows"></tbody>
           </table>
-          <p class="bnote">All ${A.n} settled plays. ROI is units won over units risked; pushes count as risked, voids do not. Rows marked † have fewer than 10 plays: read them as a record, not a rate.</p>
+          <p class="bnote">All ${A.n} settled plays. ROI is units won over units risked; pushes count as risked, voids do not. † fewer than 10 plays.</p>
         </div>
       </div>
 
       <aside class="read" id="reading" data-rv aria-labelledby="read-h">
-        <p class="q" id="read-h">A losing win rate can still be a winning record.</p>
-        <p>Not every bet pays the same. The price decides how often a play has to land just to break even:</p>
+        <p class="q" id="read-h">Break-even, by price</p>
         <dl class="be">
           <dt>At −110</dt><dd>52.4% to break even</dd>
           <dt>At +150</dt><dd>40.0% to break even</dd>
         </dl>
-        <p>So the win rate on its own says very little. <b>ROI</b> is the number that counts.</p>
         <div class="links">
           <a class="lbtn" href="about/">About</a>
         </div>

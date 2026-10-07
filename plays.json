@@ -3229,7 +3229,7 @@
     {
       "date": "2026-09-14",
       "sport": "NFL",
-      "market": "Total",
+      "market": "Player prop",
       "game": "",
       "play": "Patrick Mahomes Over 3.5 Rushing Attempts",
       "odds": 113,
@@ -3462,7 +3462,7 @@
     },
     {
       "date": "2026-09-27",
-      "sport": "MLB",
+      "sport": "NFL",
       "market": "Player prop",
       "game": "",
       "play": "Tee Higgins Over 53.5 Receiving Yards",

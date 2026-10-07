@@ -194,7 +194,6 @@ function header(rel, active, home) {
       ${a(hm + "#breakdown", "Breakdown")}
       ${a(hm + "#tools", "Tools", "tool")}
       <span class="sep" aria-hidden="true"></span>
-      ${a(rel + "how-to-read/", "How to read", "read")}
       ${a(rel + "about/", "About", "about")}
     </nav>
     <button class="theme" id="theme" type="button" aria-label="Theme">
@@ -229,7 +228,6 @@ function footer(rel, home) {
       <nav class="flinks" aria-label="Footer">
         <a href="https://x.com/${HANDLE}" target="_blank" rel="noopener noreferrer">@${HANDLE} on X</a>
         <a href="${rel}plays.json">plays.json</a>
-        <a href="${rel}how-to-read/">How to read</a>
         <a href="${rel}about/">About</a>
       </nav>
       <p>If betting stops being fun, stop.</p>
@@ -404,7 +402,6 @@ const homeBody = `<main class="wrap" id="main">
         </dl>
         <p>So the win rate on its own says very little. <b>ROI</b> is the number that counts.</p>
         <div class="links">
-          <a class="lbtn pri" href="how-to-read/">How to read the record</a>
           <a class="lbtn" href="about/">About</a>
         </div>
       </aside>
@@ -449,9 +446,6 @@ const moreTools = skip => `<section class="morecalc" aria-labelledby="more-h">
 
 built.push(page({slug: "about", title: "About", desc: "Who is behind this tracker, the books used, and the disclosure.",
   active: "about", body: read("about.html")}));
-built.push(page({slug: "how-to-read", title: "How to read it",
-  desc: "What the numbers on the tracker mean: units, win rate, ROI and break-even by price.",
-  active: "read", body: read("how-to-read.html")}));
 
 const TOOL_PAGES = [
   ["arbitrage", "arb", "Arbitrage calculator", "Two-way arbitrage calculator: enter two prices, get the stake split, the return, and whether the pair locks a profit."],
@@ -497,7 +491,6 @@ ${header("/", "", false)}
     <p class="lede" data-rv>The address may be old, or it may have a typo in it. Everything on this site is one of the pages below.</p>
     <div class="links" data-rv>
           <a class="lbtn pri" href="/">Back to the tracker</a>
-          <a class="lbtn" href="/how-to-read/">How to read it</a>
           <a class="lbtn" href="/about/">About</a>
           ${links}
     </div>
@@ -521,7 +514,7 @@ for (const f of ["og.png", "robots.txt"]) {
 const lastmod = updIso || new Date().toISOString().slice(0, 10);
 fs.writeFileSync(path.join(DIST, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[["", "daily", "1.0"], ["about"], ["how-to-read"], ...TOOL_PAGES.map(t => [t[0]])].map(([s, f = "monthly", pr = "0.7"]) =>
+${[["", "daily", "1.0"], ["about"], ...TOOL_PAGES.map(t => [t[0]])].map(([s, f = "monthly", pr = "0.7"]) =>
   `  <url><loc>${ORIGIN}/${s ? s + "/" : ""}</loc><lastmod>${lastmod}</lastmod><changefreq>${f}</changefreq><priority>${pr}</priority></url>`).join("\n")}
 </urlset>
 `);

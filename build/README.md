@@ -80,7 +80,7 @@ verify/              the two check scripts
 dist/                output (committed so the result can be looked at directly)
 ```
 
-`dist/` holds `index.html`, `about/`, `how-to-read/`, eight tool pages
+`dist/` holds `index.html`, `about/`, eight tool pages
 (`arbitrage`, `hedge`, `parlay`, `payout`, `odds`, `devig`, `poker`,
 `cheat-sheet`), a self-contained `404.html`, `assets/` (CSS and JS, with
 content-hash query strings), plus `plays.json`, `og.png`, `robots.txt` and a
@@ -95,14 +95,14 @@ regenerated `sitemap.xml`.
   control row, the live tally in the section head, a reset, the prototype's
   filter logic and FLIP row transitions, over all plays, paged 15 at a time;
   03 splits by sport, market and month (units P/L, W-L-P, ROI), tabs in the
-  section head, beside the how-to-read note; 04 the tools index.
+  section head, beside the reading note; 04 the tools index.
   On a first visit ever, after 25 seconds or at 60% scroll depth, a small
   card (a bottom sheet on phones) asks the reader to follow on X. It is
   remembered as `pt-follow-seen` the moment it shows, so it never returns.
 - **Every inner page** carries the record strip in the footer (home has it in
   the hero): net units, settled count, W-L-P, ROI, last update and the last 20
   results.
-- **About** and **How to read** carry the old content over into the new design.
+- **About** carries the old content over into the new design.
 - **Tools.** The seven calculators plus the percent-to-odds cheat sheet. The
   maths, inputs, share links (`?ar-a=…`), reset and the poker table's local
   save are unchanged from the old site.

@@ -400,6 +400,14 @@ const homeBody = `<main class="wrap" id="main">
     </nav>
   </section>
 </main>
+
+<!-- first visit only: home.js shows it after 25s or 60% scroll, once ever -->
+<div class="nudge" id="nudge" role="dialog" aria-label="Follow @${HANDLE} on X" hidden>
+  <p class="eyebrow">New here</p>
+  <p class="nd-t">Plays go up on X before they land here.</p>
+  <a class="nd-go" id="nudge-go" href="https://x.com/${HANDLE}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/></svg>Follow @${HANDLE}<span class="sr"> (opens in a new tab)</span></a>
+  <button class="nd-x" id="nudge-x" type="button" aria-label="Dismiss"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+</div>
 <script type="application/json" id="pt-data">${dataJson}</script>`;
 
 const built = [];

@@ -311,6 +311,30 @@ table{width:100%;border-collapse:collapse}
 .tool .sd{grid-area:ds;margin-top:4px;font-size:12.5px;line-height:1.45;color:var(--fg3)}
 .tool:focus-visible{outline-offset:-2px}
 
+/* ---- home: first-visit follow nudge. Fixed, so showing it moves nothing;
+   a card bottom-right, a sheet along the bottom edge on phones. Lilac on
+   the follow button only. home.js pads the body by the height it covers. ---- */
+.nudge{position:fixed;right:20px;bottom:20px;z-index:30;width:320px;max-width:calc(100vw - 40px);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"ey x" "t t" "go go";align-items:center;
+  padding:14px 14px 16px 18px;background:var(--s1);border:1px solid var(--line2);border-radius:var(--r)}
+.nudge .eyebrow{grid-area:ey}
+.nd-t{grid-area:t;margin:6px 0 0;font-size:14px;line-height:1.45;font-weight:500;letter-spacing:-.008em;color:var(--fg)}
+.nd-go{grid-area:go;justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:34px;margin-top:12px;padding:0 13px;
+  border-radius:var(--r-sm);background:var(--acc);color:var(--on-acc);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap;
+  transition:transform .2s var(--ease)}
+.nd-go svg{width:12px;height:12px;flex:none}
+.nd-x{grid-area:x;display:inline-grid;place-items:center;width:28px;height:28px;margin:-6px -6px -6px 0;border:0;border-radius:var(--r-sm);
+  background:none;color:var(--fg3);cursor:pointer;transition:color .15s,background .15s}
+.nd-x:hover{color:var(--fg);background:var(--sel)}
+.nd-x svg{width:14px;height:14px}
+@media (max-width:520px){
+  .nudge{left:0;right:0;bottom:0;width:auto;max-width:none;border-width:1px 0 0;border-radius:var(--r) var(--r) 0 0;
+    padding:14px var(--gut) calc(16px + env(safe-area-inset-bottom))}
+  .nd-x{margin-right:-8px}
+}
+@media (pointer:coarse){.nd-x{width:36px;height:36px;margin-top:-10px;margin-bottom:-10px}}
+body{padding-bottom:var(--nudge-h,0px)}
+
 /* ---- footer ---- */
 footer{margin-top:48px;border-top:1px solid var(--line);padding:0 0 22px}
 .rstrip{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:16px 0;border-bottom:1px solid var(--line)}
@@ -557,7 +581,7 @@ a.bk:hover .bw{color:var(--acc)}
 
 @media (hover:hover){
   .theme:hover svg{transform:rotate(-15deg)}
-  .lbtn:hover,.handoff:hover{transform:translateY(-1px)}
+  .lbtn:hover,.handoff:hover,.nd-go:hover{transform:translateY(-1px)}
   .pips .t:hover,.log tbody tr:hover .t{transform:translateY(-2px)}
   .log tbody tr:hover td:first-child::before,.log tbody tr:hover::before{transform:scaleY(1)}
   .log tbody tr.has-x:hover .xl{color:var(--fg);background:var(--sel)}

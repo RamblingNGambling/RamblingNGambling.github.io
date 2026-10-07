@@ -408,6 +408,51 @@ rowsEl.addEventListener("click",e=>{
 addEventListener("resize",hideHint);
 buildFilters();renderLog();
 
+/* ---------- follow nudge ---------- */
+// First visit ever: after 25 seconds on the page or at 60% scroll depth,
+// whichever comes first, a small card asks the reader to follow on X. The
+// flag is written the moment it shows (and again on dismiss or follow), so it
+// never comes back. Without storage there is no flag to keep, so no nudge.
+(function(){
+  const el=$("#nudge");if(!el)return;
+  const KEY="pt-follow-seen",root=document.documentElement,x=$("#nudge-x");
+  try{if(localStorage.getItem(KEY))return}catch(e){return}
+  const remember=()=>{try{localStorage.setItem(KEY,"1")}catch(e){}};
+  let open=false,back=null;
+  const timer=setTimeout(show,25000);
+  const onScroll=()=>{if((scrollY+innerHeight)/root.scrollHeight>=.6)show()};
+  // Pad the page by what the card covers, so the end of the footer can still
+  // be scrolled clear of it. Only the scroll length grows; nothing moves.
+  const pad=()=>root.style.setProperty("--nudge-h",Math.max(0,innerHeight-el.getBoundingClientRect().top)+"px");
+  const onKey=e=>{if(e.key==="Escape")close()};
+  function show(){
+    clearTimeout(timer);removeEventListener("scroll",onScroll);
+    if(open)return;
+    open=true;remember();
+    back=document.activeElement;
+    el.hidden=false;pad();
+    if(moving())rise(el,{dy:12,dur:420});
+    x.focus({preventScroll:true});
+    addEventListener("keydown",onKey);addEventListener("resize",pad);
+  }
+  function close(){
+    if(!open)return;
+    open=false;remember();
+    removeEventListener("keydown",onKey);removeEventListener("resize",pad);
+    // Focus goes back where it was before the card took it, or is let go.
+    if(el.contains(document.activeElement)){
+      if(back&&back!==document.body&&back.isConnected)back.focus({preventScroll:true});
+      else document.activeElement.blur();
+    }
+    const done=()=>{el.hidden=true;root.style.removeProperty("--nudge-h")};
+    if(moving())el.animate([{opacity:1,transform:"none"},{opacity:0,transform:"translateY(8px)"}],{duration:200,easing:EASE}).onfinish=done;
+    else done();
+  }
+  addEventListener("scroll",onScroll,{passive:true});
+  x.addEventListener("click",close);
+  $("#nudge-go").addEventListener("click",close);
+})();
+
 /* ---------- entrances ---------- */
 function countHero(delay){
   // Hold the final width while counting so the column beside it never shifts.

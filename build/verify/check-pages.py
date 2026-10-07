@@ -11,7 +11,9 @@ Serves dist/ on 127.0.0.1 and, for every page at 390px and 1440px:
   - no request leaves 127.0.0.1 (no CDN, no web font, no fetch)
   - no horizontal overflow
 Then on the home page: every filter combination against expected.json, the
-equity curve end against the hero figure, reduced motion, the theme toggle.
+equity curve end against the hero figure, reduced motion, the theme toggle,
+and the first-visit follow nudge (trigger, placement, focus, Esc, no layout
+shift), screenshotted in place at both widths into verify/shots/ for review.
 Then one worked example per calculator. Exits non-zero on any failure.
 
 Browser: the Playwright chrome-headless-shell under ~/.cache/ms-playwright.
@@ -28,6 +30,8 @@ EXPECTED = json.loads((ROOT / "verify" / "expected.json").read_text())
 PAGES = ["", "about/", "how-to-read/", "arbitrage/", "hedge/", "parlay/", "payout/", "odds/", "devig/",
          "poker/", "cheat-sheet/", "404.html"]
 PAGE = 15    # rows the log shows before "Show more" (home.js PAGE)
+SHOTS = ROOT / "verify" / "shots"   # screenshots for review (git-ignored)
+SEEN = "try{localStorage.setItem('pt-follow-seen','1')}catch(e){}"   # a returning reader: no follow nudge
 VIEWPORTS = {"390": {"width": 390, "height": 844}, "1440": {"width": 1440, "height": 900}}
 
 fails = 0
@@ -104,6 +108,7 @@ with sync_playwright() as p:
 
     # ---- home: equity curve, filters, motion, theme ----
     ctx = b.new_context(viewport=VIEWPORTS["1440"], color_scheme="dark", reduced_motion="reduce")
+    ctx.add_init_script(SEEN)   # the follow nudge has its own checks below
     pg = ctx.new_page()
     log = watch(pg)
     pg.goto(BASE, wait_until="load")
@@ -157,6 +162,7 @@ with sync_playwright() as p:
     ctx.close()
 
     ctx = b.new_context(viewport=VIEWPORTS["1440"], color_scheme="dark")
+    ctx.add_init_script(SEEN)
     pg = ctx.new_page(); log = watch(pg); pg.goto(BASE, wait_until="load")
     check(pg.evaluate("document.documentElement.classList.contains('motion')"), "motion on when the reader allows it")
     pg.wait_for_timeout(1800)
@@ -169,6 +175,76 @@ with sync_playwright() as p:
         seq.append(pg.evaluate("[document.documentElement.dataset.pref, document.documentElement.dataset.theme]"))
     check(seq == [["dark", "dark"], ["light", "light"], ["auto", "dark"]], f"theme toggle cycles {seq}")
     check(not log["errors"], f"animated home console clean {log['errors'][:3]}")
+    ctx.close()
+
+    # ---- home: the first-visit follow nudge ----
+    # A fresh context has empty localStorage, i.e. a first visit. Scroll just
+    # short of 60% (nothing), then past it (the card), screenshot it in place
+    # for review, then Esc, and a reload must not bring it back.
+    NUDGE = """(()=>{const e=document.getElementById('nudge'),r=e.getBoundingClientRect(),a=document.activeElement;
+      return {role:e.getAttribute('role'),label:e.getAttribute('aria-label')||'',focus:a&&a.id,inside:e.contains(a),
+        pos:getComputedStyle(e).position,l:r.left,r:r.right,t:r.top,b:r.bottom,w:r.width,h:r.height,vw:innerWidth,vh:innerHeight,
+        flag:localStorage.getItem('pt-follow-seen'),pad:document.documentElement.style.getPropertyValue('--nudge-h')}})()"""
+    def at_depth(pg, f, nudge=0):
+        pg.evaluate(f"window.scrollTo(0, document.documentElement.scrollHeight*{f} - innerHeight + {nudge})")
+    SHOTS.mkdir(exist_ok=True)
+    for vname, vp in VIEWPORTS.items():
+        ctx = b.new_context(viewport=vp, color_scheme="dark", has_touch=(vname == "390"))
+        ctx.add_init_script("window.__ls=[];new PerformanceObserver(l=>l.getEntries().forEach(e=>window.__ls.push([e.startTime,e.value])))"
+                            ".observe({type:'layout-shift',buffered:true})")
+        pg = ctx.new_page(); log = watch(pg); pg.goto(BASE, wait_until="load")
+        n = f"{vname:>4}px nudge"
+        pg.wait_for_timeout(800)
+        check(pg.locator("#nudge").is_hidden(), f"{n}: hidden on arrival")
+        at_depth(pg, .55); pg.wait_for_timeout(300)
+        check(pg.locator("#nudge").is_hidden(), f"{n}: still hidden at 55% scroll depth")
+        t0 = pg.evaluate("performance.now()")
+        at_depth(pg, .6, 2); pg.wait_for_timeout(900)
+        s = pg.evaluate(NUDGE)
+        check(pg.locator("#nudge").is_visible(), f"{n}: shows at 60% scroll depth")
+        check(s["role"] == "dialog" and "@gamblingv1ctim" in s["label"], f"{n}: role=dialog, aria-label {s['label']!r}")
+        check(s["focus"] == "nudge-x", f"{n}: dismiss button focused on open (focus on #{s['focus']})")
+        check(s["flag"] == "1", f"{n}: pt-follow-seen set once shown")
+        if vname == "1440":
+            check(s["pos"] == "fixed" and s["w"] <= 322 and 0 < s["vw"] - s["r"] <= 40 and 0 < s["vh"] - s["b"] <= 40,
+                  f"{n}: fixed card bottom-right, {s['w']:.0f}px wide, {s['vw'] - s['r']:.0f}px/{s['vh'] - s['b']:.0f}px in")
+        else:
+            check(s["pos"] == "fixed" and s["l"] == 0 and s["r"] == s["vw"] and abs(s["b"] - s["vh"]) < 1 and s["h"] <= s["vh"] * .2,
+                  f"{n}: bottom sheet, full width, {s['h']:.0f}px tall ({s['h'] / s['vh']:.0%} of the screen)")
+        check(s["pad"] and abs(float(s["pad"].rstrip("px")) - (s["vh"] - s["t"])) < 1, f"{n}: page padded by the {s['pad']} it covers")
+        shift = pg.evaluate(f"window.__ls.filter(e=>e[0]>={t0}).reduce((a,e)=>a+e[1],0)")
+        check(shift < 0.001, f"{n}: no layout shift when it appears (CLS {shift:.4f})")
+        over = pg.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
+        check(over <= 0, f"{n}: no horizontal overflow ({over})")
+        pg.screenshot(path=str(SHOTS / f"nudge-{vname}.png"))
+        print(f"     screenshot: {SHOTS / f'nudge-{vname}.png'}")
+        pg.keyboard.press("Escape"); pg.wait_for_timeout(400)
+        s = pg.evaluate(NUDGE)
+        check(pg.locator("#nudge").is_hidden() and not s["inside"] and not s["pad"], f"{n}: Esc dismisses, focus leaves the card, padding removed")
+        pg.reload(wait_until="load"); at_depth(pg, 1); pg.wait_for_timeout(600)
+        check(pg.locator("#nudge").is_hidden(), f"{n}: not shown again on the next visit")
+        check(not log["errors"], f"{n}: console clean {log['errors'][:3]}")
+        ctx.close()
+    # The 25-second trigger on a fake clock, reduced motion, and the follow link.
+    ctx = b.new_context(viewport=VIEWPORTS["1440"], color_scheme="dark", reduced_motion="reduce")
+    pg = ctx.new_page(); log = watch(pg); pg.clock.install(); pg.goto(BASE, wait_until="load")
+    pg.evaluate("document.getElementById('f-mkt').focus({preventScroll:true})")
+    pg.clock.run_for(23000)
+    check(pg.locator("#nudge").is_hidden(), "nudge: hidden at 23s without scrolling")
+    pg.clock.run_for(3000)
+    s = pg.evaluate(NUDGE)
+    check(pg.locator("#nudge").is_visible() and s["focus"] == "nudge-x", "nudge: shows by 25s without scrolling")
+    check(pg.evaluate("document.getElementById('nudge').getAnimations().length === 0 && getComputedStyle(document.getElementById('nudge')).opacity === '1'"),
+          "nudge: reduced motion, appears instantly")
+    go = pg.locator("#nudge-go")
+    check(go.get_attribute("href") == "https://x.com/gamblingv1ctim" and go.get_attribute("target") == "_blank"
+          and "noopener" in (go.get_attribute("rel") or ""), "nudge: follow link to x.com/gamblingv1ctim, new tab, noopener")
+    pg.evaluate("addEventListener('click',e=>{if(e.target.closest('#nudge-go'))e.preventDefault()})")   # stay on the box
+    pg.click("#nudge-go")
+    s = pg.evaluate(NUDGE)
+    check(pg.locator("#nudge").is_hidden() and s["flag"] == "1" and s["focus"] == "f-mkt",
+          f"nudge: follow click closes it, flag set, focus back on #{s['focus']}")
+    check(not log["errors"] and not log["external"], f"nudge: console clean, nothing off the box {log['errors'][:3]}")
     ctx.close()
 
     # ---- calculators: one worked example each ----

@@ -52,7 +52,10 @@ errors, requests leaving the box, failed loads, horizontal overflow and
 sections left hidden. On the home page it clicks through every filter
 combination in `expected.json` and compares the count, W-L-P, net units and
 rows shown. It also checks reduced motion, the count-up, the theme toggle and
-one worked example per calculator. Both scripts exit non-zero on failure.
+one worked example per calculator. It also tests the follow nudge (both
+triggers, placement, focus, Esc, no layout shift) and screenshots it in place
+at both widths into `verify/shots/` (git-ignored) for review. Both scripts
+exit non-zero on failure.
 
 ## Build, verify and commit in one go
 
@@ -93,6 +96,9 @@ regenerated `sitemap.xml`.
   filter logic and FLIP row transitions, over all plays, paged 15 at a time;
   03 splits by sport, market and month (units P/L, W-L-P, ROI), tabs in the
   section head, beside the how-to-read note; 04 the tools index.
+  On a first visit ever, after 25 seconds or at 60% scroll depth, a small
+  card (a bottom sheet on phones) asks the reader to follow on X. It is
+  remembered as `pt-follow-seen` the moment it shows, so it never returns.
 - **Every inner page** carries the record strip in the footer (home has it in
   the hero): net units, settled count, W-L-P, ROI, last update and the last 20
   results.

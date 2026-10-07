@@ -104,8 +104,6 @@ button,select,input{font:inherit;color:inherit}
 .big.down{color:var(--fg)}
 .big .pt{margin:0 -.01em}
 .big .u{font-size:.34em;letter-spacing:-.01em;color:var(--fg3);margin-left:.12em;font-weight:450}
-.promise{margin:18px 0 0;font-size:14.5px;line-height:1.55;color:var(--fg2);max-width:44ch}
-.promise strong{color:var(--fg);font-weight:500}
 .ledger{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;border-top:1px solid var(--line)}
 .ledger>div{padding:14px 16px 0;border-left:1px solid var(--line);min-width:0}
 .ledger>div:first-child{border-left:0;padding-left:0}
@@ -216,12 +214,25 @@ table{width:100%;border-collapse:collapse}
 .xl:hover{color:var(--fg);background:var(--sel)}
 .xl svg{width:12px;height:12px}
 .nolink{color:var(--fg3)}
+/* rows with a post link open it; one floating label, placed by JS just above
+   the row, says where the click goes. Position rides on transform, so moving
+   from row to row glides instead of jumping. */
+.logp{position:relative}
+.log tbody tr.has-x{cursor:pointer}
+.xhint{position:absolute;left:0;top:0;z-index:2;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .55em;
+  max-width:calc(100% - 24px);padding:5px 10px 6px;border:1px solid var(--line2);border-radius:var(--r-sm);
+  background:var(--bg);font:500 11px/1.45 var(--mono);color:var(--fg);text-decoration:none;white-space:nowrap;
+  pointer-events:none;opacity:0;transform:translate3d(var(--x,0px),calc(var(--y,0px) + 4px),0);
+  transition:opacity .16s var(--ease),transform .3s var(--ease)}
+.xhint.on{opacity:1;transform:translate3d(var(--x,0px),var(--y,0px),0)}
+.xhint.tap{pointer-events:auto}
+.xhint .xh-t{color:var(--fg3);font-weight:400}
+.xhint i{font-style:normal;color:var(--acc);margin-left:.15em}
 .mo{display:none}
 .state td{padding:40px 16px!important;text-align:center;color:var(--fg2);font-size:14px}
 .state b{display:block;color:var(--fg);font-weight:500;font-size:14px;margin-bottom:6px}
 .state button,.state a.btn{margin-top:14px;min-height:36px;padding:0 14px;border:1px solid var(--line2);border-radius:var(--r-sm);
   background:none;font-size:12.5px;font-weight:500;cursor:pointer;color:var(--fg);text-decoration:none;display:inline-flex;align-items:center}
-.sample{margin:12px 0 0;font-size:12px;line-height:1.55;color:var(--fg3);max-width:110ch}
 .more{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:10px 14px 10px 16px;border-top:1px solid var(--line);font:12px var(--mono);color:var(--fg3)}
 .more b{color:var(--fg);font-weight:500}
 .more .sp{margin-right:auto}
@@ -279,7 +290,7 @@ table{width:100%;border-collapse:collapse}
 .tool:focus-visible{outline-offset:-2px}
 
 /* ---- footer ---- */
-footer{margin-top:56px;border-top:1px solid var(--line);padding:0 0 28px}
+footer{margin-top:48px;border-top:1px solid var(--line);padding:0 0 22px}
 .rstrip{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:16px 0;border-bottom:1px solid var(--line)}
 .rstrip .rs-net{font-size:20px;font-weight:500;letter-spacing:-.03em;line-height:1;text-decoration:none}
 .rstrip .rs-net:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
@@ -287,12 +298,9 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding:0 0 28px}
 .rstrip dl div{display:flex;gap:7px;align-items:baseline}
 .rstrip dt{color:var(--fg3)} .rstrip dd{margin:0;color:var(--fg)}
 .rstrip .pips{margin-left:auto}
-.fgrid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px 48px;padding-top:22px}
-footer p{margin:0 0 6px;font-size:13px;line-height:1.6;color:var(--fg2);max-width:62ch}
-footer p a{color:var(--fg);text-underline-offset:3px;text-decoration-color:var(--line3)}
-footer p a:hover{text-decoration-color:var(--fg)}
-footer .fine{font-size:12px;color:var(--fg3);margin-top:0}
-.flinks{display:flex;flex-wrap:wrap;gap:2px 18px;justify-content:flex-end;align-content:start;font-size:13px}
+.fbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 24px;padding-top:14px}
+.fbar p{margin:0;font:12px/1.5 var(--mono);color:var(--fg3)}
+.flinks{display:flex;flex-wrap:wrap;gap:2px 18px;font-size:13px}
 .flinks a{display:inline-flex;align-items:center;min-height:32px;color:var(--fg2);text-decoration:none}
 .flinks a:hover{color:var(--fg)}
 
@@ -530,6 +538,7 @@ a.bk:hover .bw{color:var(--acc)}
   .lbtn:hover,.handoff:hover{transform:translateY(-1px)}
   .pips .t:hover,.log tbody tr:hover .t{transform:translateY(-2px)}
   .log tbody tr:hover td:first-child::before,.log tbody tr:hover::before{transform:scaleY(1)}
+  .log tbody tr.has-x:hover .xl{color:var(--fg);background:var(--sel)}
   .brk tbody tr:hover{background:var(--s2)}
   .brk tbody:hover tr:not(:hover) .dbar i{opacity:.35}
   .brk tbody tr:hover .dbar i{transform:scaleY(1.5)}
@@ -549,7 +558,6 @@ a.bk:hover .bw{color:var(--acc)}
 /* ---- responsive ---- */
 @media (max-width:1080px){
   .hero{grid-template-columns:1fr;gap:22px}
-  .promise{max-width:60ch}
 }
 @media (max-width:980px){
   .split,.tsplit{grid-template-columns:1fr}
@@ -569,8 +577,6 @@ a.bk:hover .bw{color:var(--acc)}
   .nav a{min-height:40px}
   .nav a:first-child{padding-left:0}
   .nav a[aria-current="page"]{padding-left:10px}
-  .fgrid{grid-template-columns:1fr}
-  .flinks{justify-content:flex-start}
   .rstrip .pips{margin-left:0}
   .pkset{grid-template-columns:minmax(0,1fr) auto}
   .pkset .pkbuy{grid-column:1/-1;max-width:200px}
@@ -644,7 +650,6 @@ a.bk:hover .bw{color:var(--acc)}
   .more .ghost{padding:0 10px}
   .hero{margin-top:16px}
   .big{font-size:clamp(56px,17vw,72px)}
-  .promise{margin-top:14px;font-size:14px}
   .brand>span>span{display:none}
   .theme .tl{display:none}
   .theme{padding:0 10px;min-height:36px}
@@ -680,7 +685,9 @@ a.bk:hover .bw{color:var(--acc)}
   .pkset{grid-template-columns:1fr}
   .pkctl{grid-template-columns:88px minmax(0,1fr) minmax(0,1fr)}
   .rstrip dl{gap:4px 16px}
-  .flinks{gap:0 16px}
+  .flinks{gap:0 13px;font-size:12.5px}
+  .xhint{flex-direction:column}
+  .xhint .xh-d{display:none}
 }
 @media (pointer:coarse){
   .seg button{min-height:34px}

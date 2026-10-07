@@ -17,7 +17,6 @@ const SRC = path.join(HERE, "src");
 const DIST = path.join(HERE, "dist");
 const ORIGIN = "https://ramblingngambling.github.io";
 const HANDLE = "gamblingv1ctim";
-const REPO = "https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main";
 
 /* ---------- input ---------- */
 // The data file is the one in the site repo: ../plays.json when this folder
@@ -219,17 +218,14 @@ function footer(rel, home) {
       </dl>
       ${form ? `<div class="pips" role="img" aria-label="${formLabel}">${formTiles}</div>` : ""}
     </div>`}
-    <div class="fgrid">
-      <div data-rv>
-        <p>A public record of plays posted on X, kept in units, wins and losses alike. It is not advice, it is not a service, and nothing here is for sale.</p>
-        <p class="fine">Plays go up on X before the event starts, then they are written here. This site is a file in a public Git repository, so every update carries a commit time that cannot be moved afterwards. <a href="${REPO}" target="_blank" rel="noopener noreferrer">See the commit history</a>. If betting stops being fun, stop.</p>
-      </div>
-      <nav class="flinks" aria-label="Footer" data-rv>
+    <div class="fbar">
+      <nav class="flinks" aria-label="Footer">
         <a href="https://x.com/${HANDLE}" target="_blank" rel="noopener noreferrer">@${HANDLE} on X</a>
         <a href="${rel}plays.json">plays.json</a>
         <a href="${rel}how-to-read/">How to read</a>
         <a href="${rel}about/">About</a>
       </nav>
+      <p>If betting stops being fun, stop.</p>
     </div>
   </div>
 </footer>`;
@@ -288,9 +284,6 @@ const span = !first ? "nothing settled yet"
   : first.slice(0, 4) === last.slice(0, 4) ? `${dmd(first)} to ${dlong(last)}` : `${dlong(first)} to ${dlong(last)}`;
 const netAbs = Math.abs(A.u).toFixed(2).split(".");
 const netWord = A.u < -0.004 ? "Minus" : A.u > 0.004 ? "Plus" : "";
-const sampleNote = A.n < 100 ? `This is ${A.n} settled plays. That is far too few to separate skill from luck: read the number as a record, not as a rate.`
-  : A.n < 500 ? `This is ${A.n} settled plays. At that count a swing of several points of ROI either way is ordinary variance, so treat the rate as rough.`
-  : `This is ${A.n} settled plays. Large enough to be worth reading, small enough that a cold month still moves it.`;
 // "Oct 7, 2026, 1:24 AM EDT" reads as "Oct 7, 1:24 AM EDT" beside a span that already names the year.
 const updShort = (RAW.updated || "–").replace(/^([A-Z][a-z]+\.? \d{1,2}), \d{4}(,)?/, "$1$2");
 const dataJson = JSON.stringify(DATA).replace(/</g, "\\u003c");
@@ -305,9 +298,6 @@ const homeBody = `<main class="wrap" id="main">
     <div class="hero">
       <div>
         <p class="big${A.u < -0.004 ? " down" : ""}" data-rv data-to="${round(A.u, 6)}" aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span id="cu-i">${netAbs[0]}</span><span class="pt">.</span><span id="cu-d">${netAbs[1]}</span><span class="u">u</span></p>
-        <p class="promise" data-rv><strong>Every play goes up on X before the event starts.</strong>
-          It is logged here either way, the red weeks the same as the green ones. Units only, so the
-          record reads the same whatever anybody stakes.</p>
       </div>
       <dl class="ledger">
         <div data-rv><dt>Settled</dt><dd><span data-cu="${A.n}">${A.n}</span></dd><p>${OPEN} open right now</p></div>
@@ -357,8 +347,8 @@ const homeBody = `<main class="wrap" id="main">
         </tbody>
       </table>
       <div class="more" id="more" hidden></div>
+      <a class="xhint" id="xhint" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span>See the post that called it</span><span class="xh-t"><span class="xh-d">—</span> timestamped before the event <i>↗</i></span></a>
     </div>
-    <p class="sample" data-rv>Every row with an X links to the post that called it, timestamped before the event. ${h(sampleNote)}</p>
   </section>
 
   <!-- ============ 03 BREAKDOWN + READING ============ -->
@@ -404,7 +394,6 @@ const homeBody = `<main class="wrap" id="main">
   <section id="tools" aria-labelledby="tools-h">
     <div class="shead" data-rv>
       <div><p class="eyebrow"><span class="no">04</span><span>Tools</span></p><h2 id="tools-h">The arithmetic around a bet slip</h2></div>
-      <p>Worked out properly. Each one opens on its own page.</p>
     </div>
     <nav class="tools" aria-label="Tools">
       ${toolIndex("", "", false)}

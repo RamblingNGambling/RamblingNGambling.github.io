@@ -304,6 +304,7 @@ function renderLog(anim){
   tally.querySelectorAll("b").forEach(b=>rise(b,{dy:3,dur:240}));
 }
 function drawLog(){
+  hideHint();
   try{
     if(!Array.isArray(PLAYS))throw new Error("bad data");
     if(!PLAYS.length){
@@ -328,7 +329,7 @@ function drawLog(){
       const link=post
         ?`<a class="xl" href="${esc(post)}" target="_blank" rel="noopener noreferrer" aria-label="Original post on X: ${esc(play)}">${XSVG}</a>`
         :`<span class="nolink" title="No post link on file">–<span class="sr">No post link on file</span></span>`;
-      return `<tr data-k="${k}">
+      return `<tr data-k="${k}"${post?` class="has-x" data-post="${esc(post)}"`:""}>
         <td class="c-date">${dshort(date)}</td>
         <td class="c-play">${esc(play)}${game?`<span class="g">${esc(game)}</span>`:""}</td>
         <td class="c-sport"><span class="tag">${esc(sport)}</span></td>
@@ -353,6 +354,58 @@ function drawLog(){
   }
 }
 function clearF(){F.sport="All";F.market="All";F.result="All";sync();$("#f-sport button").focus()}
+
+/* ---------- post hint ---------- */
+// A row with a post link opens the post. Hovering one (or tabbing to its X
+// link) shows a small label just above it. On touch the first tap shows the
+// label for a moment; a second tap, on the row or the label, opens the post.
+// The X icon itself stays a plain link everywhere.
+const xh=$("#xhint"),xPanel=xh.parentElement;
+let xRow=null,xTimer=0,xPointer="mouse";
+function showHint(tr,tap){
+  const link=tr.querySelector(".xl");
+  if(!link)return hideHint();
+  const fresh=!xh.classList.contains("on");
+  xh.href=tr.dataset.post;
+  xh.classList.toggle("tap",!!tap);
+  const P=xPanel.getBoundingClientRect(),R=tr.getBoundingClientRect(),L=link.getBoundingClientRect();
+  const ox=P.left+xPanel.clientLeft,oy=P.top+xPanel.clientTop,w=xh.offsetWidth,hh=xh.offsetHeight,pad=12;
+  // Line up with the X link: its right edge in the wide table, its left edge on stacked rows.
+  let x=L.left+L.width/2>ox+xPanel.clientWidth/2?L.right-ox-w+4:L.left-ox-4;
+  x=Math.max(pad,Math.min(x,xPanel.clientWidth-w-pad));
+  let y=R.top-oy-hh-6;
+  if(y<4)y=R.bottom-oy+6;
+  // Appearing: place it first, then fade and rise. Already showing: glide.
+  if(fresh)xh.style.transition="none";
+  xh.style.setProperty("--x",Math.round(x)+"px");xh.style.setProperty("--y",Math.round(y)+"px");
+  if(fresh){void xh.offsetWidth;xh.style.transition=""}
+  xh.classList.add("on");xRow=tr;
+  clearTimeout(xTimer);
+  if(tap)xTimer=setTimeout(hideHint,2600);
+}
+function hideHint(){clearTimeout(xTimer);xh.classList.remove("on","tap");xRow=null}
+rowsEl.addEventListener("pointerover",e=>{
+  if(e.pointerType==="touch")return;
+  const tr=e.target.closest("tr.has-x");
+  if(tr!==xRow)tr?showHint(tr):hideHint();
+});
+rowsEl.addEventListener("pointerleave",e=>{if(e.pointerType!=="touch")hideHint()});
+rowsEl.addEventListener("focusin",e=>{if(e.target.matches(".xl:focus-visible"))showHint(e.target.closest("tr"))});
+rowsEl.addEventListener("focusout",hideHint);
+document.addEventListener("pointerdown",e=>{
+  xPointer=e.pointerType;
+  if(xh.classList.contains("tap")&&!rowsEl.contains(e.target)&&e.target!==xh&&!xh.contains(e.target))hideHint();
+},true);
+rowsEl.addEventListener("click",e=>{
+  const tr=e.target.closest("tr.has-x");
+  if(!tr||e.target.closest("a,button")||String(getSelection()))return;
+  if(xPointer==="touch"){
+    if(!(xRow===tr&&xh.classList.contains("tap")))return showHint(tr,true);
+    hideHint();
+  }
+  open(tr.dataset.post,"_blank","noopener,noreferrer");
+});
+addEventListener("resize",hideHint);
 buildFilters();renderLog();
 
 /* ---------- entrances ---------- */

@@ -13,6 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: site
+          fetch-depth: 0
+      - name: Get latest plays.json from main
+        run: |
+          git fetch origin main:main
+          git show main:plays.json > plays.json
       - uses: actions/setup-node@v4
         with:
           node-version: '20'

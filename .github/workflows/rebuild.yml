@@ -1,0 +1,32 @@
+name: Rebuild site from plays.json
+on:
+  push:
+    branches: [main]
+    paths: ['plays.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build site
+        run: node build/build.mjs
+      - name: Publish dist to repo root
+        run: |
+          for f in 404.html index.html robots.txt sitemap.xml og.png about arbitrage cheat-sheet devig hedge how-to-read odds parlay payout poker plays.json; do rm -rf "$f"; done
+          cp -r build/dist/. .
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "no changes to publish" && exit 0
+          git commit -m "Rebuild site from plays.json"
+          git push

@@ -450,7 +450,7 @@ const moreTools = skip => `<section class="morecalc" aria-labelledby="more-h">
 built.push(page({slug: "about", title: "About", desc: "Who is behind this tracker, the books used, and the disclosure.",
   active: "about", body: read("about.html")}));
 built.push(page({slug: "how-to-read", title: "How to read it",
-  desc: "What the numbers on the tracker mean: units, ROI, win rate, sample size, pushes and voids.",
+  desc: "What the numbers on the tracker mean: units, win rate, ROI and break-even by price.",
   active: "read", body: read("how-to-read.html")}));
 
 const TOOL_PAGES = [

@@ -2,63 +2,27 @@
   <div class="phero">
     <p class="kicker" data-rv><a href="{{rel}}">The record</a> / <b>How to read it</b></p>
     <h1 class="th" data-rv>What the <em>numbers</em> mean</h1>
-    <p class="lede" data-rv>A losing win rate can still be a winning record. This page explains why,
-    and what each figure on the tracker is actually counting.</p>
+    <p class="lede" data-rv>Units, win rate, and how to check the plays.</p>
   </div>
 
   <div class="tsplit">
     <div class="prose" data-rv>
-      <h2>Start with the unit</h2>
-      <p>A unit is one standard bet. Not a dollar amount, a size. Every figure on this
-      site is in units, so the record reads the same whether somebody bets $5 or $500 a unit.
-      A 0.5u play is half a normal bet. A 2u play is double.</p>
-      <p>This is the honest way to publish a record. A tout who posts dollars is telling you
-      about the size of their bankroll, not the quality of their bets.</p>
+      <h2>The numbers</h2>
+      <p>A unit is one standard bet. Everything here is in units, so the record reads the
+      same whether you bet $5 or $500. A 2u play is a double-size bet.</p>
+      <p>You can win under half your bets and still make money, because the payouts differ.
+      At &minus;110 you risk 110 to win 100, so you need 52.4% to break even. At +150 you
+      risk 100 to win 150, so 40% is enough.</p>
+      <p>ROI is units won over units risked. A push returns the stake. Voids and unsettled
+      plays don't count.</p>
 
-      <h2>Why a losing win rate can win money</h2>
-      <p>The record on this page is under 50% wins. That is normal and it is not a problem,
-      because not every bet pays the same.</p>
-      <p>At &minus;110, the standard price, you risk 110 to win 100. You need to win about
-      52.4% of those just to break even. At +150 you risk 100 to win 150, and you only need
-      40% to break even. A book of plays at longer prices wins less often and still makes
-      money.</p>
-      <p>So the win rate on its own tells you almost nothing. What matters is whether the
-      price was better than the true chance. That is what ROI measures.</p>
-
-      <h2>ROI is the number that counts</h2>
-      <p>ROI here is profit divided by everything risked. Not profit over a bankroll, and not
-      profit over the number of bets: over the units actually put at risk. Voided stakes are excluded. Push stakes are included.</p>
-      <p>A positive ROI over a long run means the prices taken were better than the outcomes
-      deserved. That is the only claim this page makes.</p>
-
-      <h2>Read the sample, not just the number</h2>
-      <p>A few hundred plays is a small sample. Anyone can run 13% ROI over two months and be
-      flat over two years. The page says how many settled plays it is standing on, and that
-      figure matters as much as the ROI beside it.</p>
-      <p>Treat a short record as a record, not as a rate. Come back when the count is larger.</p>
-
-      <h2>Pending, push and void</h2>
-      <p><b>Pending</b> is posted but not settled. Those plays are not in the record until they land.</p>
-      <p><b>Push</b> is a tie against the line. The stake comes back and it counts as neither a
-      win nor a loss, which is why the record has three numbers.</p>
-      <p><b>Void</b> is a bet the book cancelled or refunded. It stays in the log. It is shown separately from pushes and excluded from the record, win rate and ROI stake total.</p>
-
-      <h2>How to check any of it</h2>
-      <p>Most plays in the log link to the post that called them, marked with an X at the end
-      of the row. Click one and it opens the original post, with its own timestamp, from
-      before the event started.</p>
-      <p>The site itself is a file in a public Git repository, so every update carries a commit
-      time that cannot be moved afterwards. The whole log is also published as a plain data
-      file, <a href="{{rel}}plays.json">plays.json</a>, if you would rather add it up yourself.</p>
-
-      <h2>What this is not</h2>
-      <p>It is not advice, it is not a service, and nothing here is for sale. It is a record of
-      plays that were posted in public, kept honestly, including the parts that lost.</p>
+      <h2>Checking it</h2>
+      <p>Most rows in the log end with an X link to the original post, timestamped before the start.</p>
     </div>
 
     <aside class="read" data-rv aria-labelledby="be-h">
       <p class="q" id="be-h">Break-even, by price</p>
-      <p>How often a play has to win before it makes money, with no vig removed.</p>
+      <p>How often a bet at each price has to win to break even.</p>
       <dl class="be">
         <dt>At −200</dt><dd>66.7%</dd>
         <dt>At −150</dt><dd>60.0%</dd>

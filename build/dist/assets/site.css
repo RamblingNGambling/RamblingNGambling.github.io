@@ -152,6 +152,24 @@ button,select,input{font:inherit;color:inherit}
 .meta a{color:var(--fg2);text-underline-offset:3px;text-decoration-color:var(--line3)}
 .meta a:hover{color:var(--fg)}
 
+/* ---- ticker: the last results scrolling under the hero. Pure CSS: the
+   track holds two identical halves, so translateX(-50%) loops seamlessly.
+   Item spacing lives on the items (not the track's gap), keeping the loop
+   point exact. Edge fade is a mask, like the marquee it borrows from. */
+.tick{overflow:hidden;margin-top:28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
+.tick-track{display:flex;width:max-content;padding:10px 0}
+.tick-track>.tk-i{display:flex;align-items:baseline;white-space:nowrap;padding-right:36px;font-size:12.5px;color:var(--fg2)}
+.tick .tk-d{font:11px var(--mono);color:var(--fg3);margin-right:10px}
+.tick .tk-p{overflow:hidden;text-overflow:ellipsis;max-width:34ch}
+.tick .tk-u{font:500 12.5px var(--mono);margin-left:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tick .tk-s{margin-left:36px;color:var(--fg3);opacity:.55;font-size:11px}
+@keyframes tick{to{transform:translateX(-50%)}}
+.motion .tick-track{animation:tick var(--tick-d,42s) linear infinite}
+.motion .tick:hover .tick-track{animation-play-state:paused}
+html:not(.motion) .tick{overflow-x:auto}
+
 /* result tiles: the identity motif. Shape carries meaning without color:
    win = filled, loss = outlined, push = dashed. */
 .t{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:var(--r-xs);

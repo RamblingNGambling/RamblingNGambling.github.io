@@ -296,6 +296,17 @@ const netWord = A.u < -0.004 ? "Minus" : A.u > 0.004 ? "Plus" : "";
 const updShort = (RAW.updated || "–").replace(/^([A-Z][a-z]+\.? \d{1,2}), \d{4}(,)?/, "$1$2");
 const dataJson = JSON.stringify(DATA).replace(/</g, "\\u003c");
 
+/* ---------- ticker: the last 15 settled results, newest first. Pure CSS
+   marquee under the hero; the track carries two identical halves so the
+   loop is seamless. Same figures the log shows, so nothing new to verify. */
+const TICK_N = 15;
+const tickPlays = settled.slice(-TICK_N).reverse();
+const tickHalf = tickPlays.map(p =>
+  `<span class="tk-i"><span class="tk-d">${dmd(p.date)}</span><span class="tk-p">${h(p.play)}</span><span class="tk-u ${cls(p.pl)}">${signed(p.pl)}u</span><span class="tk-s">&rarr;</span></span>`).join("");
+const ticker = tickHalf
+  ? `<div class="tick" aria-hidden="true"><div class="tick-track" style="--tick-d:${Math.max(24, Math.round(tickPlays.length * 2.8))}s">${tickHalf}${tickHalf}</div></div>`
+  : "";
+
 const homeBody = `<main class="wrap" id="main">
 
   <!-- ============ 01 RECORD ============ -->
@@ -328,6 +339,8 @@ const homeBody = `<main class="wrap" id="main">
         <div class="tip" id="tip" aria-hidden="true"></div>
       </div>
     </div>
+
+    ${ticker}
   </section>
 
   <!-- ============ 02 LOG ============ -->

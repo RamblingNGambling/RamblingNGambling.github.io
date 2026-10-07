@@ -2257,7 +2257,7 @@ if(REAL){
   var inp=$('#usz'),out=$('#uout');
   function paint(){
     var v=parseFloat(inp.value);
-    if(!positiveNumber(v)){out.textContent='--';out.className='out num mut';return}
+    if(!(v>0)){out.textContent='--';out.className='out num mut';return}
     out.textContent=money(A.u*v);out.className='out num '+cl(A.u);
   }
   inp.addEventListener('input',paint);

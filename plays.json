@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 7, 2026, 1:24 AM EDT",
+  "updated": "Oct 7, 2026, 3:13 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -3229,7 +3229,7 @@
     {
       "date": "2026-09-14",
       "sport": "NFL",
-      "market": "Player prop",
+      "market": "Total",
       "game": "",
       "play": "Patrick Mahomes Over 3.5 Rushing Attempts",
       "odds": 113,
@@ -3462,7 +3462,7 @@
     },
     {
       "date": "2026-09-27",
-      "sport": "NFL",
+      "sport": "MLB",
       "market": "Player prop",
       "game": "",
       "play": "Tee Higgins Over 53.5 Receiving Yards",
@@ -3847,6 +3847,19 @@
       "units": 0.5,
       "result": "Win",
       "units_pl": 0.3401,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-06",
+      "sport": "MLB",
+      "market": "Moneyline",
+      "game": "",
+      "play": "Padres ML",
+      "odds": -127,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.3937,
       "post": "",
       "game_date": ""
     }

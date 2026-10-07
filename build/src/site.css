@@ -710,8 +710,12 @@ a.bk:hover .bw{color:var(--acc)}
 @media (max-width:520px){
   .record,.phero{padding-top:26px}
   .record>.eyebrow .ey-r{margin-left:0;width:100%}
-  .ey-r .dot{display:none}
+  /* phones get a thinner record: no date span or time in the eyebrow, no
+     sublabels under the four figures, no last-20 strip (the ticker covers recent form) */
+  .ey-r .dot,.ey-r .ey-sp,.ey-r .ey-t{display:none}
   .ey-r>span{display:block}
+  .ledger p,.ledger>.lform{display:none}
+  .chart{min-height:160px}
   .more .mo-h{display:none}
   .more .ghost{padding:0 10px}
   .hero{margin-top:16px}
@@ -723,9 +727,11 @@ a.bk:hover .bw{color:var(--acc)}
   .phead .delta{display:block;margin:2px 0 0}
   .pips{gap:2px;width:100%}
   .pips .t{flex:1 1 0;width:auto;max-width:16px;height:15px;font-size:0}
-  .lform{gap:8px}
-  .lform dd{flex:1 1 100%}
   .brk .c-wlp{display:none}
+  .brk .c-bar{width:auto;min-width:36px}
+  .brk tbody th{white-space:normal}
+  /* the stake wrapped onto its own line behind a stray dot; the P/L carries the size */
+  .log td.c-stake{display:none}
   .brk th,.brk td{padding-left:8px;padding-right:8px}
   .brk th:first-child,.brk td:first-child{padding-left:14px}
   .brk th:last-child,.brk td:last-child{padding-right:14px}

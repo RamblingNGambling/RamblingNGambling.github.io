@@ -293,6 +293,8 @@ const netAbs = Math.abs(A.u).toFixed(2).split(".");
 const netWord = A.u < -0.004 ? "Minus" : A.u > 0.004 ? "Plus" : "";
 // "Oct 7, 2026, 1:24 AM EDT" reads as "Oct 7, 1:24 AM EDT" beside a span that already names the year.
 const updShort = (RAW.updated || "–").replace(/^([A-Z][a-z]+\.? \d{1,2}), \d{4}(,)?/, "$1$2");
+// Phones show only the day ("Updated Oct 7"); the time sits in its own span so CSS can drop it.
+const [, updDay = updShort, updTime = ""] = updShort.match(/^([A-Z][a-z]+\.? \d{1,2})(,.*)?$/) || [];
 const dataJson = JSON.stringify(DATA).replace(/</g, "\\u003c");
 
 /* ---------- ticker: the last 15 settled results, newest first. Pure CSS
@@ -312,7 +314,7 @@ const homeBody = `<main class="wrap" id="main">
   <section class="record" id="record" aria-labelledby="rec-h">
     <h1 class="sr" id="rec-h">Public Tracker: the record</h1>
     <p class="eyebrow" data-rv><span class="no">01</span><span>The record</span>
-      <span class="ey-r"><span>${span}</span><span class="dot"> · </span><span>Updated ${h(updShort)} · <a href="plays.json">plays.json</a></span></span></p>
+      <span class="ey-r"><span class="ey-sp">${span}</span><span class="dot"> · </span><span>Updated ${h(updDay)}<span class="ey-t">${h(updTime)}</span> · <a href="plays.json">plays.json</a></span></span></p>
     <div class="hero">
       <div>
         <p class="big${A.u < -0.004 ? " down" : ""}" data-rv data-to="${round(A.u, 6)}" aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span id="cu-i">${netAbs[0]}</span><span class="pt">.</span><span id="cu-d">${netAbs[1]}</span><span class="u">u</span></p>

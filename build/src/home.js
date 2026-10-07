@@ -48,7 +48,7 @@ function niceStep(span,n){const raw=span/n,m=Math.pow(10,Math.floor(Math.log10(r
 function drawChart(){
   if(!ALL.length){host.innerHTML='<p class="sample">No settled plays yet. The line starts with the first one.</p>';return}
   const W=host.clientWidth;if(!W)return;
-  const H=W<520?190:236,P={l:36,r:12,t:22,b:24};
+  const H=matchMedia("(max-width:520px)").matches?160:W<520?190:236,P={l:36,r:12,t:22,b:24};
   const last=ALL[ALL.length-1];
   let base=0,start;
   if(range){

@@ -386,7 +386,8 @@ function showHint(tr,tap){
 function hideHint(){clearTimeout(xTimer);xh.classList.remove("on","tap");xRow=null}
 rowsEl.addEventListener("pointerover",e=>{
   if(e.pointerType==="touch")return;
-  const tr=e.target.closest("tr.has-x");
+  const xl=e.target.closest(".xl");
+  const tr=xl?xl.closest("tr.has-x"):null;
   if(tr!==xRow)tr?showHint(tr):hideHint();
 });
 rowsEl.addEventListener("pointerleave",e=>{if(e.pointerType!=="touch")hideHint()});

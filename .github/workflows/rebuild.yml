@@ -2,8 +2,12 @@ name: Rebuild site from plays.json
 on:
   push:
     branches: [main]
-    paths: ['plays.json']
+    paths: ['plays.json', 'og.png', 'robots.txt', 'build/**']
   workflow_dispatch:
+
+concurrency:
+  group: tracker-site-deploy
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -24,10 +28,14 @@ jobs:
       - name: Deploy to site branch
         run: |
           cp -r build/dist /tmp/dist-new
+          git checkout -- . || true
+          git clean -fd build/dist || true
           git fetch origin site
           git switch site
           git reset --hard origin/site
-          for f in 404.html index.html robots.txt sitemap.xml og.png about arbitrage cheat-sheet devig hedge how-to-read odds parlay payout poker plays.json build; do rm -rf "$f"; done
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git ls-files -z | xargs -0 -r git rm -q
           cp -r /tmp/dist-new/. .
           git add -A
           git diff --cached --quiet && echo "no changes to publish" && exit 0

@@ -33,6 +33,8 @@ jobs:
           git fetch origin site
           git switch site
           git reset --hard origin/site
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git ls-files -z | xargs -0 -r git rm -q
           cp -r /tmp/dist-new/. .
           git add -A

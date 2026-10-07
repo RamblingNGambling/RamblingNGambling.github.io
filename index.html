@@ -30,7 +30,7 @@
   }
 })();
 </script>
-<link rel="stylesheet" href="assets/site.css?v=4bddf55e">
+<link rel="stylesheet" href="assets/site.css?v=c206a3d2">
 </head>
 <body>
 <a class="skip" href="#main">Skip to the content</a>
@@ -70,8 +70,8 @@
       <dl class="ledger">
         <div data-rv><dt>Settled</dt><dd><span data-cu="297">297</span></dd><p>0 open right now</p></div>
         <div data-rv><dt>ROI</dt><dd>+<span data-cu="14.9" data-dp="1">14.9</span><small>%</small></dd><p>on 195.63u risked</p></div>
-        <div data-rv><dt>W-L-P</dt><dd>137-151-9</dd><p>pushes return the stake</p></div>
-        <div data-rv><dt>Win rate</dt><dd>47.6<small>%</small></dd><p>Under half, still up. <a href="cheat-sheet/">Why</a></p></div>
+        <div data-rv><dt>W-L-P</dt><dd>137-151-9</dd></div>
+        <div data-rv><dt>Win rate</dt><dd>47.6<small>%</small></dd><p>Under half, still up.</p></div>
         <div class="lform" data-rv><dt>Last 20, oldest first</dt><dd><div class="pips" id="pips" role="img"></div></dd></div>
       </dl>
     </div>
@@ -117,7 +117,7 @@
         </tbody>
       </table>
       <div class="more" id="more" hidden></div>
-      <a class="xhint" id="xhint" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span>See the post that called it</span><span class="xh-t"><span class="xh-d">—</span> timestamped before the event <i>↗</i></span></a>
+      <a class="xhint" id="xhint" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span>See the post</span><span class="xh-t"><span class="xh-d">—</span> timestamped before the event <i>↗</i></span></a>
     </div>
   </section>
 
@@ -131,8 +131,7 @@
         <button type="button" role="tab" id="tab-month" aria-selected="false" aria-controls="brk-panel" data-k="month" tabindex="-1">Month</button>
       </div>
     </div>
-    <div class="split">
-      <div class="panel bpanel" data-rv>
+    <div class="panel bpanel" data-rv>
         <div id="brk-panel" role="tabpanel" aria-labelledby="tab-sport">
           <table class="brk">
             <caption class="sr"><span id="brk-t">By sport</span>, all 297 settled plays</caption>
@@ -140,21 +139,9 @@
               <th scope="col" class="c-bar"><span class="sr">Units, drawn from zero</span></th><th scope="col" class="num">Units</th><th scope="col" class="num">ROI</th></tr></thead>
             <tbody id="brk-rows"></tbody>
           </table>
-          <p class="bnote">All 297 settled plays. ROI is units won over units risked; pushes count as risked, voids do not. † fewer than 10 plays.</p>
+          <p class="bnote">All 297 settled plays. † fewer than 10 plays.</p>
         </div>
       </div>
-
-      <aside class="read" id="reading" data-rv aria-labelledby="read-h">
-        <p class="q" id="read-h">Break-even, by price</p>
-        <dl class="be">
-          <dt>At −110</dt><dd>52.4% to break even</dd>
-          <dt>At +150</dt><dd>40.0% to break even</dd>
-        </dl>
-        <div class="links">
-          <a class="lbtn" href="about/">About</a>
-        </div>
-      </aside>
-    </div>
   </section>
 
   <!-- ============ 04 TOOLS ============ -->

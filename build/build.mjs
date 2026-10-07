@@ -166,9 +166,10 @@ const TOOLS = [
   ["poker", "Poker settle-up", "Enter every player, their buy-ins and what they cashed out. It works out who pays whom, in as few payments as it can."],
   ["cheat-sheet", "Percent to odds", "Every percentage from 1 to 99, whole or in halves, with the American and decimal price that pays fairly for it."]
 ];
-const toolIndex = (rel, skip) => TOOLS.filter(t => t[0] !== skip).map((t, i) =>
-  `<a class="tool" data-rv href="${rel}${t[0]}/"><span class="i">${String(i + 1).padStart(2, "0")}</span><span class="nm">${h(t[1])}</span><span class="pth">/${t[0]}</span>
-        <span class="ds">${h(t[2])}</span></a>`).join("\n      ");
+// The home index lists names and paths only; the inner pages' "More tools" keeps the descriptions.
+const toolIndex = (rel, skip, desc = true) => TOOLS.filter(t => t[0] !== skip).map((t, i) =>
+  `<a class="tool" data-rv href="${rel}${t[0]}/"><span class="i">${String(i + 1).padStart(2, "0")}</span><span class="nm">${h(t[1])}</span><span class="pth">/${t[0]}</span>${desc ? `
+        <span class="ds">${h(t[2])}</span>` : ""}</a>`).join("\n      ");
 
 const XSVG = '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x=".5" y=".5" width="31" height="31" rx="7" fill="#0B0B0D" stroke="var(--line2)"/><path d="M5 21.5 L11.5 13 L17 17 L27 6.5" stroke="#C08BF5" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -406,7 +407,7 @@ const homeBody = `<main class="wrap" id="main">
       <p>Worked out properly. Each one opens on its own page.</p>
     </div>
     <nav class="tools" aria-label="Tools">
-      ${toolIndex("", "")}
+      ${toolIndex("", "", false)}
     </nav>
   </section>
 </main>

@@ -124,7 +124,7 @@ with sync_playwright() as p:
             pg.goto(BASE + path, wait_until="load")
             settle(pg)
             over = pg.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
-            hidden = pg.evaluate("[...document.querySelectorAll('[data-rv]')].filter(e=>getComputedStyle(e).opacity<0.99).length")
+            hidden = pg.evaluate("[...document.querySelectorAll('[data-rv]')].filter(e=>e.getClientRects().length&&getComputedStyle(e).opacity<0.99).length")
             name = f"{vname:>4}px /{path}"
             check(not log["errors"], f"{name} console clean {log['errors'][:3] if log['errors'] else ''}")
             check(not log["external"], f"{name} no external requests but Umami {log['external'][:3] if log['external'] else ''}")

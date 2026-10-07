@@ -1,0 +1,68 @@
+  <article class="tpage" id="view-parlay">
+    <header class="phero">
+      <p class="kicker" data-rv><a href="{{rel}}#tools">Tools</a> / <b>Parlay</b></p>
+      <h1 class="th" data-rv>Parlay and <em>round robin</em></h1>
+      <p class="lede" data-rv>Price a parlay from its legs, or break the same legs into a round robin and see what each
+      number of winning legs pays back.</p>
+    </header>
+
+    <div class="tsplit">
+      <div class="panel tcard" data-rv>
+        <div class="phead tbar"><h2 class="h3">Legs and stake</h2>
+          <div class="tact"><button type="button" class="ghost tlink" data-k="parlay">Copy link</button><button type="button" class="ghost treset" id="pl-clear" data-r="parlay">Reset</button></div></div>
+        <div class="tin">
+          <div class="legs" id="pl-legs"></div>
+          <div class="legadd"><button type="button" class="btn2" id="pl-add">+ Add leg</button>
+            <span class="lhint" id="pl-hint"></span></div>
+          <div class="psep"></div>
+          <div class="agrid hg">
+            <div class="al">Stake per bet</div>
+            <div class="mi"><span>$</span><input type="text" id="pl-s" value="10" inputmode="decimal" autocomplete="off" aria-label="Stake on each bet"></div>
+            <div class="al">Ticket</div>
+            <div><div class="seg" id="pl-mode" role="group" aria-label="Ticket type"></div></div>
+          </div>
+        </div>
+      </div>
+      <aside class="read tnote" data-rv>
+        <p class="q">How to read it</p>
+        <p>A straight parlay is one bet on all the legs. Every leg must win.</p>
+        <p>A round robin splits the same legs into every smaller parlay of the size you pick. By 2s on four
+        legs is six two-leg parlays. The stake is per bet, so six bets at $10 risks $60.</p>
+        <p>The table shows what comes back for each number of winning legs. Where legs are priced
+        differently, the return depends on which ones win, so a range is shown.</p>
+      </aside>
+    </div>
+
+    <div class="panel tcard wide" data-rv>
+      <div class="phead tbar"><h2 class="h3" id="pl-title">Every bet on the ticket</h2><span class="lhint" id="pl-count"></span></div>
+      <div class="tin">
+        <div class="asum four">
+          <div><b>Bets</b><span class="num" id="pl-n">0</span></div>
+          <div><b>Total risk</b><span class="num" id="pl-risk">$0.00</span></div>
+          <div><b>Best case back</b><span class="num" id="pl-best">$0.00</span></div>
+          <div class="sep"><b>Best case profit</b><span class="num" id="pl-bestp">$0.00</span></div>
+        </div>
+        <div class="ptab" id="pl-out"></div>
+        <details class="plist"><summary>Show every bet and its price</summary>
+          <div class="ptab two" id="pl-combos"></div>
+        </details>
+        <div class="fine" id="pl-fine" aria-live="polite">Enter a price on at least two legs.</div>
+      </div>
+    </div>
+
+    <div class="prose tprose" data-rv>
+      <h2>What a round robin does</h2>
+      <p>A round robin is not one bet. It is every parlay of a chosen size that can be made from your legs.
+      Four legs by 2s is six separate two-leg parlays. Each one is priced and settled on its own.</p>
+      <p>The point is that you no longer need every leg. With four legs by 2s, two winners already pay one bet
+      back. The cost is that you risk six stakes instead of one, so a clean sweep pays less than the straight
+      four-leg parlay would.</p>
+      <h2>How to size it</h2>
+      <p>The stake here is per bet, which is how books take it. Decide the total you want to risk first, then
+      divide by the number of bets. Six bets and a 0.3u budget is 0.05u per bet.</p>
+      <h2>Reading the table</h2>
+      <p>Each row is a number of winning legs. Where your legs carry different prices, which legs win changes
+      the return, so the row shows the range from worst to best. Profit is that return less the whole ticket.</p>
+      <p>Find the row where profit first turns positive. That is how many legs you need.</p>
+    </div>
+  </article>

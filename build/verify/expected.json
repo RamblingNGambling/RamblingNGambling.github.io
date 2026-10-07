@@ -1,0 +1,1350 @@
+{
+ "net": 28.66049999999997,
+ "days": 57,
+ "combos": [
+  {
+   "sport": "All",
+   "market": "All",
+   "result": "All",
+   "n": 296,
+   "wlp": "136-151-9",
+   "net": 28.66049999999997
+  },
+  {
+   "sport": "All",
+   "market": "All",
+   "result": "W",
+   "n": 136,
+   "wlp": "136-0-0",
+   "net": 107.31049999999999
+  },
+  {
+   "sport": "All",
+   "market": "All",
+   "result": "L",
+   "n": 151,
+   "wlp": "0-151-0",
+   "net": -78.65000000000003
+  },
+  {
+   "sport": "All",
+   "market": "All",
+   "result": "P",
+   "n": 9,
+   "wlp": "0-0-9",
+   "net": 0
+  },
+  {
+   "sport": "All",
+   "market": "Moneyline",
+   "result": "All",
+   "n": 62,
+   "wlp": "31-27-4",
+   "net": -0.20709999999999873
+  },
+  {
+   "sport": "All",
+   "market": "Moneyline",
+   "result": "W",
+   "n": 31,
+   "wlp": "31-0-0",
+   "net": 21.642900000000004
+  },
+  {
+   "sport": "All",
+   "market": "Moneyline",
+   "result": "L",
+   "n": 27,
+   "wlp": "0-27-0",
+   "net": -21.85
+  },
+  {
+   "sport": "All",
+   "market": "Moneyline",
+   "result": "P",
+   "n": 4,
+   "wlp": "0-0-4",
+   "net": 0
+  },
+  {
+   "sport": "All",
+   "market": "Other",
+   "result": "All",
+   "n": 4,
+   "wlp": "2-2-0",
+   "net": 2.22
+  },
+  {
+   "sport": "All",
+   "market": "Other",
+   "result": "W",
+   "n": 2,
+   "wlp": "2-0-0",
+   "net": 2.67
+  },
+  {
+   "sport": "All",
+   "market": "Other",
+   "result": "L",
+   "n": 2,
+   "wlp": "0-2-0",
+   "net": -0.45
+  },
+  {
+   "sport": "All",
+   "market": "Other",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "All",
+   "market": "Parlay",
+   "result": "All",
+   "n": 31,
+   "wlp": "2-29-0",
+   "net": -0.7722000000000004
+  },
+  {
+   "sport": "All",
+   "market": "Parlay",
+   "result": "W",
+   "n": 2,
+   "wlp": "2-0-0",
+   "net": 2.503
+  },
+  {
+   "sport": "All",
+   "market": "Parlay",
+   "result": "L",
+   "n": 29,
+   "wlp": "0-29-0",
+   "net": -3.2751999999999994
+  },
+  {
+   "sport": "All",
+   "market": "Parlay",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "All",
+   "market": "Player prop",
+   "result": "All",
+   "n": 108,
+   "wlp": "50-56-2",
+   "net": 6.718399999999997
+  },
+  {
+   "sport": "All",
+   "market": "Player prop",
+   "result": "W",
+   "n": 50,
+   "wlp": "50-0-0",
+   "net": 22.3184
+  },
+  {
+   "sport": "All",
+   "market": "Player prop",
+   "result": "L",
+   "n": 56,
+   "wlp": "0-56-0",
+   "net": -15.600000000000001
+  },
+  {
+   "sport": "All",
+   "market": "Player prop",
+   "result": "P",
+   "n": 2,
+   "wlp": "0-0-2",
+   "net": 0
+  },
+  {
+   "sport": "All",
+   "market": "Spread",
+   "result": "All",
+   "n": 62,
+   "wlp": "34-26-2",
+   "net": 12.575299999999999
+  },
+  {
+   "sport": "All",
+   "market": "Spread",
+   "result": "W",
+   "n": 34,
+   "wlp": "34-0-0",
+   "net": 40.4753
+  },
+  {
+   "sport": "All",
+   "market": "Spread",
+   "result": "L",
+   "n": 26,
+   "wlp": "0-26-0",
+   "net": -27.9
+  },
+  {
+   "sport": "All",
+   "market": "Spread",
+   "result": "P",
+   "n": 2,
+   "wlp": "0-0-2",
+   "net": 0
+  },
+  {
+   "sport": "All",
+   "market": "Total",
+   "result": "All",
+   "n": 29,
+   "wlp": "17-11-1",
+   "net": 8.1261
+  },
+  {
+   "sport": "All",
+   "market": "Total",
+   "result": "W",
+   "n": 17,
+   "wlp": "17-0-0",
+   "net": 17.700899999999997
+  },
+  {
+   "sport": "All",
+   "market": "Total",
+   "result": "L",
+   "n": 11,
+   "wlp": "0-11-0",
+   "net": -9.5748
+  },
+  {
+   "sport": "All",
+   "market": "Total",
+   "result": "P",
+   "n": 1,
+   "wlp": "0-0-1",
+   "net": 0
+  },
+  {
+   "sport": "MLB",
+   "market": "All",
+   "result": "All",
+   "n": 138,
+   "wlp": "57-74-7",
+   "net": 2.739600000000001
+  },
+  {
+   "sport": "MLB",
+   "market": "All",
+   "result": "W",
+   "n": 57,
+   "wlp": "57-0-0",
+   "net": 42.2396
+  },
+  {
+   "sport": "MLB",
+   "market": "All",
+   "result": "L",
+   "n": 74,
+   "wlp": "0-74-0",
+   "net": -39.5
+  },
+  {
+   "sport": "MLB",
+   "market": "All",
+   "result": "P",
+   "n": 7,
+   "wlp": "0-0-7",
+   "net": 0
+  },
+  {
+   "sport": "MLB",
+   "market": "Moneyline",
+   "result": "All",
+   "n": 57,
+   "wlp": "29-24-4",
+   "net": 1.7079000000000004
+  },
+  {
+   "sport": "MLB",
+   "market": "Moneyline",
+   "result": "W",
+   "n": 29,
+   "wlp": "29-0-0",
+   "net": 20.307900000000004
+  },
+  {
+   "sport": "MLB",
+   "market": "Moneyline",
+   "result": "L",
+   "n": 24,
+   "wlp": "0-24-0",
+   "net": -18.6
+  },
+  {
+   "sport": "MLB",
+   "market": "Moneyline",
+   "result": "P",
+   "n": 4,
+   "wlp": "0-0-4",
+   "net": 0
+  },
+  {
+   "sport": "MLB",
+   "market": "Other",
+   "result": "All",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 1.02
+  },
+  {
+   "sport": "MLB",
+   "market": "Other",
+   "result": "W",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 1.02
+  },
+  {
+   "sport": "MLB",
+   "market": "Other",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "MLB",
+   "market": "Other",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "MLB",
+   "market": "Parlay",
+   "result": "All",
+   "n": 20,
+   "wlp": "1-19-0",
+   "net": -0.23120000000000032
+  },
+  {
+   "sport": "MLB",
+   "market": "Parlay",
+   "result": "W",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 1.894
+  },
+  {
+   "sport": "MLB",
+   "market": "Parlay",
+   "result": "L",
+   "n": 19,
+   "wlp": "0-19-0",
+   "net": -2.1252
+  },
+  {
+   "sport": "MLB",
+   "market": "Parlay",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "MLB",
+   "market": "Player prop",
+   "result": "All",
+   "n": 16,
+   "wlp": "5-11-0",
+   "net": 1.7900999999999998
+  },
+  {
+   "sport": "MLB",
+   "market": "Player prop",
+   "result": "W",
+   "n": 5,
+   "wlp": "5-0-0",
+   "net": 3.2401
+  },
+  {
+   "sport": "MLB",
+   "market": "Player prop",
+   "result": "L",
+   "n": 11,
+   "wlp": "0-11-0",
+   "net": -1.45
+  },
+  {
+   "sport": "MLB",
+   "market": "Player prop",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "MLB",
+   "market": "Spread",
+   "result": "All",
+   "n": 26,
+   "wlp": "11-13-2",
+   "net": -3.0976
+  },
+  {
+   "sport": "MLB",
+   "market": "Spread",
+   "result": "W",
+   "n": 11,
+   "wlp": "11-0-0",
+   "net": 8.402400000000002
+  },
+  {
+   "sport": "MLB",
+   "market": "Spread",
+   "result": "L",
+   "n": 13,
+   "wlp": "0-13-0",
+   "net": -11.5
+  },
+  {
+   "sport": "MLB",
+   "market": "Spread",
+   "result": "P",
+   "n": 2,
+   "wlp": "0-0-2",
+   "net": 0
+  },
+  {
+   "sport": "MLB",
+   "market": "Total",
+   "result": "All",
+   "n": 18,
+   "wlp": "10-7-1",
+   "net": 1.5504000000000002
+  },
+  {
+   "sport": "MLB",
+   "market": "Total",
+   "result": "W",
+   "n": 10,
+   "wlp": "10-0-0",
+   "net": 7.3751999999999995
+  },
+  {
+   "sport": "MLB",
+   "market": "Total",
+   "result": "L",
+   "n": 7,
+   "wlp": "0-7-0",
+   "net": -5.8248
+  },
+  {
+   "sport": "MLB",
+   "market": "Total",
+   "result": "P",
+   "n": 1,
+   "wlp": "0-0-1",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "All",
+   "result": "All",
+   "n": 28,
+   "wlp": "13-15-0",
+   "net": -0.036400000000000016
+  },
+  {
+   "sport": "NCAAF",
+   "market": "All",
+   "result": "W",
+   "n": 13,
+   "wlp": "13-0-0",
+   "net": 6.813600000000001
+  },
+  {
+   "sport": "NCAAF",
+   "market": "All",
+   "result": "L",
+   "n": 15,
+   "wlp": "0-15-0",
+   "net": -6.85
+  },
+  {
+   "sport": "NCAAF",
+   "market": "All",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Moneyline",
+   "result": "All",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.66
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Moneyline",
+   "result": "W",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.66
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Moneyline",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Moneyline",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Other",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Other",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Other",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Other",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Parlay",
+   "result": "All",
+   "n": 5,
+   "wlp": "1-4-0",
+   "net": -0.091
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Parlay",
+   "result": "W",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.609
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Parlay",
+   "result": "L",
+   "n": 4,
+   "wlp": "0-4-0",
+   "net": -0.7
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Parlay",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Player prop",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Player prop",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Player prop",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Player prop",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Spread",
+   "result": "All",
+   "n": 17,
+   "wlp": "9-8-0",
+   "net": -0.12580000000000002
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Spread",
+   "result": "W",
+   "n": 9,
+   "wlp": "9-0-0",
+   "net": 4.7741999999999996
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Spread",
+   "result": "L",
+   "n": 8,
+   "wlp": "0-8-0",
+   "net": -4.9
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Spread",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Total",
+   "result": "All",
+   "n": 5,
+   "wlp": "2-3-0",
+   "net": -0.4795999999999999
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Total",
+   "result": "W",
+   "n": 2,
+   "wlp": "2-0-0",
+   "net": 0.7704
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Total",
+   "result": "L",
+   "n": 3,
+   "wlp": "0-3-0",
+   "net": -1.25
+  },
+  {
+   "sport": "NCAAF",
+   "market": "Total",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "All",
+   "result": "All",
+   "n": 69,
+   "wlp": "36-31-2",
+   "net": 6.086900000000001
+  },
+  {
+   "sport": "NFL",
+   "market": "All",
+   "result": "W",
+   "n": 36,
+   "wlp": "36-0-0",
+   "net": 17.586899999999996
+  },
+  {
+   "sport": "NFL",
+   "market": "All",
+   "result": "L",
+   "n": 31,
+   "wlp": "0-31-0",
+   "net": -11.499999999999998
+  },
+  {
+   "sport": "NFL",
+   "market": "All",
+   "result": "P",
+   "n": 2,
+   "wlp": "0-0-2",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Moneyline",
+   "result": "All",
+   "n": 1,
+   "wlp": "0-1-0",
+   "net": -0.5
+  },
+  {
+   "sport": "NFL",
+   "market": "Moneyline",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Moneyline",
+   "result": "L",
+   "n": 1,
+   "wlp": "0-1-0",
+   "net": -0.5
+  },
+  {
+   "sport": "NFL",
+   "market": "Moneyline",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Other",
+   "result": "All",
+   "n": 3,
+   "wlp": "1-2-0",
+   "net": 1.2
+  },
+  {
+   "sport": "NFL",
+   "market": "Other",
+   "result": "W",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 1.65
+  },
+  {
+   "sport": "NFL",
+   "market": "Other",
+   "result": "L",
+   "n": 2,
+   "wlp": "0-2-0",
+   "net": -0.45
+  },
+  {
+   "sport": "NFL",
+   "market": "Other",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Parlay",
+   "result": "All",
+   "n": 6,
+   "wlp": "0-6-0",
+   "net": -0.45
+  },
+  {
+   "sport": "NFL",
+   "market": "Parlay",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Parlay",
+   "result": "L",
+   "n": 6,
+   "wlp": "0-6-0",
+   "net": -0.45
+  },
+  {
+   "sport": "NFL",
+   "market": "Parlay",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Player prop",
+   "result": "All",
+   "n": 56,
+   "wlp": "32-22-2",
+   "net": 4.561699999999998
+  },
+  {
+   "sport": "NFL",
+   "market": "Player prop",
+   "result": "W",
+   "n": 32,
+   "wlp": "32-0-0",
+   "net": 14.6617
+  },
+  {
+   "sport": "NFL",
+   "market": "Player prop",
+   "result": "L",
+   "n": 22,
+   "wlp": "0-22-0",
+   "net": -10.100000000000001
+  },
+  {
+   "sport": "NFL",
+   "market": "Player prop",
+   "result": "P",
+   "n": 2,
+   "wlp": "0-0-2",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Spread",
+   "result": "All",
+   "n": 2,
+   "wlp": "2-0-0",
+   "net": 0.8404
+  },
+  {
+   "sport": "NFL",
+   "market": "Spread",
+   "result": "W",
+   "n": 2,
+   "wlp": "2-0-0",
+   "net": 0.8404
+  },
+  {
+   "sport": "NFL",
+   "market": "Spread",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Spread",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Total",
+   "result": "All",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.4348
+  },
+  {
+   "sport": "NFL",
+   "market": "Total",
+   "result": "W",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.4348
+  },
+  {
+   "sport": "NFL",
+   "market": "Total",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "NFL",
+   "market": "Total",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "All",
+   "result": "All",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.675
+  },
+  {
+   "sport": "UFC",
+   "market": "All",
+   "result": "W",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.675
+  },
+  {
+   "sport": "UFC",
+   "market": "All",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "All",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Moneyline",
+   "result": "All",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.675
+  },
+  {
+   "sport": "UFC",
+   "market": "Moneyline",
+   "result": "W",
+   "n": 1,
+   "wlp": "1-0-0",
+   "net": 0.675
+  },
+  {
+   "sport": "UFC",
+   "market": "Moneyline",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Moneyline",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Other",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Other",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Other",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Other",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Parlay",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Parlay",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Parlay",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Parlay",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Player prop",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Player prop",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Player prop",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Player prop",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Spread",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Spread",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Spread",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Spread",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Total",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Total",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Total",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "UFC",
+   "market": "Total",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "All",
+   "result": "All",
+   "n": 60,
+   "wlp": "29-31-0",
+   "net": 19.195400000000003
+  },
+  {
+   "sport": "WNBA",
+   "market": "All",
+   "result": "W",
+   "n": 29,
+   "wlp": "29-0-0",
+   "net": 39.99539999999999
+  },
+  {
+   "sport": "WNBA",
+   "market": "All",
+   "result": "L",
+   "n": 31,
+   "wlp": "0-31-0",
+   "net": -20.799999999999997
+  },
+  {
+   "sport": "WNBA",
+   "market": "All",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Moneyline",
+   "result": "All",
+   "n": 2,
+   "wlp": "0-2-0",
+   "net": -2.75
+  },
+  {
+   "sport": "WNBA",
+   "market": "Moneyline",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Moneyline",
+   "result": "L",
+   "n": 2,
+   "wlp": "0-2-0",
+   "net": -2.75
+  },
+  {
+   "sport": "WNBA",
+   "market": "Moneyline",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Other",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Other",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Other",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Other",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Parlay",
+   "result": "All",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Parlay",
+   "result": "W",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Parlay",
+   "result": "L",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Parlay",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Player prop",
+   "result": "All",
+   "n": 36,
+   "wlp": "13-23-0",
+   "net": 0.3666
+  },
+  {
+   "sport": "WNBA",
+   "market": "Player prop",
+   "result": "W",
+   "n": 13,
+   "wlp": "13-0-0",
+   "net": 4.416600000000001
+  },
+  {
+   "sport": "WNBA",
+   "market": "Player prop",
+   "result": "L",
+   "n": 23,
+   "wlp": "0-23-0",
+   "net": -4.050000000000001
+  },
+  {
+   "sport": "WNBA",
+   "market": "Player prop",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Spread",
+   "result": "All",
+   "n": 17,
+   "wlp": "12-5-0",
+   "net": 14.9583
+  },
+  {
+   "sport": "WNBA",
+   "market": "Spread",
+   "result": "W",
+   "n": 12,
+   "wlp": "12-0-0",
+   "net": 26.4583
+  },
+  {
+   "sport": "WNBA",
+   "market": "Spread",
+   "result": "L",
+   "n": 5,
+   "wlp": "0-5-0",
+   "net": -11.5
+  },
+  {
+   "sport": "WNBA",
+   "market": "Spread",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  },
+  {
+   "sport": "WNBA",
+   "market": "Total",
+   "result": "All",
+   "n": 5,
+   "wlp": "4-1-0",
+   "net": 6.6205
+  },
+  {
+   "sport": "WNBA",
+   "market": "Total",
+   "result": "W",
+   "n": 4,
+   "wlp": "4-0-0",
+   "net": 9.1205
+  },
+  {
+   "sport": "WNBA",
+   "market": "Total",
+   "result": "L",
+   "n": 1,
+   "wlp": "0-1-0",
+   "net": -2.5
+  },
+  {
+   "sport": "WNBA",
+   "market": "Total",
+   "result": "P",
+   "n": 0,
+   "wlp": "0-0-0",
+   "net": 0
+  }
+ ]
+}

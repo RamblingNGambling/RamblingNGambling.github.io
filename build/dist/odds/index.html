@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0B0B0D" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#F5F4F7" media="(prefers-color-scheme:light)">
+<title>Odds converter · Public Tracker</title>
+<meta name="description" content="Convert a percentage to American odds, odds back to a percentage, and an exchange multiplier to a price.">
+<link rel="canonical" href="https://ramblingngambling.github.io/odds/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0B0D'/%3E%3Cpath d='M5 21.5 L11.5 13 L17 17 L27 6.5' stroke='%23C08BF5' stroke-width='3.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="@gamblingv1ctim">
+<meta property="og:title" content="Odds converter · Public Tracker">
+<meta property="og:description" content="Convert a percentage to American odds, odds back to a percentage, and an exchange multiplier to a price.">
+<meta property="og:url" content="https://ramblingngambling.github.io/odds/">
+<meta property="og:image" content="https://ramblingngambling.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@gamblingv1ctim">
+<script>
+(function(){
+  var r=document.documentElement,p='auto';
+  try{p=localStorage.getItem('pt-theme')||localStorage.getItem('rg.theme')||'auto'}catch(e){}
+  if(p!=='dark'&&p!=='light')p='auto';
+  var dark=p==='dark'||(p==='auto'&&!matchMedia('(prefers-color-scheme: light)').matches);
+  r.dataset.pref=p;r.dataset.theme=dark?'dark':'light';r.style.colorScheme=dark?'dark':'light';
+  if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    r.classList.add('motion');addEventListener('error',function(){r.classList.remove('motion')});
+  }
+})();
+</script>
+<link rel="stylesheet" href="../assets/site.css?v=4dde3ae0">
+</head>
+<body data-tool="odds">
+<a class="skip" href="#main">Skip to the content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Public Tracker, back to the record">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x=".5" y=".5" width="31" height="31" rx="7" fill="#0B0B0D" stroke="var(--line2)"/><path d="M5 21.5 L11.5 13 L17 17 L27 6.5" stroke="#C08BF5" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>Public Tracker</b><span>@gamblingv1ctim</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../#record">Record</a>
+      <a href="../#log">Log</a>
+      <a href="../#breakdown">Breakdown</a>
+      <a href="../#tools" aria-current="page">Tools</a>
+      <span class="sep" aria-hidden="true"></span>
+      <a href="../how-to-read/">How to read</a>
+      <a href="../about/">About</a>
+    </nav>
+    <button class="theme" id="theme" type="button" aria-label="Theme">
+      <svg id="th-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+      <span class="tl" id="th-lab">Auto</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <article class="tpage" id="view-odds">
+    <header class="phero">
+      <p class="kicker" data-rv><a href="../#tools">Tools</a> / <b>Odds converter</b></p>
+      <h1 class="th" data-rv>Odds <em>converter</em></h1>
+      <p class="lede" data-rv>Turn a percentage into a price, a price back into a percentage, and a multiplier into an American price.</p>
+    </header>
+
+    <div class="tsplit">
+      <div class="panel tcard" data-rv>
+        <div class="phead tbar"><h2 class="h3">Percent and price</h2>
+          <div class="tact"><button type="button" class="ghost tlink" data-k="odds">Copy link</button><button type="button" class="ghost treset" data-r="odds">Reset</button></div></div>
+        <div class="tin">
+          <div class="oblock">
+            <label class="ah" for="pc-in">Percent to odds</label>
+            <input type="number" id="pc-in" min="0" max="100" step="0.1" placeholder="55" inputmode="decimal" aria-label="Chance in percent">
+            <div class="out num mut" id="pc-out" aria-live="polite">--</div>
+            <div class="fine" id="pc-fine">Enter a chance from 0 to 100.</div>
+          </div>
+          <div class="oblock">
+            <label class="ah" for="pc-o">Odds to percent</label>
+            <input type="text" id="pc-o" placeholder="-110" inputmode="text" autocomplete="off" spellcheck="false" aria-label="American or decimal odds">
+            <div class="out num sm mut" id="pc-oout" aria-live="polite">--</div>
+            <div class="fine" id="pc-ofine">American or decimal.</div>
+          </div>
+          <div class="oblock">
+            <label class="ah" for="pc-m">Multiplier to price</label>
+            <input type="text" id="pc-m" placeholder="1.83" inputmode="decimal" autocomplete="off" spellcheck="false" aria-label="Payout multiplier">
+            <div class="out num sm mut" id="pc-mout" aria-live="polite">--</div>
+            <div class="fine" id="pc-mfine">The payout for each $1. Kalshi shows this.</div>
+          </div>
+        </div>
+      </div>
+      <aside class="read tnote" data-rv>
+        <p class="q">How to read it</p>
+        <p>The first field turns a chance into the price that pays fairly for it. The second turns a price into the chance the book is charging you for. The third turns an exchange multiplier into an American price.</p>
+        <p>The second figure still has the vig in it. To take the vig out you need both sides of the market: use the <a href="../devig/">devig tool</a>.</p>
+      </aside>
+    </div>
+
+    <a class="handoff" data-rv href="../cheat-sheet/">
+      <b>Trading on Kalshi, Novig or Polymarket?</b>
+      <span>Those markets quote in cents and percent, not American prices. The cheat sheet lists every
+      percent from 1 to 99, in whole steps or in halves, with its American and decimal price.</span>
+      <em>Open the cheat sheet →</em>
+    </a>
+
+    <div class="prose tprose" data-rv>
+      <h2>Why the two directions matter</h2>
+      <p>Every price is a percentage in disguise. &minus;110 is 52.38%. +150 is 40.00%. If you think a side wins
+      more often than the price says, the bet has value.</p>
+      <h2>How to use it</h2>
+      <p>Start with your own number. If you think a team wins 57% of the time, put 57 in the top field. The tool
+      gives you &minus;133. Any price better than &minus;133 is a bet worth making by your own estimate.</p>
+      <p>Go the other way to check a price. Put &minus;250 in the second field and you get 71.43%. That is how
+      often the bet must win to break even.</p>
+      <h2>Percent markets</h2>
+      <p>Exchanges price in percent or in cents. Kalshi and Polymarket quote a contract from 1&cent; to 99&cent;,
+      which is the chance in percent. Novig shows a percentage beside every price. This tool moves between that
+      world and a sportsbook price, so you can compare an exchange with a book on the same scale.</p>
+      <p>For a full table, see the <a href="../cheat-sheet/">cheat sheet</a>.</p>
+      <h2>Multipliers</h2>
+      <p>Kalshi and some other exchanges show a ticket as a multiplier, which is the payout for each $1. It is
+      the same number as the decimal price. Put 1.83 in the multiplier field and you get &minus;120. Put 21.49
+      and you get +2049. The multiplier is the whole payout, not the profit: 1.83&times; on $100 returns $183, of
+      which $83 is profit.</p>
+      <h2>Remember the vig</h2>
+      <p>The percentages from a book add up to more than 100%. That extra is the book&rsquo;s margin. A single
+      price is never a fair estimate on its own.</p>
+    </div>
+  </article>
+
+  <section class="morecalc" aria-labelledby="more-h">
+    <div class="shead" data-rv>
+      <h2 id="more-h">The other tools</h2>
+      <p>Each one opens on its own page.</p>
+    </div>
+    <nav class="tools" aria-label="Other tools">
+      <a class="tool" data-rv href="../arbitrage/"><span class="i">01</span><span class="nm">Arbitrage</span><span class="pth">/arbitrage</span>
+        <span class="ds">Put two prices on the same market side by side. See the stake split, the return, and whether the pair locks a profit.</span></a>
+      <a class="tool" data-rv href="../hedge/"><span class="i">02</span><span class="nm">Hedge</span><span class="pth">/hedge</span>
+        <span class="ds">You already hold a bet. Work out what goes on the other side to lock a profit, and whether that beats the cash-out.</span></a>
+      <a class="tool" data-rv href="../parlay/"><span class="i">03</span><span class="nm">Parlay</span><span class="pth">/parlay</span>
+        <span class="ds">Price a parlay from its legs, or break the same legs into a round robin and see what each count of winning legs pays.</span></a>
+      <a class="tool" data-rv href="../payout/"><span class="i">04</span><span class="nm">Payout</span><span class="pth">/payout</span>
+        <span class="ds">Enter the risk and the price in any form: American, decimal, fractional, a percentage, or a Kalshi multiplier.</span></a>
+      <a class="tool" data-rv href="../devig/"><span class="i">05</span><span class="nm">Devig</span><span class="pth">/devig</span>
+        <span class="ds">Take the book&#39;s margin out of a two-way market and get the fair price behind it.</span></a>
+      <a class="tool" data-rv href="../poker/"><span class="i">06</span><span class="nm">Poker settle-up</span><span class="pth">/poker</span>
+        <span class="ds">Enter every player, their buy-ins and what they cashed out. It works out who pays whom, in as few payments as it can.</span></a>
+      <a class="tool" data-rv href="../cheat-sheet/"><span class="i">07</span><span class="nm">Percent to odds</span><span class="pth">/cheat-sheet</span>
+        <span class="ds">Every percentage from 1 to 99, whole or in halves, with the American and decimal price that pays fairly for it.</span></a>
+    </nav>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="rstrip" data-rv aria-label="The record so far">
+      <a class="rs-net pos" href="../#record">+28.66u</a>
+      <dl>
+        <div><dt>Settled</dt><dd>296</dd></div>
+        <div><dt>W-L-P</dt><dd>136-151-9</dd></div>
+        <div><dt>ROI</dt><dd>+14.7%</dd></div>
+        <div><dt>Updated</dt><dd>Oct 6, 2026</dd></div>
+      </dl>
+      <div class="pips" role="img" aria-label="Last 20 results, oldest first: 12 won, 7 lost, 1 push"><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t p" aria-hidden="true">P</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span></div>
+    </div>
+    <div class="fgrid">
+      <div data-rv>
+        <p>A public record of plays posted on X, kept in units, wins and losses alike. It is not advice, it is not a service, and nothing here is for sale.</p>
+        <p class="fine">Plays go up on X before the event starts, then they are written here. This site is a file in a public Git repository, so every update carries a commit time that cannot be moved afterwards. <a href="https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main" target="_blank" rel="noopener noreferrer">See the commit history</a>. If betting stops being fun, stop.</p>
+      </div>
+      <nav class="flinks" aria-label="Footer" data-rv>
+        <a href="https://x.com/gamblingv1ctim" target="_blank" rel="noopener noreferrer">@gamblingv1ctim on X</a>
+        <a href="../plays.json">plays.json</a>
+        <a href="../how-to-read/">How to read</a>
+        <a href="../about/">About</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/site.js?v=61943ef7"></script>
+<script src="../assets/tools.js?v=c936ea75"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0B0B0D" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#F5F4F7" media="(prefers-color-scheme:light)">
+<title>Payout calculator · Public Tracker</title>
+<meta name="description" content="Payout for any stake and price: American, decimal, fractional, implied percent or a Kalshi multiplier.">
+<link rel="canonical" href="https://ramblingngambling.github.io/payout/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0B0D'/%3E%3Cpath d='M5 21.5 L11.5 13 L17 17 L27 6.5' stroke='%23C08BF5' stroke-width='3.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="@gamblingv1ctim">
+<meta property="og:title" content="Payout calculator · Public Tracker">
+<meta property="og:description" content="Payout for any stake and price: American, decimal, fractional, implied percent or a Kalshi multiplier.">
+<meta property="og:url" content="https://ramblingngambling.github.io/payout/">
+<meta property="og:image" content="https://ramblingngambling.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@gamblingv1ctim">
+<script>
+(function(){
+  var r=document.documentElement,p='auto';
+  try{p=localStorage.getItem('pt-theme')||localStorage.getItem('rg.theme')||'auto'}catch(e){}
+  if(p!=='dark'&&p!=='light')p='auto';
+  var dark=p==='dark'||(p==='auto'&&!matchMedia('(prefers-color-scheme: light)').matches);
+  r.dataset.pref=p;r.dataset.theme=dark?'dark':'light';r.style.colorScheme=dark?'dark':'light';
+  if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    r.classList.add('motion');addEventListener('error',function(){r.classList.remove('motion')});
+  }
+})();
+</script>
+<link rel="stylesheet" href="../assets/site.css?v=4dde3ae0">
+</head>
+<body data-tool="payout">
+<a class="skip" href="#main">Skip to the content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Public Tracker, back to the record">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x=".5" y=".5" width="31" height="31" rx="7" fill="#0B0B0D" stroke="var(--line2)"/><path d="M5 21.5 L11.5 13 L17 17 L27 6.5" stroke="#C08BF5" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>Public Tracker</b><span>@gamblingv1ctim</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../#record">Record</a>
+      <a href="../#log">Log</a>
+      <a href="../#breakdown">Breakdown</a>
+      <a href="../#tools" aria-current="page">Tools</a>
+      <span class="sep" aria-hidden="true"></span>
+      <a href="../how-to-read/">How to read</a>
+      <a href="../about/">About</a>
+    </nav>
+    <button class="theme" id="theme" type="button" aria-label="Theme">
+      <svg id="th-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+      <span class="tl" id="th-lab">Auto</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <article class="tpage" id="view-payout">
+    <header class="phero">
+      <p class="kicker" data-rv><a href="../#tools">Tools</a> / <b>Payout</b></p>
+      <h1 class="th" data-rv>Payout <em>calculator</em></h1>
+      <p class="lede" data-rv>Put in what you are risking and the price in whatever form you have it: American,
+      decimal, fractional, a percentage, or a Kalshi multiplier. The other four fill themselves in.</p>
+    </header>
+
+    <div class="tsplit">
+      <div class="panel tcard" data-rv>
+        <div class="phead tbar"><h2 class="h3">Stake and price</h2>
+          <div class="tact"><button type="button" class="ghost tlink" data-k="payout">Copy link</button><button type="button" class="ghost treset" data-r="payout">Reset</button></div></div>
+        <div class="tin">
+          <div class="seg tseg" id="py-mode" role="group" aria-label="Bet type">
+            <button type="button" class="sg on" data-m="single" aria-pressed="true">Single bet</button>
+            <button type="button" class="sg" data-m="parlay" aria-pressed="false">Parlay</button>
+          </div>
+
+          <div id="py-single">
+            <div class="agrid pg">
+              <div class="al">Bet amount</div>
+              <div class="mi"><span>$</span><input type="text" id="py-s" value="10" inputmode="decimal" autocomplete="off" aria-label="Bet amount"></div>
+              <div class="al">Fees</div>
+              <div class="mi"><span>$</span><input type="text" id="py-f" placeholder="0.00" inputmode="decimal" autocomplete="off" aria-label="Fees charged on top of the bet amount"></div>
+            </div>
+            <div class="psep"></div>
+            <div class="ah" style="margin-bottom:10px">Price, typed into any one</div>
+            <div class="agrid pg">
+              <div class="al">American</div>
+              <input type="text" id="py-am" placeholder="+150" autocomplete="off" spellcheck="false" aria-label="American odds">
+              <div class="al">Decimal</div>
+              <input type="text" id="py-dec" placeholder="2.50" autocomplete="off" spellcheck="false" aria-label="Decimal odds">
+              <div class="al">Fractional</div>
+              <input type="text" id="py-frac" placeholder="3/2" autocomplete="off" spellcheck="false" aria-label="Fractional odds">
+              <div class="al">Implied&nbsp;%</div>
+              <input type="text" id="py-imp" placeholder="40.00" autocomplete="off" spellcheck="false" aria-label="Implied chance in percent">
+              <div class="al">Kalshi&nbsp;&times;</div>
+              <input type="text" id="py-mult" placeholder="2.50" autocomplete="off" spellcheck="false" aria-label="Kalshi payout multiplier">
+            </div>
+            <div class="asum two">
+              <div><b>To win</b><span class="num mut" id="py-win">$0.00</span></div>
+              <div class="sep"><b>Payout</b><span class="num mut" id="py-pay">$0.00</span></div>
+            </div>
+            <div class="fine" id="py-fine" aria-live="polite">Type a price into any one of the five fields.</div>
+          </div>
+
+          <div id="py-parlay" hidden>
+            <div class="legs" id="py-legs"></div>
+            <div class="legadd"><button class="btn2" type="button" id="py-add">+ Add leg</button>
+              <span class="lhint" id="py-hint"></span></div>
+            <div class="psep"></div>
+            <div class="agrid pg">
+              <div class="al">Bet amount</div>
+              <div class="mi"><span>$</span><input type="text" id="py-ps" value="10" inputmode="decimal" autocomplete="off" aria-label="Bet amount on the parlay"></div>
+              <div class="al">Fees</div>
+              <div class="mi"><span>$</span><input type="text" id="py-pf" placeholder="0.00" inputmode="decimal" autocomplete="off" aria-label="Fees charged on top of the bet amount"></div>
+            </div>
+            <div class="asum four">
+              <div><b>Legs</b><span class="num mut" id="py-pn">0</span></div>
+              <div><b>From the legs</b><span class="num mut" id="py-po">--</span></div>
+              <div><b>To win</b><span class="num mut" id="py-pw">$0.00</span></div>
+              <div class="sep"><b>Payout</b><span class="num mut" id="py-pp">$0.00</span></div>
+            </div>
+            <div class="fine" id="py-pfine" aria-live="polite">Enter a price on at least two legs.</div>
+          </div>
+        </div>
+      </div>
+      <aside class="read tnote" data-rv>
+        <p class="q">How to read it</p>
+        <p>The five price fields are the same number in five costumes. Fill in whichever one you have and read
+        off the rest.</p>
+        <p>To win is the profit on its own. Payout is that profit plus your stake back, which is the figure a
+        book prints on the slip.</p>
+        <p>A Kalshi multiplier is the payout for every $1, so it is the same number as the decimal price. A
+        2.50&times; ticket is decimal 2.50 and +150.</p>
+        <p>Legs on the parlay tab take any of the five forms as well, one per leg.</p>
+        <p>Fees are charged on top of the bet amount and do not come back, so they come out of To win and
+        make your true price worse. Leave the box empty if the book takes none.</p>
+      </aside>
+    </div>
+
+    <a class="handoff" data-rv href="../odds/">
+      <b>Want the chance behind the price instead?</b>
+      <span>The odds converter turns a percentage into a price and a price back into a percentage, and the
+      cheat sheet lists every percent from 1 to 99.</span>
+      <em>Open the odds converter →</em>
+    </a>
+
+    <div class="prose tprose" data-rv>
+      <h2>Why five fields</h2>
+      <p>Every book writes the same price differently. American books use +150 and &minus;110. European books and
+      most exchanges use decimals. British books use fractions. Exchanges such as Kalshi show a multiplier, which
+      is what one dollar comes back as. They all say the same thing.</p>
+      <h2>The Kalshi case</h2>
+      <p>Kalshi quotes a contract in cents and shows the ticket as a multiplier: 3.33&times;, say. There is no
+      American price on the screen. Put 3.33 in the multiplier field and you get +233, decimal 3.33, and 30.03%.
+      That is the number you need to compare the ticket against a sportsbook line.</p>
+      <p>A multiplier is the whole payout, not the profit. 3.33&times; on $10 returns $33.30, of which $23.30 is
+      profit.</p>
+      <h2>When the legs do not multiply to the payout</h2>
+      <p>On a combo ticket the leg multipliers printed on the card often do not multiply to the payout the book
+      has committed to. They are display values, rounded or refreshed, and not always the prices the ticket was
+      built from. The cost and the payout are the two numbers the book is bound by, so their ratio is the real
+      price of the ticket. Divide the payout by the cost and put that in the multiplier field.</p>
+      <h2>Fees</h2>
+      <p>Some books, exchanges above all, take a fee on top of the stake. The fee does not come back when the
+      bet wins, so it is a straight subtraction from the profit. Put it in the fees box and To win drops by that
+      amount, while the payout stays as the book states it. The line under the figures then gives your true
+      price, which is the payout over everything you paid.</p>
+      <h2>Implied chance</h2>
+      <p>The percentage field is the break-even rate. At +150 the bet must win 40% of the time to break even. It
+      is the raw price with the vig still in it, so it is not a fair estimate on its own: use the
+      <a href="../devig/">devig tool</a> for that.</p>
+    </div>
+  </article>
+
+  <section class="morecalc" aria-labelledby="more-h">
+    <div class="shead" data-rv>
+      <h2 id="more-h">The other tools</h2>
+      <p>Each one opens on its own page.</p>
+    </div>
+    <nav class="tools" aria-label="Other tools">
+      <a class="tool" data-rv href="../arbitrage/"><span class="i">01</span><span class="nm">Arbitrage</span><span class="pth">/arbitrage</span>
+        <span class="ds">Put two prices on the same market side by side. See the stake split, the return, and whether the pair locks a profit.</span></a>
+      <a class="tool" data-rv href="../hedge/"><span class="i">02</span><span class="nm">Hedge</span><span class="pth">/hedge</span>
+        <span class="ds">You already hold a bet. Work out what goes on the other side to lock a profit, and whether that beats the cash-out.</span></a>
+      <a class="tool" data-rv href="../parlay/"><span class="i">03</span><span class="nm">Parlay</span><span class="pth">/parlay</span>
+        <span class="ds">Price a parlay from its legs, or break the same legs into a round robin and see what each count of winning legs pays.</span></a>
+      <a class="tool" data-rv href="../odds/"><span class="i">04</span><span class="nm">Odds converter</span><span class="pth">/odds</span>
+        <span class="ds">Turn a percentage into a price, a price back into a percentage, and a multiplier into an American price.</span></a>
+      <a class="tool" data-rv href="../devig/"><span class="i">05</span><span class="nm">Devig</span><span class="pth">/devig</span>
+        <span class="ds">Take the book&#39;s margin out of a two-way market and get the fair price behind it.</span></a>
+      <a class="tool" data-rv href="../poker/"><span class="i">06</span><span class="nm">Poker settle-up</span><span class="pth">/poker</span>
+        <span class="ds">Enter every player, their buy-ins and what they cashed out. It works out who pays whom, in as few payments as it can.</span></a>
+      <a class="tool" data-rv href="../cheat-sheet/"><span class="i">07</span><span class="nm">Percent to odds</span><span class="pth">/cheat-sheet</span>
+        <span class="ds">Every percentage from 1 to 99, whole or in halves, with the American and decimal price that pays fairly for it.</span></a>
+    </nav>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="rstrip" data-rv aria-label="The record so far">
+      <a class="rs-net pos" href="../#record">+28.66u</a>
+      <dl>
+        <div><dt>Settled</dt><dd>296</dd></div>
+        <div><dt>W-L-P</dt><dd>136-151-9</dd></div>
+        <div><dt>ROI</dt><dd>+14.7%</dd></div>
+        <div><dt>Updated</dt><dd>Oct 6, 2026</dd></div>
+      </dl>
+      <div class="pips" role="img" aria-label="Last 20 results, oldest first: 12 won, 7 lost, 1 push"><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t p" aria-hidden="true">P</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span></div>
+    </div>
+    <div class="fgrid">
+      <div data-rv>
+        <p>A public record of plays posted on X, kept in units, wins and losses alike. It is not advice, it is not a service, and nothing here is for sale.</p>
+        <p class="fine">Plays go up on X before the event starts, then they are written here. This site is a file in a public Git repository, so every update carries a commit time that cannot be moved afterwards. <a href="https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main" target="_blank" rel="noopener noreferrer">See the commit history</a>. If betting stops being fun, stop.</p>
+      </div>
+      <nav class="flinks" aria-label="Footer" data-rv>
+        <a href="https://x.com/gamblingv1ctim" target="_blank" rel="noopener noreferrer">@gamblingv1ctim on X</a>
+        <a href="../plays.json">plays.json</a>
+        <a href="../how-to-read/">How to read</a>
+        <a href="../about/">About</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/site.js?v=61943ef7"></script>
+<script src="../assets/tools.js?v=c936ea75"></script>
+</body>
+</html>

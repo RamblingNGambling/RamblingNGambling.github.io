@@ -1,0 +1,75 @@
+  <article class="tpage" id="view-poker">
+    <header class="phero">
+      <p class="kicker" data-rv><a href="{{rel}}#tools">Tools</a> / <b>Poker</b></p>
+      <h1 class="th" data-rv>Poker <em>settle-up</em></h1>
+      <p class="lede" data-rv>Put in every player, their buy-ins and what they cashed out. The page works out who
+      pays whom, in as few payments as it can.</p>
+    </header>
+
+    <div class="panel tcard wide pkcard" data-rv>
+      <div class="phead tbar"><h2 class="h3">The table</h2>
+        <div class="tact"><button type="button" class="ghost tlink" data-k="poker">Copy link</button><button type="button" class="ghost pknew" id="pk-new">New game ×</button></div></div>
+      <div class="tin">
+        <input type="hidden" id="pk-game">
+        <div class="pkset">
+          <div class="pkbuy"><label class="ah" for="pk-buy">Buy-in</label>
+            <div class="mi"><span>$</span><input type="text" id="pk-buy" value="100" inputmode="decimal" autocomplete="off"></div></div>
+          <div class="pkadd"><label class="ah" for="pk-name">Add a player</label>
+            <input type="text" id="pk-name" placeholder="Name" maxlength="24" autocomplete="off" spellcheck="false" enterkeyhint="done"></div>
+          <button class="btn2" id="pk-add" type="button">+ Add</button>
+        </div>
+        <div class="pktab" id="pk-rows"></div>
+        <div class="fine" id="pk-fine"></div>
+      </div>
+    </div>
+
+    <div class="tsplit">
+      <div class="panel tcard" data-rv>
+        <div class="phead tbar"><h2 class="h3">Who pays whom</h2>
+          <div class="tact"><button type="button" class="ghost pkcopy" id="pk-copy" disabled>Copy results</button></div></div>
+        <div class="tin">
+          <div class="asum four" id="pk-sum">
+            <div><b>Players</b><span class="num" id="pk-np">0</span></div>
+            <div><b>Bought in</b><span class="num" id="pk-tin">$0.00</span></div>
+            <div><b>Cashed out</b><span class="num" id="pk-tout">$0.00</span></div>
+            <div class="sep"><b>Difference</b><span class="num mut" id="pk-gap">--</span><i id="pk-gapn"></i></div>
+          </div>
+          <div class="fine pkmsg" id="pk-msg" aria-live="polite"></div>
+          <button class="btn2 pksplit" id="pk-split" type="button" hidden></button>
+          <div class="ptab pkpay" id="pk-pay" hidden></div>
+        </div>
+      </div>
+      <aside class="read tnote" data-rv>
+        <p class="q">How to read it</p>
+        <p>Set the buy-in, then add everyone at the table. Each player starts on one buy-in. Press + for
+        each rebuy. For an odd amount, such as a half buy-in, type the total into the In column.</p>
+        <p>At the end, type what each player cashed out. Type 0 for a player who lost it all.</p>
+        <p>When every cash-out is in and they add up to the buy-ins, the payments show here. If they do
+        not add up, the page says by how much. Recount, or split the difference.</p>
+      </aside>
+    </div>
+
+    <div class="prose tprose" data-rv>
+      <h2>How the payments are worked out</h2>
+      <p>Each player&rsquo;s result is what they cashed out less what they put in. The player who is down
+      the most pays the player who is up the most, as much as one of them needs. That repeats until
+      everyone is square. A table of eight settles in seven payments or fewer.</p>
+      <p>Nobody pays the host and waits to be paid back. Every payment goes straight from a loser to a
+      winner.</p>
+      <h2>When the count is off</h2>
+      <p>Chips go missing. A rebuy goes unrecorded. A stack is counted wrong. Then the cash-outs do not add
+      up to the buy-ins, and there is no way to pay everyone exactly.</p>
+      <p>Recount first. If the gap is still there, Split shares it across the table by the size of each
+      result. A player up $200 takes twice the share of a player down $100. A player who broke even takes
+      none.</p>
+      <p>When chips are missing, the gap is handed back: winners collect a little more and losers pay a
+      little less. When the count comes out over, it works the other way.</p>
+      <p>Say $10 is missing, and three players are up $190, down $100 and down $100. The results come to
+      $390 between them, so the winner takes 190/390 of the $10 and each loser 100/390. The winner collects
+      $194.87, and the losers pay $97.43 and $97.44. The odd cent has to land somewhere.</p>
+      <h2>Your game stays on your device</h2>
+      <p>The table is kept in this browser only, so a reload in the middle of a game loses nothing. New
+      game clears it. Copy link puts the whole table into the address, so anyone you send it to opens the
+      same numbers.</p>
+    </div>
+  </article>

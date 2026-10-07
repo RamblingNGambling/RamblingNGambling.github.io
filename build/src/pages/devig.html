@@ -1,0 +1,53 @@
+  <article class="tpage" id="view-devig">
+    <header class="phero">
+      <p class="kicker" data-rv><a href="{{rel}}#tools">Tools</a> / <b>Devig</b></p>
+      <h1 class="th" data-rv>Devig <em>calculator</em></h1>
+      <p class="lede" data-rv>Take the book&rsquo;s margin out of a two-way market and get the fair price behind it.</p>
+    </header>
+
+    <div class="tsplit">
+      <div class="panel tcard" data-rv>
+        <div class="phead tbar"><h2 class="h3">Devig a two-way market</h2>
+          <div class="tact"><button type="button" class="ghost tlink" data-k="devig">Copy link</button><button type="button" class="ghost treset" data-r="devig">Reset</button></div></div>
+        <div class="tin">
+          <div class="ah" style="margin-bottom:6px">Method</div>
+          <div class="seg" role="group" aria-label="Devig method">
+            <button type="button" class="sg on" data-m="mult" aria-pressed="true">Multiplicative</button>
+            <button type="button" class="sg" data-m="add" aria-pressed="false">Additive</button>
+            <button type="button" class="sg" data-m="pow" aria-pressed="false">Power</button>
+          </div>
+          <div class="dgrid">
+            <div class="ah">Odds</div><div class="ah num">No-vig %</div><div class="ah num">No-vig odds</div>
+            <input type="text" id="dv-a" placeholder="+110" autocomplete="off" spellcheck="false" aria-label="Odds on the first side">
+            <div class="dv num mut" id="dv-pa">--</div><div class="dv num lil mut" id="dv-oa">--</div>
+            <input type="text" id="dv-b" placeholder="+110" autocomplete="off" spellcheck="false" aria-label="Odds on the second side">
+            <div class="dv num mut" id="dv-pb">--</div><div class="dv num lil mut" id="dv-ob">--</div>
+          </div>
+          <div class="fine" id="dv-fine" aria-live="polite">Enter both sides of the market.</div>
+        </div>
+      </div>
+      <aside class="read tnote" data-rv>
+        <p class="q">How to read it</p>
+        <p>Enter both sides of the market. Each row gives the fair chance and the fair price for that side, with the book&rsquo;s margin taken out. The two percentages add up to 100%.</p>
+        <p>Compare a fair price with what another book offers. A better price than the fair one is a positive edge.</p>
+      </aside>
+    </div>
+
+    <div class="prose tprose" data-rv>
+      <h2>What the vig is</h2>
+      <p>A book prices both sides so that the two chances add up to more than 100%. On a &minus;110 / &minus;110
+      market the two sides come to 104.55%. The extra 4.55% is the hold. It is how the book makes money.</p>
+      <p>To devig is to remove that extra and leave two numbers that add up to 100%.</p>
+      <h2>The three methods</h2>
+      <p><b>Multiplicative</b> divides each side by the total. It is the standard method and the right first choice.</p>
+      <p><b>Additive</b> takes an equal share of the margin off each side. It gives the favourite a lower fair
+      chance than the multiplicative method does.</p>
+      <p><b>Power</b> raises both chances to the same power until they add up to 100%. It moves longshots the most,
+      so it is the one to reach for on big prices.</p>
+      <p>The three agree closely on an even market. They separate as the market gets one-sided. On a
+      &minus;1000 / +700 market they differ by more than two points.</p>
+      <h2>How to use it</h2>
+      <p>Take both sides of the market from the sharpest book you have. Put your side in the first field. Read the
+      fair line, then look for a better price elsewhere. That gap is your edge.</p>
+    </div>
+  </article>

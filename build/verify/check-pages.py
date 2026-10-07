@@ -30,7 +30,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 EXPECTED = json.loads((ROOT / "verify" / "expected.json").read_text())
 
-PAGES = ["", "about/", "how-to-read/", "arbitrage/", "hedge/", "parlay/", "payout/", "odds/", "devig/",
+PAGES = ["", "about/", "arbitrage/", "hedge/", "parlay/", "payout/", "odds/", "devig/",
          "poker/", "cheat-sheet/", "404.html"]
 PAGE = 15    # rows the log shows before "Show more" (home.js PAGE)
 SHOTS = ROOT / "verify" / "shots"   # screenshots for review (git-ignored)

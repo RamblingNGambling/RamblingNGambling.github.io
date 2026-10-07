@@ -27,6 +27,7 @@ EXPECTED = json.loads((ROOT / "verify" / "expected.json").read_text())
 
 PAGES = ["", "about/", "how-to-read/", "arbitrage/", "hedge/", "parlay/", "payout/", "odds/", "devig/",
          "poker/", "cheat-sheet/", "404.html"]
+PAGE = 15    # rows the log shows before "Show more" (home.js PAGE)
 VIEWPORTS = {"390": {"width": 390, "height": 844}, "1440": {"width": 1440, "height": 900}}
 
 fails = 0
@@ -137,7 +138,7 @@ with sync_playwright() as p:
             want_net = "0.00" if abs(c["net"]) < 0.005 else f"{c['net']:+.2f}"
             ok = n == str(c["n"]) and wlp == c["wlp"] and net == want_net
             rows = pg.locator("#rows tr[data-k]").count()
-            ok = ok and rows == min(25, c["n"])
+            ok = ok and rows == min(PAGE, c["n"])
         if not ok:
             bad.append((c, tally()))
     check(not bad, f"filters: {len(EXPECTED['combos']) - len(bad)}/{len(EXPECTED['combos'])} combinations match plays.json "

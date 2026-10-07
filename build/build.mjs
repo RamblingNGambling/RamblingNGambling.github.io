@@ -208,7 +208,7 @@ function footer(rel, home) {
   const hm = home ? "" : rel;
   return `<footer>
   <div class="wrap">
-    <div class="rstrip" data-rv aria-label="The record so far">
+    ${home ? "" : `<div class="rstrip" data-rv aria-label="The record so far">
       <a class="rs-net ${cls(A.u)}" href="${hm}#record">${signed(A.u)}u</a>
       <dl>
         <div><dt>Settled</dt><dd>${A.n}</dd></div>
@@ -217,7 +217,7 @@ function footer(rel, home) {
         <div><dt>Updated</dt><dd>${h(updIso ? dlong(updIso) : "–")}</dd></div>
       </dl>
       ${form ? `<div class="pips" role="img" aria-label="${formLabel}">${formTiles}</div>` : ""}
-    </div>
+    </div>`}
     <div class="fgrid">
       <div data-rv>
         <p>A public record of plays posted on X, kept in units, wins and losses alike. It is not advice, it is not a service, and nothing here is for sale.</p>
@@ -290,27 +290,32 @@ const netWord = A.u < -0.004 ? "Minus" : A.u > 0.004 ? "Plus" : "";
 const sampleNote = A.n < 100 ? `This is ${A.n} settled plays. That is far too few to separate skill from luck: read the number as a record, not as a rate.`
   : A.n < 500 ? `This is ${A.n} settled plays. At that count a swing of several points of ROI either way is ordinary variance, so treat the rate as rough.`
   : `This is ${A.n} settled plays. Large enough to be worth reading, small enough that a cold month still moves it.`;
+// "Oct 7, 2026, 1:24 AM EDT" reads as "Oct 7, 1:24 AM EDT" beside a span that already names the year.
+const updShort = (RAW.updated || "–").replace(/^([A-Z][a-z]+\.? \d{1,2}), \d{4}(,)?/, "$1$2");
 const dataJson = JSON.stringify(DATA).replace(/</g, "\\u003c");
 
 const homeBody = `<main class="wrap" id="main">
 
-  <!-- ============ RECORD ============ -->
+  <!-- ============ 01 RECORD ============ -->
   <section class="record" id="record" aria-labelledby="rec-h">
     <h1 class="sr" id="rec-h">Public Tracker: the record</h1>
-    <p class="kicker" data-rv>Running total · <b>${A.n} settled plays</b> · ${span}</p>
-    <div class="figrow">
-      <p class="big${A.u < -0.004 ? " down" : ""}" data-rv data-to="${round(A.u, 6)}" aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span id="cu-i">${netAbs[0]}</span><span class="pt">.</span><span id="cu-d">${netAbs[1]}</span><span class="u">u</span></p>
-      <p class="promise" data-rv><strong>Every play goes up on X before the event starts.</strong>
-        It is logged here either way, the red weeks the same as the green ones. Units only, so the
-        record reads the same whatever anybody stakes.</p>
+    <p class="eyebrow" data-rv><span class="no">01</span><span>The record</span>
+      <span class="ey-r"><span>${span}</span><span class="dot"> · </span><span>Updated ${h(updShort)} · <a href="plays.json">plays.json</a></span></span></p>
+    <div class="hero">
+      <div>
+        <p class="big${A.u < -0.004 ? " down" : ""}" data-rv data-to="${round(A.u, 6)}" aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span id="cu-i">${netAbs[0]}</span><span class="pt">.</span><span id="cu-d">${netAbs[1]}</span><span class="u">u</span></p>
+        <p class="promise" data-rv><strong>Every play goes up on X before the event starts.</strong>
+          It is logged here either way, the red weeks the same as the green ones. Units only, so the
+          record reads the same whatever anybody stakes.</p>
+      </div>
+      <dl class="ledger">
+        <div data-rv><dt>Settled</dt><dd><span data-cu="${A.n}">${A.n}</span></dd><p>${OPEN} open right now</p></div>
+        <div data-rv><dt>ROI</dt><dd>${A.roi < 0 ? MINUS : A.roi > 0 ? "+" : ""}<span data-cu="${Math.abs(A.roi * 100).toFixed(1)}" data-dp="1">${Math.abs(A.roi * 100).toFixed(1)}</span><small>%</small></dd><p>on ${A.risk.toFixed(2)}u risked</p></div>
+        <div data-rv><dt>W-L-P</dt><dd>${A.w}-${A.l}-${A.p}</dd><p>pushes return the stake</p></div>
+        <div data-rv><dt>Win rate</dt><dd>${(A.wr * 100).toFixed(1)}<small>%</small></dd><p>${A.wr < 0.5 && A.u > 0 ? "Under half, still up. " : ""}<a href="#reading">Why</a></p></div>
+        <div class="lform" data-rv><dt>Last ${form.length}, oldest first</dt><dd><div class="pips" id="pips" role="img"></div></dd></div>
+      </dl>
     </div>
-
-    <dl class="ledger">
-      <div data-rv><dt>Settled plays</dt><dd><span data-cu="${A.n}">${A.n}</span></dd><p>${OPEN} open right now</p></div>
-      <div data-rv><dt>ROI</dt><dd>${A.roi < 0 ? MINUS : ""}<span data-cu="${Math.abs(A.roi * 100).toFixed(1)}" data-dp="1">${Math.abs(A.roi * 100).toFixed(1)}</span><small>%</small></dd><p>on ${A.risk.toFixed(2)}u risked</p></div>
-      <div data-rv><dt>Won · lost · push</dt><dd>${A.w}-${A.l}-${A.p}</dd><p>pushes return the stake</p></div>
-      <div data-rv><dt>Win rate</dt><dd>${(A.wr * 100).toFixed(1)}<small>%</small></dd><p>${A.wr < 0.5 && A.u > 0 ? "Under half, still up. " : ""}<a href="#reading">Why</a></p></div>
-    </dl>
 
     <div class="panel chartp" data-rv>
       <div class="phead">
@@ -323,28 +328,22 @@ const homeBody = `<main class="wrap" id="main">
       <div class="chart" id="chart">
         <div class="tip" id="tip" aria-hidden="true"></div>
       </div>
-      <div class="pfoot">
-        <div class="form"><span>Last ${form.length}, oldest first</span><div class="pips" id="pips" role="img"></div></div>
-        <div class="meta"><span>Updated ${h(RAW.updated || "")}</span><a href="plays.json">plays.json</a></div>
-      </div>
     </div>
   </section>
 
-  <!-- ============ LOG ============ -->
+  <!-- ============ 02 LOG ============ -->
   <section id="log" aria-labelledby="log-h">
     <div class="shead" data-rv>
-      <h2 id="log-h">Play log</h2>
-      <p>Every row with an X links to the post that called it, timestamped before the event.</p>
-    </div>
-
-    <div class="filters" id="filters" data-rv>
-      <div class="fgroup"><span class="lab" id="lab-sport">Sport</span><div class="seg" id="f-sport" role="group" aria-labelledby="lab-sport"></div></div>
-      <div class="fgroup"><span class="lab" id="lab-res">Result</span><div class="seg" id="f-res" role="group" aria-labelledby="lab-res"></div></div>
-      <div class="fgroup"><label class="lab" for="f-mkt">Market</label><span class="sel"><select id="f-mkt"></select></span></div>
+      <div><p class="eyebrow"><span class="no">02</span><span>Play log</span></p><h2 id="log-h">Every play, newest first</h2></div>
+      <div class="tally" id="tally" aria-live="polite"><span>Loading</span></div>
     </div>
 
     <div class="panel logp" data-rv>
-      <div class="tally" id="tally" aria-live="polite"><span>Loading</span></div>
+      <div class="ctl" id="filters">
+        <div class="fgroup"><span class="sr" id="lab-sport">Sport</span><div class="seg" id="f-sport" role="group" aria-labelledby="lab-sport"></div></div>
+        <div class="fgroup"><span class="sr" id="lab-res">Result</span><div class="seg" id="f-res" role="group" aria-labelledby="lab-res"></div></div>
+        <div class="fgroup"><label class="sr" for="f-mkt">Market</label><span class="sel"><select id="f-mkt"></select></span></div>
+      </div>
       <table class="log">
         <caption class="sr">Play log, newest first</caption>
         <thead><tr>
@@ -358,32 +357,29 @@ const homeBody = `<main class="wrap" id="main">
       </table>
       <div class="more" id="more" hidden></div>
     </div>
-    <p class="sample" data-rv>${h(sampleNote)}</p>
+    <p class="sample" data-rv>Every row with an X links to the post that called it, timestamped before the event. ${h(sampleNote)}</p>
   </section>
 
-  <!-- ============ BREAKDOWN + READING ============ -->
+  <!-- ============ 03 BREAKDOWN + READING ============ -->
   <section id="breakdown" aria-labelledby="brk-h">
     <div class="shead" data-rv>
-      <h2 id="brk-h">Where the units came from</h2>
-      <p>All ${A.n} settled plays, split three ways.</p>
+      <div><p class="eyebrow"><span class="no">03</span><span>Breakdown</span></p><h2 id="brk-h">Where the units came from</h2></div>
+      <div class="seg" role="tablist" aria-label="Split by" id="brk-tabs">
+        <button type="button" role="tab" id="tab-sport" aria-selected="true" aria-controls="brk-panel" data-k="sport">Sport</button>
+        <button type="button" role="tab" id="tab-market" aria-selected="false" aria-controls="brk-panel" data-k="market" tabindex="-1">Market</button>
+        <button type="button" role="tab" id="tab-month" aria-selected="false" aria-controls="brk-panel" data-k="month" tabindex="-1">Month</button>
+      </div>
     </div>
     <div class="split">
       <div class="panel bpanel" data-rv>
-        <div class="phead">
-          <h3 id="brk-t">By sport</h3>
-          <div class="seg" role="tablist" aria-label="Split by" id="brk-tabs">
-            <button type="button" role="tab" id="tab-sport" aria-selected="true" aria-controls="brk-panel" data-k="sport">Sport</button>
-            <button type="button" role="tab" id="tab-market" aria-selected="false" aria-controls="brk-panel" data-k="market" tabindex="-1">Market</button>
-            <button type="button" role="tab" id="tab-month" aria-selected="false" aria-controls="brk-panel" data-k="month" tabindex="-1">Month</button>
-          </div>
-        </div>
         <div id="brk-panel" role="tabpanel" aria-labelledby="tab-sport">
           <table class="brk">
+            <caption class="sr"><span id="brk-t">By sport</span>, all ${A.n} settled plays</caption>
             <thead><tr><th scope="col" id="brk-col">Sport</th><th scope="col" class="num">Plays</th><th scope="col" class="num c-wlp">W-L-P</th>
               <th scope="col" class="c-bar"><span class="sr">Units, drawn from zero</span></th><th scope="col" class="num">Units</th><th scope="col" class="num">ROI</th></tr></thead>
             <tbody id="brk-rows"></tbody>
           </table>
-          <p class="bnote">ROI is units won over units risked. Pushes count as risked, voids do not. Rows marked † have fewer than 10 plays: read them as a record, not a rate.</p>
+          <p class="bnote">All ${A.n} settled plays. ROI is units won over units risked; pushes count as risked, voids do not. Rows marked † have fewer than 10 plays: read them as a record, not a rate.</p>
         </div>
       </div>
 
@@ -403,11 +399,11 @@ const homeBody = `<main class="wrap" id="main">
     </div>
   </section>
 
-  <!-- ============ TOOLS ============ -->
+  <!-- ============ 04 TOOLS ============ -->
   <section id="tools" aria-labelledby="tools-h">
     <div class="shead" data-rv>
-      <h2 id="tools-h">Tools</h2>
-      <p>The arithmetic around a bet slip, worked out properly. Each one opens on its own page.</p>
+      <div><p class="eyebrow"><span class="no">04</span><span>Tools</span></p><h2 id="tools-h">The arithmetic around a bet slip</h2></div>
+      <p>Worked out properly. Each one opens on its own page.</p>
     </div>
     <nav class="tools" aria-label="Tools">
       ${toolIndex("", "")}
@@ -424,7 +420,7 @@ built.push(page({slug: "", title: "", home: true,
 /* ---------- inner pages ---------- */
 const moreTools = skip => `<section class="morecalc" aria-labelledby="more-h">
     <div class="shead" data-rv>
-      <h2 id="more-h">The other tools</h2>
+      <div><p class="eyebrow">More tools</p><h2 id="more-h">The other tools</h2></div>
       <p>Each one opens on its own page.</p>
     </div>
     <nav class="tools" aria-label="Other tools">

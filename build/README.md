@@ -1,7 +1,10 @@
 # Public Tracker: static build (Direction A)
 
 Rebuilds the public betting tracker as a static site from `plays.json`, in the
-Direction A design (`prototypes/direction-a-evolved.html`).
+Direction A design (`prototypes/direction-a-evolved.html`), after a premium
+polish and compression pass: one sans for reading, mono only for labels and
+table figures, lilac rationed to the key figures and the curve, hairlines
+instead of shadows, numbered sections.
 
 ## Build
 
@@ -82,14 +85,17 @@ regenerated `sitemap.xml`.
 
 ## What the pages do
 
-- **Home.** Hero with count-ups (net units, settled plays, ROI); equity curve
-  (SVG, cumulative units by day, draw-in, hover and keyboard readout, 30-day /
-  all range); the play log with sport, result and market filters and a reset,
-  using the prototype's filter logic and FLIP row transitions, over all plays,
-  paged 25 at a time; splits by sport, market and month (units P/L, W-L-P,
-  ROI); the tools index.
-- **Every page** carries the record strip in the footer: net units, settled
-  count, W-L-P, ROI, last update and the last 20 results.
+- **Home.** 01 the record: net units with count-ups, the ledger (settled, ROI,
+  W-L-P, win rate, last 20 results) and the equity curve (SVG, cumulative
+  units by day, high and low marked, draw-in, hover and keyboard readout,
+  30-day / all range). 02 the play log: sport, result and market filters on one
+  control row, the live tally in the section head, a reset, the prototype's
+  filter logic and FLIP row transitions, over all plays, paged 15 at a time;
+  03 splits by sport, market and month (units P/L, W-L-P, ROI), tabs in the
+  section head, beside the how-to-read note; 04 the tools index.
+- **Every inner page** carries the record strip in the footer (home has it in
+  the hero): net units, settled count, W-L-P, ROI, last update and the last 20
+  results.
 - **About** and **How to read** carry the old content over into the new design.
 - **Tools.** The seven calculators plus the percent-to-odds cheat sheet. The
   maths, inputs, share links (`?ar-a=…`), reset and the poker table's local

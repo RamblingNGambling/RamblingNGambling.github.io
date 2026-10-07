@@ -11,7 +11,7 @@ node build.mjs
 node verify/check-data.mjs
 python3 verify/check-pages.py
 
-git -C "$SITE" switch -c redesign
+git -C "$SITE" switch redesign 2>/dev/null || git -C "$SITE" switch -c redesign
 mkdir -p "$SITE/build"
 cp -R README.md build.mjs ship.sh src verify dist "$SITE/build/"
 git -C "$SITE" add build

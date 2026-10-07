@@ -48,7 +48,7 @@ function niceStep(span,n){const raw=span/n,m=Math.pow(10,Math.floor(Math.log10(r
 function drawChart(){
   if(!ALL.length){host.innerHTML='<p class="sample">No settled plays yet. The line starts with the first one.</p>';return}
   const W=host.clientWidth;if(!W)return;
-  const H=W<520?200:250,P={l:40,r:14,t:18,b:26};
+  const H=W<520?190:236,P={l:36,r:12,t:22,b:24};
   const last=ALL[ALL.length-1];
   let base=0,start;
   if(range){
@@ -69,7 +69,7 @@ function drawChart(){
   for(let v=y0;v<=y1+1e-9;v+=step){
     const yy=y(v).toFixed(1);
     g+=`<line class="${Math.abs(v)<1e-9?"zero":"grid"}" x1="${P.l}" x2="${W-P.r}" y1="${yy}" y2="${yy}"/>`;
-    g+=`<text class="ax" x="${P.l-8}" y="${(+yy+3.5).toFixed(1)}" text-anchor="end">${fmtTick(+v.toFixed(2))}</text>`;
+    g+=`<text class="ax" x="${P.l-10}" y="${(+yy+3.5).toFixed(1)}" text-anchor="end">${fmtTick(+v.toFixed(2))}</text>`;
   }
   // x ticks: month starts for the full run, weekly steps back from the last day for 30 days
   let xt=[];
@@ -85,6 +85,21 @@ function drawChart(){
   const zy=y(0).toFixed(1),xEnd=x(last.t).toFixed(1);
   const area=line+`L${xEnd} ${zy}L${x(start).toFixed(1)} ${zy}Z`;
   const ex=x(last.t),ey=y(ys[ys.length-1]);
+  // Mark the high-water point and the low on the full run, quietly, when they
+  // stand clear of the end label; the 30-day view stays bare.
+  let ann="";
+  if(!range&&pts.length>2){
+    const mark=(i,above,word)=>{
+      const ax=x(pts[i].t),ay=y(ys[i]);
+      if(Math.abs(ax-ex)<90&&Math.abs(ay-ey)<28)return;
+      const anchor=ax<P.l+60?"start":ax>W-P.r-60?"end":"middle";
+      ann+=`<circle class="annd" cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="2.5"/>`+
+        `<text class="ann" x="${ax.toFixed(1)}" y="${(above?ay-9:ay+16).toFixed(1)}" text-anchor="${anchor}">${word} ${signed(ys[i])}</text>`;
+    };
+    let iHi=0,iLo=0;ys.forEach((v,i)=>{if(v>ys[iHi])iHi=i;if(v<ys[iLo])iLo=i});
+    if(iHi!==ys.length-1)mark(iHi,true,"High");
+    if(ys[iLo]<0&&iLo!==ys.length-1)mark(iLo,false,"Low");
+  }
 
   host.querySelector("svg")&&host.querySelector("svg").remove();
   const svgNS="http://www.w3.org/2000/svg";
@@ -97,16 +112,16 @@ function drawChart(){
     :`Cumulative units by day from ${dlong(pts[0].date)} to ${dlong(last.date)}, ending at ${signed(last.v)}u. Low ${signed(lowP.v)}u on ${dlong(lowP.date)}. Use arrow keys to step through days.`);
   // Fill above zero in the accent wash (the winning side), below zero in the loss wash.
   svg.innerHTML=`<defs>
-      <linearGradient id="gpos" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--acc);stop-opacity:.24"/><stop offset="1" style="stop-color:var(--acc);stop-opacity:0"/></linearGradient>
+      <linearGradient id="gpos" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--acc-area)"/><stop offset="1" style="stop-color:var(--acc-area);stop-opacity:0"/></linearGradient>
       <clipPath id="cpos"><rect x="0" y="0" width="${W}" height="${zy}"/></clipPath>
       <clipPath id="cneg"><rect x="0" y="${zy}" width="${W}" height="${H}"/></clipPath>
     </defs>${g}
     <path class="area" d="${area}" fill="url(#gpos)" clip-path="url(#cpos)"/>
-    <path class="area" d="${area}" style="fill:var(--down-wash)" clip-path="url(#cneg)"/>
-    <path class="ln" d="${line}"/>
+    <path class="area" d="${area}" style="fill:var(--neg-area)" clip-path="url(#cneg)"/>
+    <path class="ln" d="${line}"/>${ann}
     <g id="hov" style="display:none"><line class="xh" x1="0" x2="0" y1="${P.t}" y2="${H-P.b}"/>
-      <g class="mk"><circle class="halo" r="10"/><circle r="4.5" style="fill:var(--acc);stroke:var(--s1)" stroke-width="2"/></g></g>
-    <circle class="end" cx="${ex}" cy="${ey}" r="4.5" style="fill:var(--acc);stroke:var(--s1)" stroke-width="2"/>
+      <g class="mk"><circle class="halo" r="10"/><circle r="4" style="fill:var(--acc);stroke:var(--s1)" stroke-width="2"/></g></g>
+    <circle class="end" cx="${ex}" cy="${ey}" r="4" style="fill:var(--acc);stroke:var(--s1)" stroke-width="2"/>
     <text class="endlab" x="${ex-10}" y="${ey-12}" text-anchor="end">${signed(range?last.v-base:last.v)}u</text>
     <rect id="hit" x="${P.l}" y="0" width="${W-P.l-P.r}" height="${H}" fill="transparent"/>`;
   host.insertBefore(svg,tip);
@@ -181,7 +196,7 @@ function playChart(dur,delay=0){
   ln.setAttribute("pathLength","1");ln.style.strokeDasharray="1 3";
   const a=ln.animate([{strokeDashoffset:"1.02"},{strokeDashoffset:"0"}],{duration:dur,delay,easing:"cubic-bezier(.45,.05,.2,1)",fill:"backwards"});
   a.onfinish=a.oncancel=()=>{ln.style.strokeDasharray="";ln.removeAttribute("pathLength")};
-  s.querySelectorAll(".area").forEach(el=>el.animate([{opacity:0},{opacity:1}],{duration:dur*.6,delay:delay+dur*.5,easing:"ease-out",fill:"backwards"}));
+  s.querySelectorAll(".area,.ann,.annd").forEach(el=>el.animate([{opacity:0},{opacity:1}],{duration:dur*.6,delay:delay+dur*.5,easing:"ease-out",fill:"backwards"}));
   s.querySelector(".end").animate([{opacity:0,transform:"scale(.2)"},{opacity:1,transform:"scale(1.25)",offset:.6},{opacity:1,transform:"none"}],
     {duration:420,delay:delay+dur*.9,easing:"ease-out",fill:"backwards"});
   rise(s.querySelector(".endlab"),{dy:4,dur:360,delay:delay+dur*.95});
@@ -242,7 +257,7 @@ drawBreak("sport");
 // passes everything. The full log is paged so the first paint stays short.
 const SPORT_ORDER=DATA.sportOrder,MKT_ORDER=DATA.marketOrder;
 const F={sport:"All",result:"All",market:"All"};
-const PAGE=25;let limit=PAGE;
+const PAGE=15;let limit=PAGE;
 const rowsEl=$("#rows"),tally=$("#tally"),moreEl=$("#more");
 const match=r=>(F.sport==="All"||r[2]===F.sport)&&(F.market==="All"||r[3]===F.market)&&(F.result==="All"||r[8]===F.result);
 
@@ -300,7 +315,7 @@ function drawLog(){
     const w=list.filter(r=>r[8]==="W").length,l=list.filter(r=>r[8]==="L").length,p=list.filter(r=>r[8]==="P").length;
     const net=list.reduce((a,r)=>a+r[9],0);
     tally.innerHTML=`<span><b data-n="${list.length}">${list.length}</b> of ${PLAYS.length} plays</span><span><b>${w}-${l}-${p}</b></span>`+
-      `<span>Net <b>${uHTML(net)}</b></span>`+
+      `<span>net <b>${uHTML(net)}</b></span>`+
       `<button type="button" class="clear" id="clear"${active?"":" hidden"}>Clear filters</button>`;
     $("#clear").addEventListener("click",clearF);
     if(!list.length){
@@ -326,7 +341,7 @@ function drawLog(){
     }).join("");
     const left=list.length-shown.length;
     moreEl.hidden=false;
-    moreEl.innerHTML=`<span class="sp">Showing <b>${shown.length}</b> of ${list.length}</span>`+
+    moreEl.innerHTML=`<span class="sp"><span class="mo-h">Showing </span><b>${shown.length}</b> of ${list.length}</span>`+
       (left?`<button type="button" class="ghost" id="more-n">Show ${Math.min(50,left)} more</button>`+
             (left>50?`<button type="button" class="ghost" id="more-all">Show all ${list.length}</button>`:""):"");
     const mn=$("#more-n"),ma=$("#more-all");
@@ -349,10 +364,8 @@ function countHero(delay){
 }
 PT.onReveal((el,d)=>{
   if(el.classList.contains("big"))countHero(d);
-  if(el.classList.contains("chartp")){
-    playChart(1300,d+120);
-    [...$("#pips").children].forEach((t,i)=>rise(t,{dy:5,dur:320,delay:d+300+i*30}));
-  }
+  if(el.classList.contains("chartp"))playChart(1300,d+120);
+  if(el.classList.contains("lform"))[...$("#pips").children].forEach((t,i)=>rise(t,{dy:5,dur:320,delay:d+160+i*30}));
   if(el.classList.contains("bpanel"))growBars(d+120);
 });
 })();

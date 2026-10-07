@@ -172,10 +172,11 @@ const TOOLS = [
   ["poker", "Poker settle-up", "Who pays whom after a home game"],
   ["cheat-sheet", "Percent to odds", "Fair odds for every percent, 1 to 99"]
 ];
-// Both the home index and the inner pages' "More tools" give each tool a
-// number, its name and a one-line summary, at every width.
-const toolIndex = (rel, skip) => TOOLS.filter(t => t[0] !== skip).map((t, i) =>
-  `<a class="tool" data-rv href="${rel}${t[0]}/"><span class="i">${String(i + 1).padStart(2, "0")}</span><span class="nm">${h(t[1])}</span><span class="sd">${h(t[2])}</span></a>`).join("\n      ");
+// Both the home index and the inner pages' "More tools" list each tool with
+// its name and a one-line summary, at every width. The home index numbers
+// them; "More tools" does not (the numbers would shift on every page).
+const toolIndex = (rel, skip, nonum) => TOOLS.filter(t => t[0] !== skip).map((t, i) =>
+  `<a class="tool" data-rv href="${rel}${t[0]}/">${nonum ? "" : `<span class="i">${String(i + 1).padStart(2, "0")}</span>`}<span class="nm">${h(t[1])}</span><span class="sd">${h(t[2])}</span></a>`).join("\n      ");
 
 const XSVG = '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x=".5" y=".5" width="31" height="31" rx="7" fill="#0B0B0D" stroke="var(--line2)"/><path d="M5 21.5 L11.5 13 L17 17 L27 6.5" stroke="#C08BF5" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -319,8 +320,8 @@ const homeBody = `<main class="wrap" id="main">
       <dl class="ledger">
         <div data-rv><dt>Settled</dt><dd><span data-cu="${A.n}">${A.n}</span></dd><p>${OPEN} open right now</p></div>
         <div data-rv><dt>ROI</dt><dd>${A.roi < 0 ? MINUS : A.roi > 0 ? "+" : ""}<span data-cu="${Math.abs(A.roi * 100).toFixed(1)}" data-dp="1">${Math.abs(A.roi * 100).toFixed(1)}</span><small>%</small></dd><p>on ${A.risk.toFixed(2)}u risked</p></div>
-        <div data-rv><dt>W-L-P</dt><dd>${A.w}-${A.l}-${A.p}</dd><p>pushes return the stake</p></div>
-        <div data-rv><dt>Win rate</dt><dd>${(A.wr * 100).toFixed(1)}<small>%</small></dd><p>${A.wr < 0.5 && A.u > 0 ? "Under half, still up. " : ""}<a href="cheat-sheet/">Why</a></p></div>
+        <div data-rv><dt>W-L-P</dt><dd>${A.w}-${A.l}-${A.p}</dd></div>
+        <div data-rv><dt>Win rate</dt><dd>${(A.wr * 100).toFixed(1)}<small>%</small></dd><p>${A.wr < 0.5 && A.u > 0 ? "Under half, still up." : ""}</p></div>
         <div class="lform" data-rv><dt>Last ${form.length}, oldest first</dt><dd><div class="pips" id="pips" role="img"></div></dd></div>
       </dl>
     </div>
@@ -366,7 +367,7 @@ const homeBody = `<main class="wrap" id="main">
         </tbody>
       </table>
       <div class="more" id="more" hidden></div>
-      <a class="xhint" id="xhint" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span>See the post that called it</span><span class="xh-t"><span class="xh-d">—</span> timestamped before the event <i>↗</i></span></a>
+      <a class="xhint" id="xhint" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span>See the post</span><span class="xh-t"><span class="xh-d">—</span> timestamped before the event <i>↗</i></span></a>
     </div>
   </section>
 
@@ -380,8 +381,7 @@ const homeBody = `<main class="wrap" id="main">
         <button type="button" role="tab" id="tab-month" aria-selected="false" aria-controls="brk-panel" data-k="month" tabindex="-1">Month</button>
       </div>
     </div>
-    <div class="split">
-      <div class="panel bpanel" data-rv>
+    <div class="panel bpanel" data-rv>
         <div id="brk-panel" role="tabpanel" aria-labelledby="tab-sport">
           <table class="brk">
             <caption class="sr"><span id="brk-t">By sport</span>, all ${A.n} settled plays</caption>
@@ -389,21 +389,9 @@ const homeBody = `<main class="wrap" id="main">
               <th scope="col" class="c-bar"><span class="sr">Units, drawn from zero</span></th><th scope="col" class="num">Units</th><th scope="col" class="num">ROI</th></tr></thead>
             <tbody id="brk-rows"></tbody>
           </table>
-          <p class="bnote">All ${A.n} settled plays. ROI is units won over units risked; pushes count as risked, voids do not. † fewer than 10 plays.</p>
+          <p class="bnote">All ${A.n} settled plays. † fewer than 10 plays.</p>
         </div>
       </div>
-
-      <aside class="read" id="reading" data-rv aria-labelledby="read-h">
-        <p class="q" id="read-h">Break-even, by price</p>
-        <dl class="be">
-          <dt>At −110</dt><dd>52.4% to break even</dd>
-          <dt>At +150</dt><dd>40.0% to break even</dd>
-        </dl>
-        <div class="links">
-          <a class="lbtn" href="about/">About</a>
-        </div>
-      </aside>
-    </div>
   </section>
 
   <!-- ============ 04 TOOLS ============ -->
@@ -434,11 +422,10 @@ built.push(page({slug: "", title: "", home: true,
 /* ---------- inner pages ---------- */
 const moreTools = skip => `<section class="morecalc" aria-labelledby="more-h">
     <div class="shead" data-rv>
-      <div><p class="eyebrow">More tools</p><h2 id="more-h">The other tools</h2></div>
-      <p>Each one opens on its own page.</p>
+      <div><h2 id="more-h">More tools</h2></div>
     </div>
-    <nav class="tools" aria-label="Other tools">
-      ${toolIndex("{{rel}}", skip)}
+    <nav class="tools mtools" aria-label="More tools">
+      ${toolIndex("{{rel}}", skip, true)}
     </nav>
   </section>`;
 
@@ -461,6 +448,27 @@ ${read(slug + ".html")}
   ${moreTools(slug)}
 </main>`;
   built.push(page({slug, title, desc, active: "tool", tool: key, body, scripts: ["tools.js"]}));
+}
+
+/* ---------- how-to-read redirect: the page was removed but the URL may be shared ---------- */
+{
+  const dir = path.join(DIST, "how-to-read");
+  fs.mkdirSync(dir, {recursive: true});
+  fs.writeFileSync(path.join(dir, "index.html"), `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Tracker · @${HANDLE}</title>
+<meta http-equiv="refresh" content="0; url=${ORIGIN}/">
+<link rel="canonical" href="${ORIGIN}/">
+</head>
+<body>
+<p><a href="${ORIGIN}/">Back to the tracker</a></p>
+</body>
+</html>
+`);
+  built.push(path.join(dir, "index.html"));
 }
 
 /* ---------- 404: self-contained, because it is served at any depth ---------- */

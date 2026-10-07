@@ -339,9 +339,7 @@ if($('#hg-o'))(function(){
       [w1,w2,out].forEach(function(e){e.textContent='$0.00';e.className='num mut'});
       pct.textContent='0.00%';pct.className='num';fine('#hg-fine',msg)}
     if(dO===null||dH===null||!st){
-      blank((iO.value||iH.value||iS.value)
-        ? 'Fill in your price, your stake, and the price on the other side.'
-        : 'Enter your price, your stake, and the price on the other side.');
+      blank('Enter your price, your stake, and the price on the other side.');
       return}
     var even=st*dO/dH;                       /* the stake that makes both sides pay the same */
     var h=num(iHS);

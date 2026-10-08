@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0B0B0D" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#F5F4F7" media="(prefers-color-scheme:light)">
+<title>Devig calculator · Public Tracker</title>
+<meta name="description" content="Remove the vig from a two-way market with the multiplicative, additive or power method.">
+<link rel="canonical" href="https://ramblingngambling.github.io/devig/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0B0D'/%3E%3Cpath d='M5 21.5 L11.5 13 L17 17 L27 6.5' stroke='%23C08BF5' stroke-width='3.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="@gamblingv1ctim">
+<meta property="og:title" content="Devig calculator · Public Tracker">
+<meta property="og:description" content="Remove the vig from a two-way market with the multiplicative, additive or power method.">
+<meta property="og:url" content="https://ramblingngambling.github.io/devig/">
+<meta property="og:image" content="https://ramblingngambling.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@gamblingv1ctim">
+<script>
+(function(){
+  var r=document.documentElement,p='auto';
+  try{p=localStorage.getItem('pt-theme')||localStorage.getItem('rg.theme')||'auto'}catch(e){}
+  if(p!=='dark'&&p!=='light')p='auto';
+  var dark=p==='dark'||(p==='auto'&&!matchMedia('(prefers-color-scheme: light)').matches);
+  r.dataset.pref=p;r.dataset.theme=dark?'dark':'light';r.style.colorScheme=dark?'dark':'light';
+  if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    r.classList.add('motion');addEventListener('error',function(){r.classList.remove('motion')});
+  }
+})();
+</script>
+<link rel="stylesheet" href="../assets/site.css?v=0f8a8ce2">
+</head>
+<body data-tool="devig">
+<a class="skip" href="#main">Skip to the content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Public Tracker, back to the record">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x=".5" y=".5" width="31" height="31" rx="7" fill="#0B0B0D" stroke="var(--line2)"/><path d="M5 21.5 L11.5 13 L17 17 L27 6.5" stroke="#C08BF5" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>Public Tracker</b><span>@gamblingv1ctim</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../#record">Record</a>
+      <a href="../#log">Log</a>
+      <a href="../#breakdown">Breakdown</a>
+      <a href="../#tools" aria-current="page">Tools</a>
+      <span class="sep" aria-hidden="true"></span>
+      <a href="../about/">About</a>
+    </nav>
+    <button class="theme" id="theme" type="button" aria-label="Theme">
+      <svg id="th-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+      <span class="tl" id="th-lab">Auto</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <article class="tpage" id="view-devig">
+    <header class="phero">
+      <p class="kicker" data-rv><a href="../#tools">Tools</a> / <b>Devig</b></p>
+      <h1 class="th" data-rv>Devig <em>calculator</em></h1>
+      <p class="lede" data-rv>Take the book&rsquo;s margin out of a two-way market and get the fair price behind it.</p>
+    </header>
+
+    <div class="tsplit">
+      <div class="panel tcard" data-rv>
+        <div class="phead tbar"><h2 class="h3">Devig a two-way market</h2>
+          <div class="tact"><button type="button" class="ghost tlink" data-k="devig">Copy link</button><button type="button" class="ghost treset" data-r="devig">Reset</button></div></div>
+        <div class="tin">
+          <div class="ah" style="margin-bottom:6px">Method</div>
+          <div class="seg" role="group" aria-label="Devig method">
+            <button type="button" class="sg on" data-m="mult" aria-pressed="true">Multiplicative</button>
+            <button type="button" class="sg" data-m="add" aria-pressed="false">Additive</button>
+            <button type="button" class="sg" data-m="pow" aria-pressed="false">Power</button>
+          </div>
+          <div class="dgrid">
+            <div class="ah">Odds</div><div class="ah num">No-vig %</div><div class="ah num">No-vig odds</div>
+            <input type="text" id="dv-a" placeholder="+110" autocomplete="off" spellcheck="false" aria-label="Odds on the first side">
+            <div class="dv num mut" id="dv-pa">--</div><div class="dv num lil mut" id="dv-oa">--</div>
+            <input type="text" id="dv-b" placeholder="+110" autocomplete="off" spellcheck="false" aria-label="Odds on the second side">
+            <div class="dv num mut" id="dv-pb">--</div><div class="dv num lil mut" id="dv-ob">--</div>
+          </div>
+          <div class="fine" id="dv-fine" aria-live="polite">Enter both sides of the market.</div>
+        </div>
+      </div>
+      <aside class="read tnote" data-rv>
+        <p class="q">How to read it</p>
+        <p>Enter both sides of the market. Each row gives the fair chance and the fair price for that side, with the book&rsquo;s margin taken out. The two percentages add up to 100%.</p>
+        <p>Compare a fair price with what another book offers. A better price than the fair one is a positive edge.</p>
+      </aside>
+    </div>
+
+    <div class="prose tprose" data-rv>
+      <h2>The three methods</h2>
+      <p><b>Multiplicative</b> divides each side by the total. The standard method and the right first choice.</p>
+      <p><b>Additive</b> takes an equal share of the margin off each side. Gives the favourite a lower fair chance.</p>
+      <p><b>Power</b> raises both chances to the same power until they add up to 100%. Reach for it on big prices.</p>
+      <p>The three agree closely on an even market. On a &minus;1000 / +700 market they differ by more than two points.</p>
+    </div>
+  </article>
+
+  <section class="morecalc" aria-labelledby="more-h">
+    <div class="shead" data-rv>
+      <div><h2 id="more-h">More tools</h2></div>
+    </div>
+    <nav class="tools mtools" aria-label="More tools">
+      <a class="tool" data-rv href="../arbitrage/"><span class="nm">Arbitrage</span><span class="sd">Split stakes across books to lock a profit</span></a>
+      <a class="tool" data-rv href="../hedge/"><span class="nm">Hedge</span><span class="sd">Lock a profit on a bet you already hold</span></a>
+      <a class="tool" data-rv href="../parlay/"><span class="nm">Parlay</span><span class="sd">Price a parlay or a round robin</span></a>
+      <a class="tool" data-rv href="../payout/"><span class="nm">Payout</span><span class="sd">What a stake returns at any price</span></a>
+      <a class="tool" data-rv href="../odds/"><span class="nm">Odds converter</span><span class="sd">Convert between percentages and prices</span></a>
+      <a class="tool" data-rv href="../poker/"><span class="nm">Poker settle-up</span><span class="sd">Who pays whom after a home game</span></a>
+      <a class="tool" data-rv href="../cheat-sheet/"><span class="nm">Percent to odds</span><span class="sd">Fair odds for every percent, 1 to 99</span></a>
+    </nav>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="rstrip" data-rv aria-label="The record so far">
+      <a class="rs-net pos" href="../#record">+28.80u</a>
+      <dl>
+        <div><dt>Settled</dt><dd>298</dd></div>
+        <div><dt>W-L-P</dt><dd>137-152-9</dd></div>
+        <div><dt>ROI</dt><dd>+14.7%</dd></div>
+        <div><dt>Updated</dt><dd>Oct 8, 2026</dd></div>
+      </dl>
+      <div class="pips" role="img" aria-label="Last 20 results, oldest first: 11 won, 8 lost, 1 push"><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t p" aria-hidden="true">P</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span><span class="t l" aria-hidden="true">L</span><span class="t w" aria-hidden="true">W</span><span class="t w" aria-hidden="true">W</span><span class="t l" aria-hidden="true">L</span></div>
+    </div>
+    <div class="fbar">
+      <nav class="flinks" aria-label="Footer">
+        <a href="https://x.com/gamblingv1ctim" target="_blank" rel="noopener noreferrer">@gamblingv1ctim on X</a>
+        <a href="../plays.json">plays.json</a>
+        <a href="../about/">About</a>
+      </nav>
+      <p>If betting stops being fun, stop.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/site.js?v=61943ef7"></script>
+<script src="../assets/tools.js?v=4664c22f"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="55eb5498-a3ca-4912-846f-c48e59a9971a"></script>
+</body>
+</html>

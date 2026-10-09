@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 8, 2026, 1:55 PM EDT",
+  "updated": "Oct 9, 2026, 4:12 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -3864,7 +3864,7 @@
       "game_date": ""
     },
     {
-      "date": "2026-10-08",
+      "date": "2026-10-07",
       "sport": "MLB",
       "market": "Parlay",
       "game": "",
@@ -3875,6 +3875,110 @@
       "units_pl": -0.25,
       "post": "",
       "game_date": ""
+    },
+    {
+      "date": "2026-10-08",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "Tampa Bay Buccaneers @ Dallas Cowboys",
+      "play": "Chris Godwin ATD",
+      "odds": 490,
+      "units": 0.15,
+      "result": "Loss",
+      "units_pl": -0.15,
+      "post": "",
+      "game_date": "2026-10-08"
+    },
+    {
+      "date": "2026-10-08",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "Tampa Bay Buccaneers @ Dallas Cowboys",
+      "play": "Chris Godwin o3.5 rec",
+      "odds": 112,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-10-08"
+    },
+    {
+      "date": "2026-10-08",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "TB @ DAL",
+      "play": "Jalon Daniels o17.5 pass comp",
+      "odds": -109,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4587,
+      "post": "",
+      "game_date": "2026-10-08"
+    },
+    {
+      "date": "2026-10-08",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Williams 2x TD",
+      "odds": 280,
+      "units": 0.15,
+      "result": "Loss",
+      "units_pl": -0.15,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-08",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Williams 3x TD",
+      "odds": 1200,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-08",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Otton ATD",
+      "odds": 480,
+      "units": 0.15,
+      "result": "Loss",
+      "units_pl": -0.15,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-08",
+      "sport": "NFL",
+      "market": "Parlay",
+      "game": "TB Buccaneers @ DAL Cowboys",
+      "play": "Javonte Williams 2+ TDs + Bucky Irving ATD + Jake Ferguson ATD",
+      "odds": 3600,
+      "units": 0.025,
+      "result": "Loss",
+      "units_pl": -0.025,
+      "post": "",
+      "game_date": "2026-10-08"
+    },
+    {
+      "date": "2026-10-08",
+      "sport": "NFL",
+      "market": "Parlay",
+      "game": "TB Buccaneers @ DAL Cowboys",
+      "play": "Javonte Williams ATD + Bucky Irving ATD + Jake Ferguson ATD",
+      "odds": 1400,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1,
+      "post": "",
+      "game_date": "2026-10-08"
     }
   ]
 }

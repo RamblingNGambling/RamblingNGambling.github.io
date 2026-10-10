@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 9, 2026, 4:12 PM EDT",
+  "updated": "Oct 10, 2026, 4:44 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -3979,6 +3979,71 @@
       "units_pl": -0.1,
       "post": "",
       "game_date": "2026-10-08"
+    },
+    {
+      "date": "2026-10-10",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "",
+      "play": "James Madison -7",
+      "odds": -110,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-10",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "",
+      "play": "Old Dominion +10",
+      "odds": -112,
+      "units": 1,
+      "result": "Win",
+      "units_pl": 0.8929,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-10",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "",
+      "play": "Air Force -7",
+      "odds": -120,
+      "units": 1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-10",
+      "sport": "NCAAF",
+      "market": "Total",
+      "game": "",
+      "play": "SC v FL Over 58.5 Total",
+      "odds": -113,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-10",
+      "sport": "NCAAF",
+      "market": "Moneyline",
+      "game": "",
+      "play": "PSU ML",
+      "odds": 100,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
     }
   ]
 }

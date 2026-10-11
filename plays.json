@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 10, 2026, 4:44 PM EDT",
+  "updated": "Oct 11, 2026, 10:49 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -3988,8 +3988,8 @@
       "play": "James Madison -7",
       "odds": -110,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -1,
       "post": "",
       "game_date": ""
     },
@@ -4014,8 +4014,8 @@
       "play": "Air Force -7",
       "odds": -120,
       "units": 1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.8333,
       "post": "",
       "game_date": ""
     },
@@ -4040,8 +4040,47 @@
       "play": "PSU ML",
       "odds": 100,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-11",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Darius Cooper Over 19.5 receiving yards",
+      "odds": -105,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4762,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-11",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Parker Washington ATD",
+      "odds": 163,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.4075,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-11",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Darius Cooper ATD",
+      "odds": 700,
+      "units": 0.1,
+      "result": "Win",
+      "units_pl": 0.7,
       "post": "",
       "game_date": ""
     }

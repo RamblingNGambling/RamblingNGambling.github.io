@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 11, 2026, 8:54 PM EDT",
+  "updated": "Oct 12, 2026, 12:35 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4157,8 +4157,8 @@
       "play": "Mark Andrews Over 29.5 rec yds",
       "odds": -110,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": "",
       "game_date": ""
     },

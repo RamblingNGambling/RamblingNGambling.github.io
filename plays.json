@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 11, 2026, 7:56 PM EDT",
+  "updated": "Oct 11, 2026, 8:54 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4092,10 +4092,10 @@
       "play": "Omarion Hampton Over 10.5 rush att",
       "odds": -113,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4425,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-11"
     },
     {
       "date": "2026-10-11",
@@ -4144,10 +4144,10 @@
       "play": "Omarion Hampton Over 39.5 rush yds",
       "odds": -120,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-11"
     },
     {
       "date": "2026-10-11",
@@ -4209,10 +4209,10 @@
       "play": "Oronde Gadsden Over 33.5 rec yds",
       "odds": -113,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-11"
     },
     {
       "date": "2026-10-11",
@@ -4274,8 +4274,8 @@
       "play": "Tre Harris Over 49.5 rec yds",
       "odds": -110,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": "",
       "game_date": ""
     },
@@ -4300,10 +4300,10 @@
       "play": "Tyler Shough Over 9.5 rush yds",
       "odds": 102,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-11"
     },
     {
       "date": "2026-10-11",
@@ -4313,10 +4313,10 @@
       "play": "Oronde Gadsden II ATD",
       "odds": 340,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-11"
     },
     {
       "date": "2026-10-11",
@@ -4339,10 +4339,10 @@
       "play": "Omarion Hampton ATD",
       "odds": 208,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-11"
     },
     {
       "date": "2026-10-11",
@@ -4352,10 +4352,10 @@
       "play": "Kendrick Bourne Over 29.5 rec yds",
       "odds": -125,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-11"
     }
   ]
 }

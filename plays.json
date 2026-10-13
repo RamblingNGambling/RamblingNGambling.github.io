@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 12, 2026, 12:35 AM EDT",
+  "updated": "Oct 13, 2026, 1:17 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4356,6 +4356,84 @@
       "units_pl": 0.4,
       "post": "",
       "game_date": "2026-10-11"
+    },
+    {
+      "date": "2026-10-12",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Josh Allen Over 20.5 pass comp",
+      "odds": -125,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-10-12"
+    },
+    {
+      "date": "2026-10-12",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Khalil Shakir Over 4.5 Receptions",
+      "odds": 102,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-10-12"
+    },
+    {
+      "date": "2026-10-12",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Keon Coleman Over 39.5 rec yds",
+      "odds": 100,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-10-12"
+    },
+    {
+      "date": "2026-10-12",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Dalton Kincaid Over 3.5 Receptions",
+      "odds": -135,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-10-12"
+    },
+    {
+      "date": "2026-10-12",
+      "sport": "NFL",
+      "market": "Parlay",
+      "game": "Buffalo Bills @ Los Angeles Rams",
+      "play": "Keon Coleman ATD + Tyler Higbee ATD + Puka Nacua ATD",
+      "odds": 2200,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1,
+      "post": "",
+      "game_date": "2026-10-12"
+    },
+    {
+      "date": "2026-10-12",
+      "sport": "NFL",
+      "market": "Parlay",
+      "game": "Buffalo Bills @ Los Angeles Rams",
+      "play": "Kyren Williams ATD + Josh Allen ATD + James Cook ATD",
+      "odds": 565,
+      "units": 0.15,
+      "result": "Win",
+      "units_pl": 0.8475,
+      "post": "",
+      "game_date": "2026-10-12"
     }
   ]
 }

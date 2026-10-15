@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 13, 2026, 1:17 AM EDT",
+  "updated": "Oct 15, 2026, 7:47 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4434,6 +4434,71 @@
       "units_pl": 0.8475,
       "post": "",
       "game_date": "2026-10-12"
+    },
+    {
+      "date": "2026-10-15",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "Seattle Seahawks @ Denver Broncos",
+      "play": "Troy Franklin o1.5 rec",
+      "odds": -125,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": "2026-10-15"
+    },
+    {
+      "date": "2026-10-15",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "Seattle Seahawks @ Denver Broncos",
+      "play": "AJ Barner o2.5 rec",
+      "odds": -122,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": "2026-10-15"
+    },
+    {
+      "date": "2026-10-15",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Bo Nix ATD",
+      "odds": 440,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-15",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "AJ Barner ATD",
+      "odds": 326,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-15",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Sutton x Wilson x Dobbins ATD",
+      "odds": 2600,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
     }
   ]
 }

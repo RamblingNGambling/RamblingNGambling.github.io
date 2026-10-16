@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 15, 2026, 7:47 PM EDT",
+  "updated": "Oct 16, 2026, 2:52 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4443,8 +4443,8 @@
       "play": "Troy Franklin o1.5 rec",
       "odds": -125,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": "",
       "game_date": "2026-10-15"
     },
@@ -4456,8 +4456,8 @@
       "play": "AJ Barner o2.5 rec",
       "odds": -122,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4098,
       "post": "",
       "game_date": "2026-10-15"
     },
@@ -4469,8 +4469,8 @@
       "play": "Bo Nix ATD",
       "odds": 440,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
       "game_date": ""
     },
@@ -4482,8 +4482,8 @@
       "play": "AJ Barner ATD",
       "odds": 326,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
       "game_date": ""
     },
@@ -4495,8 +4495,8 @@
       "play": "Sutton x Wilson x Dobbins ATD",
       "odds": 2600,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.1,
       "post": "",
       "game_date": ""
     }

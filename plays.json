@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 16, 2026, 2:52 PM EDT",
+  "updated": "Oct 16, 2026, 11:22 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4497,6 +4497,19 @@
       "units": 0.1,
       "result": "Loss",
       "units_pl": -0.1,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-16",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "",
+      "play": "Tulane +7",
+      "odds": -115,
+      "units": 2,
+      "result": "Win",
+      "units_pl": 1.7391,
       "post": "",
       "game_date": ""
     }

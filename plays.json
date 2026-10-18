@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 16, 2026, 11:22 PM EDT",
+  "updated": "Oct 18, 2026, 9:26 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4510,6 +4510,32 @@
       "units": 2,
       "result": "Win",
       "units_pl": 1.7391,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-17",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "",
+      "play": "Northwestern @ Michigan State -3.5",
+      "odds": 100,
+      "units": 2,
+      "result": "Loss",
+      "units_pl": -2,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-17",
+      "sport": "NCAAF",
+      "market": "Spread",
+      "game": "",
+      "play": "Notre Dame -10",
+      "odds": -115,
+      "units": 2,
+      "result": "Loss",
+      "units_pl": -2,
       "post": "",
       "game_date": ""
     }

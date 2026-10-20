@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 18, 2026, 9:26 AM EDT",
+  "updated": "Oct 19, 2026, 11:08 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4536,6 +4536,84 @@
       "units": 2,
       "result": "Loss",
       "units_pl": -2,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-19",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Kaelon Black Over 23.5 rush yds",
+      "odds": -117,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-19",
+      "sport": "NFL",
+      "market": "Total",
+      "game": "",
+      "play": "Jayden Daniels Over 18.5 pass comps",
+      "odds": -132,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-19",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Terry McLaurin Over 47.5 rec yds",
+      "odds": -125,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-19",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Brock Purdy Over 19.5 rush yds",
+      "odds": -109,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-19",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Stefon Diggs Over 35.5 rec yds",
+      "odds": -140,
+      "units": 0.5,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-19",
+      "sport": "NFL",
+      "market": "Parlay",
+      "game": "",
+      "play": "CMC x Kittle x McLaurin x Diggs",
+      "odds": 3449,
+      "units": 0.1,
+      "result": "Pending",
+      "units_pl": null,
       "post": "",
       "game_date": ""
     }

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 19, 2026, 11:08 PM EDT",
+  "updated": "Oct 22, 2026, 2:04 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4547,10 +4547,10 @@
       "play": "Kaelon Black Over 23.5 rush yds",
       "odds": -117,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4274,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-19"
     },
     {
       "date": "2026-10-19",
@@ -4560,8 +4560,8 @@
       "play": "Jayden Daniels Over 18.5 pass comps",
       "odds": -132,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.3788,
       "post": "",
       "game_date": ""
     },
@@ -4573,8 +4573,8 @@
       "play": "Terry McLaurin Over 47.5 rec yds",
       "odds": -125,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": "",
       "game_date": ""
     },
@@ -4586,10 +4586,10 @@
       "play": "Brock Purdy Over 19.5 rush yds",
       "odds": -109,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.4587,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-19"
     },
     {
       "date": "2026-10-19",
@@ -4599,10 +4599,10 @@
       "play": "Stefon Diggs Over 35.5 rec yds",
       "odds": -140,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.3571,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-19"
     },
     {
       "date": "2026-10-19",
@@ -4612,10 +4612,192 @@
       "play": "CMC x Kittle x McLaurin x Diggs",
       "odds": 3449,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.1,
       "post": "",
       "game_date": ""
+    },
+    {
+      "date": "2026-10-20",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "John Collins Over 4.5 Rebounds",
+      "odds": -144,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.1736,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-20",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Julian Champagnie Over 1.5 Threes",
+      "odds": -160,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.1563,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-20",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jalen Brunson Over 28.5 PR",
+      "odds": -125,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-20",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Karl-Anthony Towns Over 4.5 Assists",
+      "odds": -102,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Franz Wagner Over 4.5 Assists",
+      "odds": -115,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2174,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Giannis Antetokounmpo Over 27.5 Points",
+      "odds": -110,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2273,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Pascal Siakam Over 19.5 Points",
+      "odds": -132,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.1894,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jerami Grant Over 11.5 Points",
+      "odds": -113,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2212,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Dennis Schroder Over 10.5 Points",
+      "odds": -145,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.1724,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jeremiah Fears Over 11.5 Points",
+      "odds": -104,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Stephen Curry Over 28.5 Points + Assists",
+      "odds": -115,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Anthony Davis Over 24.5 Points + Assists",
+      "odds": -109,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2294,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Total",
+      "game": "",
+      "play": "ATL @ ORL Over 232.5",
+      "odds": -120,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2083,
+      "post": "",
+      "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-21",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Tyrese Haliburton Double-Double",
+      "odds": 152,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.38,
+      "post": "",
+      "game_date": "2026-10-21"
     }
   ]
 }

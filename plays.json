@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 22, 2026, 2:04 AM EDT",
+  "updated": "Oct 23, 2026, 1:29 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -4798,6 +4798,136 @@
       "units_pl": 0.38,
       "post": "",
       "game_date": "2026-10-21"
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Ajay Mitchell Over 10.5 Points",
+      "odds": -130,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.1923,
+      "post": "",
+      "game_date": "2026-10-22"
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Shai Gilgeous-Alexander Over 37.5 Points + Assists",
+      "odds": 100,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": "2026-10-22"
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Aaron Gordon Over 1.5 3s",
+      "odds": -112,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2232,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Donovan Mitchell Over 4.5 Assists",
+      "odds": -118,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": "2026-10-22"
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Eli Raridon Over 1.5 Receptions",
+      "odds": 110,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.55,
+      "post": "",
+      "game_date": "2026-10-22"
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Luther Burden Over 54.5 rec yds",
+      "odds": -120,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4167,
+      "post": "",
+      "game_date": "2026-10-22"
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Demario Douglas Over 36.5 rec yds",
+      "odds": -119,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-10-22"
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Roschon Johnson Over 6.5 rush atts",
+      "odds": -135,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "AJ Brown Over 69.5 rec yds",
+      "odds": -104,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-10-22"
+    },
+    {
+      "date": "2026-10-22",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Demario Douglas Over 3.5 Receptions",
+      "odds": 123,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-10-22"
     }
   ]
 }

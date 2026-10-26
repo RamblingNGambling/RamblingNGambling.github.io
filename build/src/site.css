@@ -767,3 +767,62 @@ a.bk:hover .bw{color:var(--acc)}
   .sel select{min-height:40px}
   .tally .clear,.ghost{min-height:36px}
 }
+
+/* ---- SGA 20+ experiment ---- */
+.sgstat{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:5px 12px;border:1px solid var(--line2);
+  border-radius:999px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.sgstat i{display:none;width:7px;height:7px;border-radius:50%;background:currentColor}
+.sgstat.live{color:var(--acc);border-color:var(--acc-line);background:var(--acc-wash)}
+.sgstat.live i{display:inline-block}
+.sgstat.bust{color:var(--down);border-color:var(--down-line);background:var(--down-wash)}
+.sgsub{margin:16px 0 0;max-width:46ch;font-size:15.5px;line-height:1.55;color:var(--fg2)}
+.sgprob{margin:10px 0 0;max-width:52ch;font-size:13.5px;line-height:1.55;color:var(--fg3)}
+.t.o{box-shadow:inset 0 0 0 1px var(--acc-line);color:var(--acc)}
+.sgladder svg{display:block;width:100%;height:auto;overflow:visible}
+.sb{stroke-width:1.2}
+.sb.w{fill:var(--acc-area);stroke:var(--acc)}
+.sb.l{fill:var(--down-wash);stroke:var(--down-line)}
+.sb.v{fill:none;stroke:var(--line3);stroke-dasharray:4 3}
+.sb.o{fill:var(--acc-wash);stroke:var(--acc-line);stroke-dasharray:5 3}
+.sgladder .lab{fill:var(--fg);font:500 12px var(--mono)}
+.sglegend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:6px 0 8px;font:12px var(--mono);color:var(--fg3)}
+.sglegend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:7px;
+  vertical-align:-1px;border:1px solid var(--line3)}
+.sglegend .w::before{background:var(--acc-area);border-color:var(--acc)}
+.sglegend .l::before{background:var(--down-wash);border-color:var(--down-line)}
+.sglegend .v::before{border-style:dashed}
+.sglegend .o::before{border-style:dashed;border-color:var(--acc-line);background:var(--acc-wash)}
+.sglegend .z::before{width:18px;height:0;border:0;border-top:1px dashed var(--line3);border-radius:0;vertical-align:3px}
+.sgl .c-sport .tag{color:var(--fg2)}
+.sgearlier{margin-top:16px}
+.sgpg{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
+.sgpf{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:var(--r-md);
+  overflow:hidden;background:var(--s1);cursor:zoom-in;transition:border-color .15s,transform .25s var(--ease)}
+.sgpf:hover{border-color:var(--line3)}
+.sgpf img{display:block;width:100%;height:230px;object-fit:cover;object-position:top;background:var(--s2)}
+.sgpf span{display:block;padding:9px 11px 10px;border-top:1px solid var(--line);font:12.5px/1.45 var(--mono);color:var(--fg3)}
+.sglb{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;
+  background:rgba(0,0,0,.74);cursor:zoom-out}
+:root[data-theme="light"] .sglb{background:rgba(20,18,14,.62)}
+.sglb img{display:block;max-width:min(94vw,560px);max-height:92vh;border-radius:var(--r-md);border:1px solid var(--line2)}
+.sglb button{position:absolute;top:12px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);
+  background:var(--s1);color:var(--fg);font-size:24px;line-height:1;cursor:pointer}
+.sgchip{display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px 12px;max-width:100%;margin-top:24px;padding:10px 14px;
+  border:1px solid var(--line2);border-radius:var(--r-md);text-decoration:none;color:var(--fg);font-size:14.5px;
+  transition:border-color .15s}
+.sgchip:hover{border-color:var(--line3)}
+.sgchip b{font-weight:500}
+.sgchip .sgs{font:13.5px var(--mono);color:var(--acc)}
+.sgchip.over .sgs{color:var(--fg3)}
+.sgchip .sga{color:var(--fg3)}
+.sgchip .sgdot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none}
+.sgchip.over .sgdot{background:var(--fg3)}
+.motion .sgladder .sb{transform-box:fill-box;transform-origin:50% 100%;animation:sgrise .64s var(--ease) backwards;animation-delay:var(--d,0ms)}
+.motion .sgchip:not(.over) .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
+@keyframes sgrise{from{transform:scaleY(.02);opacity:.35}}
+@keyframes sgpulse{50%{opacity:.3}}
+@media (max-width:520px){
+  .sgpg{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .sgpf img{height:200px}
+  .sgsub{font-size:15px}
+}

@@ -36,6 +36,7 @@ Pages, so serve `dist/` over http rather than opening the files directly.
 
 ```sh
 node verify/check-data.mjs      # equity curve vs hero, inlined data, filter counts
+node verify/check-sga.mjs       # the optional SGA page: good, bad and hostile sga.json files
 python3 verify/check-pages.py   # headless Chromium: every page at 390px and 1440px
 ```
 
@@ -75,6 +76,7 @@ src/site.css         design system, extracted from the Direction A prototype
 src/site.js          shared runtime: theme cross-fade, reveals, count-ups (window.PT)
 src/home.js          home: equity curve, play log + filters, breakdown
 src/tools.js         the calculators (logic carried over from the old site)
+src/sga.js           SGA 20+ page: the ladder chart (drawn in its own width) and the slip viewer
 src/pages/*.html     bodies of the inner pages ({{rel}} = path back to the root)
 verify/              the two check scripts
 dist/                output (committed so the result can be looked at directly)
@@ -116,6 +118,36 @@ mid-visit included.
 Zero external requests: no CDN, no web font, no fetch. The home page's data is
 inlined as JSON. Outbound links (posts on X, the Kalshi referral, the commit
 history) are only links.
+
+## SGA 20+ experiment (an optional page)
+
+Bet Desk writes two things beside `plays.json`: `sga.json` (the experiment's games,
+as multiples of the first stake) and a screenshot of each bet slip in
+`sga/proof/<id>.jpg`. When `sga.json` is there and makes sense, the build adds
+`/sga/` (the roll, a ladder of bars, every game, the slips, how it works), a
+**SGA 20+** link in the header, a one-line pointer under the home ticker, a line in
+the sitemap and the 404 page, `assets/sga.js`, `dist/sga.json` (the same data in
+words) and the screenshots in `dist/sga/proof/`.
+
+- **No file, or a file that does not make sense, means no SGA page and a green
+  build.** A warning is printed (`sga.json ignored: ...`). A problem with this
+  optional page must never stop the record from updating. With no `sga.json`
+  the output is identical to what it was before, apart from the stylesheet gaining
+  rules.
+- **Only the fields the build reads are used, and each is checked** (a date, a
+  line, an American price, a result, a roll, points, a screenshot name). Anything
+  else in the file, including anything that looks like money, never reaches a page.
+  The opponent is cut to plain letters and digits. A screenshot is linked only if
+  its file is in `sga/proof/`.
+- The figures are multiples of the first stake. There is no stake, bankroll or book
+  in the data and none on the page. If a screenshot was saved with its dollar amounts
+  left visible, the page stops saying the first stake is not shown.
+- A run of more than 8x is drawn on a log scale, and the chart says so.
+- `node verify/check-sga.mjs` builds the site in a temp copy with good, bad and hostile
+  `sga.json` files and checks the outcome (20 checks, no browser). `ship.sh` runs it.
+- `verify/check-pages.py` includes `sga/` when it is built. It has not been run
+  against this page here (no Playwright), but the page was looked at in a browser at
+  390 px and 1440 px, dark and light, with no console errors and no sideways scroll.
 
 ## Changes from the old site
 

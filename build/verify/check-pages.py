@@ -32,6 +32,8 @@ EXPECTED = json.loads((ROOT / "verify" / "expected.json").read_text())
 
 PAGES = ["", "about/", "arbitrage/", "hedge/", "parlay/", "payout/", "odds/", "devig/",
          "poker/", "cheat-sheet/", "404.html"]
+if (DIST / "sga" / "index.html").exists():     # present only when sga.json is
+    PAGES.insert(2, "sga/")
 PAGE = 15    # rows the log shows before "Show more" (home.js PAGE)
 SHOTS = ROOT / "verify" / "shots"   # screenshots for review (git-ignored)
 SEEN = "try{localStorage.setItem('pt-follow-seen','1')}catch(e){}"   # a returning reader: no follow nudge

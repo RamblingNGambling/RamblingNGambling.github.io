@@ -6,6 +6,7 @@
 (function(){
 'use strict';
 const $=s=>document.querySelector(s);
+try{localStorage.setItem("pt-sga-seen","1")}catch(e){}   // seen: the tab that points here has done its job
 const NS="http://www.w3.org/2000/svg";
 const svg=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e};
 const sx=x=>(x>=100?x.toFixed(0):x>=10?x.toFixed(1):x.toFixed(2))+"x";

@@ -847,6 +847,34 @@ a.bk:hover .bw{color:var(--acc)}
   .sgpf img{height:200px}
   .sgsub{font-size:15px}
 }
+
+/* ---- SGA 20+: the tab that hangs under the header, and the profit tile ---- */
+.sgfloat{position:absolute;z-index:1;top:100%;right:var(--gut);display:flex;align-items:stretch;
+  background:var(--s1);border:1px solid var(--line2);border-top:0;border-radius:0 0 var(--r-md) var(--r-md);overflow:hidden}
+.sgfloat a{display:flex;align-items:center;gap:10px;min-height:32px;padding:0 12px;text-decoration:none;color:var(--fg);transition:background .15s}
+.sgfloat a:hover{background:var(--s2)}
+.sgfloat .sgdot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none}
+.sgfloat .sgtxt{display:flex;align-items:baseline;gap:10px;min-width:0}
+.sgfloat b{font-size:13.5px;font-weight:500;letter-spacing:-.005em;white-space:nowrap}
+.sgfloat i{font:12.5px var(--mono);font-style:normal;color:var(--acc);white-space:nowrap}
+.sgfloat .sga{color:var(--fg3);font-size:14px}
+.sgfx{width:30px;border:0;border-left:1px solid var(--line);background:none;color:var(--fg3);font-size:18px;line-height:1;
+  cursor:pointer;transition:color .15s,background .15s}
+.sgfx:hover{color:var(--fg);background:var(--s2)}
+.motion .sgfloat{animation:sgfin .5s var(--ease) .9s backwards}
+.motion .sgfloat .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
+@keyframes sgfin{from{opacity:0;transform:translateY(-6px)}}
+.sgph{max-width:980px}
+.sgph .th{text-wrap:balance}
+@media (min-width:761px){.ledger.five{grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,1fr))}}
+.ledger dd.pos{color:var(--acc)}
+@media (max-width:760px){
+  .ledger.five>div:first-child{grid-column:1/-1;padding-left:0;border-left:0}
+  .ledger.five>div:nth-child(n+2){border-top:1px solid var(--line)}
+  .ledger.five>div:nth-child(even){border-left:0;padding-left:0}
+  .ledger.five>div:nth-child(odd):not(:first-child){border-left:1px solid var(--line);padding-left:14px}
+}
+@media (max-width:520px){.sgfloat{right:12px}.sgfloat .sgtxt i{display:none}.sgfloat b{font-size:13px}}
 </style>
 </head>
 <body>
@@ -861,7 +889,6 @@ a.bk:hover .bw{color:var(--acc)}
       <a href="/#log">Log</a>
       <a href="/#breakdown">Breakdown</a>
       <a href="/#tools">Tools</a>
-      <a href="/sga/">SGA 20+</a>
       <span class="sep" aria-hidden="true"></span>
       <a href="/about/">About</a>
     </nav>
@@ -869,7 +896,11 @@ a.bk:hover .bw{color:var(--acc)}
       <svg id="th-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
       <span class="tl" id="th-lab">Auto</span>
     </button>
-  </div>
+  </div><div class="sgfloat" id="sgfloat">
+  <a href="/sga/"><span class="sgdot" aria-hidden="true"></span><span class="sgtxt"><b>SGA 20+ for the season</b><i>1.15x</i></span><span class="sga" aria-hidden="true">&rarr;</span></a>
+  <button type="button" class="sgfx" aria-label="Hide this">&times;</button>
+</div>
+<script>(function(){var b=document.getElementById("sgfloat");if(!b)return;try{if(localStorage.getItem("pt-sga-seen")){b.remove();return}}catch(e){}var x=b.querySelector(".sgfx");if(x)x.onclick=function(){try{localStorage.setItem("pt-sga-seen","1")}catch(e){}b.remove()}})();</script>
 </header>
 <main class="wrap" id="main">
   <div class="phero">

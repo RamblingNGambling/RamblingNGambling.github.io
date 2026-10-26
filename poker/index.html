@@ -30,7 +30,7 @@
   }
 })();
 </script>
-<link rel="stylesheet" href="../assets/site.css?v=06f8cdcf">
+<link rel="stylesheet" href="../assets/site.css?v=92b9ddc2">
 </head>
 <body data-tool="poker">
 <a class="skip" href="#main">Skip to the content</a>
@@ -46,7 +46,6 @@
       <a href="../#log">Log</a>
       <a href="../#breakdown">Breakdown</a>
       <a href="../#tools" aria-current="page">Tools</a>
-      <a href="../sga/">SGA 20+</a>
       <span class="sep" aria-hidden="true"></span>
       <a href="../about/">About</a>
     </nav>
@@ -54,7 +53,11 @@
       <svg id="th-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
       <span class="tl" id="th-lab">Auto</span>
     </button>
-  </div>
+  </div><div class="sgfloat" id="sgfloat">
+  <a href="../sga/"><span class="sgdot" aria-hidden="true"></span><span class="sgtxt"><b>SGA 20+ for the season</b><i>1.15x</i></span><span class="sga" aria-hidden="true">&rarr;</span></a>
+  <button type="button" class="sgfx" aria-label="Hide this">&times;</button>
+</div>
+<script>(function(){var b=document.getElementById("sgfloat");if(!b)return;try{if(localStorage.getItem("pt-sga-seen")){b.remove();return}}catch(e){}var x=b.querySelector(".sgfx");if(x)x.onclick=function(){try{localStorage.setItem("pt-sga-seen","1")}catch(e){}b.remove()}})();</script>
 </header>
 
 <main class="wrap" id="main">

@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "note": "Every roll is a multiple of the first stake. There is no stake, bankroll or book in this file.",
+  "note": "Every roll is a multiple of the first stake. Dollar figures, when present, are what a run started with and what it is worth now. There is no book and no per-game stake in this file.",
   "updated": "Oct 26, 2026, 12:12 AM EDT",
   "runs": [
     {

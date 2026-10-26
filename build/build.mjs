@@ -40,7 +40,9 @@ const SITE_DIR = path.dirname(PLAYS_PATH);
    With no file, or one that does not make sense, there is simply no SGA page: a problem here must
    never stop the record from updating, so it is a warning and not an error. Only the fields read
    below are used and each is checked, so nothing else in the file can reach a page. Every figure
-   is a multiple of the first stake: there is no stake, bankroll or book anywhere in it. */
+   is a multiple of the first stake. The only dollar figures are what each run started with and what it is
+   worth now, and Bet Desk writes them only while Darren's "Show my dollar figures" box is ticked. There
+   is no book and no per-game stake in the file, and nothing else money-like is ever read. */
 const SGA = loadSga();
 function loadSga() {
   const file = path.join(SITE_DIR, "sga.json");
@@ -68,7 +70,12 @@ function loadSga() {
       }
       g.push(o);
     }
-    if (g.length) runs.push({n: num(r.n) && r.n > 0 ? Math.floor(r.n) : ri + 1, st: r.st, g});
+    // the two dollar fields, each checked; anything else under "usd" is dropped
+    let usd = null;
+    if (r.usd && typeof r.usd === "object" && num(r.usd.start) && r.usd.start > 0 && r.usd.start < 1e7 &&
+        num(r.usd.bank) && r.usd.bank >= 0 && r.usd.bank < 1e9)
+      usd = {start: Math.round(r.usd.start * 100) / 100, bank: Math.round(r.usd.bank * 100) / 100};
+    if (g.length) runs.push({n: num(r.n) && r.n > 0 ? Math.floor(r.n) : ri + 1, st: r.st, g, usd});
   }
   return runs.length ? {runs} : null;
 }
@@ -231,7 +238,7 @@ function header(rel, active, home) {
       ${a(hm + "#record", "Record")}
       ${a(hm + "#log", "Log")}
       ${a(hm + "#breakdown", "Breakdown")}
-      ${a(hm + "#tools", "Tools", "tool")}${SGA ? "\n      " + a(rel + "sga/", "SGA 20+", "sga") : ""}
+      ${a(hm + "#tools", "Tools", "tool")}
       <span class="sep" aria-hidden="true"></span>
       ${a(rel + "about/", "About", "about")}
     </nav>
@@ -239,7 +246,7 @@ function header(rel, active, home) {
       <svg id="th-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
       <span class="tl" id="th-lab">Auto</span>
     </button>
-  </div>
+  </div>${SGA && active !== "sga" ? sgaFloat(rel) : ""}
 </header>`;
 }
 
@@ -345,11 +352,13 @@ function sgaStat(run) {
   s.avg = s.pts.length ? s.pts.reduce((a, b) => a + b, 0) / s.pts.length : null;
   return s;
 }
+const usdFmt = v => "$" + (Math.abs(v) % 1 ? Math.abs(v).toFixed(2) : String(Math.abs(v))).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const usdSigned = v => (v > 0.004 ? "+" : v < -0.004 ? MINUS : "") + usdFmt(Math.abs(v) < 0.005 ? 0 : v);
 const SGAS = SGA && (() => {
   const runs = SGA.runs, cur = runs[runs.length - 1], cs = sgaStat(cur);
-  let tw = 0, tl = 0, tp = 1;
-  for (const r of runs) { const s = sgaStat(r); tw += s.w; tl += s.l; tp = Math.max(tp, s.peak); }
-  return {runs, cur, cs, tw, tl, tp};
+  let tw = 0, tl = 0, tp = 1, profit = 0;
+  for (const r of runs) { const s = sgaStat(r); tw += s.w; tl += s.l; tp = Math.max(tp, s.peak); if (r.usd) profit += r.usd.bank - r.usd.start; }
+  return {runs, cur, cs, tw, tl, tp, usd: runs.some(r => r.usd), profit: round(profit, 2)};
 })();
 // the line on the home page that points at it
 function sgaChip() {
@@ -359,6 +368,20 @@ function sgaChip() {
     : cur.st === "cashed" ? `cashed out at ${sx(cs.held)}`
     : `${sx(cs.held)} · ${plural(cs.w, "win")} in a row`;
   return `<a class="sgchip${over ? " over" : ""}" href="sga/" data-rv><span class="sgdot" aria-hidden="true"></span><b>SGA 20+ rollover</b><span class="sgs">${h(t)}</span><span class="sga" aria-hidden="true">&rarr;</span></a>`;
+}
+// The small tab that hangs off the header, top right, on every page but SGA's own: it points a newcomer at
+// the experiment. It sits inside the header so it stays flush under it however the header wraps. It is gone
+// for good once it has been used or dismissed (pt-sga-seen); its script sits right after it, so a reader
+// who has already seen it never gets a flash of it.
+function sgaFloat(rel) {
+  const {cur, cs} = SGAS;
+  const t = cur.st === "bust" ? `last run peaked ${sx(cs.peak)}` : cur.st === "cashed" ? `cashed out at ${sx(cs.held)}`
+    : `${sx(cs.held)}${SGAS.usd ? " · " + usdSigned(SGAS.profit) : ""}`;
+  return `<div class="sgfloat" id="sgfloat">
+  <a href="${rel}sga/"><span class="sgdot" aria-hidden="true"></span><span class="sgtxt"><b>SGA 20+ for the season</b><i>${h(t)}</i></span><span class="sga" aria-hidden="true">&rarr;</span></a>
+  <button type="button" class="sgfx" aria-label="Hide this">&times;</button>
+</div>
+<script>(function(){var b=document.getElementById("sgfloat");if(!b)return;try{if(localStorage.getItem("pt-sga-seen")){b.remove();return}}catch(e){}var x=b.querySelector(".sgfx");if(x)x.onclick=function(){try{localStorage.setItem("pt-sga-seen","1")}catch(e){}b.remove()}})();</script>`;
 }
 const sgaTile = r => r === "Win" ? tile("W") : r === "Loss" ? tile("L") : r === "Void" ? tile("P") : '<span class="t o" aria-hidden="true">O</span>';
 const sgaWord = r => r === "Win" ? "Win" : r === "Loss" ? "Loss" : r === "Void" ? "Sat out" : "Open";
@@ -373,13 +396,18 @@ function sgaBody() {
   else sub = cs.w ? `${plural(cs.w, "win")} in a row. Waiting on the next game.` : "Waiting on the first game.";
   const prob = cs.w >= 2 && !bust
     ? `<p class="sgprob" data-rv>At the prices taken, getting this far was about a ${cs.prob < 0.01 ? "1-in-" + Math.round(1 / cs.prob) : Math.round(cs.prob * 100) + "%"} chance by the books’ own numbers, margin included.</p>` : "";
+  const r1 = runs[0], started = r1.usd ? `Started with ${usdFmt(r1.usd.start)} on ${dmd(r1.g[0].d)}. ` : "";
+  const pf = SGAS.profit;
+  const pfSub = runs.length > 1 ? `${plural(runs.length, "run")} combined`
+    : cur.usd && cur.st !== "bust" ? `worth ${usdFmt(cur.usd.bank)} now` : cur.usd ? `started with ${usdFmt(cur.usd.start)}` : "";
+  const profitTile = SGAS.usd
+    ? `<div class="pt" data-rv><dt>Profit</dt><dd class="${pf > 0.004 ? "pos" : ""}">${pf > 0.004 ? "+" : pf < -0.004 ? MINUS : ""}$<span data-cu="${Math.abs(pf).toFixed(2)}" data-dp="2">${Math.abs(pf).toFixed(2)}</span></dd>${pfSub ? `<p>${h(pfSub)}</p>` : ""}</div>` : "";
   const bigTxt = bust ? "0" : sgaBig(cs.held);
   const big = `<p class="big${bust ? " down" : ""}" data-rv aria-label="${bust ? "Zero" : sx(cs.held).replace("x", " times")} the first stake"><span${!bust && cs.held > 1 ? ` data-cu="${bigTxt}" data-dp="${cs.held >= 100 ? 0 : cs.held >= 10 ? 1 : 2}"` : ""}>${bigTxt}</span><span class="u">x</span></p>`;
   const pips = cur.g.slice(-20).map(x => x.r === "Win" ? tile("W") : x.r === "Loss" ? tile("L") : x.r === "Void" ? tile("P") : '<span class="t o" aria-hidden="true">O</span>').join("");
   const slips = [];
   for (const r of runs) for (const x of r.g) if (x.pf) slips.push({run: r.n, x});
   slips.reverse();
-  const moneyShown = slips.some(s => s.x.pm === 0);
   const rows = cur.g.map(x => `<tr>
         <td class="c-date">${dmd(x.d)}</td>
         <td class="c-play">Shai Gilgeous-Alexander ${h(x.l)}+ points${x.o ? `<span class="g">${h(x.o)}</span>` : ""}</td>
@@ -389,7 +417,7 @@ function sgaBody() {
         <td class="c-pl num">${x.r === "Loss" ? "0x" : x.r === "Pending" ? "–" : sx(x.x)}</td></tr>`).join("");
   const earlier = runs.slice(0, -1).reverse().map(r => {
     const s = sgaStat(r), f = r.g[0].d, l = r.g[r.g.length - 1].d;
-    return `<tr><th scope="row">Run ${r.n}<span class="thin"> · ${dmd(f)}${l !== f ? " – " + dmd(l) : ""}</span></th><td>${r.g.length}</td><td>${s.w}-${s.l}</td><td>${sx(s.peak)}</td><td>${r.st === "bust" ? "On a miss" : r.st === "cashed" ? "Cashed out at " + sx(s.held) : "Open"}</td></tr>`;
+    return `<tr><th scope="row">Run ${r.n}<span class="thin"> · ${dmd(f)}${l !== f ? " – " + dmd(l) : ""}</span></th><td>${r.g.length}</td><td>${s.w}-${s.l}</td><td>${sx(s.peak)}</td><td>${r.st === "bust" ? "On a miss" : r.st === "cashed" ? "Cashed out at " + sx(s.held) : "Open"}</td>${SGAS.usd ? `<td class="num">${r.usd ? usdSigned(r.usd.bank - r.usd.start) : ""}</td>` : ""}</tr>`;
   }).join("");
   const gallery = slips.length ? `
   <section id="proof" aria-labelledby="pf-h">
@@ -405,10 +433,10 @@ function sgaBody() {
   const chart = {g: cur.g.map(x => ({r: x.r, f: round(x.f, 4), x: round(x.x, 4)})), peak: round(cs.peak, 4),
     label: "Bar chart of the roll going into each game of run " + cur.n};
   return `<main class="wrap" id="main">
-  <div class="phero">
-    <p class="kicker" data-rv>SGA 20+ rollover · <b>an experiment</b></p>
-    <h1 class="th" data-rv>One bet. <em>Rolled every game.</em></h1>
-    <p class="lede" data-rv>Shai Gilgeous-Alexander over 20 points, every game he plays. The whole return goes into the next game, so one miss ends the run. Every figure is a multiple of the first stake.</p>
+  <div class="phero sgph">
+    <p class="kicker" data-rv>SGA 20+</p>
+    <h1 class="th" data-rv>Betting SGA 20+ points <em>for the season.</em></h1>
+    <p class="lede" data-rv>${started}Every win goes straight onto the next game.</p>
   </div>
 
   <section class="record sgrec" id="roll" aria-labelledby="sg-h" style="margin-top:28px">
@@ -422,7 +450,8 @@ function sgaBody() {
         <p class="sgsub" data-rv>${h(sub)}</p>
         ${prob}
       </div>
-      <dl class="ledger">
+      <dl class="ledger${SGAS.usd ? " five" : ""}">
+        ${profitTile}
         <div data-rv><dt>Wins in a row</dt><dd><span${cs.w ? ` data-cu="${cs.w}"` : ""}>${cs.w}</span></dd></div>
         <div data-rv><dt>Best roll</dt><dd>${sx(tp)}</dd></div>
         <div data-rv><dt>Record</dt><dd>${tw}-${tl}</dd><p>${plural(runs.length, "run")}</p></div>
@@ -452,29 +481,12 @@ function sgaBody() {
     ${earlier ? `<div class="panel bpanel sgearlier" data-rv>
       <table class="brk">
         <caption class="sr">Earlier runs</caption>
-        <thead><tr><th scope="col">Earlier runs</th><th scope="col">Games</th><th scope="col">W-L</th><th scope="col">Peak</th><th scope="col">Ended</th></tr></thead>
+        <thead><tr><th scope="col">Earlier runs</th><th scope="col">Games</th><th scope="col">W-L</th><th scope="col">Peak</th><th scope="col">Ended</th>${SGAS.usd ? '<th scope="col" class="num">Profit</th>' : ""}</tr></thead>
         <tbody>${earlier}</tbody>
       </table>
     </div>` : ""}
   </section>
 ${gallery}
-  <section aria-labelledby="how-h">
-    <div class="shead" data-rv>
-      <div><p class="eyebrow"><span class="no">${slips.length ? "04" : "03"}</span><span>How it works</span></p><h2 id="how-h">One bet, repeated</h2></div>
-    </div>
-    <div class="prose" data-rv>
-      <h2>What it is</h2>
-      <p>One bet, repeated: Shai Gilgeous-Alexander to score 20 or more points. Every game he plays, the whole return from the last one goes on the next. There is no top-up and no side bet.</p>
-      <h2>Why it is a multiple</h2>
-      <p>Like the rest of this site, it is units only. ${moneyShown ? "" : "The first stake is not shown. "}What is shown is how many times it has been multiplied, so 2.00x is a stake that has doubled. That reads the same whatever the stake was.</p>
-      <h2>What ends it</h2>
-      <p>One miss. The whole roll goes with it and the run is over; the game is logged as a loss at the multiple it was carrying. A game he sits out is void: the stake comes back and rolls to the next one.</p>
-      ${slips.length ? `<h2>Proof of placement</h2>
-      <p>Each game has a screenshot of the bet slip, taken when the bet was placed. Ticket numbers are blurred before a screenshot is saved.</p>` : ""}
-      <h2>Where the prices come from</h2>
-      <p>Each game is logged at the price taken, before it starts. A win multiplies the roll by that price, so at ${MINUS}900 a win is worth 1.11x and the run only gets big if it lasts. The data is public: <a href="../sga.json">sga.json</a>.</p>
-    </div>
-  </section>
 </main>
 <script type="application/json" id="sg-data">${JSON.stringify(chart).replace(/</g, "\\u003c")}</script>`;
 }
@@ -649,7 +661,7 @@ ${read(slug + ".html")}
 /* ---------- SGA 20+: the page, its screenshots and its data ---------- */
 if (SGA) {
   built.push(page({slug: "sga", title: "SGA 20+ rollover",
-    desc: "One bet a game on Shai Gilgeous-Alexander over 20 points, the whole return rolled into the next game. The live multiplier, every price and every result.",
+    desc: "Betting Shai Gilgeous-Alexander over 20 points for the season, every win rolled onto the next game. The live multiplier, the profit, every price and every result.",
     active: "sga", body: sgaBody(), scripts: ["sga.js"]}));
   const proofDir = path.join(DIST, "sga", "proof");
   const used = new Set(SGA.runs.flatMap(r => r.g.map(x => x.pf).filter(Boolean)));
@@ -657,10 +669,13 @@ if (SGA) {
   for (const id of used) fs.copyFileSync(path.join(SITE_DIR, "sga", "proof", id + ".jpg"), path.join(proofDir, id + ".jpg"));
   // the same data as a plain file, in words: multiples of the first stake, nothing else
   fs.writeFileSync(path.join(DIST, "sga.json"), JSON.stringify({
-    units_only: true,
-    note: "Every roll is a multiple of the first stake. There is no stake, bankroll or book in this file.",
+    units_only: !SGAS.usd,
+    note: "Every roll is a multiple of the first stake. Dollar figures, when present, are what a run started with and what it is worth now. There is no book and no per-game stake in this file.",
     updated: RAW.updated || "",
-    runs: SGA.runs.map(r => ({run: r.n, status: r.st, games: r.g.map(x => ({
+    ...(SGAS.usd ? {profit_usd: SGAS.profit} : {}),
+    runs: SGA.runs.map(r => ({run: r.n, status: r.st,
+      ...(r.usd ? {started_with_usd: r.usd.start, worth_now_usd: r.usd.bank, profit_usd: round(r.usd.bank - r.usd.start, 2)} : {}),
+      games: r.g.map(x => ({
       date: x.d, opponent: x.o, line: x.l, price: x.p, result: x.r, points: x.s === undefined ? null : x.s,
       roll_before: round(x.f, 4), roll_after: round(x.x, 4), slip: x.pf ? `sga/proof/${x.pf}.jpg` : null}))}))
   }, null, 2) + "\n");

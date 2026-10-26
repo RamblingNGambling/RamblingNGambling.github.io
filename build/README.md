@@ -122,12 +122,14 @@ history) are only links.
 ## SGA 20+ experiment (an optional page)
 
 Bet Desk writes two things beside `plays.json`: `sga.json` (the experiment's games,
-as multiples of the first stake) and a screenshot of each bet slip in
-`sga/proof/<id>.jpg`. When `sga.json` is there and makes sense, the build adds
-`/sga/` (the roll, a ladder of bars, every game, the slips, how it works), a
-**SGA 20+** link in the header, a one-line pointer under the home ticker, a line in
-the sitemap and the 404 page, `assets/sga.js`, `dist/sga.json` (the same data in
-words) and the screenshots in `dist/sga/proof/`.
+as multiples of the first stake, plus what each run started with and is worth now) and
+a screenshot of each bet slip in `sga/proof/<id>.jpg`. When `sga.json` is there and
+makes sense, the build adds `/sga/` (the roll, the profit, a ladder of bars, every
+game, the slips), a small tab that hangs off the header on every other page (top right;
+it points a newcomer at `/sga/` and is gone once used or closed: `pt-sga-seen`), a
+one-line pointer under the home ticker, a line in the sitemap and the 404 page,
+`assets/sga.js`, `dist/sga.json` (the same data in words) and the screenshots in
+`dist/sga/proof/`. There is no SGA link in the menu.
 
 - **No file, or a file that does not make sense, means no SGA page and a green
   build.** A warning is printed (`sga.json ignored: ...`). A problem with this
@@ -139,12 +141,15 @@ words) and the screenshots in `dist/sga/proof/`.
   else in the file, including anything that looks like money, never reaches a page.
   The opponent is cut to plain letters and digits. A screenshot is linked only if
   its file is in `sga/proof/`.
-- The figures are multiples of the first stake. There is no stake, bankroll or book
-  in the data and none on the page. If a screenshot was saved with its dollar amounts
-  left visible, the page stops saying the first stake is not shown.
+- The figures are multiples of the first stake. The only dollar figures are the two a
+  run may carry as `usd: {start, bank}` (what it started with, what it is worth now):
+  they give the profit counter and the "Started with $30" line. Both must be plain
+  numbers (start above 0, bank 0 or more) or the pair is ignored and the page shows
+  no money. Bet Desk writes them only while its "Show my dollar figures" box is
+  ticked. There is no book and no stake of any single game in the data or on the page.
 - A run of more than 8x is drawn on a log scale, and the chart says so.
 - `node verify/check-sga.mjs` builds the site in a temp copy with good, bad and hostile
-  `sga.json` files and checks the outcome (20 checks, no browser). `ship.sh` runs it.
+  `sga.json` files and checks the outcome (25 checks, no browser). `ship.sh` runs it.
 - `verify/check-pages.py` includes `sga/` when it is built. It has not been run
   against this page here (no Playwright), but the page was looked at in a browser at
   390 px and 1440 px, dark and light, with no console errors and no sideways scroll.

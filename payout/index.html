@@ -1052,12 +1052,89 @@ a.src .x{letter-spacing:1px}
   .pkpay .prow{font-size:15px}
   #pk-sum .sep{padding-left:0}
 }
+
+/* ---- SGA 20+ rollover ----
+   One bet, rolled. Purple is spent on the same three things as everywhere else:
+   the running figure, the winning side and a live state. A loss is the red. */
+#view-sga .sghero{text-align:center;margin:28px 0 4px}
+#view-sga .sgst{display:inline-flex;align-items:center;gap:9px;font:400 15px var(--mono);
+  letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--line2);
+  border-radius:999px;color:var(--grey)}
+#view-sga .sgst i{display:none;width:8px;height:8px;border-radius:50%;background:currentColor}
+#view-sga .sgst.live{color:var(--lilac);border-color:var(--plum);background:var(--tint)}
+#view-sga .sgst.live i{display:inline-block}
+#view-sga .sgst.bust{color:var(--down);border-color:var(--downbd);background:var(--downbg)}
+#view-sga .sghero .net{margin:20px 0 10px}
+#view-sga .sghero .sub{max-width:60ch;margin:0 auto;line-height:1.55}
+body.nopost #view-sga .kpis{display:grid}
+#view-sga .kpis{margin-top:26px}
+#view-sga .card{margin-top:18px}
+#sg-svg{width:100%;height:auto;display:block}
+#sg-svg text{font:400 13px var(--mono);fill:var(--grey)}
+#sg-svg text.v{fill:var(--bone)}
+#sg-svg .sgb{transform-box:fill-box;transform-origin:50% 100%}
+#sg-svg .sgb.w{fill:rgba(var(--up-rgb),.5);stroke:var(--upbd);stroke-width:1.2}
+#sg-svg .sgb.l{fill:rgba(var(--down-rgb),.3);stroke:var(--downbd);stroke-width:1.2}
+#sg-svg .sgb.v{fill:none;stroke:var(--line2);stroke-width:1.4;stroke-dasharray:4 3}
+#sg-svg .sgb.p{fill:rgba(var(--up-rgb),.1);stroke:var(--lilac);stroke-width:1.4;stroke-dasharray:5 3}
+#sg-svg line.base{stroke:var(--line2);stroke-width:1}
+#sg-svg line.one{stroke:var(--faint);stroke-width:1;stroke-dasharray:3 4}
+#sg-legend{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margin-top:10px;
+  font:400 14px var(--mono);color:var(--grey)}
+#sg-legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;
+  margin-right:7px;vertical-align:-1px;border:1px solid var(--line2)}
+#sg-legend .w::before{background:rgba(var(--up-rgb),.5);border-color:var(--upbd)}
+#sg-legend .l::before{background:rgba(var(--down-rgb),.3);border-color:var(--downbd)}
+#sg-legend .v::before{border-style:dashed}
+#sg-legend .p::before{border-style:dashed;border-color:var(--lilac);background:rgba(var(--up-rgb),.1)}
+#sg-legend .o::before{width:18px;height:0;border:0;border-top:1.5px dashed var(--faint);border-radius:0;vertical-align:3px}
+.sgchip{display:inline-flex;align-items:center;gap:11px;margin:14px auto 0;padding:10px 16px;
+  border:1px solid var(--line2);border-left:3px solid var(--lilac);border-radius:10px;
+  background:var(--panel);text-decoration:none;text-align:left;max-width:min(470px,92vw);
+  color:var(--bone)}
+.sgchip:hover{background:var(--panel2)}
+.sgchip:focus-visible{outline:2px solid var(--lilac);outline-offset:2px}
+.sgchip b{font:400 15px var(--mono);letter-spacing:.6px}
+.sgchip i{font:400 15px var(--mono);font-style:normal;color:var(--lilac);font-variant-numeric:tabular-nums}
+.sgchip .sgdot{width:9px;height:9px;border-radius:50%;background:var(--lilac);flex:0 0 auto}
+.sgchip.over{border-left-color:var(--line2)}
+.sgchip.over i{color:var(--grey)}
+.sgchip.over .sgdot{background:var(--faint)}
+@media(prefers-reduced-motion:no-preference){
+  #sg-svg rect.sgb{animation:sgrise 640ms var(--e-travel) backwards;animation-delay:var(--d,0ms)}
+  .sgchip:not(.over) .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
+}
+@keyframes sgrise{from{transform:scaleY(.02);opacity:.35}}
+@keyframes sgpulse{50%{opacity:.3}}
+@media(max-width:520px){#sg-legend{font-size:13px}
+  #view-sga table{font-size:14px}#view-sga th{font-size:11px;letter-spacing:.2px;padding:8px 4px}
+  #view-sga td{padding:10px 3px}#view-sga .chip{font-size:12px;padding:3px 7px;letter-spacing:.2px}
+  #view-sga .card.acc2{padding-left:8px;padding-right:8px}
+  #sg-tbl thead th:first-child,#sg-rows td:first-child{display:none}
+  #sg-rows .mg{display:none}#sg-rows .chip{border:0;padding:0;background:none}}
+#sg-rows .mg{color:var(--grey)}
+
+/* ---- SGA: proof of placement ---- */
+.sgpg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sgpf{display:block;text-decoration:none;color:var(--bone);border:1px solid var(--line2);border-radius:10px;
+  overflow:hidden;background:var(--panel2);cursor:zoom-in}
+.sgpf:hover{border-color:var(--lilac)}
+.sgpf:focus-visible{outline:2px solid var(--lilac);outline-offset:2px}
+.sgpf img{display:block;width:100%;height:210px;object-fit:cover;object-position:top;background:var(--ink)}
+.sgpf span{display:block;padding:9px 10px;font:400 13px var(--mono);color:var(--grey);line-height:1.4}
+.sglb{position:fixed;inset:0;z-index:60;background:var(--scrim);display:flex;align-items:center;justify-content:center;
+  padding:16px;cursor:zoom-out}
+.sglb img{display:block;max-width:min(94vw,560px);max-height:92vh;border-radius:10px;border:1px solid var(--line2)}
+.sglb button{position:absolute;top:12px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);
+  background:var(--panel);color:var(--bone);font:400 24px var(--mono);cursor:pointer;line-height:1}
+@media(max-width:520px){.sgpg{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.sgpf img{height:190px}}
 </style></head><body><div class="wrap">
 
 <aside class="side"><div class="sidein">
   <nav class="rail" aria-label="Pages">
     <a class="rbtn on" id="rb-tracker" href="#tracker" data-v="tracker"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 5-8"/><path d="M3 21h18"/></svg><span class="rlab">Tracker</span></a>
     <a class="rbtn" id="rb-read" href="#read" data-v="read"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span class="rlab">How to read it</span></a>
+    <a class="rbtn" id="rb-sga" href="#sga" data-v="sga" hidden><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h4v-4h4v-4h4V8h6"/><path d="M17 4h4"/></svg><span class="rlab">SGA 20+ roll</span></a>
     <div class="rhead">Tools</div>
     <a class="rbtn" id="rb-arb" href="#arb" data-v="arb"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l4-7h9"/><path d="M11 19h9"/><path d="M7 12l4 7"/><path d="M17 2.5l3 2.5-3 2.5"/><path d="M17 16.5l3 2.5-3 2.5"/></svg><span class="rlab">Arbitrage</span></a>
     <a class="rbtn" id="rb-hedge" href="#hedge" data-v="hedge"><svg class="ric" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.4-3 8.1-7 10-4-1.9-7-5.6-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span class="rlab">Hedge</span></a>
@@ -1098,6 +1175,7 @@ a.src .x{letter-spacing:1px}
     It is logged here either way &mdash; the red weeks the same as the green ones.</div>
   <div class="receipts" id="receipts" hidden></div>
   <div class="since" id="since" hidden></div>
+  <a class="sgchip" id="sgchip" href="#sga" hidden><span class="sgdot" aria-hidden="true"></span><b id="sgchip-t">SGA 20+ rollover</b><i id="sgchip-s"></i></a>
   <div class="kpis" id="kpis"></div>
   <div class="calc">
     <b>What a unit is worth</b>
@@ -1257,6 +1335,63 @@ a.src .x{letter-spacing:1px}
     <p>Some of the book links above are referral links. If you sign up through one, I may be paid. It costs
     you nothing and it does not change which books I use or what I post.</p>
     <p>Nothing here is advice. Bet only what you can afford to lose. If betting stops being fun, stop.</p>
+  </div>
+</div>
+
+<div class="view" id="view-sga" hidden>
+  <div class="crumb">SGA 20+ rollover</div>
+  <h1 class="th">One bet.<br>Rolled every game.</h1>
+  <p class="lede">Shai Gilgeous-Alexander over 20 points, every game he plays. The whole return goes
+  into the next game, so one miss ends the run. Every figure is a multiple of the first stake.</p>
+
+  <div class="sghero">
+    <div class="sgst" id="sg-st"><i></i><span id="sg-stt"></span></div>
+    <div class="net num" id="sg-net">1.00x</div>
+    <div class="sub" id="sg-sub"></div>
+    <p class="prov" id="sg-prob" hidden></p>
+  </div>
+
+  <div class="kpis" id="sg-kpis"></div>
+
+  <div class="card acc" id="sg-ladder">
+    <h2>The ladder</h2>
+    <svg id="sg-svg" viewBox="0 0 840 280" role="img" aria-label="Bar chart of the roll going into each game of the current run"></svg>
+    <div id="sg-legend" aria-hidden="true"><span class="w">hit</span><span class="l">missed</span><span class="v">sat out (DNP)</span><span class="p">open</span><span class="o">first stake = 1.00x</span></div>
+  </div>
+
+  <div class="card acc2">
+    <h2 id="sg-gh">Game by game</h2>
+    <div class="tw"><table class="tight" id="sg-tbl"><thead><tr><th class="n">#</th><th class="l">Date</th><th class="l">Opponent</th><th class="n">Price</th><th class="n">Points</th><th>Result</th><th class="n">Roll</th></tr></thead><tbody id="sg-rows"></tbody></table></div>
+  </div>
+
+  <div class="card acc2" id="sg-proofs" hidden>
+    <h2>Proof of placement</h2>
+    <p class="prov" style="text-align:left;margin:0 0 14px">A screenshot of each bet slip, taken when the bet was placed. Ticket numbers are blurred before a screenshot is saved. Tap one to enlarge it.</p>
+    <div class="sgpg" id="sg-pgrid"></div>
+  </div>
+  <div class="sglb" id="sg-lb" hidden><img alt=""><button type="button" aria-label="Close">&times;</button></div>
+
+  <details class="card" id="sg-past" hidden><summary><h2>Earlier runs</h2><span class="hint" id="sg-pasthint"></span><span class="car">&#9662;</span></summary>
+    <div class="body"><div class="tw"><table class="tight"><thead><tr><th class="l">Run</th><th class="n">Games</th><th class="n">W-L</th><th class="n">Peak</th><th class="l">Ended</th></tr></thead><tbody id="sg-pastrows"></tbody></table></div></div>
+  </details>
+
+  <div class="prose">
+    <h2>What it is</h2>
+    <p>One bet, repeated: Shai Gilgeous-Alexander to score 20 or more points. Every game he plays, the
+    whole return from the last one goes on the next. There is no top-up and no side bet.</p>
+    <h2>Why it is a multiple</h2>
+    <p>Like the rest of this site, it is units only. <span id="sg-nostake">The first stake is not shown. </span>What is shown is how
+    many times it has been multiplied, so 2.00x is a stake that has doubled. That reads the same
+    whatever the stake was.</p>
+    <h2>What ends it</h2>
+    <p>One miss. The whole roll goes with it and the run is over; the game is logged as a loss at the
+    multiple it was carrying. A game he sits out is void: the stake comes back and rolls to the next one.</p>
+    <h2 id="sg-proofh" hidden>Proof of placement</h2>
+    <p id="sg-proofp" hidden>Each game has a screenshot of the bet slip, taken when the bet was placed. Ticket numbers are blurred before a screenshot is saved.</p>
+    <h2>Where the prices come from</h2>
+    <p>Each game is logged at the price taken, before it starts. A win multiplies the roll by that price,
+    so at &minus;900 a win is worth 1.11x and the run only gets big if it lasts. The other pages explain
+    <a href="#read">how to read the rest of the record</a>.</p>
   </div>
 </div>
 
@@ -1769,14 +1904,14 @@ a.src .x{letter-spacing:1px}
 </main>
 </div>
 <script>
-var D={"title":"Public Tracker","repo":"https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main","solo":"payout","bets":[]};
+var D={"title":"Public Tracker","repo":"https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main","solo":"payout","bets":[],"sgaOn":1};
 var B=D.bets,DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 /* Every view has a real address. The tracker is the root; the rest are folders,
    so each one is a page a search engine can hold on its own. These three are
    read from more than one closure, so they live at the top of the script. */
 var PATHS={tracker:'/',about:'/about/',read:'/how-to-read/',arb:'/arbitrage/',
   hedge:'/hedge/',parlay:'/parlay/',payout:'/payout/',odds:'/odds/',
-  devig:'/devig/',cheat:'/cheat-sheet/',poker:'/poker/'};
+  devig:'/devig/',cheat:'/cheat-sheet/',poker:'/poker/',sga:'/sga/'};
 /* SOLO is set on the per-tool copies. REAL is false inside the desk's preview
    window, which is an about:blank document where a path cannot resolve, so
    that one keeps the old hash routing. */
@@ -1790,6 +1925,9 @@ function pad(n){return n<10?'0'+n:''+n}
 function ud(u){var s=(+u).toFixed(3);if(s.charAt(s.length-1)==='0')return s.slice(0,-1);return (Math.abs(u*1000-Math.round(u*1000))<1e-6)?s:(+u).toFixed(2)}
 function fu(u,dp){var t=(dp==null)?ud(Math.abs(u)):Math.abs(u).toFixed(dp);return (+t===0?'':(u>0?'+':'-'))+t+'u'}
 function pc(x){return (x*100).toFixed(1)+'%'}
+/* The unit converter calls this. It was used and never defined, so the page script
+   stopped there and no calculator after it was wired up. */
+function positiveNumber(n){return typeof n==='number'&&isFinite(n)&&n>0}
 function cl(v){return v>1e-4?'win':v<-1e-4?'loss':'mut'}
 function imp(o){return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100)}
 function longDate(s){var p=s.split('-');
@@ -1966,6 +2104,185 @@ function repaintCharts(){
   }
   if(mq.addEventListener)mq.addEventListener('change',onFlip);
   else if(mq.addListener)mq.addListener(onFlip);
+})();
+
+/* ---------- SGA 20+ rollover ----------
+   sgaOn is on every page so the rail can link to it. The games themselves are in
+   the payload only on the tracker and on /sga/. Nothing here is a dollar figure:
+   every number is a multiple of the first stake, a price, a point count or a date. */
+(function(){
+  if(!D.sgaOn)return;
+  var rb=$('#rb-sga');if(rb)rb.hidden=false;
+  var S=D.sga;if(!S||!S.runs||!S.runs.length)return;
+  function xs(x){return (x>=100?x.toFixed(0):x>=10?x.toFixed(1):x.toFixed(2))+'x'}
+  function pr(o){return (o>0?'+':'')+o}
+  function dm(o){return 1+(o>0?o/100:100/Math.abs(o))}
+  function plural(n,w){return n+' '+w+(n===1?'':'s')}
+  function stat(run){
+    var s={w:0,l:0,v:0,p:0,peak:1,prob:1,pts:[],last:null,open:null,held:1,avg:null};
+    run.g.forEach(function(r){
+      if(r.r==='Win'){s.w++;s.prob*=imp(r.p)}
+      else if(r.r==='Loss'){s.l++;s.prob*=imp(r.p)}
+      else if(r.r==='Void')s.v++;
+      else{s.p++;s.open=r}
+      if(r.x>s.peak)s.peak=r.x;if(r.f>s.peak)s.peak=r.f;
+      if(typeof r.s==='number'&&(r.r==='Win'||r.r==='Loss'))s.pts.push(r.s);
+      s.last=r});
+    s.held=run.st==='bust'?0:(s.last?s.last.x:1);
+    if(s.pts.length)s.avg=s.pts.reduce(function(a,b){return a+b},0)/s.pts.length;
+    return s}
+  function draw(){
+    var runs=S.runs,cur=runs[runs.length-1],cs=stat(cur),tw=0,tl=0,tp=1;
+    runs.forEach(function(r){var s=stat(r);tw+=s.w;tl+=s.l;if(s.peak>tp)tp=s.peak});
+    var bust=cur.st==='bust',cash=cur.st==='cashed';
+
+    /* the figure and what it is doing */
+    var st=$('#sg-st');
+    st.className='sgst '+(bust?'bust':(cash?'':'live'));
+    $('#sg-stt').textContent=bust?'Run '+cur.n+' ended':cash?'Run '+cur.n+' cashed out':
+      (cs.open?'Run '+cur.n+' · game open':'Run '+cur.n+' · live');
+    var net=$('#sg-net');
+    net.className='net num '+(bust?'loss':(cs.held>1?'win':'mut'));
+    net.textContent=bust?'0x':xs(cs.held);
+    var sub;
+    if(bust)sub='It peaked at '+xs(cs.peak)+' after '+plural(cs.w,'win')+' in a row. One miss ended it.';
+    else if(cash)sub='Cashed out after '+plural(cs.w,'win')+' in a row.';
+    else if(cs.open)sub=(cs.w?plural(cs.w,'win')+' in a row. ':'')+'The open game'+(cs.open.o?' '+cs.open.o:'')+
+      ' is at '+pr(cs.open.p)+': a hit takes it to '+xs(cs.held*dm(cs.open.p))+', a miss ends the run.';
+    else sub=cs.w?plural(cs.w,'win')+' in a row. Waiting on the next game.':'Waiting on the first game.';
+    $('#sg-sub').textContent=sub;
+    if(cs.w>=2&&!bust){
+      var pc2=Math.round(cs.prob*100),e=$('#sg-prob');
+      e.textContent='At the prices taken, getting this far was about a '+(pc2<1?'1-in-'+Math.round(1/cs.prob):pc2+'%')+
+        ' chance by the books’ own numbers, margin included.';
+      e.hidden=false}
+    /* count up to the figure. The final text is already in place, so a page that
+       never gets a frame still shows the right number. */
+    if(!bust&&cs.held>1&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
+      var t0=0,dur=900,to=cs.held;
+      requestAnimationFrame(function step(ts){
+        if(!t0)t0=ts;
+        var p=Math.min(1,(ts-t0)/dur),k=1-Math.pow(1-p,3);
+        net.textContent=xs(1+(to-1)*k);
+        if(p<1)requestAnimationFrame(step)});
+      setTimeout(function(){net.textContent=xs(to)},dur+300)}
+
+    /* four tiles */
+    var kp=$('#sg-kpis');kp.innerHTML='';
+    [['Wins in a row',String(cs.w),cs.w?'win':'mut'],
+     ['Best roll',xs(tp),''],
+     [runs.length>1?'Record · '+plural(runs.length,'run'):'Record',tw+'-'+tl,''],
+     ['Avg points',cs.avg==null?'--':cs.avg.toFixed(1),'']].forEach(function(t,i){
+      var k=el('div','k');k.style.setProperty('--d',(i*60)+'ms');
+      k.appendChild(el('b','',t[0]));k.appendChild(el('span','num '+t[2],t[1]));kp.appendChild(k)});
+
+    /* the ladder: one bar per game, up to the last 40. A miss keeps the height of what
+       was riding, so the cost of it is on the chart. */
+    /* The chart is drawn in the pixels it is shown in, so its type stays readable on a
+       phone. The first draw is at full width (the view may still be hidden and have no
+       width); a second pass after layout, and on resize, fits it to the box. */
+    var svg=$('#sg-svg'),curW=840,rt=0;
+    function paintLadder(W){
+    while(svg.firstChild)svg.removeChild(svg.firstChild);
+    var H=W<520?240:280,L=10,R=10,T=26,Bm=34,iw=W-L-R,ih=H-T-Bm,g=cur.g.slice(-40),n=g.length,
+        ymax=Math.max(cs.peak,1)*1.14;
+    /* Compounding is exponential, so past about 8x a straight scale flattens every early
+       bar. Then the height is the log of the roll, from the first stake, and the chart says so. */
+    var big=cs.peak>8,lg=Math.log(ymax);
+    function Y(v){return T+ih*(1-(big?Math.log(Math.max(v,1))/lg:v/ymax))}
+    var gap=n>24?3:(n>12?5:8),bw=Math.min(64,(iw-gap*(n-1))/n),x0=L+(iw-(bw*n+gap*(n-1)))/2;
+    var every=n>14?n:Math.max(1,Math.ceil(40/(bw+gap)));   /* narrow bars: label every few, always the last */
+    svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:Y(1).toFixed(1),y2:Y(1).toFixed(1),'class':'one'}));
+    svg.appendChild(svgEl('line',{x1:L,x2:W-R,y1:Y(0).toFixed(1),y2:Y(0).toFixed(1),'class':'base'}));
+    if(big){var sc=svgEl('text',{x:L,y:14,'text-anchor':'start'});sc.textContent='log scale';svg.appendChild(sc)}
+    g.forEach(function(r,i){
+      var x=x0+i*(bw+gap),top=r.r==='Win'?r.x:r.f,
+          c=r.r==='Win'?'w':(r.r==='Loss'?'l':(r.r==='Void'?'v':'p')),
+          y=Y(top),h=Math.max(2,Y(0)-y);
+      var rc=svgEl('rect',{x:x.toFixed(1),y:y.toFixed(1),width:bw.toFixed(1),height:h.toFixed(1),rx:3,'class':'sgb '+c});
+      rc.style.setProperty('--d',Math.round(i*Math.min(40,600/n))+'ms');svg.appendChild(rc);
+      if(i%every===(n-1)%every){
+        var t=svgEl('text',{x:(x+bw/2).toFixed(1),y:(y-6).toFixed(1),'text-anchor':'middle','class':'v'});
+        t.textContent=(r.r==='Loss'?'✕ ':'')+xs(top);svg.appendChild(t)}
+      if((n<=14&&bw>=18)||((cur.g.length-n+i+1)%5===0&&n-1-i>=2)||i===n-1){
+        var a=svgEl('text',{x:(x+bw/2).toFixed(1),y:H-12,'text-anchor':'middle'});
+        a.textContent=String(cur.g.length-n+i+1);svg.appendChild(a)}});
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    }
+    paintLadder(840);
+    function fit(){var w=svg.clientWidth;if(!w)return;var k=Math.max(320,Math.min(840,Math.round(w)));
+      if(k!==curW){curW=k;paintLadder(k)}}
+    setTimeout(fit,0);window.addEventListener('load',fit);
+    window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(fit,120)});
+
+    /* every game of the run, in order */
+    $('#sg-gh').textContent='Game by game · run '+cur.n;
+    var tb=$('#sg-rows');tb.innerHTML='';
+    cur.g.forEach(function(r,i){
+      var tr=el('tr');
+      tr.appendChild(el('td','n',String(i+1)));
+      tr.appendChild(el('td','l',shortDate(r.d)));
+      tr.appendChild(el('td','l',r.o||'--'));
+      tr.appendChild(el('td','n',pr(r.p)));
+      var pt=el('td','n',typeof r.s==='number'?String(r.s):(r.r==='Void'?'DNP':'--'));
+      if(typeof r.s==='number'){var mg=el('span','mg',' ('+(r.s>=r.l?'+':'')+(+(r.s-r.l).toFixed(1))+')');pt.appendChild(mg)}
+      tr.appendChild(pt);
+      var cd=el('td'),lab=r.r==='Win'?'Win':(r.r==='Loss'?'Loss':(r.r==='Void'?'DNP':'Open'));
+      cd.appendChild(el('span','chip '+(r.r==='Win'?'W':(r.r==='Loss'?'L':(r.r==='Pending'?'Pending':''))),lab));
+      tr.appendChild(cd);
+      tr.appendChild(el('td','n '+(r.r==='Loss'?'loss':''),r.r==='Loss'?'0x':(r.r==='Pending'?'--':xs(r.x))));
+      tb.appendChild(tr)});
+
+    /* the slips: a screenshot of each bet, newest first. The files are written beside the page by the
+       publish. In the desk's preview window there is nowhere for them to load from, so they are skipped. */
+    var slips=[],gridEl=$('#sg-pgrid'),boxEl=$('#sg-proofs');
+    runs.forEach(function(r){r.g.forEach(function(x){if(x.pf)slips.push({run:r.n,x:x})})});
+    var moneyShown=slips.some(function(s){return s.x.pm===0});
+    var ns=$('#sg-nostake');if(ns&&moneyShown)ns.hidden=true;
+    if(slips.length){var h2=$('#sg-proofh'),pp2=$('#sg-proofp');if(h2)h2.hidden=false;if(pp2)pp2.hidden=false}
+    if(gridEl&&boxEl&&slips.length&&REAL){
+      var lb=$('#sg-lb'),lbi=lb?lb.querySelector('img'):null;
+      slips.slice().reverse().forEach(function(s){
+        var x=s.x,src='/sga/proof/'+x.pf+'.jpg',alt='Bet slip, '+shortDate(x.d)+(x.o?', '+x.o:'')+', '+pr(x.p),
+            a=el('a','sgpf'),im=el('img');
+        a.href=src;a.target='_blank';a.rel='noopener noreferrer';a.title=alt;
+        im.src=src;im.alt=alt;im.loading='lazy';
+        im.onerror=function(){a.hidden=true;
+          if(!gridEl.querySelector('a:not([hidden])'))boxEl.hidden=true};     /* none of them loaded: no bare heading */
+        a.appendChild(im);
+        a.appendChild(el('span','',(runs.length>1?'Run '+s.run+' \u00b7 ':'')+shortDate(x.d)+' \u00b7 '+(x.o||'game')+' \u00b7 '+pr(x.p)));
+        a.addEventListener('click',function(ev){
+          if(!lb||!lbi)return;
+          ev.preventDefault();lbi.src=src;lbi.alt=alt;lb.hidden=false});
+        gridEl.appendChild(a)});
+      if(lb){
+        lb.addEventListener('click',function(){lb.hidden=true});
+        document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.hidden=true})}
+      boxEl.hidden=false}
+
+    /* the runs before this one */
+    if(runs.length>1){
+      var pb=$('#sg-pastrows');pb.innerHTML='';
+      runs.slice(0,-1).reverse().forEach(function(r){
+        var s=stat(r),tr=el('tr'),first=r.g[0],last=r.g[r.g.length-1];
+        tr.appendChild(el('td','l','Run '+r.n+'  '+shortDate(first.d)+(last.d!==first.d?' – '+shortDate(last.d):'')));
+        tr.appendChild(el('td','n',String(r.g.length)));
+        tr.appendChild(el('td','n',s.w+'-'+s.l));
+        tr.appendChild(el('td','n',xs(s.peak)));
+        tr.appendChild(el('td','l',r.st==='bust'?'On a miss':(r.st==='cashed'?'Cashed out at '+xs(s.held):'Open')));
+        pb.appendChild(tr)});
+      $('#sg-pasthint').textContent=plural(runs.length-1,'run');
+      $('#sg-past').hidden=false}
+
+    /* the line on the tracker */
+    var chip=$('#sgchip');
+    if(chip){
+      chip.className='sgchip'+(cs.open||!(bust||cash)?'':' over');
+      $('#sgchip-s').textContent=bust?'last run '+plural(cs.w,'win')+' · peaked '+xs(cs.peak):
+        (cash?'cashed out at '+xs(cs.held):xs(cs.held)+' · '+plural(cs.w,'win')+' in a row');
+      chip.hidden=false}
+  }
+  try{draw()}catch(err){}
 })();
 
 /* ---------- the other calculators ----------
@@ -2208,7 +2525,7 @@ function pkSettle(people){
 }
 
 /* -- pages: the rail swaps the whole view, and the hash keeps back and forward working -- */
-var VIEWS=['tracker','about','read','arb','hedge','parlay','payout','odds','devig','cheat','poker'];
+var VIEWS=['tracker','about','read','sga','arb','hedge','parlay','payout','odds','devig','cheat','poker'];
 function show(v){
   if(VIEWS.indexOf(v)<0)v='tracker';
   $('.rail').classList.toggle('showsub',v==='odds'||v==='cheat');
@@ -2225,7 +2542,7 @@ var NAMES={about:'About',read:'How to read it',arb:'Arbitrage calculator',hedge:
            parlay:'Parlay and round robin',payout:'Payout calculator',
            odds:'Odds converter',
            devig:'Devig calculator',cheat:'Percent to American odds',
-           poker:'Poker settlement calculator'},
+           poker:'Poker settlement calculator',sga:'SGA 20+ rollover'},
     PAGE_TITLE=(D.title||document.title);
 function route(){show((location.hash||'#tracker').slice(1).split('?')[0])}
 if(REAL){

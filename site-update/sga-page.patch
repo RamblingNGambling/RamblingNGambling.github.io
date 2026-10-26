@@ -1,0 +1,688 @@
+diff --git a/build/README.md b/build/README.md
+index bfe623c..ed1da63 100644
+--- a/build/README.md
++++ b/build/README.md
+@@ -36,6 +36,7 @@ Pages, so serve `dist/` over http rather than opening the files directly.
+ 
+ ```sh
+ node verify/check-data.mjs      # equity curve vs hero, inlined data, filter counts
++node verify/check-sga.mjs       # the optional SGA page: good, bad and hostile sga.json files
+ python3 verify/check-pages.py   # headless Chromium: every page at 390px and 1440px
+ ```
+ 
+@@ -75,6 +76,7 @@ src/site.css         design system, extracted from the Direction A prototype
+ src/site.js          shared runtime: theme cross-fade, reveals, count-ups (window.PT)
+ src/home.js          home: equity curve, play log + filters, breakdown
+ src/tools.js         the calculators (logic carried over from the old site)
++src/sga.js           SGA 20+ page: the ladder chart (drawn in its own width) and the slip viewer
+ src/pages/*.html     bodies of the inner pages ({{rel}} = path back to the root)
+ verify/              the two check scripts
+ dist/                output (committed so the result can be looked at directly)
+@@ -117,6 +119,36 @@ Zero external requests: no CDN, no web font, no fetch. The home page's data is
+ inlined as JSON. Outbound links (posts on X, the Kalshi referral, the commit
+ history) are only links.
+ 
++## SGA 20+ experiment (an optional page)
++
++Bet Desk writes two things beside `plays.json`: `sga.json` (the experiment's games,
++as multiples of the first stake) and a screenshot of each bet slip in
++`sga/proof/<id>.jpg`. When `sga.json` is there and makes sense, the build adds
++`/sga/` (the roll, a ladder of bars, every game, the slips, how it works), a
++**SGA 20+** link in the header, a one-line pointer under the home ticker, a line in
++the sitemap and the 404 page, `assets/sga.js`, `dist/sga.json` (the same data in
++words) and the screenshots in `dist/sga/proof/`.
++
++- **No file, or a file that does not make sense, means no SGA page and a green
++  build.** A warning is printed (`sga.json ignored: ...`). A problem with this
++  optional page must never stop the record from updating. With no `sga.json`
++  the output is identical to what it was before, apart from the stylesheet gaining
++  rules.
++- **Only the fields the build reads are used, and each is checked** (a date, a
++  line, an American price, a result, a roll, points, a screenshot name). Anything
++  else in the file, including anything that looks like money, never reaches a page.
++  The opponent is cut to plain letters and digits. A screenshot is linked only if
++  its file is in `sga/proof/`.
++- The figures are multiples of the first stake. There is no stake, bankroll or book
++  in the data and none on the page. If a screenshot was saved with its dollar amounts
++  left visible, the page stops saying the first stake is not shown.
++- A run of more than 8x is drawn on a log scale, and the chart says so.
++- `node verify/check-sga.mjs` builds the site in a temp copy with good, bad and hostile
++  `sga.json` files and checks the outcome (20 checks, no browser). `ship.sh` runs it.
++- `verify/check-pages.py` includes `sga/` when it is built. It has not been run
++  against this page here (no Playwright), but the page was looked at in a browser at
++  390 px and 1440 px, dark and light, with no console errors and no sideways scroll.
++
+ ## Changes from the old site
+ 
+ - The payout page's **screenshot reader is gone**. It downloaded Tesseract from
+diff --git a/build/build.mjs b/build/build.mjs
+index e61c505..339a7e6 100644
+--- a/build/build.mjs
++++ b/build/build.mjs
+@@ -35,6 +35,44 @@ const RAW = JSON.parse(fs.readFileSync(PLAYS_PATH, "utf8"));
+ if (!RAW || !Array.isArray(RAW.plays)) throw new Error(PLAYS_PATH + " has no plays array");
+ const SITE_DIR = path.dirname(PLAYS_PATH);
+ 
++/* ---------- the SGA 20+ experiment (optional) ----------
++   Bet Desk writes sga.json beside plays.json, and a screenshot of each bet slip to sga/proof/.
++   With no file, or one that does not make sense, there is simply no SGA page: a problem here must
++   never stop the record from updating, so it is a warning and not an error. Only the fields read
++   below are used and each is checked, so nothing else in the file can reach a page. Every figure
++   is a multiple of the first stake: there is no stake, bankroll or book anywhere in it. */
++const SGA = loadSga();
++function loadSga() {
++  const file = path.join(SITE_DIR, "sga.json");
++  if (!fs.existsSync(file)) return null;
++  const bad = why => { console.warn("sga.json ignored: " + why); return null; };
++  const num = v => typeof v === "number" && isFinite(v);
++  let j;
++  try { j = JSON.parse(fs.readFileSync(file, "utf8")); } catch (e) { return bad("not valid JSON"); }
++  if (!j || j.units_only !== true || !Array.isArray(j.runs)) return bad("not an SGA file");
++  const runs = [];
++  for (const [ri, r] of j.runs.entries()) {
++    if (!r || !Array.isArray(r.g) || !["live", "bust", "cashed"].includes(r.st)) return bad("run " + (ri + 1));
++    const g = [];
++    for (const [gi, x] of r.g.entries()) {
++      if (!x || !/^\d{4}-\d{2}-\d{2}$/.test(x.d) || !num(x.l) || x.l <= 0 || !num(x.p) || Math.abs(x.p) < 100 ||
++          !["Pending", "Win", "Loss", "Void"].includes(x.r) || !num(x.f) || x.f < 0 || !num(x.x) || x.x < 0 ||
++          (x.s !== undefined && !(num(x.s) && x.s >= 0)))
++        return bad(`run ${ri + 1}, game ${gi + 1}`);
++      const o = {d: x.d, o: String(x.o || "").replace(/[^A-Za-z0-9 @.&'\-]/g, "").trim().slice(0, 24),
++                 l: x.l, p: x.p, r: x.r, f: x.f, x: x.x};
++      if (x.s !== undefined) o.s = x.s;
++      // a screenshot is linked only if its file is really there
++      if (typeof x.pf === "string" && /^[a-z0-9]{8,40}$/.test(x.pf) && fs.existsSync(path.join(SITE_DIR, "sga", "proof", x.pf + ".jpg"))) {
++        o.pf = x.pf; o.pm = x.pm === 0 ? 0 : 1;
++      }
++      g.push(o);
++    }
++    if (g.length) runs.push({n: num(r.n) && r.n > 0 ? Math.floor(r.n) : ri + 1, st: r.st, g});
++  }
++  return runs.length ? {runs} : null;
++}
++
+ /* ---------- helpers ---------- */
+ const MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+ const MINUS = "−";
+@@ -131,7 +169,7 @@ if (series.length && Math.abs(series[series.length - 1][1] - A.u) > 1e-9)
+ fs.rmSync(DIST, {recursive: true, force: true});
+ fs.mkdirSync(path.join(DIST, "assets"), {recursive: true});
+ const ASSET = {};
+-for (const f of ["site.css", "site.js", "home.js", "tools.js"]) {
++for (const f of ["site.css", "site.js", "home.js", "tools.js", "sga.js"]) {
+   const body = fs.readFileSync(path.join(SRC, f), "utf8");
+   fs.writeFileSync(path.join(DIST, "assets", f), body);
+   ASSET[f] = `assets/${f}?v=${crypto.createHash("sha1").update(body).digest("hex").slice(0, 8)}`;
+@@ -193,7 +231,7 @@ function header(rel, active, home) {
+       ${a(hm + "#record", "Record")}
+       ${a(hm + "#log", "Log")}
+       ${a(hm + "#breakdown", "Breakdown")}
+-      ${a(hm + "#tools", "Tools", "tool")}
++      ${a(hm + "#tools", "Tools", "tool")}${SGA ? "\n      " + a(rel + "sga/", "SGA 20+", "sga") : ""}
+       <span class="sep" aria-hidden="true"></span>
+       ${a(rel + "about/", "About", "about")}
+     </nav>
+@@ -285,6 +323,162 @@ ${UMAMI}
+   return out;
+ }
+ 
++/* ---------- the SGA 20+ page ---------- */
++const impl = o => o > 0 ? 100 / (o + 100) : -o / (-o + 100);
++const sgaBig = x => x >= 100 ? x.toFixed(0) : x >= 10 ? x.toFixed(1) : x.toFixed(2);
++const sx = x => sgaBig(x) + "x";
++const sgaOdds = o => o > 0 ? "+" + o : MINUS + Math.abs(o);
++const sgaMult = o => 1 + (o > 0 ? o / 100 : 100 / Math.abs(o));
++const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
++function sgaStat(run) {
++  const s = {w: 0, l: 0, v: 0, p: 0, peak: 1, prob: 1, pts: [], open: null, last: null};
++  for (const x of run.g) {
++    if (x.r === "Win") { s.w++; s.prob *= impl(x.p); }
++    else if (x.r === "Loss") { s.l++; s.prob *= impl(x.p); }
++    else if (x.r === "Void") s.v++;
++    else { s.p++; s.open = x; }
++    s.peak = Math.max(s.peak, x.x, x.f);
++    if (typeof x.s === "number" && (x.r === "Win" || x.r === "Loss")) s.pts.push(x.s);
++    s.last = x;
++  }
++  s.held = run.st === "bust" ? 0 : (s.last ? s.last.x : 1);
++  s.avg = s.pts.length ? s.pts.reduce((a, b) => a + b, 0) / s.pts.length : null;
++  return s;
++}
++const SGAS = SGA && (() => {
++  const runs = SGA.runs, cur = runs[runs.length - 1], cs = sgaStat(cur);
++  let tw = 0, tl = 0, tp = 1;
++  for (const r of runs) { const s = sgaStat(r); tw += s.w; tl += s.l; tp = Math.max(tp, s.peak); }
++  return {runs, cur, cs, tw, tl, tp};
++})();
++// the line on the home page that points at it
++function sgaChip() {
++  if (!SGAS) return "";
++  const {cur, cs} = SGAS, over = cur.st !== "live" && !cs.open;
++  const t = cur.st === "bust" ? `last run ${plural(cs.w, "win")} · peaked ${sx(cs.peak)}`
++    : cur.st === "cashed" ? `cashed out at ${sx(cs.held)}`
++    : `${sx(cs.held)} · ${plural(cs.w, "win")} in a row`;
++  return `<a class="sgchip${over ? " over" : ""}" href="sga/" data-rv><span class="sgdot" aria-hidden="true"></span><b>SGA 20+ rollover</b><span class="sgs">${h(t)}</span><span class="sga" aria-hidden="true">&rarr;</span></a>`;
++}
++const sgaTile = r => r === "Win" ? tile("W") : r === "Loss" ? tile("L") : r === "Void" ? tile("P") : '<span class="t o" aria-hidden="true">O</span>';
++const sgaWord = r => r === "Win" ? "Win" : r === "Loss" ? "Loss" : r === "Void" ? "Sat out" : "Open";
++function sgaBody() {
++  const {runs, cur, cs, tw, tl, tp} = SGAS;
++  const bust = cur.st === "bust", cash = cur.st === "cashed";
++  const status = bust ? `Run ${cur.n} ended` : cash ? `Run ${cur.n} cashed out` : cs.open ? `Run ${cur.n} · game open` : `Run ${cur.n} · live`;
++  let sub;
++  if (bust) sub = `It peaked at ${sx(cs.peak)} after ${plural(cs.w, "win")} in a row. One miss ended it.`;
++  else if (cash) sub = `Cashed out after ${plural(cs.w, "win")} in a row.`;
++  else if (cs.open) sub = `${cs.w ? plural(cs.w, "win") + " in a row. " : ""}The open game${cs.open.o ? " " + cs.open.o : ""} is at ${sgaOdds(cs.open.p)}: a hit takes it to ${sx(cs.held * sgaMult(cs.open.p))}, a miss ends the run.`;
++  else sub = cs.w ? `${plural(cs.w, "win")} in a row. Waiting on the next game.` : "Waiting on the first game.";
++  const prob = cs.w >= 2 && !bust
++    ? `<p class="sgprob" data-rv>At the prices taken, getting this far was about a ${cs.prob < 0.01 ? "1-in-" + Math.round(1 / cs.prob) : Math.round(cs.prob * 100) + "%"} chance by the books’ own numbers, margin included.</p>` : "";
++  const bigTxt = bust ? "0" : sgaBig(cs.held);
++  const big = `<p class="big${bust ? " down" : ""}" data-rv aria-label="${bust ? "Zero" : sx(cs.held).replace("x", " times")} the first stake"><span${!bust && cs.held > 1 ? ` data-cu="${bigTxt}" data-dp="${cs.held >= 100 ? 0 : cs.held >= 10 ? 1 : 2}"` : ""}>${bigTxt}</span><span class="u">x</span></p>`;
++  const pips = cur.g.slice(-20).map(x => x.r === "Win" ? tile("W") : x.r === "Loss" ? tile("L") : x.r === "Void" ? tile("P") : '<span class="t o" aria-hidden="true">O</span>').join("");
++  const slips = [];
++  for (const r of runs) for (const x of r.g) if (x.pf) slips.push({run: r.n, x});
++  slips.reverse();
++  const moneyShown = slips.some(s => s.x.pm === 0);
++  const rows = cur.g.map(x => `<tr>
++        <td class="c-date">${dmd(x.d)}</td>
++        <td class="c-play">Shai Gilgeous-Alexander ${h(x.l)}+ points${x.o ? `<span class="g">${h(x.o)}</span>` : ""}</td>
++        <td class="c-sport"><span class="tag">${typeof x.s === "number" ? x.s + " pts" : x.r === "Void" ? "DNP" : "–"}</span></td>
++        <td class="c-odds num">${sgaOdds(x.p)}</td>
++        <td class="c-res"><span class="res">${sgaTile(x.r)}<span class="w-txt">${sgaWord(x.r)}</span></span></td>
++        <td class="c-pl num">${x.r === "Loss" ? "0x" : x.r === "Pending" ? "–" : sx(x.x)}</td></tr>`).join("");
++  const earlier = runs.slice(0, -1).reverse().map(r => {
++    const s = sgaStat(r), f = r.g[0].d, l = r.g[r.g.length - 1].d;
++    return `<tr><th scope="row">Run ${r.n}<span class="thin"> · ${dmd(f)}${l !== f ? " – " + dmd(l) : ""}</span></th><td>${r.g.length}</td><td>${s.w}-${s.l}</td><td>${sx(s.peak)}</td><td>${r.st === "bust" ? "On a miss" : r.st === "cashed" ? "Cashed out at " + sx(s.held) : "Open"}</td></tr>`;
++  }).join("");
++  const gallery = slips.length ? `
++  <section id="proof" aria-labelledby="pf-h">
++    <div class="shead" data-rv>
++      <div><p class="eyebrow"><span class="no">03</span><span>Proof of placement</span></p><h2 id="pf-h">The bet slip for each game</h2></div>
++      <p>A screenshot taken when each bet was placed. Ticket numbers are blurred before a screenshot is saved. Tap one to enlarge it.</p>
++    </div>
++    <div class="sgpg" data-rv>
++      ${slips.map(s => { const alt = `Bet slip, ${dmd(s.x.d)}${s.x.o ? ", " + s.x.o : ""}, ${sgaOdds(s.x.p)}`;
++        return `<a class="sgpf" href="proof/${s.x.pf}.jpg" target="_blank" rel="noopener noreferrer" title="${h(alt)}"><img src="proof/${s.x.pf}.jpg" alt="${h(alt)}" loading="lazy" width="760" height="1500"><span>${runs.length > 1 ? `Run ${s.run} · ` : ""}${dmd(s.x.d)} · ${h(s.x.o || "game")} · ${sgaOdds(s.x.p)}</span></a>`; }).join("\n      ")}
++    </div>
++  </section>` : "";
++  const chart = {g: cur.g.map(x => ({r: x.r, f: round(x.f, 4), x: round(x.x, 4)})), peak: round(cs.peak, 4),
++    label: "Bar chart of the roll going into each game of run " + cur.n};
++  return `<main class="wrap" id="main">
++  <div class="phero">
++    <p class="kicker" data-rv>SGA 20+ rollover · <b>an experiment</b></p>
++    <h1 class="th" data-rv>One bet. <em>Rolled every game.</em></h1>
++    <p class="lede" data-rv>Shai Gilgeous-Alexander over 20 points, every game he plays. The whole return goes into the next game, so one miss ends the run. Every figure is a multiple of the first stake.</p>
++  </div>
++
++  <section class="record sgrec" id="roll" aria-labelledby="sg-h" style="margin-top:28px">
++    <h2 class="sr" id="sg-h">The roll</h2>
++    <p class="eyebrow" data-rv><span class="no">01</span><span>The roll</span>
++      <span class="ey-r"><span>Updated ${h(updDay)}${updTime ? `<span class="ey-t">${h(updTime)}</span>` : ""} · <a href="../sga.json">sga.json</a></span></span></p>
++    <div class="hero">
++      <div>
++        <p class="sgstat ${bust ? "bust" : cash ? "" : "live"}" data-rv><i aria-hidden="true"></i>${h(status)}</p>
++        ${big}
++        <p class="sgsub" data-rv>${h(sub)}</p>
++        ${prob}
++      </div>
++      <dl class="ledger">
++        <div data-rv><dt>Wins in a row</dt><dd><span${cs.w ? ` data-cu="${cs.w}"` : ""}>${cs.w}</span></dd></div>
++        <div data-rv><dt>Best roll</dt><dd>${sx(tp)}</dd></div>
++        <div data-rv><dt>Record</dt><dd>${tw}-${tl}</dd><p>${plural(runs.length, "run")}</p></div>
++        <div data-rv><dt>Avg points</dt><dd>${cs.avg == null ? "–" : cs.avg.toFixed(1)}</dd></div>
++        <div class="lform" data-rv><dt>Games, oldest first</dt><dd><div class="pips" role="img" aria-label="${cur.g.slice(-20).length} games, oldest first: ${cs.w} won, ${cs.l} lost, ${cs.v} sat out, ${cs.p} open">${pips}</div></dd></div>
++      </dl>
++    </div>
++    <div class="panel chartp" data-rv>
++      <div class="phead"><h3>The ladder</h3></div>
++      <div class="chart sgladder" id="sg-ladder"></div>
++      <div class="sglegend" aria-hidden="true"><span class="w">hit</span><span class="l">missed</span><span class="v">sat out</span><span class="o">open</span><span class="z">first stake = 1.00x</span></div>
++    </div>
++  </section>
++
++  <section id="games" aria-labelledby="gm-h">
++    <div class="shead" data-rv>
++      <div><p class="eyebrow"><span class="no">02</span><span>Game by game</span></p><h2 id="gm-h">Run ${cur.n}, every game in order</h2></div>
++    </div>
++    <div class="panel logp" data-rv>
++      <table class="log sgl">
++        <caption class="sr">Run ${cur.n}, game by game</caption>
++        <thead><tr><th scope="col">Date</th><th scope="col">Play</th><th scope="col">Points</th><th scope="col" class="num">Price</th><th scope="col">Result</th><th scope="col" class="num">Roll</th></tr></thead>
++        <tbody>${rows}
++        </tbody>
++      </table>
++    </div>
++    ${earlier ? `<div class="panel bpanel sgearlier" data-rv>
++      <table class="brk">
++        <caption class="sr">Earlier runs</caption>
++        <thead><tr><th scope="col">Earlier runs</th><th scope="col">Games</th><th scope="col">W-L</th><th scope="col">Peak</th><th scope="col">Ended</th></tr></thead>
++        <tbody>${earlier}</tbody>
++      </table>
++    </div>` : ""}
++  </section>
++${gallery}
++  <section aria-labelledby="how-h">
++    <div class="shead" data-rv>
++      <div><p class="eyebrow"><span class="no">${slips.length ? "04" : "03"}</span><span>How it works</span></p><h2 id="how-h">One bet, repeated</h2></div>
++    </div>
++    <div class="prose" data-rv>
++      <h2>What it is</h2>
++      <p>One bet, repeated: Shai Gilgeous-Alexander to score 20 or more points. Every game he plays, the whole return from the last one goes on the next. There is no top-up and no side bet.</p>
++      <h2>Why it is a multiple</h2>
++      <p>Like the rest of this site, it is units only. ${moneyShown ? "" : "The first stake is not shown. "}What is shown is how many times it has been multiplied, so 2.00x is a stake that has doubled. That reads the same whatever the stake was.</p>
++      <h2>What ends it</h2>
++      <p>One miss. The whole roll goes with it and the run is over; the game is logged as a loss at the multiple it was carrying. A game he sits out is void: the stake comes back and rolls to the next one.</p>
++      ${slips.length ? `<h2>Proof of placement</h2>
++      <p>Each game has a screenshot of the bet slip, taken when the bet was placed. Ticket numbers are blurred before a screenshot is saved.</p>` : ""}
++      <h2>Where the prices come from</h2>
++      <p>Each game is logged at the price taken, before it starts. A win multiplies the roll by that price, so at ${MINUS}900 a win is worth 1.11x and the run only gets big if it lasts. The data is public: <a href="../sga.json">sga.json</a>.</p>
++    </div>
++  </section>
++</main>
++<script type="application/json" id="sg-data">${JSON.stringify(chart).replace(/</g, "\\u003c")}</script>`;
++}
++
+ /* ---------- home ---------- */
+ const first = settled.length ? settled[0].date : "", last = settled.length ? settled[settled.length - 1].date : "";
+ const span = !first ? "nothing settled yet"
+@@ -341,7 +535,7 @@ const homeBody = `<main class="wrap" id="main">
+       </div>
+     </div>
+ 
+-    ${ticker}
++    ${ticker}${SGA ? "\n    " + sgaChip() : ""}
+   </section>
+ 
+   <!-- ============ 02 LOG ============ -->
+@@ -452,6 +646,26 @@ ${read(slug + ".html")}
+   built.push(page({slug, title, desc, active: "tool", tool: key, body, scripts: ["tools.js"]}));
+ }
+ 
++/* ---------- SGA 20+: the page, its screenshots and its data ---------- */
++if (SGA) {
++  built.push(page({slug: "sga", title: "SGA 20+ rollover",
++    desc: "One bet a game on Shai Gilgeous-Alexander over 20 points, the whole return rolled into the next game. The live multiplier, every price and every result.",
++    active: "sga", body: sgaBody(), scripts: ["sga.js"]}));
++  const proofDir = path.join(DIST, "sga", "proof");
++  const used = new Set(SGA.runs.flatMap(r => r.g.map(x => x.pf).filter(Boolean)));
++  if (used.size) fs.mkdirSync(proofDir, {recursive: true});
++  for (const id of used) fs.copyFileSync(path.join(SITE_DIR, "sga", "proof", id + ".jpg"), path.join(proofDir, id + ".jpg"));
++  // the same data as a plain file, in words: multiples of the first stake, nothing else
++  fs.writeFileSync(path.join(DIST, "sga.json"), JSON.stringify({
++    units_only: true,
++    note: "Every roll is a multiple of the first stake. There is no stake, bankroll or book in this file.",
++    updated: RAW.updated || "",
++    runs: SGA.runs.map(r => ({run: r.n, status: r.st, games: r.g.map(x => ({
++      date: x.d, opponent: x.o, line: x.l, price: x.p, result: x.r, points: x.s === undefined ? null : x.s,
++      roll_before: round(x.f, 4), roll_after: round(x.x, 4), slip: x.pf ? `sga/proof/${x.pf}.jpg` : null}))}))
++  }, null, 2) + "\n");
++}
++
+ /* ---------- how-to-read redirect: the page was removed but the URL may be shared ---------- */
+ {
+   const dir = path.join(DIST, "how-to-read");
+@@ -477,7 +691,7 @@ ${read(slug + ".html")}
+ {
+   const css = fs.readFileSync(path.join(SRC, "site.css"), "utf8");
+   const js = fs.readFileSync(path.join(SRC, "site.js"), "utf8");
+-  const links = TOOL_PAGES.map(t => `<a class="lbtn" href="/${t[0]}/">${h(t[2])}</a>`).join("\n          ");
++  const links = (SGA ? ['<a class="lbtn" href="/sga/">SGA 20+ rollover</a>'] : []).concat(TOOL_PAGES.map(t => `<a class="lbtn" href="/${t[0]}/">${h(t[2])}</a>`)).join("\n          ");
+   const html = `<!doctype html>
+ <html lang="en">
+ <head>
+@@ -522,7 +736,7 @@ for (const f of ["og.png", "robots.txt"]) {
+ const lastmod = updIso || new Date().toISOString().slice(0, 10);
+ fs.writeFileSync(path.join(DIST, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
+ <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+-${[["", "daily", "1.0"], ["about"], ...TOOL_PAGES.map(t => [t[0]])].map(([s, f = "monthly", pr = "0.7"]) =>
++${[["", "daily", "1.0"], ["about"], ...(SGA ? [["sga", "daily", "0.6"]] : []), ...TOOL_PAGES.map(t => [t[0]])].map(([s, f = "monthly", pr = "0.7"]) =>
+   `  <url><loc>${ORIGIN}/${s ? s + "/" : ""}</loc><lastmod>${lastmod}</lastmod><changefreq>${f}</changefreq><priority>${pr}</priority></url>`).join("\n")}
+ </urlset>
+ `);
+diff --git a/build/ship.sh b/build/ship.sh
+index 912d0e3..8aaf21a 100644
+--- a/build/ship.sh
++++ b/build/ship.sh
+@@ -9,6 +9,7 @@ SITE=../site
+ 
+ node build.mjs
+ node verify/check-data.mjs
++node verify/check-sga.mjs
+ python3 verify/check-pages.py
+ 
+ git -C "$SITE" switch redesign 2>/dev/null || git -C "$SITE" switch -c redesign
+diff --git a/build/src/sga.js b/build/src/sga.js
+new file mode 100644
+index 0000000..5963ab9
+--- /dev/null
++++ b/build/src/sga.js
+@@ -0,0 +1,76 @@
++/* SGA 20+ page: the ladder chart and the slip viewer.
++   The ladder is drawn here, from the game list inlined in the page, in the width it is
++   shown at, so its type stays readable on a phone and it is redrawn on resize. The table,
++   the figures and the slip thumbnails are plain HTML written by the build, so without this
++   script the page still reads in full and a thumbnail is a link to the picture. */
++(function(){
++'use strict';
++const $=s=>document.querySelector(s);
++const NS="http://www.w3.org/2000/svg";
++const svg=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e};
++const sx=x=>(x>=100?x.toFixed(0):x>=10?x.toFixed(1):x.toFixed(2))+"x";
++
++/* ---------- the ladder ---------- */
++const box=$("#sg-ladder"),dataEl=$("#sg-data");
++let D=null;
++try{D=dataEl?JSON.parse(dataEl.textContent):null}catch(e){D=null}
++let drawnW=0;
++function ladder(){
++  if(!box||!D||!D.g||!D.g.length)return;
++  const w=box.clientWidth;if(!w)return;
++  const W=Math.max(300,Math.min(1100,Math.round(w)));
++  if(Math.abs(W-drawnW)<6)return;
++  drawnW=W;
++  const g=D.g.slice(-40),n=g.length,H=W<520?230:270,L=6,R=6,T=26,B=30,iw=W-L-R,ih=H-T-B;
++  const peak=Math.max(D.peak||1,1),ymax=peak*1.14,big=peak>8,lg=Math.log(ymax);
++  // Compounding is exponential: past about 8x a straight scale flattens every early bar,
++  // so the height is then the log of the roll, from the first stake, and the chart says so.
++  const Y=v=>T+ih*(1-(big?Math.log(Math.max(v,1))/lg:v/ymax));
++  const gap=n>24?3:n>12?5:8,bw=Math.min(64,(iw-gap*(n-1))/n),x0=L+(iw-(bw*n+gap*(n-1)))/2;
++  const every=n>14?n:Math.max(1,Math.ceil(40/(bw+gap)));
++  const s=svg("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":D.label||"Bar chart of the roll going into each game"});
++  s.appendChild(svg("line",{x1:L,x2:W-R,y1:Y(0).toFixed(1),y2:Y(0).toFixed(1),"class":"grid"}));
++  s.appendChild(svg("line",{x1:L,x2:W-R,y1:Y(1).toFixed(1),y2:Y(1).toFixed(1),"class":"zero"}));
++  if(big){const t=svg("text",{x:L,y:12,"class":"ax"});t.textContent="log scale";s.appendChild(t)}
++  const first=D.g.length-n;
++  g.forEach((r,i)=>{
++    const x=x0+i*(bw+gap),top=r.r==="Win"?r.x:r.f,
++          c=r.r==="Win"?"w":r.r==="Loss"?"l":r.r==="Void"?"v":"o",
++          y=Y(top),h=Math.max(2,Y(0)-y);
++    const b=svg("rect",{x:x.toFixed(1),y:y.toFixed(1),width:bw.toFixed(1),height:h.toFixed(1),rx:3,"class":"sb "+c});
++    b.style.setProperty("--d",Math.round(i*Math.min(40,600/n))+"ms");
++    s.appendChild(b);
++    if(i%every===(n-1)%every){
++      const t=svg("text",{x:(x+bw/2).toFixed(1),y:(y-6).toFixed(1),"text-anchor":"middle","class":"lab"});
++      t.textContent=(r.r==="Loss"?"✕ ":"")+sx(top);s.appendChild(t);
++    }
++    const num=first+i+1;
++    if((n<=14&&bw>=18)||(num%5===0&&n-1-i>=2)||i===n-1){
++      const a=svg("text",{x:(x+bw/2).toFixed(1),y:H-10,"text-anchor":"middle","class":"ax"});
++      a.textContent=String(num);s.appendChild(a);
++    }
++  });
++  box.replaceChildren(s);
++}
++ladder();
++if("ResizeObserver" in window&&box)new ResizeObserver(ladder).observe(box);
++else addEventListener("resize",ladder);
++
++/* ---------- the slip viewer: a tap enlarges, a tap or Esc closes ---------- */
++const slips=[...document.querySelectorAll("a.sgpf")];
++if(slips.length){
++  let lb=null,opener=null;
++  const close=()=>{if(!lb)return;lb.remove();lb=null;document.removeEventListener("keydown",onKey);if(opener&&opener.focus)opener.focus()};
++  const onKey=e=>{if(e.key==="Escape")close()};
++  slips.forEach(a=>a.addEventListener("click",e=>{
++    if(e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;     // let a modified click open the file as usual
++    e.preventDefault();opener=a;
++    lb=document.createElement("div");lb.className="sglb";lb.setAttribute("role","dialog");lb.setAttribute("aria-modal","true");
++    lb.setAttribute("aria-label",a.title||"Bet slip");
++    const im=document.createElement("img");im.src=a.getAttribute("href");im.alt=a.title||"Bet slip";
++    const x=document.createElement("button");x.type="button";x.setAttribute("aria-label","Close");x.innerHTML="&times;";
++    lb.append(im,x);lb.addEventListener("click",close);document.body.appendChild(lb);
++    document.addEventListener("keydown",onKey);x.focus();
++  }));
++}
++})();
+diff --git a/build/src/site.css b/build/src/site.css
+index ceaa6af..2c53e7e 100644
+--- a/build/src/site.css
++++ b/build/src/site.css
+@@ -767,3 +767,62 @@ a.bk:hover .bw{color:var(--acc)}
+   .sel select{min-height:40px}
+   .tally .clear,.ghost{min-height:36px}
+ }
++
++/* ---- SGA 20+ experiment ---- */
++.sgstat{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:5px 12px;border:1px solid var(--line2);
++  border-radius:999px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
++.sgstat i{display:none;width:7px;height:7px;border-radius:50%;background:currentColor}
++.sgstat.live{color:var(--acc);border-color:var(--acc-line);background:var(--acc-wash)}
++.sgstat.live i{display:inline-block}
++.sgstat.bust{color:var(--down);border-color:var(--down-line);background:var(--down-wash)}
++.sgsub{margin:16px 0 0;max-width:46ch;font-size:15.5px;line-height:1.55;color:var(--fg2)}
++.sgprob{margin:10px 0 0;max-width:52ch;font-size:13.5px;line-height:1.55;color:var(--fg3)}
++.t.o{box-shadow:inset 0 0 0 1px var(--acc-line);color:var(--acc)}
++.sgladder svg{display:block;width:100%;height:auto;overflow:visible}
++.sb{stroke-width:1.2}
++.sb.w{fill:var(--acc-area);stroke:var(--acc)}
++.sb.l{fill:var(--down-wash);stroke:var(--down-line)}
++.sb.v{fill:none;stroke:var(--line3);stroke-dasharray:4 3}
++.sb.o{fill:var(--acc-wash);stroke:var(--acc-line);stroke-dasharray:5 3}
++.sgladder .lab{fill:var(--fg);font:500 12px var(--mono)}
++.sglegend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:6px 0 8px;font:12px var(--mono);color:var(--fg3)}
++.sglegend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:7px;
++  vertical-align:-1px;border:1px solid var(--line3)}
++.sglegend .w::before{background:var(--acc-area);border-color:var(--acc)}
++.sglegend .l::before{background:var(--down-wash);border-color:var(--down-line)}
++.sglegend .v::before{border-style:dashed}
++.sglegend .o::before{border-style:dashed;border-color:var(--acc-line);background:var(--acc-wash)}
++.sglegend .z::before{width:18px;height:0;border:0;border-top:1px dashed var(--line3);border-radius:0;vertical-align:3px}
++.sgl .c-sport .tag{color:var(--fg2)}
++.sgearlier{margin-top:16px}
++.sgpg{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
++.sgpf{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:var(--r-md);
++  overflow:hidden;background:var(--s1);cursor:zoom-in;transition:border-color .15s,transform .25s var(--ease)}
++.sgpf:hover{border-color:var(--line3)}
++.sgpf img{display:block;width:100%;height:230px;object-fit:cover;object-position:top;background:var(--s2)}
++.sgpf span{display:block;padding:9px 11px 10px;border-top:1px solid var(--line);font:12.5px/1.45 var(--mono);color:var(--fg3)}
++.sglb{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;
++  background:rgba(0,0,0,.74);cursor:zoom-out}
++:root[data-theme="light"] .sglb{background:rgba(20,18,14,.62)}
++.sglb img{display:block;max-width:min(94vw,560px);max-height:92vh;border-radius:var(--r-md);border:1px solid var(--line2)}
++.sglb button{position:absolute;top:12px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);
++  background:var(--s1);color:var(--fg);font-size:24px;line-height:1;cursor:pointer}
++.sgchip{display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px 12px;max-width:100%;margin-top:24px;padding:10px 14px;
++  border:1px solid var(--line2);border-radius:var(--r-md);text-decoration:none;color:var(--fg);font-size:14.5px;
++  transition:border-color .15s}
++.sgchip:hover{border-color:var(--line3)}
++.sgchip b{font-weight:500}
++.sgchip .sgs{font:13.5px var(--mono);color:var(--acc)}
++.sgchip.over .sgs{color:var(--fg3)}
++.sgchip .sga{color:var(--fg3)}
++.sgchip .sgdot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none}
++.sgchip.over .sgdot{background:var(--fg3)}
++.motion .sgladder .sb{transform-box:fill-box;transform-origin:50% 100%;animation:sgrise .64s var(--ease) backwards;animation-delay:var(--d,0ms)}
++.motion .sgchip:not(.over) .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
++@keyframes sgrise{from{transform:scaleY(.02);opacity:.35}}
++@keyframes sgpulse{50%{opacity:.3}}
++@media (max-width:520px){
++  .sgpg{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
++  .sgpf img{height:200px}
++  .sgsub{font-size:15px}
++}
+diff --git a/build/verify/check-pages.py b/build/verify/check-pages.py
+index fef28ff..7630215 100644
+--- a/build/verify/check-pages.py
++++ b/build/verify/check-pages.py
+@@ -32,6 +32,8 @@ EXPECTED = json.loads((ROOT / "verify" / "expected.json").read_text())
+ 
+ PAGES = ["", "about/", "arbitrage/", "hedge/", "parlay/", "payout/", "odds/", "devig/",
+          "poker/", "cheat-sheet/", "404.html"]
++if (DIST / "sga" / "index.html").exists():     # present only when sga.json is
++    PAGES.insert(2, "sga/")
+ PAGE = 15    # rows the log shows before "Show more" (home.js PAGE)
+ SHOTS = ROOT / "verify" / "shots"   # screenshots for review (git-ignored)
+ SEEN = "try{localStorage.setItem('pt-follow-seen','1')}catch(e){}"   # a returning reader: no follow nudge
+diff --git a/build/verify/check-sga.mjs b/build/verify/check-sga.mjs
+new file mode 100644
+index 0000000..04ebc53
+--- /dev/null
++++ b/build/verify/check-sga.mjs
+@@ -0,0 +1,167 @@
++#!/usr/bin/env node
++/* Checks for the optional SGA 20+ page.
++
++     node verify/check-sga.mjs
++
++   Builds the site in a throwaway copy (a temp folder, never the real one) with good, bad and
++   hostile sga.json files and checks what comes out: no file means no page; junk is ignored
++   with a warning and the rest of the site still builds; money, books and markup that sneak
++   into the file reach no page; a screenshot is linked only if its file is there. Exits
++   non-zero on any failure. No dependencies, no browser. */
++import fs from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import {spawnSync} from "node:child_process";
++import {fileURLToPath} from "node:url";
++import assert from "node:assert/strict";
++
++const HERE = path.dirname(fileURLToPath(import.meta.url));
++const BUILD_SRC = path.resolve(HERE, "..");
++const PLAYS = [path.join(BUILD_SRC, "..", "plays.json"), path.join(BUILD_SRC, "..", "site", "plays.json")].find(p => fs.existsSync(p));
++if (!PLAYS) throw new Error("plays.json not found next to the build folder");
++
++/* a private copy: <tmp>/site/{plays.json, build/{build.mjs, src}} */
++const TMP = fs.mkdtempSync(path.join(os.tmpdir(), "sga-check-"));
++const SITE = path.join(TMP, "site");
++fs.mkdirSync(path.join(SITE, "build"), {recursive: true});
++fs.copyFileSync(PLAYS, path.join(SITE, "plays.json"));
++fs.copyFileSync(path.join(BUILD_SRC, "build.mjs"), path.join(SITE, "build", "build.mjs"));
++fs.cpSync(path.join(BUILD_SRC, "src"), path.join(SITE, "build", "src"), {recursive: true});
++const BUILD = path.join(SITE, "build", "build.mjs"), DIST = path.join(SITE, "build", "dist");
++const FILE = path.join(SITE, "sga.json"), PROOF = path.join(SITE, "sga", "proof");
++fs.mkdirSync(PROOF, {recursive: true});
++fs.writeFileSync(path.join(PROOF, "aaaaaaaa11111111.jpg"), Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
++
++const game = (o = {}) => ({d: "2026-10-25", o: "vs LAC", l: 20, p: -670, r: "Win", f: 1, x: 1.1493, s: 34, ...o});
++const file = (runs, o = {}) => ({units_only: true, updated: "Oct 25, 2026, 10:56 PM EDT", line: 20, runs, ...o});
++function build(content) {
++  if (content === null) fs.rmSync(FILE, {force: true});
++  else fs.writeFileSync(FILE, typeof content === "string" ? content : JSON.stringify(content));
++  const r = spawnSync(process.execPath, [BUILD], {cwd: TMP, encoding: "utf8"});
++  return {code: r.status, out: r.stdout, err: r.stderr, has: p => fs.existsSync(path.join(DIST, p)),
++          read: p => fs.readFileSync(path.join(DIST, p), "utf8")};
++}
++let n = 0;
++function test(name, fn) { fn(); n++; console.log("PASS: " + name); }
++let record = "";
++try {
++  test("no file: no page, no link, and the build succeeds", () => {
++    const b = build(null);
++    assert.equal(b.code, 0, b.err);
++    assert(!b.has("sga/index.html") && !b.has("sga.json"));
++    assert(!b.read("index.html").includes("sgchip") && !b.read("sitemap.xml").includes("/sga/") && !b.read("404.html").includes("/sga/"));
++    record = b.out.split("\n").find(l => l.startsWith("record"));
++    assert(record, "the build prints its record line");
++  });
++
++  test("a good file builds the page, the data file, the menu link, the home line, the sitemap line and the 404 link", () => {
++    const b = build(file([{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111", pm: 1})]}]));
++    assert.equal(b.code, 0, b.err);
++    assert(b.has("sga/index.html") && b.has("sga.json") && b.has("sga/proof/aaaaaaaa11111111.jpg"));
++    assert(b.read("index.html").includes('class="sgchip') && b.read("about/index.html").includes('href="../sga/"'));
++    assert(b.read("sitemap.xml").includes("/sga/") && b.read("404.html").includes('href="/sga/"'));
++    const j = JSON.parse(b.read("sga.json"));
++    assert.equal(j.units_only, true);
++    assert.equal(j.runs[0].games[0].slip, "sga/proof/aaaaaaaa11111111.jpg");
++    assert.equal(b.read("sga/index.html").match(/<h1/g).length, 1);
++  });
++
++  for (const [name, content, why] of [
++    ["not JSON", "this is not json {", "not valid JSON"],
++    ["not an SGA file", {runs: []}, "not an SGA file"],
++    ["units_only false", file([{n: 1, st: "live", g: [game()]}], {units_only: false}), "not an SGA file"],
++    ["runs not a list", file("x"), "not an SGA file"],
++    ["a run with a bad status", file([{n: 1, st: "winning", g: [game()]}]), "run 1"],
++    ["a price that is not a price", file([{n: 1, st: "live", g: [game({p: 5})]}]), "run 1, game 1"],
++    ["a bad date", file([{n: 1, st: "live", g: [game({d: "10/25/2026"})]}]), "run 1, game 1"],
++    ["a result nobody knows", file([{n: 1, st: "live", g: [game({r: "Cashout"})]}]), "run 1, game 1"],
++    ["a roll that is text", file([{n: 1, st: "live", g: [game({x: "big"})]}]), "run 1, game 1"],
++    ["points that are negative", file([{n: 1, st: "live", g: [game({s: -3})]}]), "run 1, game 1"]
++  ]) test("junk is ignored with a warning and the rest of the site still builds: " + name, () => {
++    const b = build(content);
++    assert.equal(b.code, 0, b.err);
++    assert(!b.has("sga/index.html") && !b.has("sga.json"));
++    assert(b.err.includes("sga.json ignored: " + why), b.err);
++    assert(b.has("index.html") && b.has("about/index.html"), "the rest of the site is built");
++    assert(!b.read("index.html").includes("sgchip"));
++  });
++
++  test("an empty list, or runs with no games, gives no page and no warning", () => {
++    for (const c of [file([]), file([{n: 1, st: "live", g: []}])]) {
++      const b = build(c);
++      assert.equal(b.code, 0);
++      assert(!b.has("sga/index.html"));
++      assert.equal(b.err.trim(), "");
++    }
++  });
++
++  test("money, books and stakes that sneak into the file reach no page and no data file", () => {
++    const evil = file([{n: 1, st: "live", stake: 777.77, bankroll: 99999, g: [game({stake: 555.55, amt: 4242.42, book: "ZZBook", cash: 31337, tag: "ZZTag", deposit: 8675309})]}],
++      {stake: 11111, bankroll: 22222, unitSize: 33333, books: ["ZZBook"]});
++    const b = build(evil);
++    assert.equal(b.code, 0, b.err);
++    for (const p of ["sga/index.html", "sga.json", "index.html", "sitemap.xml"])
++      for (const secret of ["777.77", "99999", "555.55", "4242.42", "ZZBook", "31337", "ZZTag", "8675309", "11111", "22222", "33333"])
++        assert(!b.read(p).includes(secret), p + " carried " + secret);
++  });
++
++  test("text from the file is cleaned: no markup, no dollar sign, a length limit", () => {
++    const b = build(file([{n: 1, st: "live", g: [game({o: "<img src=x onerror=alert(1)> $500 " + "Z".repeat(60)})]}]));
++    assert.equal(b.code, 0, b.err);
++    const page = b.read("sga/index.html");
++    assert(!page.includes("<img src=x") && !page.includes("onerror=") && !page.includes("$500") && !page.includes("Z".repeat(30)));
++    const o = JSON.parse(b.read("sga.json")).runs[0].games[0].opponent;
++    assert(o.length <= 24 && !/[<>$]/.test(o), o);
++  });
++
++  test("a screenshot is linked only if its file exists and its name is plain", () => {
++    const b = build(file([{n: 1, st: "live", g: [
++      game({pf: "aaaaaaaa11111111"}), game({d: "2026-10-26", pf: "bbbbbbbb22222222"}),
++      game({d: "2026-10-27", pf: "../../plays"}), game({d: "2026-10-28", pf: "AAAA1111"})]}]));
++    assert.equal(b.code, 0, b.err);
++    const page = b.read("sga/index.html");
++    assert.equal((page.match(/class="sgpf"/g) || []).length, 1);
++    assert(page.includes("proof/aaaaaaaa11111111.jpg"));
++    assert(!page.includes("bbbbbbbb22222222") && !page.includes("../../plays") && !page.includes("AAAA1111"));
++    assert(b.has("sga/proof/aaaaaaaa11111111.jpg") && !b.has("sga/proof/bbbbbbbb22222222.jpg"));
++  });
++
++  test("dollar amounts left visible on a slip change what the page claims", () => {
++    let b = build(file([{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111", pm: 1})]}]));
++    assert(b.read("sga/index.html").includes("The first stake is not shown."));
++    b = build(file([{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111", pm: 0})]}]));
++    assert(!b.read("sga/index.html").includes("The first stake is not shown."));
++  });
++
++  test("every state of a run reads right: bust, cashed out, first game open, a long run on a log scale", () => {
++    let b = build(file([{n: 1, st: "bust", g: [game(), game({d: "2026-10-27", r: "Loss", f: 1.1493, x: 0, s: 14})]}]));
++    let p = b.read("sga/index.html");
++    assert(p.includes("Run 1 ended") && p.includes('class="big down"') && p.includes("One miss ended it."));
++    b = build(file([{n: 1, st: "cashed", g: [game()]}]));
++    p = b.read("sga/index.html");
++    assert(p.includes("Run 1 cashed out") && p.includes("Cashed out after 1 win in a row."));
++    b = build(file([{n: 1, st: "live", g: [game({r: "Pending", f: 1, x: 1, s: undefined})]}]));
++    p = b.read("sga/index.html");
++    assert(p.includes("game open") && p.includes("The open game vs LAC is at"));
++    const long = Array.from({length: 46}, (_, i) => game({d: new Date(Date.UTC(2026, 7, 2 + i)).toISOString().slice(0, 10), f: Math.pow(1.11, i), x: Math.pow(1.11, i + 1)}));
++    b = build(file([{n: 1, st: "live", g: long}]));
++    p = b.read("sga/index.html");
++    const data = JSON.parse(p.match(/<script type="application\/json" id="sg-data">(.*?)<\/script>/s)[1]);
++    assert.equal(data.g.length, 46);
++    assert(data.peak > 8, "a run this big is drawn on a log scale by sga.js");
++  });
++
++  test("two runs: the latest in full, the earlier one in a table", () => {
++    const b = build(file([{n: 1, st: "bust", g: [game(), game({d: "2026-10-27", r: "Loss", f: 1.1493, x: 0})]}, {n: 2, st: "live", g: [game({d: "2026-10-30"})]}]));
++    const p = b.read("sga/index.html");
++    assert(p.includes("Run 2, every game in order") && p.includes("Earlier runs") && p.includes("On a miss") && p.includes("2 runs"));
++  });
++
++  test("the record on the home page is the same with or without the SGA page", () => {
++    const b = build(file([{n: 1, st: "live", g: [game()]}]));
++    assert.equal(b.out.split("\n").find(l => l.startsWith("record")), record);
++  });
++} finally {
++  fs.rmSync(TMP, {recursive: true, force: true});
++}
++console.log("PASS: " + n + " SGA page checks.");

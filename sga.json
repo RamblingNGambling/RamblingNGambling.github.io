@@ -1,0 +1,24 @@
+{
+  "units_only": true,
+  "note": "Every roll is a multiple of the first stake. There is no stake, bankroll or book in this file.",
+  "updated": "Oct 25, 2026, 11:58 PM EDT",
+  "runs": [
+    {
+      "run": 1,
+      "status": "live",
+      "games": [
+        {
+          "date": "2026-10-25",
+          "opponent": "vs LAC",
+          "line": 20,
+          "price": -670,
+          "result": "Win",
+          "points": 34,
+          "roll_before": 1,
+          "roll_after": 1.1493,
+          "slip": "sga/proof/d31f3f3253146c61.jpg"
+        }
+      ]
+    }
+  ]
+}

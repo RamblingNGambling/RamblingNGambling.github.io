@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 26, 2026, 12:12 AM EDT",
+  "updated": "Oct 26, 2026, 12:43 AM EDT",
   "line": 20,
   "runs": [
     {
@@ -19,7 +19,11 @@
           "pf": "d31f3f3253146c61",
           "pm": 0
         }
-      ]
+      ],
+      "usd": {
+        "start": 30,
+        "bank": 34.48
+      }
     }
   ]
 }

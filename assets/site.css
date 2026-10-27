@@ -1173,13 +1173,12 @@ a.bk:hover .bw{color:var(--acc)}
 
 /* ==== HERO TOUCHES ====
    Decoration for the home hero only, all of it aria-hidden and behind the
-   content: a halftone dot field that dissolves off the top right, and a
-   hairline frame (full-bleed rules, two column rails, + markers at the four
-   crossings). The frame's bottom rule lands on section 02's own top rule, so
-   it adds no new line there. Everything rests in its final state; the draw-on
-   and the sweep exist only under html.motion, and only transform/opacity move. */
-:root{--hx-top:40px;--hx-in:14px;--hx-a:.42;--hx-ab:.6}
-:root[data-theme="light"]{--hx-a:.3;--hx-ab:.45}
+   content: a hairline frame (full-bleed rules, two column rails, + markers at
+   the four crossings). The halftone picture inside it is the HALFTONE ART block
+   at the end of this file. The frame's bottom rule lands on section 02's own
+   top rule, so it adds no new line there. Everything rests in its final state;
+   the draw-on exists only under html.motion, and only transform/opacity move. */
+:root{--hx-top:40px;--hx-in:14px}
 .record{isolation:isolate;padding-top:calc(var(--hx-top) + 16px)}
 .hx-f{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .hx-f::before,.hx-f::after{content:"";position:absolute;left:50%;width:100vw;margin-left:-50vw;height:1px;background:var(--line2)}
@@ -1192,15 +1191,6 @@ a.bk:hover .bw{color:var(--acc)}
   background:linear-gradient(var(--fg3),var(--fg3)) 50% 0/1px 100% no-repeat,linear-gradient(var(--fg3),var(--fg3)) 0 50%/100% 1px no-repeat}
 .hx-v::before{top:-4px}
 .hx-v::after{bottom:-4px}
-.hx-dots{position:absolute;top:var(--hx-top);left:34%;right:calc(50% - 50vw);height:min(420px,70%);
-  -webkit-mask-image:radial-gradient(ellipse 90% 100% at 86% 0%,#000 0,transparent 70%);
-  mask-image:radial-gradient(ellipse 90% 100% at 86% 0%,#000 0,transparent 70%)}
-.hx-dots i{position:absolute;inset:0;overflow:hidden;
-  -webkit-mask:radial-gradient(circle,#000 1.15px,transparent 1.6px) 0 0/12px 12px;
-  mask:radial-gradient(circle,#000 1.15px,transparent 1.6px) 0 0/12px 12px}
-.hx-dots i::before{content:"";position:absolute;inset:0;background:var(--acc);opacity:var(--hx-a)}
-.hx-dots i::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;opacity:var(--hx-ab);
-  background:linear-gradient(90deg,transparent,var(--acc) 50%,transparent);transform:translate3d(-100%,0,0)}
 @supports (overflow:clip){
   html:has(.hx-f){overflow-y:auto}
   body:has(.hx-f){overflow-x:clip}
@@ -1208,19 +1198,69 @@ a.bk:hover .bw{color:var(--acc)}
 @keyframes hx-x{from{transform:scaleX(0)}}
 @keyframes hx-y{from{transform:scaleY(0)}}
 @keyframes hx-pop{from{opacity:0;transform:scale(.3)}}
-@keyframes hx-rise{from{opacity:0;transform:translate3d(0,14px,0)}}
-@keyframes hx-sweep{0%{transform:translate3d(-100%,0,0)}42%,100%{transform:translate3d(250%,0,0)}}
 .motion .hx-f::before{animation:hx-x 1.1s var(--ease) backwards}
 .motion .hx-f::after{animation:hx-x 1.1s var(--ease) .7s backwards}
 .motion .hx-v{animation:hx-y 1.1s var(--ease) .15s backwards}
 .motion .hx-v.r{animation-delay:.27s}
 .motion .hx-v::before{animation:hx-pop .5s var(--ease) .9s backwards}
 .motion .hx-v::after{animation:hx-pop .5s var(--ease) 1.5s backwards}
-.motion .hx-dots{animation:hx-rise .9s var(--ease) .2s backwards}
-.motion .hx-dots i::after{animation:hx-sweep 9s ease-in-out 2.4s infinite}
 @media (max-width:639px){.hx-v{display:none}}
 @media (max-width:520px){:root{--hx-top:38px}.record{padding-top:calc(var(--hx-top) + 12px)}}
 @media print{.hx-f{display:none}}
 /* the page-level `.sga{padding-bottom:48px}` also lands on the arrow span inside the header tab and the
    home chip, making them 70px and 93px tall; the tab would then cover the frame's top-right crossing */
 .sgfloat .sga,.sgchip .sga{padding-bottom:0}
+
+/* ==== HALFTONE ART ==== */
+/* The painted halftone behind the home hero and the SGA hero (src/art.js draws it on the
+   canvas inside .art). Pure decoration: aria-hidden, no pointer events, behind the content in
+   its own stacking context, and a blank canvas is a plain dark hero. Full-bleed like the frame
+   rules; the bottom edge fades out. Colour comes from the script (it reads --acc); here only
+   strength is tuned per theme. The home hero gets a band of sky above its figures (--art-sky)
+   so the orb and the ridge crests are not all behind text. */
+:root{--art-o:.95;--art-sky:136px;--art-h:461px}
+:root[data-theme="light"]{--art-o:.62}
+.art{position:absolute;z-index:-1;left:50%;top:0;width:100vw;margin-left:-50vw;height:var(--art-h);
+  pointer-events:none;overflow:hidden;opacity:var(--art-o);
+  -webkit-mask-image:linear-gradient(#000 0,#000 var(--art-f,66%),transparent 100%);
+  mask-image:linear-gradient(#000 0,#000 var(--art-f,66%),transparent 100%)}
+.art>canvas,.art>img{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+.art>img{object-fit:cover}
+@supports (overflow:clip){
+  html:has(.art){overflow-y:auto}
+  body:has(.art){overflow-x:clip}
+}
+/* home */
+.record{padding-top:calc(var(--hx-top) + 16px + var(--art-sky))}
+@media (max-width:1080px){:root{--art-sky:112px;--art-h:542px}}
+@media (max-width:520px){
+  :root{--art-sky:64px;--art-h:483px}
+  .record{padding-top:calc(var(--hx-top) + 12px + var(--art-sky))}
+}
+/* sga: the art covers the hero and runs a little past it */
+.sg-hero{position:relative;isolation:isolate}
+.sg-hero>.art{--art-f:calc(100% - 120px);top:0;bottom:-64px;height:auto}
+@media (max-width:1199px){.sg-hero>.art{bottom:auto;height:640px}}
+@keyframes art-in{from{opacity:0}}
+.motion .art{animation:art-in 1.4s var(--ease) .2s backwards}
+@media print{.art{display:none}}
+
+/* ==== ART IMAGES ====
+   The optional hero picture Darren drops into art/ (see src/artslot.mjs). It fills its .art box,
+   hangs to the right, and fades out toward the left and the bottom so the headline and the figures
+   stay readable. Dark theme only: the light theme hides it and keeps the canvas art. It sits below
+   the canvas that shares its box. The fade-in is CSS only, under html.motion, so nothing is hidden
+   if no script runs. */
+.art-img{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;max-width:none;
+  object-fit:cover;object-position:right center;pointer-events:none;user-select:none;-webkit-user-drag:none;
+  opacity:.85;mix-blend-mode:screen;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.05) 30%,rgba(0,0,0,.5) 48%,#000 72%),linear-gradient(180deg,#000 0,#000 55%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.05) 30%,rgba(0,0,0,.5) 48%,#000 72%),linear-gradient(180deg,#000 0,#000 55%,transparent 100%);
+  mask-composite:intersect}
+.art>canvas{z-index:1}
+:root[data-theme="light"] .art-img{display:none}
+@media (max-width:639px){.art-img{opacity:.6}}
+@keyframes art-in{from{opacity:0}}
+html.motion .art-img{animation:art-in 1.4s var(--ease) .15s backwards}
+@media print{.art-img{display:none}}

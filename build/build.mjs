@@ -192,7 +192,10 @@ const ICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
 // Resolve the theme before first paint so there is no flash. pref is what the
 // reader chose, theme is what is drawn; the old site's key is honoured once.
 // Entrance motion is opt-in: html.motion only without reduced motion, and any
-// script error drops it so nothing stays hidden.
+// script error drops it so nothing stays hidden. html.deco is the same opt-in for
+// pure decoration (scenes, art, frame lines): it never hides content, so a script
+// error somewhere else must not switch it off. Errors are kept in window.__errs
+// for the ?diag report (site.js).
 const PREPAINT = `<script>
 (function(){
   var r=document.documentElement,p='auto';
@@ -200,8 +203,10 @@ const PREPAINT = `<script>
   if(p!=='dark'&&p!=='light')p='auto';
   var dark=p==='dark'||(p==='auto'&&!matchMedia('(prefers-color-scheme: light)').matches);
   r.dataset.pref=p;r.dataset.theme=dark?'dark':'light';r.style.colorScheme=dark?'dark':'light';
+  window.__errs=[];
+  addEventListener('error',function(e){try{if(window.__errs.length<6)window.__errs.push(((e&&e.message)||'error')+' @'+String((e&&e.filename)||'').split('/').pop()+':'+((e&&e.lineno)||0))}catch(x){}});
   if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
-    r.classList.add('motion');addEventListener('error',function(){r.classList.remove('motion')});
+    r.classList.add('deco');r.classList.add('motion');addEventListener('error',function(){r.classList.remove('motion')});
   }
 })();
 </script>`;

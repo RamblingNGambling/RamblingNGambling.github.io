@@ -111,7 +111,7 @@ function onReveal(el,d){
 // observer, reduced motion or an unpainted tab nothing here fires and the still stays.
 (function(){
   const scenes=[...document.querySelectorAll(".tsc")];
-  if(!scenes.length||!root.classList.contains("motion")||!("IntersectionObserver" in window))return;
+  if(!scenes.length||!root.classList.contains("deco")||!("IntersectionObserver" in window))return;
   const seen=new WeakSet();
   const io=new IntersectionObserver(es=>es.forEach(e=>{
     const el=e.target;
@@ -123,6 +123,48 @@ function onReveal(el,d){
   }),{threshold:.3});
   scenes.forEach(el=>{el.classList.add("armed");io.observe(el)});
 })();
+
+/* ---------- ?diag: a small report box, to find out why decoration does not run on one device ---------- */
+// Open any page with ?diag at the end of the address. It shows what the page sees and, every
+// two seconds, whether the pictures are really moving. Scroll to the Tools tiles to test a
+// scene. It changes nothing else.
+if(/[?&]diag(=|&|$)/.test(location.search)){
+  const box=document.createElement("pre");
+  box.setAttribute("aria-hidden","true");
+  box.style.cssText="position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483647;margin:0;padding:10px;max-height:48vh;overflow:auto;background:#000;color:#8f8;font:11px/1.4 ui-monospace,Menlo,monospace;border:1px solid #3a3;border-radius:8px;white-space:pre-wrap;word-break:break-word;pointer-events:none";
+  document.body.appendChild(box);
+  const q=sel=>Array.prototype.slice.call(document.querySelectorAll(sel));
+  const clockOf=()=>{
+    const on=q(".tsc.run")[0],s=on||q(".tsc")[0];
+    if(!s||!s.getAnimations)return null;
+    const a=s.getAnimations({subtree:true})[0];
+    return a?{t:Math.round(a.currentTime),state:a.playState,seen:!!on}:null;
+  };
+  const drawsOf=()=>{try{return window.PTArt&&PTArt.arts.length?PTArt.arts[0].draws:null}catch(e){return null}};
+  let prev=null;
+  const report=()=>{
+    const cl=root.classList,sc=q(".tsc"),now={a:clockOf(),d:drawsOf()};
+    let art="none";
+    try{if(window.PTArt&&PTArt.arts.length){const a=PTArt.arts[0];art=a.key+" "+a.w+"x"+a.h+" visible "+a.vis+" draws "+a.draws}}catch(e){}
+    const out=["PUBLIC TRACKER DIAG (updates every 2 s)",
+      "ua: "+navigator.userAgent,
+      "screen: "+innerWidth+"x"+innerHeight+" dpr "+devicePixelRatio,
+      "html.motion: "+cl.contains("motion")+"   html.deco: "+cl.contains("deco"),
+      "reduce motion: "+matchMedia("(prefers-reduced-motion: reduce)").matches,
+      "IntersectionObserver: "+("IntersectionObserver" in window)+"  getAnimations: "+(!!Element.prototype.getAnimations)+"  animate: "+(!!Element.prototype.animate),
+      "scenes: "+sc.length+"  armed "+sc.filter(e=>e.classList.contains("armed")).length+"  running "+sc.filter(e=>e.classList.contains("run")).length,
+      "art: "+art,
+      "errors: "+((window.__errs&&window.__errs.length)?"\n  "+window.__errs.join("\n  "):"none")];
+    if(prev){
+      const a0=prev.a,a1=now.a;
+      out.push("scene clock: "+(!a1?"no scene found":!a1.seen?"no scene on screen yet (scroll to the Tools tiles)":(a0&&a0.t!==a1.t?"MOVING":"NOT MOVING")+" "+JSON.stringify(a0)+" -> "+JSON.stringify(a1)));
+      out.push("art draws: "+prev.d+" -> "+now.d+(prev.d===null||now.d===null?"  (no art on this page)":now.d>prev.d?"  MOVING":"  NOT MOVING (still frame, or off screen)"));
+    }else out.push("measuring...");
+    prev=now;
+    box.textContent=out.join("\n");
+  };
+  setTimeout(()=>{report();setInterval(report,2000)},800);
+}
 
 window.PT={$,moving,rise,EASE,countUp,onReveal:h=>hooks.push(h)};
 })();

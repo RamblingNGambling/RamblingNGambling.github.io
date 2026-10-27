@@ -862,7 +862,7 @@ a.bk:hover .bw{color:var(--acc)}
 .sg-legend .v::before{border-style:dashed}
 .sg-legend .o::before{border-style:dashed;border-color:var(--acc-line);background:var(--acc-wash)}
 .sg-legend .z::before{width:16px;height:0;border:0;border-top:1px dashed var(--line3);border-radius:0;vertical-align:4px}
-.motion .sgladder .sb{transform-box:fill-box;transform-origin:50% 100%;animation:sgrise .64s var(--sg-e) backwards;animation-delay:var(--d,0ms)}
+.deco .sgladder .sb{transform-box:fill-box;transform-origin:50% 100%;animation:sgrise .64s var(--sg-e) backwards;animation-delay:var(--d,0ms)}
 @keyframes sgrise{from{transform:scaleY(.02);opacity:.35}}
 @media(min-width:640px){.sg-chart{padding:24px 24px 8px}}
 
@@ -895,25 +895,25 @@ a.bk:hover .bw{color:var(--acc)}
 .sg-slip .ok svg{width:12px;height:12px}
 .sg-slip .ok::after{content:"";position:absolute;inset:0;border:1px solid var(--acc);border-radius:9999px;opacity:0}
 /* steps 2 and 3: bars */
-.cols{position:absolute;inset:16px 24px;display:flex;align-items:flex-end;justify-content:center;gap:16px}
-.col{flex:1;max-width:56px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px}
-.col .bar{display:block;width:100%;height:var(--h);box-sizing:border-box;border:1px solid var(--acc);border-radius:4px;background:var(--acc-area);transform-origin:50% 100%}
-.col.miss .bar{border:1px dashed var(--down-line);background:var(--down-wash)}
-.peak{position:absolute;left:24px;right:24px;bottom:105px;height:0;border-top:1px dashed var(--line3);opacity:0}
-.peak span{position:absolute;right:0;top:-20px;font:12px/16px var(--mono);color:var(--fg3)}
+.sg-vis .cols{position:absolute;inset:16px 24px;display:flex;align-items:flex-end;justify-content:center;gap:16px}
+.sg-vis .col{flex:1;max-width:56px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px}
+.sg-vis .col .bar{display:block;width:100%;height:var(--h);box-sizing:border-box;border:1px solid var(--acc);border-radius:4px;background:var(--acc-area);transform-origin:50% 100%}
+.sg-vis .col.miss .bar{border:1px dashed var(--down-line);background:var(--down-wash)}
+.sg-vis .peak{position:absolute;left:24px;right:24px;bottom:105px;height:0;border-top:1px dashed var(--line3);opacity:0}
+.sg-vis .peak span{position:absolute;right:0;top:-20px;font:12px/16px var(--mono);color:var(--fg3)}
 .sg-step:not(.armed) .v3 .peak{opacity:1}
 
-.motion .sg-step.armed .sg-slip{animation:sg-slip 5.6s var(--sg-e) infinite}
-.motion .sg-step.armed .sg-slip .ok{animation:sg-ok 5.6s var(--sg-e) infinite}
-.motion .sg-step.armed .sg-slip .ok::after{animation:sg-ring 2.2s var(--sg-e) infinite}
-.motion .sg-step.armed .v2 .bar{animation:sg-bar 6.4s var(--sg-e) var(--d) infinite backwards}
-.motion .sg-step.armed .v2 .tl{animation:sg-pop 6.4s var(--sg-e) var(--d) infinite backwards}
-.motion .sg-step.armed .v3 .col:not(.miss) .bar{animation:sg-fall 7.2s var(--sg-e) var(--d) infinite backwards}
-.motion .sg-step.armed .v3 .col:not(.miss) .tl{animation:sg-pop3 7.2s var(--sg-e) var(--d) infinite backwards}
-.motion .sg-step.armed .v3 .miss .bar,.motion .sg-step.armed .v3 .miss .tl{animation:sg-ghost 7.2s var(--sg-e) infinite backwards}
-.motion .sg-step.armed .v3 .peak{animation:sg-peak 7.2s var(--sg-e) infinite backwards}
+.deco .sg-step.armed .sg-slip{animation:sg-slip 5.6s var(--sg-e) infinite}
+.deco .sg-step.armed .sg-slip .ok{animation:sg-ok 5.6s var(--sg-e) infinite}
+.deco .sg-step.armed .sg-slip .ok::after{animation:sg-ring 2.2s var(--sg-e) infinite}
+.deco .sg-step.armed .v2 .bar{animation:sg-bar 6.4s var(--sg-e) var(--d) infinite backwards}
+.deco .sg-step.armed .v2 .tl{animation:sg-pop 6.4s var(--sg-e) var(--d) infinite backwards}
+.deco .sg-step.armed .v3 .col:not(.miss) .bar{animation:sg-fall 7.2s var(--sg-e) var(--d) infinite backwards}
+.deco .sg-step.armed .v3 .col:not(.miss) .tl{animation:sg-pop3 7.2s var(--sg-e) var(--d) infinite backwards}
+.deco .sg-step.armed .v3 .miss .bar,.deco .sg-step.armed .v3 .miss .tl{animation:sg-ghost 7.2s var(--sg-e) infinite backwards}
+.deco .sg-step.armed .v3 .peak{animation:sg-peak 7.2s var(--sg-e) infinite backwards}
 /* a loop runs only while its card is on screen (sga.js sets .run); at the same weight as the rules above, and later, so it wins */
-.motion .sg-step.armed:not(.run) .sg-vis *,.motion .sg-step.armed:not(.run) .sg-vis *::after{animation-play-state:paused}
+.deco .sg-step.armed:not(.run) .sg-vis *,.deco .sg-step.armed:not(.run) .sg-vis *::after{animation-play-state:paused}
 @keyframes sg-slip{0%{opacity:0;transform:translateY(16px) scale(.97);filter:blur(4px)}12%,80%{opacity:1;transform:none;filter:blur(0)}92%,100%{opacity:0;transform:translateY(-12px) scale(.98);filter:blur(4px)}}
 @keyframes sg-ok{0%,22%{opacity:0;transform:scale(.84)}30%,100%{opacity:1;transform:scale(1)}}
 @keyframes sg-ring{0%,30%{opacity:0;transform:scale(1)}36%{opacity:.55;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.6)}}
@@ -984,7 +984,7 @@ a.bk:hover .bw{color:var(--acc)}
 .sgchip .sga{color:var(--fg3)}
 .sgchip .sgdot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none}
 .sgchip.over .sgdot{background:var(--fg3)}
-.motion .sgchip:not(.over) .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
+.deco .sgchip:not(.over) .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
 @keyframes sgpulse{50%{opacity:.3}}
 
 /* ---- SGA 20+: the tab that hangs under the header ---- */
@@ -1000,15 +1000,15 @@ a.bk:hover .bw{color:var(--acc)}
 .sgfx{width:30px;border:0;border-left:1px solid var(--line);background:none;color:var(--fg3);font-size:18px;line-height:1;
   cursor:pointer;transition:color .15s,background .15s}
 .sgfx:hover{color:var(--fg);background:var(--s2)}
-.motion .sgfloat{animation:sgfin .5s var(--ease) .9s backwards}
-.motion .sgfloat .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
+.deco .sgfloat{animation:sgfin .5s var(--ease) .9s backwards}
+.deco .sgfloat .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
 @keyframes sgfin{from{opacity:0;transform:translateY(-6px)}}
 @media (max-width:520px){.sgfloat{right:12px}.sgfloat .sgtxt i{display:none}.sgfloat b{font-size:13px}}
 
 /* ==== TOOL SCENES ==== */
 /* Eight small loops on the tool tiles (and, from 1000px, in the tool-page headers).
    Markup: build/src/scenes.mjs. The base CSS below is the finished picture (the
-   "still"); every animation is behind .motion .tsc.armed, so with no JS, reduced
+   "still"); every animation is behind .deco .tsc.armed, so with no JS, reduced
    motion or an unpainted tab the still is what shows. site.js adds .armed to every
    scene and .run while it is on screen.
    One loop is 6.4s and every animation in a scene shares it, so the parts stay in
@@ -1074,55 +1074,55 @@ a.bk:hover .bw{color:var(--acc)}
 .tsc-oc{transform-origin:50% 50%}
 
 /* motion: one loop, one easing, no delays */
-.motion .tsc.armed *{animation-duration:6.4s;animation-timing-function:cubic-bezier(.22,1,.36,1);animation-iteration-count:infinite}
-.motion .tsc.armed .tsc-ar-sa{animation-name:tsc-ar-sa}
-.motion .tsc.armed .tsc-ar-sb{animation-name:tsc-ar-sb}
-.motion .tsc.armed .tsc-ar-la{animation-name:tsc-ar-la}
-.motion .tsc.armed .tsc-ar-lb{animation-name:tsc-ar-lb}
-.motion .tsc.armed .tsc-ar-ln{animation-name:tsc-ar-ln}
-.motion .tsc.armed .tsc-ar-ba{animation-name:tsc-ar-ba}
-.motion .tsc.armed .tsc-ar-bb{animation-name:tsc-ar-bb}
-.motion .tsc.armed .tsc-ar-ch{animation-name:tsc-ar-ch}
-.motion .tsc.armed .tsc-hg-h{animation-name:tsc-hg-h}
-.motion .tsc.armed .tsc-hg-w{animation-name:tsc-hg-w}
-.motion .tsc.armed .tsc-hg-ld{animation-name:tsc-hg-ld}
-.motion .tsc.armed .tsc-hg-lu{animation-name:tsc-hg-lu}
-.motion .tsc.armed .tsc-hg-ln{animation-name:tsc-hg-ln}
-.motion .tsc.armed .tsc-hg-lk{animation-name:tsc-hg-lk}
-.motion .tsc.armed .tsc-pl-c1{animation-name:tsc-pl-c1}
-.motion .tsc.armed .tsc-pl-b1{animation-name:tsc-pl-b1}
-.motion .tsc.armed .tsc-pl-t1{animation-name:tsc-pl-t1}
-.motion .tsc.armed .tsc-pl-c2{animation-name:tsc-pl-c2}
-.motion .tsc.armed .tsc-pl-b2{animation-name:tsc-pl-b2}
-.motion .tsc.armed .tsc-pl-t2{animation-name:tsc-pl-t2}
-.motion .tsc.armed .tsc-pl-c3{animation-name:tsc-pl-c3}
-.motion .tsc.armed .tsc-pl-b3{animation-name:tsc-pl-b3}
-.motion .tsc.armed .tsc-pl-t3{animation-name:tsc-pl-t3}
-.motion .tsc.armed .tsc-py-x{animation-name:tsc-py-x}
-.motion .tsc.armed .tsc-py-cp{animation-name:tsc-py-cp}
-.motion .tsc.armed .tsc-py-cn{animation-name:tsc-py-cn}
-.motion .tsc.armed .tsc-py-rp{animation-name:tsc-py-rp}
-.motion .tsc.armed .tsc-py-rn{animation-name:tsc-py-rn}
-.motion .tsc.armed .tsc-od-g{animation-name:tsc-od-g}
-.motion .tsc.armed .tsc-od-p1{animation-name:tsc-od-p1}
-.motion .tsc.armed .tsc-od-p2{animation-name:tsc-od-p2}
-.motion .tsc.armed .tsc-od-p3{animation-name:tsc-od-p3}
-.motion .tsc.armed .tsc-od-sw{animation-name:tsc-od-sw}
-.motion .tsc.armed .tsc-dv-a{animation-name:tsc-dv-a}
-.motion .tsc.armed .tsc-dv-b{animation-name:tsc-dv-b}
-.motion .tsc.armed .tsc-dv-o{animation-name:tsc-dv-o}
-.motion .tsc.armed .tsc-dv-l4{animation-name:tsc-dv-l4}
-.motion .tsc.armed .tsc-dv-l5{animation-name:tsc-dv-l5}
-.motion .tsc.armed .tsc-dv-t{animation-name:tsc-dv-t}
-.motion .tsc.armed .tsc-dv-c{animation-name:tsc-dv-c}
-.motion .tsc.armed .tsc-pk-rg{animation-name:tsc-pk-rg}
-.motion .tsc.armed .tsc-pk-ck{animation-name:tsc-pk-ck}
-.motion .tsc.armed .tsc-pk-p1{animation-name:tsc-pk-p1}
-.motion .tsc.armed .tsc-pk-p2{animation-name:tsc-pk-p2}
-.motion .tsc.armed .tsc-pk-p3{animation-name:tsc-pk-p3}
-.motion .tsc.armed .tsc-ch-b{animation-name:tsc-ch-b}
+.deco .tsc.armed *{animation-duration:6.4s;animation-timing-function:cubic-bezier(.22,1,.36,1);animation-iteration-count:infinite}
+.deco .tsc.armed .tsc-ar-sa{animation-name:tsc-ar-sa}
+.deco .tsc.armed .tsc-ar-sb{animation-name:tsc-ar-sb}
+.deco .tsc.armed .tsc-ar-la{animation-name:tsc-ar-la}
+.deco .tsc.armed .tsc-ar-lb{animation-name:tsc-ar-lb}
+.deco .tsc.armed .tsc-ar-ln{animation-name:tsc-ar-ln}
+.deco .tsc.armed .tsc-ar-ba{animation-name:tsc-ar-ba}
+.deco .tsc.armed .tsc-ar-bb{animation-name:tsc-ar-bb}
+.deco .tsc.armed .tsc-ar-ch{animation-name:tsc-ar-ch}
+.deco .tsc.armed .tsc-hg-h{animation-name:tsc-hg-h}
+.deco .tsc.armed .tsc-hg-w{animation-name:tsc-hg-w}
+.deco .tsc.armed .tsc-hg-ld{animation-name:tsc-hg-ld}
+.deco .tsc.armed .tsc-hg-lu{animation-name:tsc-hg-lu}
+.deco .tsc.armed .tsc-hg-ln{animation-name:tsc-hg-ln}
+.deco .tsc.armed .tsc-hg-lk{animation-name:tsc-hg-lk}
+.deco .tsc.armed .tsc-pl-c1{animation-name:tsc-pl-c1}
+.deco .tsc.armed .tsc-pl-b1{animation-name:tsc-pl-b1}
+.deco .tsc.armed .tsc-pl-t1{animation-name:tsc-pl-t1}
+.deco .tsc.armed .tsc-pl-c2{animation-name:tsc-pl-c2}
+.deco .tsc.armed .tsc-pl-b2{animation-name:tsc-pl-b2}
+.deco .tsc.armed .tsc-pl-t2{animation-name:tsc-pl-t2}
+.deco .tsc.armed .tsc-pl-c3{animation-name:tsc-pl-c3}
+.deco .tsc.armed .tsc-pl-b3{animation-name:tsc-pl-b3}
+.deco .tsc.armed .tsc-pl-t3{animation-name:tsc-pl-t3}
+.deco .tsc.armed .tsc-py-x{animation-name:tsc-py-x}
+.deco .tsc.armed .tsc-py-cp{animation-name:tsc-py-cp}
+.deco .tsc.armed .tsc-py-cn{animation-name:tsc-py-cn}
+.deco .tsc.armed .tsc-py-rp{animation-name:tsc-py-rp}
+.deco .tsc.armed .tsc-py-rn{animation-name:tsc-py-rn}
+.deco .tsc.armed .tsc-od-g{animation-name:tsc-od-g}
+.deco .tsc.armed .tsc-od-p1{animation-name:tsc-od-p1}
+.deco .tsc.armed .tsc-od-p2{animation-name:tsc-od-p2}
+.deco .tsc.armed .tsc-od-p3{animation-name:tsc-od-p3}
+.deco .tsc.armed .tsc-od-sw{animation-name:tsc-od-sw}
+.deco .tsc.armed .tsc-dv-a{animation-name:tsc-dv-a}
+.deco .tsc.armed .tsc-dv-b{animation-name:tsc-dv-b}
+.deco .tsc.armed .tsc-dv-o{animation-name:tsc-dv-o}
+.deco .tsc.armed .tsc-dv-l4{animation-name:tsc-dv-l4}
+.deco .tsc.armed .tsc-dv-l5{animation-name:tsc-dv-l5}
+.deco .tsc.armed .tsc-dv-t{animation-name:tsc-dv-t}
+.deco .tsc.armed .tsc-dv-c{animation-name:tsc-dv-c}
+.deco .tsc.armed .tsc-pk-rg{animation-name:tsc-pk-rg}
+.deco .tsc.armed .tsc-pk-ck{animation-name:tsc-pk-ck}
+.deco .tsc.armed .tsc-pk-p1{animation-name:tsc-pk-p1}
+.deco .tsc.armed .tsc-pk-p2{animation-name:tsc-pk-p2}
+.deco .tsc.armed .tsc-pk-p3{animation-name:tsc-pk-p3}
+.deco .tsc.armed .tsc-ch-b{animation-name:tsc-ch-b}
 /* a loop runs only while its scene is on screen (site.js sets .run) */
-.motion .tsc.armed:not(.run) *{animation-play-state:paused}
+.deco .tsc.armed:not(.run) *{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){.tsc *{animation:none!important}}
 @keyframes tsc-ar-sa{0%,12%{transform:scaleY(1)}19%,22%{transform:scaleY(0)}32%,100%{transform:scaleY(1)}}
 @keyframes tsc-ar-sb{0%,12%{transform:scaleY(1)}19%,32%{transform:scaleY(0)}42%,100%{transform:scaleY(1)}}
@@ -1177,7 +1177,7 @@ a.bk:hover .bw{color:var(--acc)}
    the four crossings). The halftone picture inside it is the HALFTONE ART block
    at the end of this file. The frame's bottom rule lands on section 02's own
    top rule, so it adds no new line there. Everything rests in its final state;
-   the draw-on exists only under html.motion, and only transform/opacity move. */
+   the draw-on exists only under html.deco, and only transform/opacity move. */
 :root{--hx-top:40px;--hx-in:14px}
 .record{isolation:isolate;padding-top:calc(var(--hx-top) + 16px)}
 .hx-f{position:absolute;inset:0;z-index:-1;pointer-events:none}
@@ -1198,12 +1198,12 @@ a.bk:hover .bw{color:var(--acc)}
 @keyframes hx-x{from{transform:scaleX(0)}}
 @keyframes hx-y{from{transform:scaleY(0)}}
 @keyframes hx-pop{from{opacity:0;transform:scale(.3)}}
-.motion .hx-f::before{animation:hx-x 1.1s var(--ease) backwards}
-.motion .hx-f::after{animation:hx-x 1.1s var(--ease) .7s backwards}
-.motion .hx-v{animation:hx-y 1.1s var(--ease) .15s backwards}
-.motion .hx-v.r{animation-delay:.27s}
-.motion .hx-v::before{animation:hx-pop .5s var(--ease) .9s backwards}
-.motion .hx-v::after{animation:hx-pop .5s var(--ease) 1.5s backwards}
+.deco .hx-f::before{animation:hx-x 1.1s var(--ease) backwards}
+.deco .hx-f::after{animation:hx-x 1.1s var(--ease) .7s backwards}
+.deco .hx-v{animation:hx-y 1.1s var(--ease) .15s backwards}
+.deco .hx-v.r{animation-delay:.27s}
+.deco .hx-v::before{animation:hx-pop .5s var(--ease) .9s backwards}
+.deco .hx-v::after{animation:hx-pop .5s var(--ease) 1.5s backwards}
 @media (max-width:639px){.hx-v{display:none}}
 @media (max-width:520px){:root{--hx-top:38px}.record{padding-top:calc(var(--hx-top) + 12px)}}
 @media print{.hx-f{display:none}}
@@ -1242,14 +1242,14 @@ a.bk:hover .bw{color:var(--acc)}
 .sg-hero>.art{--art-f:calc(100% - 120px);top:0;bottom:-64px;height:auto}
 @media (max-width:1199px){.sg-hero>.art{bottom:auto;height:640px}}
 @keyframes art-in{from{opacity:0}}
-.motion .art{animation:art-in 1.4s var(--ease) .2s backwards}
+.deco .art{animation:art-in 1.4s var(--ease) .2s backwards}
 @media print{.art{display:none}}
 
 /* ==== ART IMAGES ====
    The optional hero picture Darren drops into art/ (see src/artslot.mjs). It fills its .art box,
    hangs to the right, and fades out toward the left and the bottom so the headline and the figures
    stay readable. Dark theme only: the light theme hides it and keeps the canvas art. It sits below
-   the canvas that shares its box. The fade-in is CSS only, under html.motion, so nothing is hidden
+   the canvas that shares its box. The fade-in is CSS only, under html.deco, so nothing is hidden
    if no script runs. */
 .art-img{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;max-width:none;
   object-fit:cover;object-position:right center;pointer-events:none;user-select:none;-webkit-user-drag:none;
@@ -1262,5 +1262,5 @@ a.bk:hover .bw{color:var(--acc)}
 :root[data-theme="light"] .art-img{display:none}
 @media (max-width:639px){.art-img{opacity:.6}}
 @keyframes art-in{from{opacity:0}}
-html.motion .art-img{animation:art-in 1.4s var(--ease) .15s backwards}
+html.deco .art-img{animation:art-in 1.4s var(--ease) .15s backwards}
 @media print{.art-img{display:none}}

@@ -325,10 +325,10 @@ try {
     assert(i > 0 && css.indexOf("/* ==== ART IMAGES ====", i + 5) === -1, "one art block");
     const block = css.slice(i, j === -1 ? css.length : j);
     assert(/:root\[data-theme="light"\]\s+\.art-img\{display:none\}/.test(block), "hidden in the light theme");
-    assert(/html\.motion\s+\.art-img\{animation:[^}]*backwards/.test(block), "fade-in under html.motion with fill-mode backwards");
+    assert(/html\.deco\s+\.art-img\{animation:[^}]*backwards/.test(block), "fade-in under html.deco with fill-mode backwards");
     assert(block.includes("mask-image") && block.includes("mix-blend-mode:screen") && block.includes("object-position:right center"));
     assert(!block.includes("(?<"), "no lookbehind");
-    for (const sel of block.replace(/\/\*[\s\S]*?\*\//g, "").match(/\.[a-z][\w-]*/g) || []) assert(sel === ".art" || sel === ".motion" || sel.startsWith(".art-"), "a class outside the art- prefix: " + sel);
+    for (const sel of block.replace(/\/\*[\s\S]*?\*\//g, "").match(/\.[a-z][\w-]*/g) || []) assert(sel === ".art" || sel === ".deco" || sel.startsWith(".art-"), "a class outside the art- prefix: " + sel);
   });
 } finally {
   fs.rmSync(TMP, {recursive: true, force: true});

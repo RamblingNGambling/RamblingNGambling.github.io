@@ -93,9 +93,22 @@ t("the stylesheet has both blocks and the reduced-motion rule for scenes", () =>
   assert.ok(css.includes("/* ==== HERO TOUCHES ===="));
   assert.match(css, /prefers-reduced-motion:reduce\)\s*\{[^}]*\.tsc/);
 });
-t("scenes move only while armed, and the runner needs html.motion", () => {
-  assert.match(css, /\.motion \.tsc\.armed/);
-  assert.match(js, /classList\.contains\("motion"\)/);
+t("scenes move only while armed, and the runner needs html.deco", () => {
+  assert.match(css, /\.deco \.tsc\.armed/);
+  assert.match(js, /classList\.contains\("deco"\)/);
+});
+t("decoration runs on html.deco, which a script error elsewhere never removes", () => {
+  const i = css.indexOf("/* ==== TOOL SCENES ==== */");
+  assert.ok(i > 0, "scenes block");
+  const deco = css.slice(i).replace(/\/\*[\s\S]*?\*\//g, "");
+  assert.ok(!/\.motion/.test(deco), "the scene, hero and art blocks must not use .motion");
+  assert.match(css, /\.deco \.sg-step\.armed/, "the SGA step pictures");
+  assert.ok(!/\.motion \.sg-step\.armed/.test(css));
+  assert.match(home, /classList\.add\('deco'\)/);
+  assert.match(home, /classList\.remove\('motion'\)/);
+  assert.ok(!/classList\.remove\('deco'\)/.test(home), "an error must not remove deco");
+  assert.match(home, /window\.__errs/);
+  assert.match(js, /\?diag|diag\(/, "the ?diag report");
 });
 t("no regex lookbehind in the shared script or stylesheet (older iPhone Safari)", () => {
   assert.ok(!/\(\?<[=!]/.test(js));
@@ -152,14 +165,14 @@ t("art: the stylesheet block closes the file, is decoration only, and honours th
   const j = css.indexOf("/* ==== ART IMAGES ====", i);
   const block = css.slice(i, j > 0 ? j : undefined);
   assert.ok(!block.slice(30).includes("/* ===="), "another block sits inside it");
-  assert.match(block, /\.motion \.art\{animation:[^}]*backwards/);
+  assert.match(block, /\.deco \.art\{animation:[^}]*backwards/);
   assert.match(block, /pointer-events:none/);
   assert.match(block, /z-index:-1/);
   assert.match(block, /@media print\{\.art\{display:none\}\}/);
   assert.match(block, /:root\[data-theme="light"\]\{--art-o:/);
 });
-t("art.js: still frame without html.motion, one loop, off-screen pause, redraw on theme and size, no random numbers", () => {
-  assert.match(artSrc, /classList\.contains\("motion"\)/);
+t("art.js: still frame without html.deco, one loop, off-screen pause, redraw on theme and size, no random numbers", () => {
+  assert.match(artSrc, /classList\.contains\("deco"\)/);
   assert.match(artSrc, /prefers-reduced-motion/);
   assert.match(artSrc, /IntersectionObserver/);
   assert.match(artSrc, /ResizeObserver/);

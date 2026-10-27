@@ -10,7 +10,7 @@
    - A "calm" map is measured from the text in the hero (headline, figures, ledger,
      buttons) and pulls the ink down behind it, so the words stay clear at any width.
    - One rAF loop (about 30 fps) is shared by every art. It runs only while a canvas is
-     on screen and the tab is visible, and only when html.motion is set and reduced
+     on screen and the tab is visible, and only when html.deco is set and reduced
      motion is off. Otherwise one still frame is drawn and nothing else happens.
    - Sizes are re-read with a ResizeObserver; a zero-size canvas is skipped until it has size. */
 (function () {
@@ -478,7 +478,7 @@
   /* ---------- the loop ---------- */
   var RM = window.matchMedia ? matchMedia("(prefers-reduced-motion: reduce)") : null;
   var raf = 0, last = 0;
-  function animating() { return root.classList.contains("motion") && !(RM && RM.matches) && !doc.hidden; }
+  function animating() { return root.classList.contains("deco") && !(RM && RM.matches) && !doc.hidden; }
   function wanted() {
     if (!animating()) return false;
     for (var i = 0; i < arts.length; i++) if (arts[i].vis && arts[i].w > 0) return true;

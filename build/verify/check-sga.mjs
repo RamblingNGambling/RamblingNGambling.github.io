@@ -334,6 +334,14 @@ try {
     assert(p.includes('id="proof"') && p.includes("proof/aaaaaaaa11111111.jpg"));
     assert.equal(num(p, "Proof of placement"), "04");
   });
+
+  test("the step pictures do not restyle the About page's .cols (every page shares one stylesheet)", () => {
+    const css = fs.readFileSync(path.join(BUILD_SRC, "src", "site.css"), "utf8");
+    assert.ok(/^\.cols\{display:grid/m.test(css), "the About two-column rule is there");
+    assert.ok(!/^\.cols\{[^}]*position:absolute/m.test(css), "an unscoped .cols{position:absolute} breaks the About page");
+    assert.deepEqual(css.split(String.fromCharCode(10)).filter(l => /^\.(col|peak)[{.\s]/.test(l)), [], "an unscoped .col or .peak rule");
+    assert.ok(/^\.sg-vis \.cols\{position:absolute/m.test(css), "the step pictures keep their bars");
+  });
 } finally {
   fs.rmSync(TMP, {recursive: true, force: true});
 }

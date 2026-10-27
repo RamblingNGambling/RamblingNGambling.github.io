@@ -914,6 +914,8 @@ a.bk:hover .bw{color:var(--acc)}
 .deco .sg-step.armed .v3 .peak{animation:sg-peak 7.2s var(--sg-e) infinite backwards}
 /* a loop runs only while its card is on screen (sga.js sets .run); at the same weight as the rules above, and later, so it wins */
 .deco .sg-step.armed:not(.run) .sg-vis *,.deco .sg-step.armed:not(.run) .sg-vis *::after{animation-play-state:paused}
+/* script sets the clock (site.js loops()): the animations stay paused for the browser */
+.deco .sg-step.scrub .sg-vis *,.deco .sg-step.scrub .sg-vis *::after{animation-play-state:paused!important}
 @keyframes sg-slip{0%{opacity:0;transform:translateY(16px) scale(.97);filter:blur(4px)}12%,80%{opacity:1;transform:none;filter:blur(0)}92%,100%{opacity:0;transform:translateY(-12px) scale(.98);filter:blur(4px)}}
 @keyframes sg-ok{0%,22%{opacity:0;transform:scale(.84)}30%,100%{opacity:1;transform:scale(1)}}
 @keyframes sg-ring{0%,30%{opacity:0;transform:scale(1)}36%{opacity:.55;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.6)}}
@@ -1123,6 +1125,7 @@ a.bk:hover .bw{color:var(--acc)}
 .deco .tsc.armed .tsc-ch-b{animation-name:tsc-ch-b}
 /* a loop runs only while its scene is on screen (site.js sets .run) */
 .deco .tsc.armed:not(.run) *{animation-play-state:paused}
+.deco .tsc.scrub *,.deco .tsc.scrub *::after{animation-play-state:paused!important}
 @media (prefers-reduced-motion:reduce){.tsc *{animation:none!important}}
 @keyframes tsc-ar-sa{0%,12%{transform:scaleY(1)}19%,22%{transform:scaleY(0)}32%,100%{transform:scaleY(1)}}
 @keyframes tsc-ar-sb{0%,12%{transform:scaleY(1)}19%,32%{transform:scaleY(0)}42%,100%{transform:scaleY(1)}}
@@ -1264,3 +1267,19 @@ a.bk:hover .bw{color:var(--acc)}
 @keyframes art-in{from{opacity:0}}
 html.deco .art-img{animation:art-in 1.4s var(--ease) .15s backwards}
 @media print{.art-img{display:none}}
+
+/* ==== PAGE ART ====
+   One fixed layer behind every page except the 404 (placed by build.mjs right after <body>, painted by
+   src/art.js). It is as tall as the screen; the script moves the picture at a quarter of the scroll speed.
+   Pure decoration: aria-hidden, no pointer events, behind everything, and a blank canvas is just the plain
+   ground. How strong it is, and where, is worked out in the script (a low cap inside the content column,
+   full strength in the gutters), so here only the overall level is set, per theme. The canvas is 100vh
+   tall (the large viewport on a phone), so the picture does not stretch when the toolbar slides away.
+   Longhand offsets and no :has, so an older browser lays it out the same way. */
+:root{--page-o:.55}
+:root[data-theme="light"]{--page-o:.38}
+.art-page{position:fixed;left:0;top:0;right:0;bottom:0;z-index:-1;overflow:hidden;pointer-events:none;opacity:var(--page-o)}
+.art-page>canvas{position:absolute;left:0;top:0;width:100%;height:100vh;min-height:100%;display:block}
+@keyframes art-in{from{opacity:0}}
+html.deco .art-page{animation:art-in 1.6s var(--ease) .1s backwards}
+@media print{.art-page{display:none}}

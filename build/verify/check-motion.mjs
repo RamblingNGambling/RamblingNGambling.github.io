@@ -8,7 +8,8 @@
    home tiles and none in the "More tools" strips; one scene in each tool-page header; every
    scene is aria-hidden; a tile's link text is the same as without the scene; no dollar sign,
    book name or emoji in a scene; the hero frame is on the home page only; both CSS blocks and
-   the reduced-motion rule are there; no regex lookbehind in the shared script or stylesheet.
+   the reduced-motion rule are there; no regex lookbehind in the shared script or stylesheet;
+   the page-wide halftone layer (.art-page) is on every page but the 404, and art.js stays old-browser safe.
    Exits non-zero on any failure. No dependencies, no browser. */
 import fs from "node:fs";
 import os from "node:os";
@@ -101,7 +102,7 @@ t("decoration runs on html.deco, which a script error elsewhere never removes", 
   const i = css.indexOf("/* ==== TOOL SCENES ==== */");
   assert.ok(i > 0, "scenes block");
   const deco = css.slice(i).replace(/\/\*[\s\S]*?\*\//g, "");
-  assert.ok(!/\.motion/.test(deco), "the scene, hero and art blocks must not use .motion");
+  assert.ok(!/\.motion\b/.test(deco), "the scene, hero and art blocks must not use .motion");
   assert.match(css, /\.deco \.sg-step\.armed/, "the SGA step pictures");
   assert.ok(!/\.motion \.sg-step\.armed/.test(css));
   assert.match(home, /classList\.add\('deco'\)/);
@@ -109,6 +110,16 @@ t("decoration runs on html.deco, which a script error elsewhere never removes", 
   assert.ok(!/classList\.remove\('deco'\)/.test(home), "an error must not remove deco");
   assert.match(home, /window\.__errs/);
   assert.match(js, /\?diag|diag\(/, "the ?diag report");
+});
+t("the pictures run on a script clock: CSS holds them paused, loops() sets currentTime", () => {
+  const sga = fs.readFileSync(path.join(BUILD_SRC, "src", "sga.js"), "utf8");
+  assert.ok(js.includes("function loops(") && js.includes("a.currentTime=it.t"), "site.js loops()");
+  assert.ok(js.includes("loops,onReveal"), "loops is on window.PT");
+  assert.ok(js.includes('loops(Array.prototype.slice.call(document.querySelectorAll(".tsc"))'), "the tool scenes use it");
+  assert.ok(sga.includes("PT.loops(steps"), "the SGA step pictures use it");
+  assert.ok(css.includes(".deco .tsc.scrub *,.deco .tsc.scrub *::after{animation-play-state:paused!important}"), "scene rule");
+  assert.ok(css.includes(".deco .sg-step.scrub .sg-vis *,.deco .sg-step.scrub .sg-vis *::after{animation-play-state:paused!important}"), "step rule");
+  assert.ok(css.includes(".deco .sg-step.armed:not(.run) .sg-vis *") && css.includes(".deco .tsc.armed:not(.run) *"), "the plain CSS fallback stays");
 });
 t("no regex lookbehind in the shared script or stylesheet (older iPhone Safari)", () => {
   assert.ok(!/\(\?<[=!]/.test(js));
@@ -145,12 +156,16 @@ t("art: no other page carries one (tool pages, about, how to read, 404)", () => 
     assert.equal(count(fs.readFileSync(f, "utf8"), /class="art"/g), 0, r);
   }
 });
-t("art: art.js is an asset, loaded by the home and sga pages only", () => {
+t("art: art.js is an asset, loaded once by every page built from the shared template (not the 404, not the redirect)", () => {
   assert.ok(fs.existsSync(path.join(DIST, "assets", "art.js")), "assets/art.js was not written");
+  let pages = 0;
   for (const f of htmlPages()) {
-    const r = relPath(f), n = count(fs.readFileSync(f, "utf8"), /assets\/art\.js\?v=[0-9a-f]{8}/g);
-    assert.equal(n, r === "index.html" || r === "sga/index.html" ? 1 : 0, r);
+    const r = relPath(f), h = fs.readFileSync(f, "utf8"), n = count(h, /<script src="[^"]*assets\/art\.js\?v=[0-9a-f]{8}"><\/script>/g);
+    const shared = r !== "404.html" && /assets\/site\.css/.test(h);
+    assert.equal(n, shared ? 1 : 0, r);
+    if (shared) pages++;
   }
+  assert.ok(pages >= 11, "only " + pages + " pages carry the shared template");
 });
 t("art: the picture sits inside the hero frame and the old dot field is gone", () => {
   assert.match(home, /<div class="hx-f" aria-hidden="true"><div class="art" data-art="home"/);
@@ -177,7 +192,7 @@ t("art.js: still frame without html.deco, one loop, off-screen pause, redraw on 
   assert.match(artSrc, /IntersectionObserver/);
   assert.match(artSrc, /ResizeObserver/);
   assert.match(artSrc, /MutationObserver[\s\S]*data-theme/);
-  assert.equal(count(artSrc, /requestAnimationFrame\(/g), 2, "one loop: a start and a re-arm");
+  assert.equal(count(artSrc, /requestAnimationFrame\(/g), 4, "one loop (a start and a re-arm) plus two coalesced redraws of the page layer");
   assert.ok(!/Math\.random/.test(artSrc), "Math.random would change the picture for each visit");
 });
 t("art.js: no dollar sign, book name or emoji, and no regex lookbehind", () => {
@@ -185,6 +200,63 @@ t("art.js: no dollar sign, book name or emoji, and no regex lookbehind", () => {
   assert.ok(!/fanduel|draftkings|bally|betmgm|caesars|espn bet|kalshi|fliff|prizepicks|underdog|bet365/i.test(artSrc), "book name");
   assert.ok(!/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(artSrc), "emoji");
   assert.ok(!/\(\?<[=!]/.test(artSrc), "lookbehind");
+});
+
+/* ---- the page-wide layer: one fixed canvas behind every page but the 404 ---- */
+const shared = () => htmlPages().filter(f => relPath(f) !== "404.html" && /assets\/site\.css/.test(fs.readFileSync(f, "utf8")));
+t("page art: every built page except 404 has exactly one .art-page, right after <body>, hidden from screen readers", () => {
+  assert.ok(shared().length >= 11);
+  for (const f of shared()) {
+    const h = fs.readFileSync(f, "utf8"), r = relPath(f);
+    assert.equal(count(h, /class="art-page"/g), 1, r);
+    assert.match(h, /<body[^>]*>\s*<div class="art-page" aria-hidden="true"><canvas><\/canvas><\/div>/, r + " (placed right after body)");
+  }
+});
+t("page art: the 404 and the redirect page have no layer and do not load art.js", () => {
+  const nf = fs.readFileSync(path.join(DIST, "404.html"), "utf8");
+  assert.equal(count(nf, /class="art-page"/g), 0);
+  assert.equal(count(nf, /<script[^>]*art\.js/g), 0);
+  for (const f of htmlPages()) {
+    if (shared().includes(f)) continue;
+    const h = fs.readFileSync(f, "utf8");
+    assert.equal(count(h, /class="art-page"/g) + count(h, /<script[^>]*art\.js/g), 0, relPath(f));
+  }
+});
+t("page art: the PAGE ART block is the last block of the stylesheet, fixed, behind everything, off in print", () => {
+  const heads = [...css.matchAll(/\/\* ==== ([A-Z ]+?) =+/g)].map(m => m[1].trim());
+  assert.equal(heads[heads.length - 1], "PAGE ART", "last block is " + heads[heads.length - 1]);
+  assert.equal(heads.filter(x => x === "PAGE ART").length, 1);
+  const block = css.slice(css.indexOf("/* ==== PAGE ART ===="));
+  assert.match(block, /\.art-page\{position:fixed;[^}]*z-index:-1;[^}]*pointer-events:none/);
+  assert.match(block, /@media print\{\.art-page\{display:none\}\}/);
+  assert.match(block, /:root\[data-theme="light"\]\{--page-o:/);
+  assert.ok(!/:has\(/.test(block), "the layer must not need :has");
+  assert.ok(!/[^-a-z]inset:/.test(block), "longhand offsets only");
+  // the two older rules stay as they were
+  assert.ok(css.includes("html:has(.art){overflow-y:auto}") && css.includes("body:has(.art){overflow-x:clip}"));
+});
+t("art.js (page layer): one fixed canvas, 0.25 parallax, still frame at offset 0 without motion, cost guard, backing-store cap", () => {
+  assert.match(artSrc, /PARALLAX = 0\.25/);
+  assert.match(artSrc, /targetOff[\s\S]*animating\(\) \? [^:]*PARALLAX : 0/);
+  assert.match(artSrc, /SLOW_MS = 8/);
+  assert.match(artSrc, /\+\+p\.over >= 3/);
+  assert.match(artSrc, /Math\.min\(window\.devicePixelRatio \|\| 1, 1\.5\)/);
+  assert.match(artSrc, /2500000/);
+    assert.match(artSrc, /addEventListener\("scroll", onScroll, \{passive: true\}\)/);
+});
+t("art.js: nothing newer than ES2017, and every newer browser API is guarded", () => {
+  const code = artSrc.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/[^\n]*/g, "");
+  assert.ok(!/\?\.[A-Za-z_(\[]/.test(code), "optional chaining");
+  assert.ok(!/\?\?/.test(code), "nullish coalescing");
+  assert.ok(!/roundRect|replaceAll|\.at\(|structuredClone|getAnimations|\.flat\(|Object\.fromEntries|matchAll/.test(code), "a newer method");
+  assert.ok(!/\bclass\s+\w+|\bBigInt\b|\bimport\s*\(|\*\*=|\|\|=|&&=/.test(code), "newer syntax");
+  assert.ok(!/\b(let|const)\s/.test(code), "this file uses var, as the rest of the shared scripts do");
+  // guarded: observers, and the matchMedia listener with its older fallback
+  assert.match(code, /if \(window\.ResizeObserver\)/);
+  assert.match(code, /if \(window\.IntersectionObserver\)/);
+  assert.match(code, /if \(window\.MutationObserver\)/);
+  assert.match(code, /RM\.addEventListener\) RM\.addEventListener\("change", onRm\); else if \(RM\.addListener\)/);
+  assert.match(code, /window\.matchMedia \? matchMedia/);
 });
 
 fs.rmSync(TMP, {recursive: true, force: true});

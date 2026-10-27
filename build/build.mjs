@@ -323,6 +323,7 @@ ${PREPAINT}
 <link rel="stylesheet" href="${rel}${ASSET["site.css"]}">${extraHead}
 </head>
 <body${tool ? ` data-tool="${tool}"` : ""}>
+${ARTPAGE}
 <a class="skip" href="#main">Skip to the content</a>
 
 ${header(rel, active, home)}
@@ -332,7 +333,7 @@ ${body.replaceAll("{{rel}}", rel)}
 ${footer(rel, home)}
 
 <script src="${rel}${ASSET["site.js"]}"></script>
-${scripts.map(s => `<script src="${rel}${ASSET[s]}"></script>`).join("\n")}
+${scripts.concat("art.js").map(s => `<script src="${rel}${ASSET[s]}"></script>`).join("\n")}
 ${UMAMI}
 </body>
 </html>
@@ -346,6 +347,8 @@ ${UMAMI}
 /* ---------- halftone art ----------
    Decoration behind the home and SGA heroes: a canvas painted by src/art.js, aria-hidden, and a slot
    for a picture from src/artslot.mjs. Nothing on the page depends on it. */
+// The page-wide layer: one fixed canvas behind every page except 404 (src/art.js paints it; PAGE ART in the stylesheet places it).
+const ARTPAGE = `<div class="art-page" aria-hidden="true"><canvas></canvas></div>`;
 const artBlock = key => `<div class="art" data-art="${key}" aria-hidden="true"><canvas></canvas>${artImg(key)}</div>`;
 
 /* ---------- the SGA 20+ page ---------- */
@@ -727,7 +730,7 @@ const homeBody = `<main class="wrap" id="main">
 const built = [];
 built.push(page({slug: "", title: "", home: true,
   desc: `Every play posted on X by @${HANDLE}, logged in units before the event starts. ${A.n} settled plays, ${signed(A.u)}u, ${signed(A.roi * 100, 1)}% ROI.`,
-  body: homeBody, active: "", scripts: ["home.js", "art.js"]}));
+  body: homeBody, active: "", scripts: ["home.js"]}));
 
 /* ---------- inner pages ---------- */
 const moreTools = skip => `<section class="morecalc" aria-labelledby="more-h">
@@ -773,7 +776,7 @@ ${withHeroScene(read(slug + ".html"), slug)}
 if (SGA) {
   built.push(page({slug: "sga", title: "SGA 20+ rollover",
     desc: "Betting Shai Gilgeous-Alexander over 20 points for the season, every win rolled onto the next game. The live multiplier, the profit, every price and every result.",
-    active: "sga", body: sgaBody(), scripts: ["sga.js", "art.js"]}));
+    active: "sga", body: sgaBody(), scripts: ["sga.js"]}));
   const proofDir = path.join(DIST, "sga", "proof");
   const used = new Set(SGA.runs.flatMap(r => r.g.map(x => x.pf).filter(Boolean)));
   if (used.size) fs.mkdirSync(proofDir, {recursive: true});

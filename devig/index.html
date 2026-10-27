@@ -25,12 +25,14 @@
   if(p!=='dark'&&p!=='light')p='auto';
   var dark=p==='dark'||(p==='auto'&&!matchMedia('(prefers-color-scheme: light)').matches);
   r.dataset.pref=p;r.dataset.theme=dark?'dark':'light';r.style.colorScheme=dark?'dark':'light';
+  window.__errs=[];
+  addEventListener('error',function(e){try{if(window.__errs.length<6)window.__errs.push(((e&&e.message)||'error')+' @'+String((e&&e.filename)||'').split('/').pop()+':'+((e&&e.lineno)||0))}catch(x){}});
   if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
-    r.classList.add('motion');addEventListener('error',function(){r.classList.remove('motion')});
+    r.classList.add('deco');r.classList.add('motion');addEventListener('error',function(){r.classList.remove('motion')});
   }
 })();
 </script>
-<link rel="stylesheet" href="../assets/site.css?v=bf8d89b4">
+<link rel="stylesheet" href="../assets/site.css?v=abe2636a">
 </head>
 <body data-tool="devig">
 <a class="skip" href="#main">Skip to the content</a>
@@ -145,7 +147,7 @@
   </div>
 </footer>
 
-<script src="../assets/site.js?v=81b72820"></script>
+<script src="../assets/site.js?v=2412a84e"></script>
 <script src="../assets/tools.js?v=4664c22f"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="55eb5498-a3ca-4912-846f-c48e59a9971a"></script>
 </body>

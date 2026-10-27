@@ -95,8 +95,9 @@ if(motion&&tag){
 
 /* The three step cards: each visual loops only while its card is on screen, and rests on a still picture
    (the CSS default) when motion is off. */
+const deco=document.documentElement.classList.contains("deco")&&"IntersectionObserver" in window;
 const steps=[...document.querySelectorAll(".sg-step")];
-if(motion&&steps.length){
+if(deco&&steps.length){
   const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("run",e.isIntersecting)),{threshold:.3});
   steps.forEach(s=>{s.classList.add("armed");io.observe(s)});
 }

@@ -76,7 +76,7 @@ src/site.css         design system, extracted from the Direction A prototype
 src/site.js          shared runtime: theme cross-fade, reveals, count-ups (window.PT)
 src/home.js          home: equity curve, play log + filters, breakdown
 src/tools.js         the calculators (logic carried over from the old site)
-src/sga.js           SGA 20+ page: the ladder chart (drawn in its own width) and the slip viewer
+src/sga.js           SGA 20+ page: the ladder chart, the slip viewer, the tagline and the three step visuals
 src/pages/*.html     bodies of the inner pages ({{rel}} = path back to the root)
 verify/              the two check scripts
 dist/                output (committed so the result can be looked at directly)
@@ -124,12 +124,62 @@ history) are only links.
 Bet Desk writes two things beside `plays.json`: `sga.json` (the experiment's games,
 as multiples of the first stake, plus what each run started with and is worth now) and
 a screenshot of each bet slip in `sga/proof/<id>.jpg`. When `sga.json` is there and
-makes sense, the build adds `/sga/` (the roll, the profit, a ladder of bars, every
-game, the slips), a small tab that hangs off the header on every other page (top right;
-it points a newcomer at `/sga/` and is gone once used or closed: `pt-sga-seen`), a
-one-line pointer under the home ticker, a line in the sitemap and the 404 page,
-`assets/sga.js`, `dist/sga.json` (the same data in words) and the screenshots in
+makes sense, the build adds `/sga/`, a small tab that hangs off the header on every other
+page (top right; it points a newcomer at `/sga/` and is gone once used or closed:
+`pt-sga-seen`), a one-line pointer under the home ticker, a line in the sitemap and the
+404 page, `assets/sga.js`, `dist/sga.json` (the same data in words) and the screenshots in
 `dist/sga/proof/`. There is no SGA link in the menu.
+
+The page was redesigned on 26 October 2026 (`sgaBody()` in `build.mjs`, the block "SGA 20+
+page" in `src/site.css`, and `src/sga.js`). From top to bottom:
+
+1. **Hero.** A kicker, the headline "Betting SGA 20+ points for the season." (the only
+   gradient on the page, and it is on the text), a lead line, one button ("Follow
+   @gamblingv1ctim on X") and a note with the update time and a link to `sga.json`. The
+   lead line opens with "Started with $30 on Oct 25." when dollar figures are on.
+2. **The roll card**, beside the hero (under it on a phone). A status pill, the big
+   multiple of the first stake (it counts up), one sentence on where the run stands, a
+   stats grid and a row of pips for the last 20 games. The grid has the profit (only with
+   dollar figures), wins in a row, best roll, record, average points and games. From two
+   wins in a row, a short line says how likely that streak was at the prices taken.
+3. **01 The ladder.** A bar chart of the roll after each game, with a legend.
+4. **The tagline.** One large line. Each word goes from muted to full ink as the reader
+   scrolls it past a line 30% up from the bottom of the screen.
+5. **02 How it works.** Three cards: one bet on each game, a win goes onto the next game,
+   a miss ends the run. Each card has a looping picture. The loop plays only while its
+   card is on screen.
+6. **03 Game by game.** A table of every game in the current run. A second table lists
+   the earlier runs, when there are any.
+7. **04 Proof of placement.** The slip screenshots, with a viewer. Only if a game has
+   one. (Without it, Questions is numbered 04.)
+8. **Questions.** Short answers in native `<details>` boxes, with a matching FAQPage
+   JSON-LD block. The profit question shows only with dollar figures.
+9. **Closing card.** "Follow the run." with the same button as the hero.
+
+Design rules (from the landing-page-design skill):
+
+- Spacing only 4, 8, 12, 16, 24, 32, 40, 48, 64, 80 and 96 px. Type only the Tailwind
+  steps 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72 and 96 px. Radii 4, 8, 12, 16 and 24
+  px, with the nested rule: an inner radius is the outer radius minus the gap.
+- Flat backgrounds: cards `#181818`, wells `#1F1F1F`, chips `#272727` in dark; the site's
+  own tokens in light. The only gradient is on the headline text (white to `#9B9B9B` in
+  dark, black to `#666` in light).
+- One primary action: the follow button. No hyphens or em dashes in the copy. No pronouns
+  for people.
+- One base curve, `cubic-bezier(.22,1,.36,1)`. Scroll reveals rise 32 px, once.
+- Motion for the three cards follows the design-to-motion skill (website mode): a card
+  rises in with a blur, then its picture loops while the card is on screen. All of it
+  sits behind `html.motion`. With reduced motion the pictures stand still, the tagline
+  shows at full ink and nothing animates.
+
+Not applied, on purpose:
+
+- The skill's Geist/Manrope font. It needs a font download, and it would split the site's
+  single typeface. The page keeps the site's system sans and system mono.
+- The skill's list of allowed dark ground colours. The ground `#0A0A0B` and the header
+  are shared by every page, so they stay.
+
+Rules that still hold:
 
 - **No file, or a file that does not make sense, means no SGA page and a green
   build.** A warning is printed (`sga.json ignored: ...`). A problem with this
@@ -143,16 +193,19 @@ one-line pointer under the home ticker, a line in the sitemap and the 404 page,
   its file is in `sga/proof/`.
 - The figures are multiples of the first stake. The only dollar figures are the two a
   run may carry as `usd: {start, bank}` (what it started with, what it is worth now):
-  they give the profit counter and the "Started with $30" line. Both must be plain
-  numbers (start above 0, bank 0 or more) or the pair is ignored and the page shows
-  no money. Bet Desk writes them only while its "Show my dollar figures" box is
-  ticked. There is no book and no stake of any single game in the data or on the page.
+  they give the profit figure, the "worth now" line and the "Started with $30" line.
+  Both must be plain numbers (start above 0, bank 0 or more) or the pair is ignored and
+  the page shows no money. Bet Desk writes them only while its "Show my dollar figures"
+  box is ticked. There is no book and no stake of any single game in the data or on the
+  page.
 - A run of more than 8x is drawn on a log scale, and the chart says so.
 - `node verify/check-sga.mjs` builds the site in a temp copy with good, bad and hostile
-  `sga.json` files and checks the outcome (25 checks, no browser). `ship.sh` runs it.
+  `sga.json` files and checks the outcome (32 checks, no browser). `ship.sh` runs it.
 - `verify/check-pages.py` includes `sga/` when it is built. It has not been run
-  against this page here (no Playwright), but the page was looked at in a browser at
-  390 px and 1440 px, dark and light, with no console errors and no sideways scroll.
+  against this page here (no Playwright). The redesigned page was looked at in a browser at
+  320, 375, 768, 1100 and 1280 px, dark and light, with no console errors and no sideways
+  scroll. Its reveals and the three step loops need a visible tab: in a hidden tab the
+  page stays faint until the tab is shown, as the rest of the site does.
 
 ## Changes from the old site
 

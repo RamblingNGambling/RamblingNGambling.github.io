@@ -22,7 +22,7 @@ function ladder(){
   const W=Math.max(300,Math.min(1100,Math.round(w)));
   if(Math.abs(W-drawnW)<6)return;
   drawnW=W;
-  const g=D.g.slice(-40),n=g.length,H=W<520?230:270,L=6,R=6,T=26,B=30,iw=W-L-R,ih=H-T-B;
+  const g=D.g.slice(-40),n=g.length,H=(n<=3?-40:0)+(W<520?230:270),L=6,R=6,T=26,B=30,iw=W-L-R,ih=H-T-B;
   const peak=Math.max(D.peak||1,1),ymax=peak*1.14,big=peak>8,lg=Math.log(ymax);
   // Compounding is exponential: past about 8x a straight scale flattens every early bar,
   // so the height is then the log of the roll, from the first stake, and the chart says so.
@@ -38,7 +38,7 @@ function ladder(){
     const x=x0+i*(bw+gap),top=r.r==="Win"?r.x:r.f,
           c=r.r==="Win"?"w":r.r==="Loss"?"l":r.r==="Void"?"v":"o",
           y=Y(top),h=Math.max(2,Y(0)-y);
-    const b=svg("rect",{x:x.toFixed(1),y:y.toFixed(1),width:bw.toFixed(1),height:h.toFixed(1),rx:3,"class":"sb "+c});
+    const b=svg("rect",{x:x.toFixed(1),y:y.toFixed(1),width:bw.toFixed(1),height:h.toFixed(1),rx:4,"class":"sb "+c});
     b.style.setProperty("--d",Math.round(i*Math.min(40,600/n))+"ms");
     s.appendChild(b);
     if(i%every===(n-1)%every){
@@ -73,5 +73,31 @@ if(slips.length){
     lb.append(im,x);lb.addEventListener("click",close);document.body.appendChild(lb);
     document.addEventListener("keydown",onKey);x.focus();
   }));
+}
+
+/* ---------- motion: only where the page has opted in (html.motion: no reduced motion, no script error) ---------- */
+const motion=document.documentElement.classList.contains("motion")&&"IntersectionObserver" in window;
+
+/* The tagline: each word goes from muted to full ink as it crosses a line 30% up from the bottom of the
+   screen, in reading order. Muted words are still 30% ink, never invisible, and a word already scrolled
+   past counts as crossed, so a reload halfway down the page does not leave any behind. */
+const tag=$("#sg-tagline");
+if(motion&&tag){
+  const words=[...tag.querySelectorAll(".w")];
+  const io=new IntersectionObserver(es=>{
+    const up=es.filter(e=>e.isIntersecting||e.boundingClientRect.top<(e.rootBounds?e.rootBounds.top:0))
+      .sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top||a.boundingClientRect.left-b.boundingClientRect.left);
+    up.forEach((e,i)=>{io.unobserve(e.target);e.target.style.transitionDelay=Math.min(i,10)*60+"ms";e.target.classList.add("on")});
+  },{rootMargin:"0px 0px -30% 0px"});
+  tag.classList.add("armed");
+  words.forEach(w=>io.observe(w));
+}
+
+/* The three step cards: each visual loops only while its card is on screen, and rests on a still picture
+   (the CSS default) when motion is off. */
+const steps=[...document.querySelectorAll(".sg-step")];
+if(motion&&steps.length){
+  const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("run",e.isIntersecting)),{threshold:.3});
+  steps.forEach(s=>{s.classList.add("armed");io.observe(s)});
 }
 })();

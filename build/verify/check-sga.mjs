@@ -8,7 +8,11 @@
    with a warning and the rest of the site still builds; books, stakes and markup that sneak
    into the file reach no page; the only dollar figures are a run's starting stake and what it
    is worth now, and only when both are plain numbers; a screenshot is linked only if its file
-   is there. Exits non-zero on any failure. No dependencies, no browser. */
+   is there. It also checks the page's own sections: the hero and its two identical X buttons,
+   the three "How it works" cards, the tagline, the FAQ and its FAQPage schema, the slip gallery
+   (and the section numbers that shift when it is absent), and the copy rules for the written
+   text (no em dash, no spaced hyphen, no emoji, no he/she/his/him/her). Exits non-zero on any
+   failure. No dependencies, no browser. */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -42,6 +46,11 @@ function build(content) {
   return {code: r.status, out: r.stdout, err: r.stderr, has: p => fs.existsSync(path.join(DIST, p)),
           read: p => fs.readFileSync(path.join(DIST, p), "utf8")};
 }
+/* the visible words of some html: no scripts, no styles, no tags, entities decoded, spaces squeezed */
+const decode = s => s.replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+const textOf = html => decode(html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+const ldOf = page => (page.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/) || [])[1];
+const stepOf = (page, k) => (page.match(new RegExp('<div class="sg-st">\\s*<p class="n">Step ' + k + "</p>[\\s\\S]*?</div>")) || [])[0];
 let n = 0;
 function test(name, fn) { fn(); n++; console.log("PASS: " + name); }
 let record = "";
@@ -68,9 +77,12 @@ try {
     assert.equal(j.runs[0].games[0].slip, "sga/proof/aaaaaaaa11111111.jpg");
     const p = b.read("sga/index.html");
     assert.equal(p.match(/<h1/g).length, 1);
-    assert(p.includes("Betting SGA 20+ points <em>for the season.</em>") && p.includes("Every win goes straight onto the next game."));
+    assert(p.includes('Betting SGA 20+ points <span class="sg-br">for the season.</span>'), "the headline");
+    assert(p.includes('<p class="sg-lead" data-rv>Every win goes straight onto the next game, and one miss ends the run.</p>'), "the lead line, no dollars");
     assert(!p.includes("Started with") && !/\$\d/.test(p) && !p.includes("<dt>Profit</dt>"), "no dollar figure given: none shown");
-    assert(!p.includes("How it works") && !p.includes("Where the prices come from") && !p.includes("The first stake is not shown."));
+    assert(p.includes('<dl class="sg-stats odd">'), "five cells without the profit cell: the grid is marked odd");
+    assert(p.includes("How it works") && (p.match(/class="sg-card sg-step"/g) || []).length === 3, "the three How it works cards");
+    assert(!p.includes("Where the prices come from") && !p.includes("The first stake is not shown."));
   });
 
   test("the floating tab hangs in the header of every page but the SGA page, and the menu has no SGA link", () => {
@@ -143,7 +155,7 @@ try {
       game({d: "2026-10-27", pf: "../../plays"}), game({d: "2026-10-28", pf: "AAAA1111"})]}]));
     assert.equal(b.code, 0, b.err);
     const page = b.read("sga/index.html");
-    assert.equal((page.match(/class="sgpf"/g) || []).length, 1);
+    assert.equal((page.match(/class="sgpf sg-card"/g) || []).length, 1);
     assert(page.includes("proof/aaaaaaaa11111111.jpg"));
     assert(!page.includes("bbbbbbbb22222222") && !page.includes("../../plays") && !page.includes("AAAA1111"));
     assert(b.has("sga/proof/aaaaaaaa11111111.jpg") && !b.has("sga/proof/bbbbbbbb22222222.jpg"));
@@ -156,9 +168,9 @@ try {
     const b = build(file([{n: 1, st: "live", usd: {start: 30, bank: 34.481}, g: [game({pf: "aaaaaaaa11111111", pm: 0})]}]));
     assert.equal(b.code, 0, b.err);
     const p = b.read("sga/index.html");
-    assert(p.includes("Started with $30 on Oct 25. Every win goes straight onto the next game."), "intro");
-    assert(p.includes('<dt>Profit</dt><dd class="pos">+$<span data-cu="4.48" data-dp="2">4.48</span></dd><p>worth $34.48 now</p>'), "profit tile");
-    assert(p.includes('class="ledger five"'));
+    assert(p.includes("Started with $30 on Oct 25. Every win goes straight onto the next game, and one miss ends the run."), "intro");
+    assert(p.includes('<div class="pt"><dt>Profit</dt><dd class="pos">+$<span data-cu="4.48" data-dp="2">4.48</span></dd><p>worth $34.48 now</p></div>'), "profit tile");
+    assert(p.includes('<dl class="sg-stats">') && !p.includes("sg-stats odd"), "six cells with the profit cell: an even grid");
     assert.deepEqual(dollars(p), ["$30", "$34.48"], "the only dollar figures on the page");
     assert(b.read("index.html").includes("1.15x · +$4.48"), "the floating tab carries the figure");
     const j = JSON.parse(b.read("sga.json"));
@@ -174,7 +186,7 @@ try {
       assert.equal(b.code, 0, b.err);
       assert(b.has("sga/index.html"), JSON.stringify(usd) + ": the page still builds");
       const p = b.read("sga/index.html"), j = JSON.parse(b.read("sga.json"));
-      assert(!/\$\d/.test(p) && !p.includes("<dt>Profit</dt>") && !p.includes("Started with"), JSON.stringify(usd));
+      assert(!/\$\d/.test(p) && !p.includes("<dt>Profit</dt>") && !p.includes("Started with") && !p.includes("What does the profit mean?"), JSON.stringify(usd));
       assert(!b.read("index.html").includes("+$") && j.units_only === true && j.profit_usd === undefined && j.runs[0].started_with_usd === undefined, JSON.stringify(usd));
     }
   });
@@ -208,30 +220,146 @@ try {
   test("every state of a run reads right: bust, cashed out, first game open, a long run on a log scale", () => {
     let b = build(file([{n: 1, st: "bust", g: [game(), game({d: "2026-10-27", r: "Loss", f: 1.1493, x: 0, s: 14})]}]));
     let p = b.read("sga/index.html");
-    assert(p.includes("Run 1 ended") && p.includes('class="big down"') && p.includes("One miss ended it."));
+    assert(p.includes("Run 1 ended") && p.includes('class="sg-pill bust"') && p.includes('class="sg-big down"') && p.includes("One miss ended it."));
+    assert(p.includes("<dt>Record</dt><dd>1–1</dd>"), "the record has an en dash");
     b = build(file([{n: 1, st: "cashed", g: [game()]}]));
     p = b.read("sga/index.html");
-    assert(p.includes("Run 1 cashed out") && p.includes("Cashed out after 1 win in a row."));
+    assert(p.includes("Run 1 cashed out") && p.includes('class="sg-pill "') && p.includes("Cashed out after 1 win in a row."));
+    assert(p.includes("<dt>Record</dt><dd>1–0</dd>") && p.includes('class="sg-big"') && !p.includes('class="sg-big down"'));
     b = build(file([{n: 1, st: "live", g: [game({r: "Pending", f: 1, x: 1, s: undefined})]}]));
     p = b.read("sga/index.html");
-    assert(p.includes("game open") && p.includes("The open game vs LAC is at"));
+    assert(p.includes("game open") && p.includes('class="sg-pill live"') && p.includes("The open game vs LAC is at"));
     const long = Array.from({length: 46}, (_, i) => game({d: new Date(Date.UTC(2026, 7, 2 + i)).toISOString().slice(0, 10), f: Math.pow(1.11, i), x: Math.pow(1.11, i + 1)}));
     b = build(file([{n: 1, st: "live", g: long}]));
     p = b.read("sga/index.html");
     const data = JSON.parse(p.match(/<script type="application\/json" id="sg-data">(.*?)<\/script>/s)[1]);
     assert.equal(data.g.length, 46);
     assert(data.peak > 8, "a run this big is drawn on a log scale by sga.js");
+    assert(/about a 1 in \d+ chance/.test(p) && !p.includes("1-in-"), "a long shot reads as '1 in N'");
   });
 
   test("two runs: the latest in full, the earlier one in a table", () => {
     const b = build(file([{n: 1, st: "bust", g: [game(), game({d: "2026-10-27", r: "Loss", f: 1.1493, x: 0})]}, {n: 2, st: "live", g: [game({d: "2026-10-30"})]}]));
     const p = b.read("sga/index.html");
-    assert(p.includes("Run 2, every game in order") && p.includes("Earlier runs") && p.includes("On a miss") && p.includes("2 runs"));
+    assert(p.includes("Run 2, every game in order") && p.includes('<th scope="col">Earlier runs</th>') && p.includes("On a miss") && p.includes("2 runs"));
+    assert(p.includes('<th scope="col">W–L</th>') && p.includes("<td>1–1</td>"), "the earlier run's record, with an en dash");
+    assert(p.includes("<dt>Record</dt><dd>2–1</dd>"), "the record adds up across runs");
+    const t = p.match(/<div class="sg-card sg-tbl sg-games"[\s\S]*?<\/table>/)[0];
+    assert.equal((t.match(/<tr>/g) || []).length, 1 + 1, "the game table shows the latest run only: its header row and one game");
+    for (const c of ["c-date", "c-play", "c-odds", "c-res", "c-roll"]) assert(t.includes('class="' + c), c);
   });
 
   test("the record on the home page is the same with or without the SGA page", () => {
     const b = build(file([{n: 1, st: "live", g: [game()]}]));
     assert.equal(b.out.split("\n").find(l => l.startsWith("record")), record);
+  });
+
+  test("the hero button and the closing button are the same link to the X profile, and every new-tab link opens safely", () => {
+    const p = build(file([{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111"})]}])).read("sga/index.html");
+    const btns = p.match(/<a class="sg-btn"[^>]*>[\s\S]*?<\/a>/g) || [];
+    assert.equal(btns.length, 2, "one in the hero, one in the closing card");
+    assert.equal(btns[0], btns[1], "identical markup");
+    assert(btns[0].includes('href="https://x.com/gamblingv1ctim"'), "points at the X profile");
+    assert(btns[0].includes('rel="noopener noreferrer"') && btns[0].includes('target="_blank"'));
+    const hero = p.match(/<section class="sg-hero"[\s\S]*?<\/section>/)[0], end = p.match(/<section class="sg-sec sg-endsec"[\s\S]*?<\/section>/)[0];
+    assert(hero.includes(btns[0]) && end.includes(btns[1]) && end.includes("Follow the run."), "one button in each place");
+    for (const a of p.match(/<a [^>]*target="_blank"[^>]*>/g)) assert(a.includes('rel="noopener noreferrer"'), a);
+  });
+
+  test("the FAQ schema parses, is a FAQPage, matches the visible questions and answers, and has no markup or money", () => {
+    for (const run of [{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111"})]}, {n: 1, st: "live", usd: {start: 30, bank: 34.48}, g: [game()]}]) {
+      const p = build(file([run])).read("sga/index.html"), raw = ldOf(p);
+      assert(raw, "the ld+json script is on the page");
+      assert(!raw.includes("<") && !/\$\d/.test(raw), "no markup and no dollar figure in the schema: " + raw.slice(0, 80));
+      const ld = JSON.parse(raw), vis = textOf(p);
+      assert.equal(ld["@context"], "https://schema.org");
+      assert.equal(ld["@type"], "FAQPage");
+      assert(Array.isArray(ld.mainEntity) && ld.mainEntity.length >= 7);
+      assert.equal(ld.mainEntity.length, (p.match(/<details class="sg-q">/g) || []).length, "one schema question for each question on the page");
+      for (const q of ld.mainEntity) {
+        assert.equal(q["@type"], "Question");
+        assert(q.name && vis.includes(q.name), "question not on the page: " + q.name);
+        assert.equal(q.acceptedAnswer["@type"], "Answer");
+        assert(q.acceptedAnswer.text && vis.includes(q.acceptedAnswer.text), "answer not on the page: " + q.name);
+      }
+    }
+  });
+
+  test("the tagline has whole sentences, one span per word, and the words add up to the sentence", () => {
+    const p = build(file([{n: 1, st: "live", g: [game()]}])).read("sga/index.html");
+    const inner = p.match(/<p class="sg-tagline" id="sg-tagline">([\s\S]*?)<\/p>/)[1];
+    const words = [...inner.matchAll(/<span class="w">([^<]*)<\/span>/g)].map(m => decode(m[1]));
+    const sentence = decode(inner.replace(/<[^>]+>/g, ""));
+    assert(words.length >= 12, words.length + " words");
+    assert(words.every(w => w && !/\s/.test(w)), "one word in each span");
+    assert.equal(words.join(" "), sentence, "the spans are the sentence, in order, with nothing added or lost");
+    assert(/[.!?]$/.test(sentence) && (sentence.match(/[^.!?]+[.!?]/g) || []).length >= 2, "at least two sentences: " + sentence);
+  });
+
+  test("the written copy has no em dash, no spaced hyphen, no emoji and no he, she, his, him or her", () => {
+    const rules = [[/—/, "em dash"], [/ - /, "spaced hyphen"], [/\p{Extended_Pictographic}|️|‍/u, "emoji"], [/\b(?:he|she|his|him|her)\b/i, "pronoun"]];
+    const broken = s => rules.filter(([re]) => re.test(s.replaceAll("Gilgeous-Alexander", "Gilgeous Alexander"))).map(r => r[1]);
+    for (const [s, what] of [["a — b", "em dash"], ["a - b", "spaced hyphen"], ["go 🔥", "emoji"], ["he won", "pronoun"], ["Her turn", "pronoun"], ["on his own", "pronoun"]])
+      assert.deepEqual(broken(s), [what], "the rule must catch: " + s);
+    for (const ok of ["Shai Gilgeous-Alexander scores 20+", "Every win goes on", "whether the other one", "−670 to +150"]) assert.deepEqual(broken(ok), [], ok);
+    const fixtures = [
+      file([{n: 1, st: "live", g: [game()]}]),
+      file([{n: 1, st: "live", usd: {start: 30, bank: 34.48}, g: [game({pf: "aaaaaaaa11111111"})]}]),
+      file([{n: 1, st: "bust", g: [game({r: "Loss", f: 1, x: 0})]}, {n: 2, st: "live", g: [game({d: "2026-10-30", r: "Pending", f: 1, x: 1, s: undefined})]}]),
+      file([{n: 1, st: "cashed", g: [game({p: 150, f: 1, x: 2.5})]}])];
+    for (const c of fixtures) {
+      const p = build(c).read("sga/index.html");
+      const parts = [
+        ...(p.match(/<p class="sg-lead"[^>]*>[\s\S]*?<\/p>/g) || []),
+        ...(p.match(/<p class="sg-tagline"[^>]*>[\s\S]*?<\/p>/g) || []),
+        ...(p.match(/<div class="sg-st">[\s\S]*?<\/div>/g) || []),
+        ...(p.match(/<div class="a">[\s\S]*?<\/div>/g) || [])];
+      assert(parts.length >= 1 + 1 + 3 + 7, "found the lead, the tagline, three cards and the answers: " + parts.length);
+      for (const part of parts) assert.deepEqual(broken(textOf(part)), [], textOf(part));
+    }
+  });
+
+  test("how it works: step 2 quotes the first win's price and its roll before and after, and says nothing of the sort without a win", () => {
+    let p = build(file([{n: 1, st: "live", g: [game({p: -670, f: 1, x: 1.1493}), game({d: "2026-10-26", p: -300, f: 1.1493, x: 1.532})]}])).read("sga/index.html");
+    let t = textOf(stepOf(p, 2));
+    assert(t.includes("−670") && t.includes("1.00x") && t.includes("1.15x"), t);
+    assert(!t.includes("−300") && !t.includes("1.53x"), "only the first win is quoted: " + t);
+    p = build(file([{n: 1, st: "live", g: [game({p: 150, f: 1, x: 2.5})]}])).read("sga/index.html");
+    t = textOf(stepOf(p, 2));
+    assert(t.includes("+150") && t.includes("1.00x") && t.includes("2.50x"), "a plus price: " + t);
+    for (const g of [[game({r: "Pending", f: 1, x: 1, s: undefined})], [game({r: "Loss", f: 1, x: 0})], [game({r: "Void", f: 1, x: 1, s: undefined})]]) {
+      p = build(file([{n: 1, st: g[0].r === "Loss" ? "bust" : "live", g}])).read("sga/index.html");
+      t = textOf(stepOf(p, 2));
+      assert(t.includes("The whole payout becomes the next stake.") && !/\bfrom\b/i.test(t) && !/\d/.test(t.replace("Step 2", "")), "no win, no 'from' clause: " + t);
+    }
+    assert.equal((p.match(/<p class="n">Step \d<\/p>/g) || []).length, 3);
+  });
+
+  test("the FAQ's money answers follow the dollar figures: none, or only what a run started with and what it is worth now", () => {
+    let p = build(file([{n: 1, st: "live", g: [game()]}])).read("sga/index.html");
+    assert(p.includes("This page shows no dollar figures and no book."), "no dollars: says so");
+    assert(!p.includes("What does the profit mean?") && !p.includes("The only dollar figures"), "no dollars: no profit question");
+    assert.equal((p.match(/<details class="sg-q">/g) || []).length, 7);
+    p = build(file([{n: 1, st: "live", usd: {start: 30, bank: 34.48}, g: [game()]}])).read("sga/index.html");
+    assert(p.includes("The only dollar figures on this page are what a run started with and what it is worth now."), "dollars: says what they are");
+    assert(!p.includes("This page shows no dollar figures"), "dollars: does not claim there are none");
+    assert(p.includes("What does the profit mean?"), "dollars: the profit question is there");
+    assert.equal((p.match(/<details class="sg-q">/g) || []).length, 8);
+    assert.deepEqual(dollars(p), ["$30", "$34.48"]);
+  });
+
+  test("the slip gallery is there only when a screenshot is, and the FAQ section number follows it", () => {
+    const num = (p, name) => (p.match(new RegExp('<span class="no">(\\d\\d)</span><span>' + name + "</span>")) || [])[1];
+    for (const run of [{n: 1, st: "live", g: [game()]}, {n: 1, st: "live", g: [game({pf: "bbbbbbbb22222222"})]}]) {
+      const p = build(file([run])).read("sga/index.html");
+      assert(!p.includes('id="proof"') && !p.includes("Proof of placement") && !p.includes("sg-slips") && !p.includes("proof/"), "no screenshot file: no gallery");
+      assert.equal(num(p, "Game by game"), "03");
+      assert.equal(num(p, "Questions"), "04", "without the gallery the FAQ is section 04");
+    }
+    const p = build(file([{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111"})]}])).read("sga/index.html");
+    assert(p.includes('id="proof"') && p.includes("proof/aaaaaaaa11111111.jpg"));
+    assert.equal(num(p, "Proof of placement"), "04");
+    assert.equal(num(p, "Questions"), "05", "with the gallery the FAQ is section 05");
   });
 } finally {
   fs.rmSync(TMP, {recursive: true, force: true});

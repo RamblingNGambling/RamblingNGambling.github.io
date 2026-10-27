@@ -385,6 +385,16 @@ function sgaFloat(rel) {
 }
 const sgaTile = r => r === "Win" ? tile("W") : r === "Loss" ? tile("L") : r === "Void" ? tile("P") : '<span class="t o" aria-hidden="true">O</span>';
 const sgaWord = r => r === "Win" ? "Win" : r === "Loss" ? "Loss" : r === "Void" ? "Sat out" : "Open";
+// Phosphor Regular icons (MIT), 256 grid, drawn as fills.
+const PH = {
+  up: "M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z",
+  plus: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z",
+  check: "M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"
+};
+const ico = d => `<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="${d}"/></svg>`;
+const XMARK = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/></svg>';
+const REPO_LOG = "https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main";
+
 function sgaBody() {
   const {runs, cur, cs, tw, tl, tp} = SGAS;
   const bust = cur.st === "bust", cash = cur.st === "cashed";
@@ -395,100 +405,212 @@ function sgaBody() {
   else if (cs.open) sub = `${cs.w ? plural(cs.w, "win") + " in a row. " : ""}The open game${cs.open.o ? " " + cs.open.o : ""} is at ${sgaOdds(cs.open.p)}: a hit takes it to ${sx(cs.held * sgaMult(cs.open.p))}, a miss ends the run.`;
   else sub = cs.w ? `${plural(cs.w, "win")} in a row. Waiting on the next game.` : "Waiting on the first game.";
   const prob = cs.w >= 2 && !bust
-    ? `<p class="sgprob" data-rv>At the prices taken, getting this far was about a ${cs.prob < 0.01 ? "1-in-" + Math.round(1 / cs.prob) : Math.round(cs.prob * 100) + "%"} chance by the books’ own numbers, margin included.</p>` : "";
+    ? `<p class="sg-prob">At the prices taken, getting this far was about a ${cs.prob < 0.01 ? "1 in " + Math.round(1 / cs.prob) : Math.round(cs.prob * 100) + "%"} chance by the books’ own numbers, margin included.</p>` : "";
   const r1 = runs[0], started = r1.usd ? `Started with ${usdFmt(r1.usd.start)} on ${dmd(r1.g[0].d)}. ` : "";
   const pf = SGAS.profit;
   const pfSub = runs.length > 1 ? `${plural(runs.length, "run")} combined`
     : cur.usd && cur.st !== "bust" ? `worth ${usdFmt(cur.usd.bank)} now` : cur.usd ? `started with ${usdFmt(cur.usd.start)}` : "";
-  const profitTile = SGAS.usd
-    ? `<div class="pt" data-rv><dt>Profit</dt><dd class="${pf > 0.004 ? "pos" : ""}">${pf > 0.004 ? "+" : pf < -0.004 ? MINUS : ""}$<span data-cu="${Math.abs(pf).toFixed(2)}" data-dp="2">${Math.abs(pf).toFixed(2)}</span></dd>${pfSub ? `<p>${h(pfSub)}</p>` : ""}</div>` : "";
   const bigTxt = bust ? "0" : sgaBig(cs.held);
-  const big = `<p class="big${bust ? " down" : ""}" data-rv aria-label="${bust ? "Zero" : sx(cs.held).replace("x", " times")} the first stake"><span${!bust && cs.held > 1 ? ` data-cu="${bigTxt}" data-dp="${cs.held >= 100 ? 0 : cs.held >= 10 ? 1 : 2}"` : ""}>${bigTxt}</span><span class="u">x</span></p>`;
+  const big = `<p class="sg-big${bust ? " down" : ""}" aria-label="${bust ? "Zero" : sx(cs.held).replace("x", " times")} the first stake"><span${!bust && cs.held > 1 ? ` data-cu="${bigTxt}" data-dp="${cs.held >= 100 ? 0 : cs.held >= 10 ? 1 : 2}"` : ""}>${bigTxt}</span><span class="u">x</span></p>`;
+  const cell = (dt, dd, note) => `<div><dt>${dt}</dt><dd>${dd}</dd>${note ? `<p>${note}</p>` : ""}</div>`;
+  const cells = [
+    SGAS.usd ? `<div class="pt"><dt>Profit</dt><dd class="${pf > 0.004 ? "pos" : ""}">${pf > 0.004 ? "+" : pf < -0.004 ? MINUS : ""}$<span data-cu="${Math.abs(pf).toFixed(2)}" data-dp="2">${Math.abs(pf).toFixed(2)}</span></dd>${pfSub ? `<p>${h(pfSub)}</p>` : ""}</div>` : "",
+    cell("Wins in a row", `<span${cs.w ? ` data-cu="${cs.w}"` : ""}>${cs.w}</span>`),
+    cell("Best roll", sx(tp)),
+    cell("Record", `${tw}–${tl}`, plural(runs.length, "run")),
+    cell("Avg points", cs.avg == null ? "–" : cs.avg.toFixed(1)),
+    cell("Games", String(cur.g.length), runs.length > 1 ? `in run ${cur.n}` : "")
+  ].filter(Boolean);
   const pips = cur.g.slice(-20).map(x => x.r === "Win" ? tile("W") : x.r === "Loss" ? tile("L") : x.r === "Void" ? tile("P") : '<span class="t o" aria-hidden="true">O</span>').join("");
   const slips = [];
   for (const r of runs) for (const x of r.g) if (x.pf) slips.push({run: r.n, x});
   slips.reverse();
   const rows = cur.g.map(x => `<tr>
         <td class="c-date">${dmd(x.d)}</td>
-        <td class="c-play">Shai Gilgeous-Alexander ${h(x.l)}+ points${x.o ? `<span class="g">${h(x.o)}</span>` : ""}</td>
-        <td class="c-sport"><span class="tag">${typeof x.s === "number" ? x.s + " pts" : x.r === "Void" ? "DNP" : "–"}</span></td>
+        <td class="c-play"><span class="full">Shai Gilgeous-Alexander</span><span class="abbr">SGA</span> ${h(x.l)}+ points<span class="g"><span class="md">${dmd(x.d)}${x.o || typeof x.s === "number" || x.r === "Void" ? " · " : ""}</span>${[x.o ? h(x.o) : "", typeof x.s === "number" ? x.s + " pts" : x.r === "Void" ? "did not play" : ""].filter(Boolean).map(t => `<span class="nw">${t}</span>`).join(" · ")}</span></td>
         <td class="c-odds num">${sgaOdds(x.p)}</td>
         <td class="c-res"><span class="res">${sgaTile(x.r)}<span class="w-txt">${sgaWord(x.r)}</span></span></td>
-        <td class="c-pl num">${x.r === "Loss" ? "0x" : x.r === "Pending" ? "–" : sx(x.x)}</td></tr>`).join("");
+        <td class="c-roll num">${x.r === "Loss" ? "0x" : x.r === "Pending" ? "–" : sx(x.x)}</td></tr>`).join("");
   const earlier = runs.slice(0, -1).reverse().map(r => {
     const s = sgaStat(r), f = r.g[0].d, l = r.g[r.g.length - 1].d;
-    return `<tr><th scope="row">Run ${r.n}<span class="thin"> · ${dmd(f)}${l !== f ? " – " + dmd(l) : ""}</span></th><td>${r.g.length}</td><td>${s.w}-${s.l}</td><td>${sx(s.peak)}</td><td>${r.st === "bust" ? "On a miss" : r.st === "cashed" ? "Cashed out at " + sx(s.held) : "Open"}</td>${SGAS.usd ? `<td class="num">${r.usd ? usdSigned(r.usd.bank - r.usd.start) : ""}</td>` : ""}</tr>`;
+    return `<tr><th scope="row">Run ${r.n}<span class="thin"> · ${dmd(f)}${l !== f ? " – " + dmd(l) : ""}</span></th><td>${r.g.length}</td><td>${s.w}–${s.l}</td><td>${sx(s.peak)}</td><td>${r.st === "bust" ? "On a miss" : r.st === "cashed" ? "Cashed out at " + sx(s.held) : "Open"}</td>${SGAS.usd ? `<td class="num">${r.usd ? usdSigned(r.usd.bank - r.usd.start) : ""}</td>` : ""}</tr>`;
   }).join("");
-  const gallery = slips.length ? `
-  <section id="proof" aria-labelledby="pf-h">
-    <div class="shead" data-rv>
-      <div><p class="eyebrow"><span class="no">03</span><span>Proof of placement</span></p><h2 id="pf-h">The bet slip for each game</h2></div>
-      <p>A screenshot taken when each bet was placed. Ticket numbers are blurred before a screenshot is saved. Tap one to enlarge it.</p>
-    </div>
-    <div class="sgpg" data-rv>
-      ${slips.map(s => { const alt = `Bet slip, ${dmd(s.x.d)}${s.x.o ? ", " + s.x.o : ""}, ${sgaOdds(s.x.p)}`;
-        return `<a class="sgpf" href="proof/${s.x.pf}.jpg" target="_blank" rel="noopener noreferrer" title="${h(alt)}"><img src="proof/${s.x.pf}.jpg" alt="${h(alt)}" loading="lazy" width="760" height="1500"><span>${runs.length > 1 ? `Run ${s.run} · ` : ""}${dmd(s.x.d)} · ${h(s.x.o || "game")} · ${sgaOdds(s.x.p)}</span></a>`; }).join("\n      ")}
-    </div>
-  </section>` : "";
-  const chart = {g: cur.g.map(x => ({r: x.r, f: round(x.f, 4), x: round(x.x, 4)})), peak: round(cs.peak, 4),
-    label: "Bar chart of the roll going into each game of run " + cur.n};
-  return `<main class="wrap" id="main">
-  <div class="phero sgph">
-    <p class="kicker" data-rv>SGA 20+</p>
-    <h1 class="th" data-rv>Betting SGA 20+ points <em>for the season.</em></h1>
-    <p class="lede" data-rv>${started}Every win goes straight onto the next game.</p>
-  </div>
 
-  <section class="record sgrec" id="roll" aria-labelledby="sg-h" style="margin-top:28px">
-    <h2 class="sr" id="sg-h">The roll</h2>
-    <p class="eyebrow" data-rv><span class="no">01</span><span>The roll</span>
-      <span class="ey-r"><span>Updated ${h(updDay)}${updTime ? `<span class="ey-t">${h(updTime)}</span>` : ""} · <a href="../sga.json">sga.json</a></span></span></p>
-    <div class="hero">
-      <div>
-        <p class="sgstat ${bust ? "bust" : cash ? "" : "live"}" data-rv><i aria-hidden="true"></i>${h(status)}</p>
-        ${big}
-        <p class="sgsub" data-rv>${h(sub)}</p>
-        ${prob}
+  const cta = `<a class="sg-btn" href="https://x.com/${HANDLE}" target="_blank" rel="noopener noreferrer">${XMARK}Follow @${HANDLE} on X${ico(PH.up)}<span class="sr"> (opens in a new tab)</span></a>`;
+  const hero = `<section class="sg-hero" aria-labelledby="sg-h1">
+    <div class="sg-copy">
+      <p class="sg-kicker" data-rv>SGA 20+ rollover</p>
+      <h1 class="sg-h1" id="sg-h1" data-rv>Betting SGA 20+ points <span class="sg-br">for the season.</span></h1>
+      <p class="sg-lead" data-rv>${started}Every win goes straight onto the next game, and one miss ends the run.</p>
+      <div class="sg-cta" data-rv>${cta}</div>
+      <p class="sg-note" data-rv>Updated ${h(updDay)}${updTime ? h(updTime) : ""} · <a href="../sga.json">sga.json</a></p>
+    </div>
+    <div class="sg-card sg-roll" role="group" aria-label="The roll" data-rv>
+      <div class="sg-rhead">
+        <p class="sg-pill ${bust ? "bust" : cash ? "" : "live"}"><i aria-hidden="true"></i>${h(status)}</p>
+        <p class="sg-lab">The roll</p>
       </div>
-      <dl class="ledger${SGAS.usd ? " five" : ""}">
-        ${profitTile}
-        <div data-rv><dt>Wins in a row</dt><dd><span${cs.w ? ` data-cu="${cs.w}"` : ""}>${cs.w}</span></dd></div>
-        <div data-rv><dt>Best roll</dt><dd>${sx(tp)}</dd></div>
-        <div data-rv><dt>Record</dt><dd>${tw}-${tl}</dd><p>${plural(runs.length, "run")}</p></div>
-        <div data-rv><dt>Avg points</dt><dd>${cs.avg == null ? "–" : cs.avg.toFixed(1)}</dd></div>
-        <div class="lform" data-rv><dt>Games, oldest first</dt><dd><div class="pips" role="img" aria-label="${cur.g.slice(-20).length} games, oldest first: ${cs.w} won, ${cs.l} lost, ${cs.v} sat out, ${cs.p} open">${pips}</div></dd></div>
+      ${big}
+      <p class="sg-sub">${h(sub)}</p>
+      ${prob}
+      <dl class="sg-stats${cells.length % 2 ? " odd" : ""}">
+        ${cells.join("\n        ")}
       </dl>
+      <div class="sg-pipsrow"><p class="sg-lab">Games, oldest first</p><div class="pips" role="img" aria-label="${cur.g.slice(-20).length} games, oldest first: ${cs.w} won, ${cs.l} lost, ${cs.v} sat out, ${cs.p} open">${pips}</div></div>
     </div>
-    <div class="panel chartp" data-rv>
-      <div class="phead"><h3>The ladder</h3></div>
-      <div class="chart sgladder" id="sg-ladder"></div>
-      <div class="sglegend" aria-hidden="true"><span class="w">hit</span><span class="l">missed</span><span class="v">sat out</span><span class="o">open</span><span class="z">first stake = 1.00x</span></div>
-    </div>
-  </section>
+  </section>`;
 
-  <section id="games" aria-labelledby="gm-h">
-    <div class="shead" data-rv>
-      <div><p class="eyebrow"><span class="no">02</span><span>Game by game</span></p><h2 id="gm-h">Run ${cur.n}, every game in order</h2></div>
+  const ladder = `<section class="sg-sec" id="roll" aria-labelledby="sg-lad-h">
+    <div class="sg-head" data-rv>
+      <p class="eyebrow"><span class="no">01</span><span>The ladder</span></p>
+      <h2 id="sg-lad-h">Run ${cur.n}, bar by bar</h2>
+      <p>Each bar is the roll after a game, as a multiple of the first stake.</p>
     </div>
-    <div class="panel logp" data-rv>
-      <table class="log sgl">
+    <div class="sg-card sg-chart" data-rv>
+      <div class="chart sgladder" id="sg-ladder"></div>
+      <div class="sg-legend" aria-hidden="true"><span class="w">hit</span><span class="l">missed</span><span class="v">sat out</span><span class="o">open</span><span class="z">first stake = 1.00x</span></div>
+    </div>
+  </section>`;
+
+  const tagline = `<section class="sg-tagsec" aria-label="The idea">
+    <p class="sg-tagline" id="sg-tagline">${"Every win goes onto the next game. One miss ends the run. Win or lose, it stays on this page.".split(" ").map(w => `<span class="w">${w}</span>`).join(" ")}</p>
+  </section>`;
+
+  const fw = cur.g.find(x => x.r === "Win"), lg = cur.g[cur.g.length - 1];
+  const how = `<section class="sg-sec" aria-labelledby="sg-how-h">
+    <div class="sg-head" data-rv>
+      <p class="eyebrow"><span class="no">02</span><span>How it works</span></p>
+      <h2 id="sg-how-h">How one run works</h2>
+    </div>
+    <div class="sg-how">
+      <article class="sg-card sg-step" data-rv>
+        <div class="sg-vis v1" aria-hidden="true">
+          <div class="sg-slip">
+            <p class="who">Shai Gilgeous-Alexander</p>
+            <p class="ln">20+ points${lg.o ? " · " + h(lg.o) : ""}</p>
+            <div class="rw"><span class="pr">${sgaOdds(lg.p)}</span><span class="ok">${ico(PH.check)}Placed</span></div>
+          </div>
+        </div>
+        <div class="sg-st">
+          <p class="n">Step 1</p>
+          <h3>One bet on each game</h3>
+          <p>A single bet each game: Shai Gilgeous-Alexander to score 20 or more points. The price is whatever the book is offering that day.</p>
+        </div>
+      </article>
+      <article class="sg-card sg-step" data-rv>
+        <div class="sg-vis v2" aria-hidden="true">
+          <div class="cols">
+            <div class="col" style="--d:0s"><span class="tl">${tile("W")}</span><i class="bar" style="--h:38%"></i></div>
+            <div class="col" style="--d:.6s"><span class="tl">${tile("W")}</span><i class="bar" style="--h:58%"></i></div>
+            <div class="col" style="--d:1.2s"><span class="tl">${tile("W")}</span><i class="bar" style="--h:78%"></i></div>
+          </div>
+        </div>
+        <div class="sg-st">
+          <p class="n">Step 2</p>
+          <h3>A win goes onto the next game</h3>
+          <p>The whole payout becomes the next stake.${fw ? ` At ${sgaOdds(fw.p)}, a win took the roll from ${sx(fw.f)} to ${sx(fw.x)}.` : ""}</p>
+        </div>
+      </article>
+      <article class="sg-card sg-step" data-rv>
+        <div class="sg-vis v3" aria-hidden="true">
+          <div class="peak"><span>peak</span></div>
+          <div class="cols">
+            <div class="col" style="--d:0s"><span class="tl">${tile("W")}</span><i class="bar" style="--h:42%"></i></div>
+            <div class="col" style="--d:.6s"><span class="tl">${tile("W")}</span><i class="bar" style="--h:62%"></i></div>
+            <div class="col miss"><span class="tl">${tile("L")}</span><i class="bar" style="--h:80%"></i></div>
+          </div>
+        </div>
+        <div class="sg-st">
+          <p class="n">Step 3</p>
+          <h3>A miss ends the run</h3>
+          <p>Fall one point short and the roll drops to zero. The run is closed, and the most it reached stays on the page.</p>
+        </div>
+      </article>
+    </div>
+  </section>`;
+
+  const games = `<section class="sg-sec" id="games" aria-labelledby="gm-h">
+    <div class="sg-head" data-rv>
+      <p class="eyebrow"><span class="no">03</span><span>Game by game</span></p>
+      <h2 id="gm-h">Run ${cur.n}, every game in order</h2>
+    </div>
+    <div class="sg-card sg-tbl sg-games" data-rv>
+      <table class="sgl">
         <caption class="sr">Run ${cur.n}, game by game</caption>
-        <thead><tr><th scope="col">Date</th><th scope="col">Play</th><th scope="col">Points</th><th scope="col" class="num">Price</th><th scope="col">Result</th><th scope="col" class="num">Roll</th></tr></thead>
+        <thead><tr><th scope="col">Date</th><th scope="col">Play</th><th scope="col" class="num">Price</th><th scope="col">Result</th><th scope="col" class="num">Roll</th></tr></thead>
         <tbody>${rows}
         </tbody>
       </table>
     </div>
-    ${earlier ? `<div class="panel bpanel sgearlier" data-rv>
-      <table class="brk">
+    ${earlier ? `<div class="sg-card sg-tbl sg-earlier" data-rv>
+      <table class="sgl">
         <caption class="sr">Earlier runs</caption>
-        <thead><tr><th scope="col">Earlier runs</th><th scope="col">Games</th><th scope="col">W-L</th><th scope="col">Peak</th><th scope="col">Ended</th>${SGAS.usd ? '<th scope="col" class="num">Profit</th>' : ""}</tr></thead>
+        <thead><tr><th scope="col">Earlier runs</th><th scope="col">Games</th><th scope="col">W–L</th><th scope="col">Peak</th><th scope="col">Ended</th>${SGAS.usd ? '<th scope="col" class="num">Profit</th>' : ""}</tr></thead>
         <tbody>${earlier}</tbody>
       </table>
     </div>` : ""}
-  </section>
+  </section>`;
+
+  const gallery = slips.length ? `
+  <section class="sg-sec" id="proof" aria-labelledby="pf-h">
+    <div class="sg-head" data-rv>
+      <p class="eyebrow"><span class="no">04</span><span>Proof of placement</span></p>
+      <h2 id="pf-h">The bet slip for each game</h2>
+      <p>A screenshot taken when each bet was placed. Ticket numbers are blurred before a screenshot is saved. Tap one to enlarge it.</p>
+    </div>
+    <div class="sg-slips" data-rv>
+      ${slips.map(s => { const alt = `Bet slip, ${dmd(s.x.d)}${s.x.o ? ", " + s.x.o : ""}, ${sgaOdds(s.x.p)}`;
+        return `<a class="sgpf sg-card" href="proof/${s.x.pf}.jpg" target="_blank" rel="noopener noreferrer" title="${h(alt)}"><img src="proof/${s.x.pf}.jpg" alt="${h(alt)}" loading="lazy" width="760" height="1500"><span>${runs.length > 1 ? `Run ${s.run} · ` : ""}${dmd(s.x.d)} · ${h(s.x.o || "game")} · ${sgaOdds(s.x.p)}</span></a>`; }).join("\n      ")}
+    </div>
+  </section>` : "";
+
+  // [question, answer as plain text, optional link appended to the answer]
+  const faq = [
+    ["What is an SGA 20+ bet?", "A bet that Shai Gilgeous-Alexander scores 20 or more points in one game. The price is different for every game."],
+    ["What happens on a miss?", "The run ends and the roll goes to zero. The page keeps the run, with the most it ever reached."],
+    ["What if Shai Gilgeous-Alexander does not play?", "The bet is voided, the game is marked as sat out and the roll stays where it was."],
+    ["Why is the roll shown as a multiple?", SGAS.usd
+      ? "The roll is how many times the first stake the run is worth. The only dollar figures on this page are what a run started with and what it is worth now. There is no book and no stake for any single game."
+      : "The roll is how many times the first stake the run is worth. This page shows no dollar figures and no book."],
+    ["How do I know the bets were placed?", `${slips.length ? "Each game has a screenshot of the bet slip, taken when the bet was placed, with the ticket number blurred. " : ""}The data for this page is saved in a public GitHub repository, and every update is a dated commit.`, ["See the commit history", REPO_LOG]],
+    SGAS.usd ? ["What does the profit mean?", "Profit is what the run is worth now minus what it started with. It counts every game in the run and nothing else."] : null,
+    ["Is this betting advice?", "No. It is a record of one experiment, kept in public. Nothing here tells you what to bet, and nothing is for sale. If betting stops being fun, stop."],
+    ["How often does the page update?", "When a new game or result is published. The updated time at the top shows the last change."]
+  ].filter(Boolean);
+  const faqLd = {"@context": "https://schema.org", "@type": "FAQPage",
+    mainEntity: faq.map(([q, a]) => ({"@type": "Question", name: q, acceptedAnswer: {"@type": "Answer", text: a}}))};
+  const questions = `<section class="sg-sec" id="faq" aria-labelledby="fq-h">
+    <div class="sg-head" data-rv>
+      <p class="eyebrow"><span class="no">${slips.length ? "05" : "04"}</span><span>Questions</span></p>
+      <h2 id="fq-h">Questions people ask</h2>
+    </div>
+    <div class="sg-faq" data-rv>
+      ${faq.map(([q, a, l]) => `<details class="sg-q"><summary><span>${h(q)}</span>${ico(PH.plus)}</summary><div class="a"><p>${h(a)}${l ? ` <a href="${l[1]}" target="_blank" rel="noopener noreferrer">${h(l[0])}</a>.` : ""}</p></div></details>`).join("\n      ")}
+    </div>
+  </section>`;
+
+  const final = `<section class="sg-sec sg-endsec" aria-labelledby="sg-end-h">
+    <div class="sg-card sg-end" data-rv>
+      <h2 id="sg-end-h">Follow the run.</h2>
+      <p>Nothing here is for sale, and there is nothing to sign up for.</p>
+      <div class="sg-cta">${cta}</div>
+    </div>
+  </section>`;
+
+  const chart = {g: cur.g.map(x => ({r: x.r, f: round(x.f, 4), x: round(x.x, 4)})), peak: round(cs.peak, 4),
+    label: "Bar chart of the roll going into each game of run " + cur.n};
+  return `<main class="wrap sga" id="main">
+  ${hero}
+  ${ladder}
+  ${tagline}
+  ${how}
+  ${games}
 ${gallery}
+  ${questions}
+  ${final}
 </main>
-<script type="application/json" id="sg-data">${JSON.stringify(chart).replace(/</g, "\\u003c")}</script>`;
+<script type="application/json" id="sg-data">${JSON.stringify(chart).replace(/</g, "\\u003c")}</script>
+<script type="application/ld+json">${JSON.stringify(faqLd).replace(/</g, "\\u003c")}</script>`;
 }
 
 /* ---------- home ---------- */

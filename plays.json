@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 26, 2026, 11:33 PM EDT",
+  "updated": "Oct 27, 2026, 12:27 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -5678,8 +5678,8 @@
       "play": "Stephen Curry o4.5 Assists",
       "odds": 122,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
       "game_date": ""
     }

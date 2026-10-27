@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 26, 2026, 11:17 PM EDT",
+  "updated": "Oct 26, 2026, 11:33 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -5641,6 +5641,45 @@
       "units": 0.25,
       "result": "Loss",
       "units_pl": -0.25,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-26",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Trae Young Double-Double",
+      "odds": -115,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2174,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-26",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jared McCain Over 12.5 Points",
+      "odds": -120,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2083,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-26",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Stephen Curry o4.5 Assists",
+      "odds": 122,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
       "post": "",
       "game_date": ""
     }

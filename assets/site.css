@@ -836,7 +836,6 @@ a.bk:hover .bw{color:var(--acc)}
 .sg-stats dd{margin-top:4px;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
 .sg-stats dd.pos{color:var(--acc)}
 .sg-stats p{margin-top:2px;font-size:12px;line-height:16px;color:var(--fg3)}
-.sg-pipsrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:16px}
 @media(min-width:480px){
   .sg-roll{padding:24px}
   .sg-big{font-size:96px}
@@ -970,31 +969,6 @@ a.bk:hover .bw{color:var(--acc)}
 :root[data-theme="light"] .sglb{background:rgba(20,18,14,.62)}
 .sglb img{display:block;max-width:min(94vw,560px);max-height:92vh;border-radius:12px;border:1px solid var(--line2)}
 .sglb button{position:absolute;top:12px;right:16px;width:40px;height:40px;border-radius:9999px;border:1px solid var(--line2);background:var(--s1);color:var(--fg);font-size:24px;line-height:1;cursor:pointer}
-
-/* questions */
-.sg-faq{display:grid;gap:8px;max-width:760px}
-.sg-q{border:1px solid var(--line2);border-radius:12px;background:var(--sg-s1);transition:border-color .3s var(--sg-e)}
-.sg-q[open]{border-color:var(--line3)}
-.sg-q summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:12px 16px;cursor:pointer;list-style:none;font-size:16px;line-height:24px;font-weight:600}
-.sg-q summary::-webkit-details-marker{display:none}
-.sg-q summary svg{width:16px;height:16px;flex:none;color:var(--fg3);transition:transform .5s var(--sg-e)}
-.sg-q[open] summary svg{transform:rotate(45deg)}
-.sg-q summary:focus-visible{outline:2px solid var(--acc);outline-offset:-2px;border-radius:12px}
-.sg-q .a{padding:0 16px 16px}
-.sg-q .a p{max-width:680px;font-size:16px;line-height:24px;color:var(--fg2);text-wrap:pretty}
-.sg-q .a a{color:var(--fg);text-underline-offset:4px;text-decoration-color:var(--line3)}
-.motion .sg-q[open] .a{animation:sg-open .5s var(--sg-e)}
-@keyframes sg-open{from{opacity:0;transform:translateY(-8px)}}
-@media(hover:hover){.sg-q summary:hover{color:var(--acc)}}
-
-/* closing call to action */
-.sg-end{display:grid;justify-items:center;gap:16px;padding:48px 16px;border-radius:24px;text-align:center}
-.sg-end .sg-btn{text-align:center}
-.sg-end h2{font-size:30px;line-height:36px;font-weight:600;letter-spacing:-.025em}
-.sg-end p{max-width:680px;font-size:16px;line-height:24px;color:var(--fg2);text-wrap:pretty}
-.sg-end .sg-cta{margin-top:8px}
-@media(min-width:480px){.sg-end{padding:48px 24px}}
-@media(min-width:768px){.sg-end h2{font-size:36px;line-height:40px}}
 
 @media(max-width:639px){.sg-sec{padding-top:64px}.sg-tagsec{padding-top:80px}}
 @media (prefers-reduced-motion:reduce){.sga *,.sga *::before,.sga *::after{animation:none!important}}

@@ -14,6 +14,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import {fileURLToPath} from "node:url";
 import {SCENES} from "./src/scenes.mjs";
+import {loadArtSlots, writeArtSlots, artImg} from "./src/artslot.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(HERE, "src");
@@ -35,6 +36,7 @@ const PLAYS_PATH = findPlays();
 const RAW = JSON.parse(fs.readFileSync(PLAYS_PATH, "utf8"));
 if (!RAW || !Array.isArray(RAW.plays)) throw new Error(PLAYS_PATH + " has no plays array");
 const SITE_DIR = path.dirname(PLAYS_PATH);
+loadArtSlots(SITE_DIR);   // optional hero pictures in art/ (src/artslot.mjs): a bad file is a warning, never an error
 
 /* ---------- the SGA 20+ experiment (optional) ----------
    Bet Desk writes sga.json beside plays.json, and a screenshot of each bet slip to sga/proof/.
@@ -176,8 +178,9 @@ if (series.length && Math.abs(series[series.length - 1][1] - A.u) > 1e-9)
 /* ---------- assets ---------- */
 fs.rmSync(DIST, {recursive: true, force: true});
 fs.mkdirSync(path.join(DIST, "assets"), {recursive: true});
+writeArtSlots(DIST);
 const ASSET = {};
-for (const f of ["site.css", "site.js", "home.js", "tools.js", "sga.js"]) {
+for (const f of ["site.css", "site.js", "home.js", "tools.js", "sga.js", "art.js"]) {
   const body = fs.readFileSync(path.join(SRC, f), "utf8");
   fs.writeFileSync(path.join(DIST, "assets", f), body);
   ASSET[f] = `assets/${f}?v=${crypto.createHash("sha1").update(body).digest("hex").slice(0, 8)}`;
@@ -335,6 +338,11 @@ ${UMAMI}
   return out;
 }
 
+/* ---------- halftone art ----------
+   Decoration behind the home and SGA heroes: a canvas painted by src/art.js, aria-hidden, and a slot
+   for a picture from src/artslot.mjs. Nothing on the page depends on it. */
+const artBlock = key => `<div class="art" data-art="${key}" aria-hidden="true"><canvas></canvas>${artImg(key)}</div>`;
+
 /* ---------- the SGA 20+ page ---------- */
 const impl = o => o > 0 ? 100 / (o + 100) : -o / (-o + 100);
 const sgaBig = x => x >= 100 ? x.toFixed(0) : x >= 10 ? x.toFixed(1) : x.toFixed(2);
@@ -440,6 +448,7 @@ function sgaBody() {
 
   const cta = `<a class="sg-btn" href="https://x.com/${HANDLE}" target="_blank" rel="noopener noreferrer">${XMARK}Follow @${HANDLE} on X${ico(PH.up)}<span class="sr"> (opens in a new tab)</span></a>`;
   const hero = `<section class="sg-hero" aria-labelledby="sg-h1">
+    ${artBlock("sga")}
     <div class="sg-copy">
       <p class="sg-kicker" data-rv>SGA 20+ rollover</p>
       <h1 class="sg-h1" id="sg-h1" data-rv>Betting SGA 20+ points <span class="sg-br">for the season.</span></h1>
@@ -605,7 +614,7 @@ const homeBody = `<main class="wrap" id="main">
 
   <!-- ============ 01 RECORD ============ -->
   <section class="record" id="record" aria-labelledby="rec-h">
-    <div class="hx-f" aria-hidden="true"><div class="hx-dots"><i></i></div><i class="hx-v"></i><i class="hx-v r"></i></div>
+    <div class="hx-f" aria-hidden="true">${artBlock("home")}<i class="hx-v"></i><i class="hx-v r"></i></div>
     <h1 class="sr" id="rec-h">Public Tracker: the record</h1>
     <p class="eyebrow" data-rv><span class="no">01</span><span>The record</span>
       <span class="ey-r"><span class="ey-sp">${span}</span><span class="dot"> · </span><span>Updated ${h(updDay)}<span class="ey-t">${h(updTime)}</span> · <a href="plays.json">plays.json</a></span></span></p>
@@ -713,7 +722,7 @@ const homeBody = `<main class="wrap" id="main">
 const built = [];
 built.push(page({slug: "", title: "", home: true,
   desc: `Every play posted on X by @${HANDLE}, logged in units before the event starts. ${A.n} settled plays, ${signed(A.u)}u, ${signed(A.roi * 100, 1)}% ROI.`,
-  body: homeBody, active: "", scripts: ["home.js"]}));
+  body: homeBody, active: "", scripts: ["home.js", "art.js"]}));
 
 /* ---------- inner pages ---------- */
 const moreTools = skip => `<section class="morecalc" aria-labelledby="more-h">
@@ -759,7 +768,7 @@ ${withHeroScene(read(slug + ".html"), slug)}
 if (SGA) {
   built.push(page({slug: "sga", title: "SGA 20+ rollover",
     desc: "Betting Shai Gilgeous-Alexander over 20 points for the season, every win rolled onto the next game. The live multiplier, the profit, every price and every result.",
-    active: "sga", body: sgaBody(), scripts: ["sga.js"]}));
+    active: "sga", body: sgaBody(), scripts: ["sga.js", "art.js"]}));
   const proofDir = path.join(DIST, "sga", "proof");
   const used = new Set(SGA.runs.flatMap(r => r.g.map(x => x.pf).filter(Boolean)));
   if (used.size) fs.mkdirSync(proofDir, {recursive: true});

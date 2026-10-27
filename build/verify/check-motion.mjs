@@ -26,6 +26,10 @@ const TMP = fs.mkdtempSync(path.join(os.tmpdir(), "motion-check-"));
 const SITE = path.join(TMP, "site");
 fs.mkdirSync(path.join(SITE, "build"), {recursive: true});
 fs.copyFileSync(PLAYS, path.join(SITE, "plays.json"));
+// the SGA page (and its art) is only built when sga.json sits beside plays.json
+const SGA_JSON = path.join(path.dirname(PLAYS), "sga.json"), SGA_PROOF = path.join(path.dirname(PLAYS), "sga", "proof");
+if (fs.existsSync(SGA_JSON)) fs.copyFileSync(SGA_JSON, path.join(SITE, "sga.json"));
+if (fs.existsSync(SGA_PROOF)) fs.cpSync(SGA_PROOF, path.join(SITE, "sga", "proof"), {recursive: true});
 fs.copyFileSync(path.join(BUILD_SRC, "build.mjs"), path.join(SITE, "build", "build.mjs"));
 fs.cpSync(path.join(BUILD_SRC, "src"), path.join(SITE, "build", "src"), {recursive: true});
 const run = spawnSync(process.execPath, [path.join(SITE, "build", "build.mjs")], {cwd: TMP, encoding: "utf8"});
@@ -96,6 +100,78 @@ t("scenes move only while armed, and the runner needs html.motion", () => {
 t("no regex lookbehind in the shared script or stylesheet (older iPhone Safari)", () => {
   assert.ok(!/\(\?<[=!]/.test(js));
   assert.ok(!/\(\?<[=!]/.test(css));
+});
+
+/* ---- halftone art (src/art.js): the canvas behind the home and SGA heroes ---- */
+const artSrc = fs.readFileSync(path.join(BUILD_SRC, "src", "art.js"), "utf8");
+const htmlPages = () => {
+  const out = [];
+  (function walk(d) {
+    for (const e of fs.readdirSync(d, {withFileTypes: true})) {
+      if (e.isDirectory()) { if (e.name !== "assets" && e.name !== "proof") walk(path.join(d, e.name)); }
+      else if (e.name.endsWith(".html")) out.push(path.join(d, e.name));
+    }
+  })(DIST);
+  return out;
+};
+const relPath = f => path.relative(DIST, f).split(path.sep).join("/");
+const sgaPage = fs.existsSync(path.join(DIST, "sga", "index.html")) ? page("sga") : "";
+t("art: home and sga each hold exactly one .art with a canvas, hidden from screen readers", () => {
+  assert.ok(sgaPage, "no sga page was built");
+  for (const [name, html] of [["home", home], ["sga", sgaPage]]) {
+    assert.equal(count(html, /class="art"/g), 1, name);
+    assert.equal(count(html, /<div class="art" data-art="(home|sga)" aria-hidden="true"><canvas><\/canvas>/g), 1, name);
+  }
+  assert.match(home, /data-art="home"/);
+  assert.match(sgaPage, /data-art="sga"/);
+});
+t("art: no other page carries one (tool pages, about, how to read, 404)", () => {
+  for (const f of htmlPages()) {
+    const r = relPath(f);
+    if (r === "index.html" || r === "sga/index.html") continue;
+    assert.equal(count(fs.readFileSync(f, "utf8"), /class="art"/g), 0, r);
+  }
+});
+t("art: art.js is an asset, loaded by the home and sga pages only", () => {
+  assert.ok(fs.existsSync(path.join(DIST, "assets", "art.js")), "assets/art.js was not written");
+  for (const f of htmlPages()) {
+    const r = relPath(f), n = count(fs.readFileSync(f, "utf8"), /assets\/art\.js\?v=[0-9a-f]{8}/g);
+    assert.equal(n, r === "index.html" || r === "sga/index.html" ? 1 : 0, r);
+  }
+});
+t("art: the picture sits inside the hero frame and the old dot field is gone", () => {
+  assert.match(home, /<div class="hx-f" aria-hidden="true"><div class="art" data-art="home"/);
+  assert.ok(!/hx-dots/.test(home), "hx-dots is still in the home page");
+  assert.ok(!/hx-dots|--hx-a/.test(css), "hx-dots or --hx-a is still in the stylesheet");
+  assert.match(sgaPage, /<section class="sg-hero"[^>]*>\s*<div class="art" data-art="sga"/);
+});
+t("art: the stylesheet block closes the file, is decoration only, and honours the theme and print", () => {
+  const i = css.indexOf("/* ==== HALFTONE ART ==== */");
+  assert.ok(i > 0 && css.indexOf("/* ==== HALFTONE ART ==== */", i + 1) < 0, "exactly one block");
+  // only the picture block (/* ==== ART IMAGES ==== */) may follow it
+  const j = css.indexOf("/* ==== ART IMAGES ====", i);
+  const block = css.slice(i, j > 0 ? j : undefined);
+  assert.ok(!block.slice(30).includes("/* ===="), "another block sits inside it");
+  assert.match(block, /\.motion \.art\{animation:[^}]*backwards/);
+  assert.match(block, /pointer-events:none/);
+  assert.match(block, /z-index:-1/);
+  assert.match(block, /@media print\{\.art\{display:none\}\}/);
+  assert.match(block, /:root\[data-theme="light"\]\{--art-o:/);
+});
+t("art.js: still frame without html.motion, one loop, off-screen pause, redraw on theme and size, no random numbers", () => {
+  assert.match(artSrc, /classList\.contains\("motion"\)/);
+  assert.match(artSrc, /prefers-reduced-motion/);
+  assert.match(artSrc, /IntersectionObserver/);
+  assert.match(artSrc, /ResizeObserver/);
+  assert.match(artSrc, /MutationObserver[\s\S]*data-theme/);
+  assert.equal(count(artSrc, /requestAnimationFrame\(/g), 2, "one loop: a start and a re-arm");
+  assert.ok(!/Math\.random/.test(artSrc), "Math.random would change the picture for each visit");
+});
+t("art.js: no dollar sign, book name or emoji, and no regex lookbehind", () => {
+  assert.ok(!/\$/.test(artSrc), "dollar sign");
+  assert.ok(!/fanduel|draftkings|bally|betmgm|caesars|espn bet|kalshi|fliff|prizepicks|underdog|bet365/i.test(artSrc), "book name");
+  assert.ok(!/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(artSrc), "emoji");
+  assert.ok(!/\(\?<[=!]/.test(artSrc), "lookbehind");
 });
 
 fs.rmSync(TMP, {recursive: true, force: true});

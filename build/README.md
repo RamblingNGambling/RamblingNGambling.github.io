@@ -37,6 +37,7 @@ Pages, so serve `dist/` over http rather than opening the files directly.
 ```sh
 node verify/check-data.mjs      # equity curve vs hero, inlined data, filter counts
 node verify/check-sga.mjs       # the optional SGA page: good, bad and hostile sga.json files
+node verify/check-motion.mjs    # the scenes on the Tools tiles and tool pages, the hero dots and frame lines
 python3 verify/check-pages.py   # headless Chromium: every page at 390px and 1440px
 ```
 

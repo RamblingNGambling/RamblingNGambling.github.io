@@ -13,6 +13,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import {fileURLToPath} from "node:url";
+import {SCENES} from "./src/scenes.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(HERE, "src");
@@ -220,8 +221,12 @@ const TOOLS = [
 // Both the home index and the inner pages' "More tools" list each tool with
 // its name and a one-line summary, at every width. The home index numbers
 // them; "More tools" does not (the numbers would shift on every page).
-const toolIndex = (rel, skip, nonum) => TOOLS.filter(t => t[0] !== skip).map((t, i) =>
-  `<a class="tool" data-rv href="${rel}${t[0]}/">${nonum ? "" : `<span class="i">${String(i + 1).padStart(2, "0")}</span>`}<span class="nm">${h(t[1])}</span><span class="sd">${h(t[2])}</span></a>`).join("\n      ");
+// The home index also carries a small looping scene on each tile (scenes.mjs,
+// decorative: aria-hidden, so a tile's link name is unchanged).
+const toolIndex = (rel, skip, nonum) => TOOLS.filter(t => t[0] !== skip).map((t, i) => {
+  const sc = nonum ? "" : SCENES[t[0]];
+  return `<a class="tool${sc ? " has-sc" : ""}" data-rv href="${rel}${t[0]}/">${sc ? `<span class="tsc-box">${sc}</span>` : ""}${nonum ? "" : `<span class="i">${String(i + 1).padStart(2, "0")}</span>`}<span class="nm">${h(t[1])}</span><span class="sd">${h(t[2])}</span></a>`;
+}).join("\n      ");
 
 const XSVG = '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x=".5" y=".5" width="31" height="31" rx="7" fill="#0B0B0D" stroke="var(--line2)"/><path d="M5 21.5 L11.5 13 L17 17 L27 6.5" stroke="#C08BF5" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -600,6 +605,7 @@ const homeBody = `<main class="wrap" id="main">
 
   <!-- ============ 01 RECORD ============ -->
   <section class="record" id="record" aria-labelledby="rec-h">
+    <div class="hx-f" aria-hidden="true"><div class="hx-dots"><i></i></div><i class="hx-v"></i><i class="hx-v r"></i></div>
     <h1 class="sr" id="rec-h">Public Tracker: the record</h1>
     <p class="eyebrow" data-rv><span class="no">01</span><span>The record</span>
       <span class="ey-r"><span class="ey-sp">${span}</span><span class="dot"> · </span><span>Updated ${h(updDay)}<span class="ey-t">${h(updTime)}</span> · <a href="plays.json">plays.json</a></span></span></p>
@@ -732,9 +738,18 @@ const TOOL_PAGES = [
   ["poker", "poker", "Poker settlement calculator", "Settle a home poker game. Enter buy-ins and cash-outs, see who pays whom in the fewest payments, and split a miscount fairly across the table."],
   ["cheat-sheet", "cheat", "Percent to American odds", "Every percentage from 1 to 99, whole or in halves, with its fair American and decimal price."]
 ];
+// The tool's scene again, at the right of the page header (CSS shows it from
+// 1000px up and hides it below). src/pages/*.html stay as they are; the scene
+// is added here, to the one header each page has.
+const withHeroScene = (html, slug) => {
+  if (!SCENES[slug] || html.split('<header class="phero">').length !== 2 || html.split("</header>").length !== 2)
+    throw new Error(`${slug}: expected exactly one phero header`);
+  return html.replace('<header class="phero">', '<header class="phero has-sc">')
+    .replace("</header>", `  <div class="tsc-hero" data-rv>${SCENES[slug]}</div>\n    </header>`);
+};
 for (const [slug, key, title, desc] of TOOL_PAGES) {
   const body = `<main class="wrap" id="main">
-${read(slug + ".html")}
+${withHeroScene(read(slug + ".html"), slug)}
   ${moreTools(slug)}
 </main>`;
   built.push(page({slug, title, desc, active: "tool", tool: key, body, scripts: ["tools.js"]}));

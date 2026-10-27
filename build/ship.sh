@@ -10,6 +10,7 @@ SITE=../site
 node build.mjs
 node verify/check-data.mjs
 node verify/check-sga.mjs
+node verify/check-motion.mjs
 python3 verify/check-pages.py
 
 git -C "$SITE" switch redesign 2>/dev/null || git -C "$SITE" switch -c redesign

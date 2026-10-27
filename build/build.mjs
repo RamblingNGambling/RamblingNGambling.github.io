@@ -388,12 +388,10 @@ const sgaWord = r => r === "Win" ? "Win" : r === "Loss" ? "Loss" : r === "Void" 
 // Phosphor Regular icons (MIT), 256 grid, drawn as fills.
 const PH = {
   up: "M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z",
-  plus: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z",
   check: "M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"
 };
 const ico = d => `<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="${d}"/></svg>`;
 const XMARK = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/></svg>';
-const REPO_LOG = "https://github.com/RamblingNGambling/RamblingNGambling.github.io/commits/main";
 
 function sgaBody() {
   const {runs, cur, cs, tw, tl, tp} = SGAS;
@@ -421,7 +419,6 @@ function sgaBody() {
     cell("Avg points", cs.avg == null ? "–" : cs.avg.toFixed(1)),
     cell("Games", String(cur.g.length), runs.length > 1 ? `in run ${cur.n}` : "")
   ].filter(Boolean);
-  const pips = cur.g.slice(-20).map(x => x.r === "Win" ? tile("W") : x.r === "Loss" ? tile("L") : x.r === "Void" ? tile("P") : '<span class="t o" aria-hidden="true">O</span>').join("");
   const slips = [];
   for (const r of runs) for (const x of r.g) if (x.pf) slips.push({run: r.n, x});
   slips.reverse();
@@ -456,7 +453,6 @@ function sgaBody() {
       <dl class="sg-stats${cells.length % 2 ? " odd" : ""}">
         ${cells.join("\n        ")}
       </dl>
-      <div class="sg-pipsrow"><p class="sg-lab">Games, oldest first</p><div class="pips" role="img" aria-label="${cur.g.slice(-20).length} games, oldest first: ${cs.w} won, ${cs.l} lost, ${cs.v} sat out, ${cs.p} open">${pips}</div></div>
     </div>
   </section>`;
 
@@ -564,39 +560,6 @@ function sgaBody() {
     </div>
   </section>` : "";
 
-  // [question, answer as plain text, optional link appended to the answer]
-  const faq = [
-    ["What is an SGA 20+ bet?", "A bet that Shai Gilgeous-Alexander scores 20 or more points in one game. The price is different for every game."],
-    ["What happens on a miss?", "The run ends and the roll goes to zero. The page keeps the run, with the most it ever reached."],
-    ["What if Shai Gilgeous-Alexander does not play?", "The bet is voided, the game is marked as sat out and the roll stays where it was."],
-    ["Why is the roll shown as a multiple?", SGAS.usd
-      ? "The roll is how many times the first stake the run is worth. The only dollar figures on this page are what a run started with and what it is worth now. There is no book and no stake for any single game."
-      : "The roll is how many times the first stake the run is worth. This page shows no dollar figures and no book."],
-    ["How do I know the bets were placed?", `${slips.length ? "Each game has a screenshot of the bet slip, taken when the bet was placed, with the ticket number blurred. " : ""}The data for this page is saved in a public GitHub repository, and every update is a dated commit.`, ["See the commit history", REPO_LOG]],
-    SGAS.usd ? ["What does the profit mean?", "Profit is what the run is worth now minus what it started with. It counts every game in the run and nothing else."] : null,
-    ["Is this betting advice?", "No. It is a record of one experiment, kept in public. Nothing here tells you what to bet, and nothing is for sale. If betting stops being fun, stop."],
-    ["How often does the page update?", "When a new game or result is published. The updated time at the top shows the last change."]
-  ].filter(Boolean);
-  const faqLd = {"@context": "https://schema.org", "@type": "FAQPage",
-    mainEntity: faq.map(([q, a]) => ({"@type": "Question", name: q, acceptedAnswer: {"@type": "Answer", text: a}}))};
-  const questions = `<section class="sg-sec" id="faq" aria-labelledby="fq-h">
-    <div class="sg-head" data-rv>
-      <p class="eyebrow"><span class="no">${slips.length ? "05" : "04"}</span><span>Questions</span></p>
-      <h2 id="fq-h">Questions people ask</h2>
-    </div>
-    <div class="sg-faq" data-rv>
-      ${faq.map(([q, a, l]) => `<details class="sg-q"><summary><span>${h(q)}</span>${ico(PH.plus)}</summary><div class="a"><p>${h(a)}${l ? ` <a href="${l[1]}" target="_blank" rel="noopener noreferrer">${h(l[0])}</a>.` : ""}</p></div></details>`).join("\n      ")}
-    </div>
-  </section>`;
-
-  const final = `<section class="sg-sec sg-endsec" aria-labelledby="sg-end-h">
-    <div class="sg-card sg-end" data-rv>
-      <h2 id="sg-end-h">Follow the run.</h2>
-      <p>Nothing here is for sale, and there is nothing to sign up for.</p>
-      <div class="sg-cta">${cta}</div>
-    </div>
-  </section>`;
-
   const chart = {g: cur.g.map(x => ({r: x.r, f: round(x.f, 4), x: round(x.x, 4)})), peak: round(cs.peak, 4),
     label: "Bar chart of the roll going into each game of run " + cur.n};
   return `<main class="wrap sga" id="main">
@@ -606,11 +569,8 @@ function sgaBody() {
   ${how}
   ${games}
 ${gallery}
-  ${questions}
-  ${final}
 </main>
-<script type="application/json" id="sg-data">${JSON.stringify(chart).replace(/</g, "\\u003c")}</script>
-<script type="application/ld+json">${JSON.stringify(faqLd).replace(/</g, "\\u003c")}</script>`;
+<script type="application/json" id="sg-data">${JSON.stringify(chart).replace(/</g, "\\u003c")}</script>`;
 }
 
 /* ---------- home ---------- */

@@ -8,11 +8,11 @@
    with a warning and the rest of the site still builds; books, stakes and markup that sneak
    into the file reach no page; the only dollar figures are a run's starting stake and what it
    is worth now, and only when both are plain numbers; a screenshot is linked only if its file
-   is there. It also checks the page's own sections: the hero and its two identical X buttons,
-   the three "How it works" cards, the tagline, the FAQ and its FAQPage schema, the slip gallery
-   (and the section numbers that shift when it is absent), and the copy rules for the written
-   text (no em dash, no spaced hyphen, no emoji, no he/she/his/him/her). Exits non-zero on any
-   failure. No dependencies, no browser. */
+   is there. It also checks the page's own sections: the hero and its one X button, the three
+   "How it works" cards, the tagline, the slip gallery, that the FAQ, the closing card and the
+   games strip stay off the page, and the copy rules for the written text (no em dash, no
+   spaced hyphen, no emoji, no he/she/his/him/her). Exits non-zero on any failure. No
+   dependencies, no browser. */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -254,34 +254,23 @@ try {
     assert.equal(b.out.split("\n").find(l => l.startsWith("record")), record);
   });
 
-  test("the hero button and the closing button are the same link to the X profile, and every new-tab link opens safely", () => {
+  test("the hero has the one button, a link to the X profile, and every new-tab link opens safely", () => {
     const p = build(file([{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111"})]}])).read("sga/index.html");
     const btns = p.match(/<a class="sg-btn"[^>]*>[\s\S]*?<\/a>/g) || [];
-    assert.equal(btns.length, 2, "one in the hero, one in the closing card");
-    assert.equal(btns[0], btns[1], "identical markup");
+    assert.equal(btns.length, 1, "one button, in the hero");
     assert(btns[0].includes('href="https://x.com/gamblingv1ctim"'), "points at the X profile");
     assert(btns[0].includes('rel="noopener noreferrer"') && btns[0].includes('target="_blank"'));
-    const hero = p.match(/<section class="sg-hero"[\s\S]*?<\/section>/)[0], end = p.match(/<section class="sg-sec sg-endsec"[\s\S]*?<\/section>/)[0];
-    assert(hero.includes(btns[0]) && end.includes(btns[1]) && end.includes("Follow the run."), "one button in each place");
+    assert(p.match(/<section class="sg-hero"[\s\S]*?<\/section>/)[0].includes(btns[0]), "the button is in the hero");
     for (const a of p.match(/<a [^>]*target="_blank"[^>]*>/g)) assert(a.includes('rel="noopener noreferrer"'), a);
   });
 
-  test("the FAQ schema parses, is a FAQPage, matches the visible questions and answers, and has no markup or money", () => {
+  test("no FAQ, no FAQ schema, no closing card and no games strip on the page", () => {
     for (const run of [{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111"})]}, {n: 1, st: "live", usd: {start: 30, bank: 34.48}, g: [game()]}]) {
-      const p = build(file([run])).read("sga/index.html"), raw = ldOf(p);
-      assert(raw, "the ld+json script is on the page");
-      assert(!raw.includes("<") && !/\$\d/.test(raw), "no markup and no dollar figure in the schema: " + raw.slice(0, 80));
-      const ld = JSON.parse(raw), vis = textOf(p);
-      assert.equal(ld["@context"], "https://schema.org");
-      assert.equal(ld["@type"], "FAQPage");
-      assert(Array.isArray(ld.mainEntity) && ld.mainEntity.length >= 7);
-      assert.equal(ld.mainEntity.length, (p.match(/<details class="sg-q">/g) || []).length, "one schema question for each question on the page");
-      for (const q of ld.mainEntity) {
-        assert.equal(q["@type"], "Question");
-        assert(q.name && vis.includes(q.name), "question not on the page: " + q.name);
-        assert.equal(q.acceptedAnswer["@type"], "Answer");
-        assert(q.acceptedAnswer.text && vis.includes(q.acceptedAnswer.text), "answer not on the page: " + q.name);
-      }
+      const p = build(file([run])).read("sga/index.html"), t = textOf(p);
+      assert(!p.includes("<details") && !p.includes('id="faq"') && !t.includes("Questions people ask"), "no questions");
+      assert(!ldOf(p) && !p.includes("FAQPage"), "no FAQ schema");
+      assert(!p.includes("sg-endsec") && !t.includes("Follow the run."), "no closing card");
+      assert(!p.includes("sg-pipsrow") && !t.includes("Games, oldest first"), "no games strip in the roll card");
     }
   });
 
@@ -312,9 +301,8 @@ try {
       const parts = [
         ...(p.match(/<p class="sg-lead"[^>]*>[\s\S]*?<\/p>/g) || []),
         ...(p.match(/<p class="sg-tagline"[^>]*>[\s\S]*?<\/p>/g) || []),
-        ...(p.match(/<div class="sg-st">[\s\S]*?<\/div>/g) || []),
-        ...(p.match(/<div class="a">[\s\S]*?<\/div>/g) || [])];
-      assert(parts.length >= 1 + 1 + 3 + 7, "found the lead, the tagline, three cards and the answers: " + parts.length);
+        ...(p.match(/<div class="sg-st">[\s\S]*?<\/div>/g) || [])];
+      assert(parts.length >= 1 + 1 + 3, "found the lead, the tagline and three cards: " + parts.length);
       for (const part of parts) assert.deepEqual(broken(textOf(part)), [], textOf(part));
     }
   });
@@ -335,31 +323,16 @@ try {
     assert.equal((p.match(/<p class="n">Step \d<\/p>/g) || []).length, 3);
   });
 
-  test("the FAQ's money answers follow the dollar figures: none, or only what a run started with and what it is worth now", () => {
-    let p = build(file([{n: 1, st: "live", g: [game()]}])).read("sga/index.html");
-    assert(p.includes("This page shows no dollar figures and no book."), "no dollars: says so");
-    assert(!p.includes("What does the profit mean?") && !p.includes("The only dollar figures"), "no dollars: no profit question");
-    assert.equal((p.match(/<details class="sg-q">/g) || []).length, 7);
-    p = build(file([{n: 1, st: "live", usd: {start: 30, bank: 34.48}, g: [game()]}])).read("sga/index.html");
-    assert(p.includes("The only dollar figures on this page are what a run started with and what it is worth now."), "dollars: says what they are");
-    assert(!p.includes("This page shows no dollar figures"), "dollars: does not claim there are none");
-    assert(p.includes("What does the profit mean?"), "dollars: the profit question is there");
-    assert.equal((p.match(/<details class="sg-q">/g) || []).length, 8);
-    assert.deepEqual(dollars(p), ["$30", "$34.48"]);
-  });
-
-  test("the slip gallery is there only when a screenshot is, and the FAQ section number follows it", () => {
+  test("the slip gallery is there only when a screenshot is", () => {
     const num = (p, name) => (p.match(new RegExp('<span class="no">(\\d\\d)</span><span>' + name + "</span>")) || [])[1];
     for (const run of [{n: 1, st: "live", g: [game()]}, {n: 1, st: "live", g: [game({pf: "bbbbbbbb22222222"})]}]) {
       const p = build(file([run])).read("sga/index.html");
       assert(!p.includes('id="proof"') && !p.includes("Proof of placement") && !p.includes("sg-slips") && !p.includes("proof/"), "no screenshot file: no gallery");
       assert.equal(num(p, "Game by game"), "03");
-      assert.equal(num(p, "Questions"), "04", "without the gallery the FAQ is section 04");
     }
     const p = build(file([{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111"})]}])).read("sga/index.html");
     assert(p.includes('id="proof"') && p.includes("proof/aaaaaaaa11111111.jpg"));
     assert.equal(num(p, "Proof of placement"), "04");
-    assert.equal(num(p, "Questions"), "05", "with the gallery the FAQ is section 05");
   });
 } finally {
   fs.rmSync(TMP, {recursive: true, force: true});

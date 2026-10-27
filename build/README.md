@@ -138,9 +138,9 @@ page" in `src/site.css`, and `src/sga.js`). From top to bottom:
    @gamblingv1ctim on X") and a note with the update time and a link to `sga.json`. The
    lead line opens with "Started with $30 on Oct 25." when dollar figures are on.
 2. **The roll card**, beside the hero (under it on a phone). A status pill, the big
-   multiple of the first stake (it counts up), one sentence on where the run stands, a
-   stats grid and a row of pips for the last 20 games. The grid has the profit (only with
-   dollar figures), wins in a row, best roll, record, average points and games. From two
+   multiple of the first stake (it counts up), one sentence on where the run stands and a
+   stats grid. The grid has the profit (only with dollar figures), wins in a row, best roll,
+   record, average points and games. There is no row of game pips (removed 26 Oct). From two
    wins in a row, a short line says how likely that streak was at the prices taken.
 3. **01 The ladder.** A bar chart of the roll after each game, with a legend.
 4. **The tagline.** One large line. Each word goes from muted to full ink as the reader
@@ -151,10 +151,10 @@ page" in `src/site.css`, and `src/sga.js`). From top to bottom:
 6. **03 Game by game.** A table of every game in the current run. A second table lists
    the earlier runs, when there are any.
 7. **04 Proof of placement.** The slip screenshots, with a viewer. Only if a game has
-   one. (Without it, Questions is numbered 04.)
-8. **Questions.** Short answers in native `<details>` boxes, with a matching FAQPage
-   JSON-LD block. The profit question shows only with dollar figures.
-9. **Closing card.** "Follow the run." with the same button as the hero.
+   one. It is the last section.
+
+There is no Questions section, no FAQPage block and no closing card. Darren removed them
+on 26 October 2026. The hero button is the only follow button.
 
 Design rules (from the landing-page-design skill):
 

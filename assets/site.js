@@ -104,5 +104,25 @@ function onReveal(el,d){
   });
 })();
 
+/* ---------- tool scenes ---------- */
+// The looping pictures on the home tiles (and tool-page headers). The CSS draws
+// the finished picture; here each scene is armed, then runs only while it is on
+// screen, and its first view starts at 1280ms, where the rebuild begins. With no
+// observer, reduced motion or an unpainted tab nothing here fires and the still stays.
+(function(){
+  const scenes=[...document.querySelectorAll(".tsc")];
+  if(!scenes.length||!root.classList.contains("motion")||!("IntersectionObserver" in window))return;
+  const seen=new WeakSet();
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    const el=e.target;
+    el.classList.toggle("run",e.isIntersecting);
+    if(e.isIntersecting&&!seen.has(el)){
+      seen.add(el);
+      if(el.getAnimations)el.getAnimations({subtree:true}).forEach(a=>{a.currentTime=1280});
+    }
+  }),{threshold:.3});
+  scenes.forEach(el=>{el.classList.add("armed");io.observe(el)});
+})();
+
 window.PT={$,moving,rise,EASE,countUp,onReveal:h=>hooks.push(h)};
 })();

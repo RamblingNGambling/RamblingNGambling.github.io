@@ -1,0 +1,39 @@
+{
+  "units_only": false,
+  "note": "Every roll is a multiple of the first stake. Dollar figures, when present, are what a run started with and what it is worth now. There is no book and no per-game stake in this file.",
+  "updated": "Oct 27, 2026, 2:16 PM EDT",
+  "profit_usd": 7.26,
+  "runs": [
+    {
+      "run": 1,
+      "status": "live",
+      "started_with_usd": 30,
+      "worth_now_usd": 37.26,
+      "profit_usd": 7.26,
+      "games": [
+        {
+          "date": "2026-10-25",
+          "opponent": "vs LAC",
+          "line": 20,
+          "price": -670,
+          "result": "Win",
+          "points": 34,
+          "roll_before": 1,
+          "roll_after": 1.15,
+          "slip": "sga/proof/d31f3f3253146c61.jpg"
+        },
+        {
+          "date": "2026-10-26",
+          "opponent": "vs PHX",
+          "line": 20,
+          "price": -1250,
+          "result": "Win",
+          "points": null,
+          "roll_before": 1.15,
+          "roll_after": 1.242,
+          "slip": "sga/proof/fe92c787ac810db6.jpg"
+        }
+      ]
+    }
+  ]
+}

@@ -98,7 +98,10 @@ if(motion&&tag){
 const deco=document.documentElement.classList.contains("deco")&&"IntersectionObserver" in window;
 const steps=[...document.querySelectorAll(".sg-step")];
 if(deco&&steps.length){
-  const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("run",e.isIntersecting)),{threshold:.3});
-  steps.forEach(s=>{s.classList.add("armed");io.observe(s)});
+  if(window.PT&&PT.loops)PT.loops(steps,()=>0);     // the clock is set from script (site.js); the CSS only holds the pictures paused
+  else{
+    const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("run",e.isIntersecting)),{threshold:.3});
+    steps.forEach(s=>{s.classList.add("armed");io.observe(s)});
+  }
 }
 })();

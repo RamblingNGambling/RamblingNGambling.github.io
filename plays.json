@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 27, 2026, 10:47 PM EDT",
+  "updated": "Oct 28, 2026, 2:25 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -5691,10 +5691,10 @@
       "play": "Michael Porter Jr Over 19.5 Points",
       "odds": -125,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.2,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-27"
     },
     {
       "date": "2026-10-27",
@@ -5704,10 +5704,10 @@
       "play": "Stephon Castle Over 1.5 Threes",
       "odds": 102,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.255,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-27"
     },
     {
       "date": "2026-10-27",
@@ -5717,8 +5717,8 @@
       "play": "Damian Lillard Over 19.5 Points",
       "odds": -113,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.2212,
       "post": "",
       "game_date": ""
     },
@@ -5730,10 +5730,10 @@
       "play": "Darius Acuff Jr o19.5 Points",
       "odds": -117,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-27"
     },
     {
       "date": "2026-10-27",
@@ -5743,10 +5743,10 @@
       "play": "Payton Pritchard Over 4.5 Assists",
       "odds": 113,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.2825,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-27"
     },
     {
       "date": "2026-10-27",
@@ -5756,10 +5756,10 @@
       "play": "Derrick White o4.5 Assists",
       "odds": -141,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.1773,
       "post": "",
-      "game_date": ""
+      "game_date": "2026-10-27"
     },
     {
       "date": "2026-10-27",
@@ -5769,8 +5769,112 @@
       "play": "Cade Cunningham Over 22.5 Points",
       "odds": -120,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": "2026-10-27"
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Lillard 20+ Points + Acuff 20+ Points + Porter 20+ Points",
+      "odds": 426,
+      "units": 0.025,
+      "result": "Loss",
+      "units_pl": -0.025,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Lillard 20+ Points + Acuff 20+ Points",
+      "odds": 210,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Lillard 20+ Points + Porter 20+ Points",
+      "odds": 200,
+      "units": 0.05,
+      "result": "Win",
+      "units_pl": 0.0998,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Acuff 20+ Points + Porter 20+ Points",
+      "odds": 199,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Lillard 25+ Points + Acuff 25+ Points + Porter 25+ Points",
+      "odds": 2534,
+      "units": 0.0125,
+      "result": "Loss",
+      "units_pl": -0.0125,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Lillard 25+ Points + Acuff 25+ Points",
+      "odds": 796,
+      "units": 0.025,
+      "result": "Loss",
+      "units_pl": -0.025,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Lillard 25+ Points + Porter 25+ Points",
+      "odds": 808,
+      "units": 0.025,
+      "result": "Loss",
+      "units_pl": -0.025,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Acuff 25+ Points + Porter 25+ Points",
+      "odds": 753,
+      "units": 0.025,
+      "result": "Loss",
+      "units_pl": -0.025,
       "post": "",
       "game_date": ""
     }

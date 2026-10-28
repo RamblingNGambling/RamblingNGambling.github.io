@@ -58,14 +58,13 @@ t("every scene is hidden from screen readers", () => {
   assert.equal(svgs.length, 8);
   for (const s of svgs) assert.match(s, /aria-hidden="true"/);
 });
-t("a tile's link text is the number, the name and the summary, with or without its scene", () => {
+t("a tile's link text is the name and the summary, with or without its scene", () => {
   const tools = home.split('aria-label="Tools"')[1].split("</nav>")[0];
   const tiles = tools.match(/<a class="tool has-sc"[\s\S]*?<\/a>/g);
   assert.equal(tiles.length, 8);
-  tiles.forEach((a, i) => {
+  tiles.forEach(a => {
     const text = a.replace(/<svg[\s\S]*?<\/svg>/g, "").replace(/<[^>]+>/g, "|").split("|").filter(Boolean);
-    assert.equal(text.length, 3, a.slice(0, 80));
-    assert.equal(text[0], String(i + 1).padStart(2, "0"));
+    assert.equal(text.length, 2, a.slice(0, 80));
   });
 });
 t("tool pages: one scene in each header, none in the More tools strip", () => {

@@ -62,10 +62,8 @@ button,select,input{font:inherit;color:inherit}
 ::selection{background:var(--acc);color:var(--on-acc)}
 
 /* micro-accent: mono, small caps-style label */
-.eyebrow,.kicker{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0;
+.kicker{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0;
   font:500 12px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg3)}
-.eyebrow .no{display:inline-flex;align-items:center;gap:10px;color:var(--fg2)}
-.eyebrow .no::after{content:"";width:18px;height:1px;background:var(--line3)}
 .kicker b{color:var(--fg2);font-weight:500}
 .kicker a{color:var(--fg2);text-underline-offset:3px;text-decoration-color:var(--line3)}
 .kicker a:hover{color:var(--fg)}
@@ -98,9 +96,6 @@ button,select,input{font:inherit;color:inherit}
 .record::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(640px 400px at 20% 0%,rgba(192,139,245,.06),transparent 70%)}
 :root[data-theme="light"] .record::before{display:none}
-.record>.eyebrow .ey-r{margin-left:auto;text-transform:none;letter-spacing:0;font-size:13.5;font-weight:400}
-.ey-r a{color:var(--fg2);text-underline-offset:3px;text-decoration-color:var(--line3)}
-.ey-r a:hover{color:var(--fg)}
 .hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px 64px;align-items:end;margin-top:22px}
 .big{margin:0;font:500 clamp(60px,9.4vw,124px)/.86 var(--sans);letter-spacing:-.052em;color:var(--acc);
   white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -119,7 +114,6 @@ button,select,input{font:inherit;color:inherit}
 .ledger>.lform{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;
   margin-top:16px;padding:14px 0 0;border-left:0;border-top:1px solid var(--line)}
 .lform dd{margin:0;min-width:0}
-.ey-r>span{white-space:nowrap}
 
 /* ---- panels ---- */
 .panel{background:var(--s1);border:1px solid var(--line);border-radius:var(--r)}
@@ -301,10 +295,9 @@ table{width:100%;border-collapse:collapse}
 
 /* ---- 04 tools: an index ruled like a printed contents page ---- */
 .tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
-.tool{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"i pth" "nm nm" "ds ds";align-content:start;
+.tool{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"nm nm" "ds ds";align-content:start;
   gap:0 10px;padding:13px 20px 16px;border-left:1px solid var(--line);border-bottom:1px solid var(--line);text-decoration:none;color:inherit;min-width:0}
 .tool:nth-child(4n+1){border-left:0;padding-left:0}
-.tool .i{grid-area:i;font:500 12px var(--mono);color:var(--fg3)}
 .tool .pth{grid-area:pth;justify-self:end;font:12px var(--mono);color:var(--fg3)}
 .tool .nm{grid-area:nm;margin-top:10px;font-size:16;font-weight:500;letter-spacing:-.012em}
 .tool .ds{grid-area:ds;margin-top:5px;font-size:14.5;line-height:1.5;color:var(--fg2)}
@@ -326,10 +319,9 @@ table{width:100%;border-collapse:collapse}
    a card bottom-right, a sheet along the bottom edge on phones. Lilac on
    the follow button only. home.js pads the body by the height it covers. ---- */
 .nudge{position:fixed;right:20px;bottom:20px;z-index:30;width:320px;max-width:calc(100vw - 40px);
-  display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"ey x" "t t" "go go";align-items:center;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t x" "go go";align-items:start;
   padding:14px 14px 16px 18px;background:var(--s1);border:1px solid var(--line2);border-radius:var(--r)}
-.nudge .eyebrow{grid-area:ey}
-.nd-t{grid-area:t;margin:6px 0 0;font-size:15;line-height:1.45;font-weight:500;letter-spacing:-.008em;color:var(--fg)}
+.nd-t{grid-area:t;margin:0;font-size:15;line-height:1.45;font-weight:500;letter-spacing:-.008em;color:var(--fg)}
 .nd-go{grid-area:go;justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:34px;margin-top:12px;padding:0 13px;
   border-radius:var(--r-sm);background:var(--acc);color:var(--on-acc);font-size:14.5;font-weight:500;text-decoration:none;white-space:nowrap;
   transition:transform .2s var(--ease)}
@@ -586,7 +578,6 @@ a.bk:hover .bw{color:var(--acc)}
 .brk tbody tr{transition:background .15s}
 
 /* tools: name nudges, underline sweeps in from the left and out to the right */
-.tool .i{transition:color .15s}
 .tool .nm{position:relative;justify-self:start;transition:color .15s,transform .25s var(--ease)}
 .tool .nm::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--fg);
   transform:scaleX(0);transform-origin:right center;transition:transform .32s var(--ease)}
@@ -605,7 +596,6 @@ a.bk:hover .bw{color:var(--acc)}
   .brk tbody tr:hover{background:var(--s2)}
   .brk tbody:hover tr:not(:hover) .dbar i{opacity:.35}
   .brk tbody tr:hover .dbar i{transform:scaleY(1.5)}
-  .tool:hover .i{color:var(--acc)}
   .tool:hover .nm{transform:translateX(3px)}
   .tool:hover .nm::after{transform:scaleX(1);transform-origin:left center}
   a.bk:hover .bw{transform:translateX(3px)}
@@ -710,11 +700,8 @@ a.bk:hover .bw{color:var(--acc)}
 }
 @media (max-width:520px){
   .record,.phero{padding-top:26px}
-  .record>.eyebrow .ey-r{margin-left:0;width:100%}
-  /* phones get a thinner record: no date span or time in the eyebrow, no
-     sublabels under the four figures, no last-20 strip (the ticker covers recent form) */
-  .ey-r .dot,.ey-r .ey-sp,.ey-r .ey-t{display:none}
-  .ey-r>span{display:block}
+  /* phones get a thinner record: no sublabels under the four figures,
+     no last-20 strip (the ticker covers recent form) */
   .ledger p,.ledger>.lform{display:none}
   .chart{min-height:160px}
   .more .mo-h{display:none}
@@ -782,7 +769,7 @@ a.bk:hover .bw{color:var(--acc)}
 .sg-sec{padding-top:80px}
 .sg-head{display:grid;gap:12px;max-width:680px;margin-bottom:32px}
 .sg-head h2{font-size:30px;line-height:36px;font-weight:600;letter-spacing:-.025em}
-.sg-head>p:not(.eyebrow){font-size:16px;line-height:24px;color:var(--fg2);text-wrap:pretty}
+.sg-head>p{font-size:16px;line-height:24px;color:var(--fg2);text-wrap:pretty}
 .sg-lab{font:500 12px/16px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg3)}
 
 /* reveals: rise 32px and fade, once, on the base curve (the shared data-rv observer drives them) */
@@ -793,7 +780,6 @@ a.bk:hover .bw{color:var(--acc)}
 
 /* hero */
 .sg-hero{display:grid;gap:40px;padding-top:32px}
-.sg-kicker{font:500 12px/16px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg3)}
 .sg-h1{max-width:680px;margin-top:16px;padding-bottom:4px;font-size:36px;line-height:40px;font-weight:600;letter-spacing:-.03em;text-wrap:balance;
   background:linear-gradient(90deg,var(--sg-g1),var(--sg-g2));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 .sg-lead{max-width:680px;margin-top:16px;font-size:18px;line-height:28px;color:var(--fg2);text-wrap:pretty}
@@ -1022,7 +1008,7 @@ a.bk:hover .bw{color:var(--acc)}
    stroke-dashoffset and clip-path move. */
 
 /* the tile: a scene row above the number, name and line */
-.tool.has-sc{grid-template-areas:"sc sc" "i pth" "nm nm" "ds ds";padding-top:16px}
+.tool.has-sc{grid-template-areas:"sc sc" "nm nm" "ds ds";padding-top:16px}
 .tool.has-sc .tsc-box{grid-area:sc;display:block;height:96px;margin-bottom:12px;border:1px solid var(--line);border-radius:8px;
   background:var(--s1);overflow:hidden;transition:border-color .15s}
 @media (hover:hover){.tool.has-sc:hover .tsc-box{border-color:var(--line3)}}

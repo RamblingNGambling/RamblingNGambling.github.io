@@ -227,13 +227,12 @@ const TOOLS = [
   ["cheat-sheet", "Percent to odds", "Fair odds for every percent, 1 to 99"]
 ];
 // Both the home index and the inner pages' "More tools" list each tool with
-// its name and a one-line summary, at every width. The home index numbers
-// them; "More tools" does not (the numbers would shift on every page).
+// its name and a one-line summary, at every width.
 // The home index also carries a small looping scene on each tile (scenes.mjs,
 // decorative: aria-hidden, so a tile's link name is unchanged).
-const toolIndex = (rel, skip, nonum) => TOOLS.filter(t => t[0] !== skip).map((t, i) => {
+const toolIndex = (rel, skip, nonum) => TOOLS.filter(t => t[0] !== skip).map(t => {
   const sc = nonum ? "" : SCENES[t[0]];
-  return `<a class="tool${sc ? " has-sc" : ""}" data-rv href="${rel}${t[0]}/">${sc ? `<span class="tsc-box">${sc}</span>` : ""}${nonum ? "" : `<span class="i">${String(i + 1).padStart(2, "0")}</span>`}<span class="nm">${h(t[1])}</span><span class="sd">${h(t[2])}</span></a>`;
+  return `<a class="tool${sc ? " has-sc" : ""}" data-rv href="${rel}${t[0]}/">${sc ? `<span class="tsc-box">${sc}</span>` : ""}<span class="nm">${h(t[1])}</span><span class="sd">${h(t[2])}</span></a>`;
 }).join("\n      ");
 
 const XSVG = '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x=".5" y=".5" width="31" height="31" rx="7" fill="#0B0B0D" stroke="var(--line2)"/><path d="M5 21.5 L11.5 13 L17 17 L27 6.5" stroke="#C08BF5" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -458,7 +457,6 @@ function sgaBody() {
   const hero = `<section class="sg-hero" aria-labelledby="sg-h1">
     ${artBlock("sga")}
     <div class="sg-copy">
-      <p class="sg-kicker" data-rv>SGA 20+ rollover</p>
       <h1 class="sg-h1" id="sg-h1" data-rv>Betting SGA 20+ points <span class="sg-br">for the season.</span></h1>
       <p class="sg-lead" data-rv>${started}Every win goes straight onto the next game, and one miss ends the run.</p>
       <div class="sg-cta" data-rv>${cta}</div>
@@ -480,7 +478,6 @@ function sgaBody() {
 
   const ladder = `<section class="sg-sec" id="roll" aria-labelledby="sg-lad-h">
     <div class="sg-head" data-rv>
-      <p class="eyebrow"><span class="no">01</span><span>The ladder</span></p>
       <h2 id="sg-lad-h">Run ${cur.n}, bar by bar</h2>
     </div>
     <div class="sg-card sg-chart" data-rv>
@@ -496,7 +493,6 @@ function sgaBody() {
   const fw = cur.g.find(x => x.r === "Win"), lg = cur.g[cur.g.length - 1];
   const how = `<section class="sg-sec" aria-labelledby="sg-how-h">
     <div class="sg-head" data-rv>
-      <p class="eyebrow"><span class="no">02</span><span>How it works</span></p>
       <h2 id="sg-how-h">How one run works</h2>
     </div>
     <div class="sg-how">
@@ -548,7 +544,6 @@ function sgaBody() {
 
   const games = `<section class="sg-sec" id="games" aria-labelledby="gm-h">
     <div class="sg-head" data-rv>
-      <p class="eyebrow"><span class="no">03</span><span>Game by game</span></p>
       <h2 id="gm-h">Run ${cur.n}, every game in order</h2>
     </div>
     <div class="sg-card sg-tbl sg-games" data-rv>
@@ -571,7 +566,6 @@ function sgaBody() {
   const gallery = slips.length ? `
   <section class="sg-sec" id="proof" aria-labelledby="pf-h">
     <div class="sg-head" data-rv>
-      <p class="eyebrow"><span class="no">04</span><span>Proof of placement</span></p>
       <h2 id="pf-h">The bet slip for each game</h2>
       <p>A screenshot taken when each bet was placed. Ticket numbers are blurred before a screenshot is saved.</p>
     </div>
@@ -620,8 +614,6 @@ const homeBody = `<main class="wrap" id="main">
   <section class="record" id="record" aria-labelledby="rec-h">
     <div class="hx-f" aria-hidden="true">${artBlock("home")}<i class="hx-v"></i><i class="hx-v r"></i></div>
     <h1 class="sr" id="rec-h">Public Tracker: the record</h1>
-    <p class="eyebrow" data-rv><span class="no">01</span><span>The record</span>
-      <span class="ey-r"><span>Updated ${h(updDay)}<span class="ey-t">${h(updTime)}</span></span></span></p>
     <div class="hero">
       <div>
         <p class="big${A.u < -0.004 ? " down" : ""}" data-rv data-to="${round(A.u, 6)}" aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span id="cu-i">${netAbs[0]}</span><span class="pt">.</span><span id="cu-d">${netAbs[1]}</span><span class="u">u</span></p>
@@ -654,7 +646,7 @@ const homeBody = `<main class="wrap" id="main">
   <!-- ============ 02 LOG ============ -->
   <section id="log" aria-labelledby="log-h">
     <div class="shead" data-rv>
-      <div><p class="eyebrow"><span class="no">02</span><span>Play log</span></p><h2 id="log-h">Every play, newest first</h2></div>
+      <div><h2 id="log-h">Every play, newest first</h2></div>
       <div class="tally" id="tally" aria-live="polite"><span>Loading</span></div>
     </div>
 
@@ -683,7 +675,7 @@ const homeBody = `<main class="wrap" id="main">
   <!-- ============ 03 BREAKDOWN + READING ============ -->
   <section id="breakdown" aria-labelledby="brk-h">
     <div class="shead" data-rv>
-      <div><p class="eyebrow"><span class="no">03</span><span>Breakdown</span></p><h2 id="brk-h">Where the units came from</h2></div>
+      <div><h2 id="brk-h">Where the units came from</h2></div>
       <div class="seg" role="tablist" aria-label="Split by" id="brk-tabs">
         <button type="button" role="tab" id="tab-sport" aria-selected="true" aria-controls="brk-panel" data-k="sport">Sport</button>
         <button type="button" role="tab" id="tab-market" aria-selected="false" aria-controls="brk-panel" data-k="market" tabindex="-1">Market</button>
@@ -706,7 +698,7 @@ const homeBody = `<main class="wrap" id="main">
   <!-- ============ 04 TOOLS ============ -->
   <section id="tools" aria-labelledby="tools-h">
     <div class="shead" data-rv>
-      <div><p class="eyebrow"><span class="no">04</span><span>Tools</span></p><h2 id="tools-h">The arithmetic around a bet slip</h2></div>
+      <div><h2 id="tools-h">The arithmetic around a bet slip</h2></div>
     </div>
     <nav class="tools" aria-label="Tools">
       ${toolIndex("", "")}
@@ -716,7 +708,6 @@ const homeBody = `<main class="wrap" id="main">
 
 <!-- first visit only: home.js shows it after 25s or 60% scroll, once ever -->
 <div class="nudge" id="nudge" role="dialog" aria-label="Follow @${HANDLE} on X" hidden>
-  <p class="eyebrow">New here</p>
   <p class="nd-t">Plays go up on X before they land here.</p>
   <a class="nd-go" id="nudge-go" href="https://x.com/${HANDLE}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z"/></svg>Follow @${HANDLE}<span class="sr"> (opens in a new tab)</span></a>
   <button class="nd-x" id="nudge-x" type="button" aria-label="Dismiss"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>

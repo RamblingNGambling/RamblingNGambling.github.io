@@ -399,7 +399,7 @@ function sgaFloat(rel) {
   const t = cur.st === "bust" ? `last run peaked ${sx(cs.peak)}` : cur.st === "cashed" ? `cashed out at ${sx(cs.held)}`
     : `${sx(cs.held)}${SGAS.usd ? " · " + usdSigned(SGAS.profit) : ""}`;
   return `<div class="sgfloat" id="sgfloat">
-  <a href="${rel}sga/"><span class="sgdot" aria-hidden="true"></span><span class="sgtxt"><b>SGA 20+ for the season</b><i>${h(t)}</i></span><span class="sga" aria-hidden="true">&rarr;</span></a>
+  <a href="${rel}sga/">${cur.st === "live" ? '<span class="sgdot" aria-hidden="true"></span>' : ""}<span class="sgtxt"><b>SGA 20+ for the season</b><i>${h(t)}</i></span><span class="sga" aria-hidden="true">&rarr;</span></a>
   <button type="button" class="sgfx" aria-label="Hide this">&times;</button>
 </div>
 <script>(function(){var b=document.getElementById("sgfloat");if(!b)return;try{if(localStorage.getItem("pt-sga-seen")){b.remove();return}}catch(e){}var x=b.querySelector(".sgfx");if(x)x.onclick=function(){try{localStorage.setItem("pt-sga-seen","1")}catch(e){}b.remove()}})();</script>`;
@@ -424,7 +424,7 @@ function sgaBody() {
   else if (cs.open) sub = `${cs.w ? plural(cs.w, "win") + " in a row. " : ""}The open game${cs.open.o ? " " + cs.open.o : ""} is at ${sgaOdds(cs.open.p)}: a hit takes it to ${sx(cs.held * sgaMult(cs.open.p))}, a miss ends the run.`;
   else sub = cs.w ? `${plural(cs.w, "win")} in a row. Waiting on the next game.` : "Waiting on the first game.";
   const prob = cs.w >= 2 && !bust
-    ? `<p class="sg-prob">At the prices taken, getting this far was about a ${cs.prob < 0.01 ? "1 in " + Math.round(1 / cs.prob) : Math.round(cs.prob * 100) + "%"} chance by the books’ own numbers, margin included.</p>` : "";
+    ? `<p class="sg-prob">At the prices taken, getting this far was about a ${cs.prob < 0.01 ? "1 in " + Math.round(1 / cs.prob) : Math.round(cs.prob * 100) + "%"} chance by the books' own numbers, margin included.</p>` : "";
   const r1 = runs[0], started = r1.usd ? `Started with ${usdFmt(r1.usd.start)} on ${dmd(r1.g[0].d)}. ` : "";
   const pf = SGAS.profit;
   const pfSub = runs.length > 1 ? `${plural(runs.length, "run")} combined`
@@ -482,7 +482,6 @@ function sgaBody() {
     <div class="sg-head" data-rv>
       <p class="eyebrow"><span class="no">01</span><span>The ladder</span></p>
       <h2 id="sg-lad-h">Run ${cur.n}, bar by bar</h2>
-      <p>Each bar is the roll after a game, as a multiple of the first stake.</p>
     </div>
     <div class="sg-card sg-chart" data-rv>
       <div class="chart sgladder" id="sg-ladder"></div>
@@ -512,7 +511,7 @@ function sgaBody() {
         <div class="sg-st">
           <p class="n">Step 1</p>
           <h3>One bet on each game</h3>
-          <p>A single bet each game: Shai Gilgeous-Alexander to score 20 or more points. The price is whatever the book is offering that day.</p>
+          <p>The bet is Shai Gilgeous-Alexander to score 20 or more points. The price is whatever the book is offering that day.</p>
         </div>
       </article>
       <article class="sg-card sg-step" data-rv>
@@ -574,7 +573,7 @@ function sgaBody() {
     <div class="sg-head" data-rv>
       <p class="eyebrow"><span class="no">04</span><span>Proof of placement</span></p>
       <h2 id="pf-h">The bet slip for each game</h2>
-      <p>A screenshot taken when each bet was placed. Ticket numbers are blurred before a screenshot is saved. Tap one to enlarge it.</p>
+      <p>A screenshot taken when each bet was placed. Ticket numbers are blurred before a screenshot is saved.</p>
     </div>
     <div class="sg-slips" data-rv>
       ${slips.map(s => { const alt = `Bet slip, ${dmd(s.x.d)}${s.x.o ? ", " + s.x.o : ""}, ${sgaOdds(s.x.p)}`;
@@ -596,12 +595,9 @@ ${gallery}
 }
 
 /* ---------- home ---------- */
-const first = settled.length ? settled[0].date : "", last = settled.length ? settled[settled.length - 1].date : "";
-const span = !first ? "nothing settled yet"
-  : first.slice(0, 4) === last.slice(0, 4) ? `${dmd(first)} to ${dlong(last)}` : `${dlong(first)} to ${dlong(last)}`;
 const netAbs = Math.abs(A.u).toFixed(2).split(".");
 const netWord = A.u < -0.004 ? "Minus" : A.u > 0.004 ? "Plus" : "";
-// "Oct 7, 2026, 1:24 AM EDT" reads as "Oct 7, 1:24 AM EDT" beside a span that already names the year.
+// "Oct 7, 2026, 1:24 AM EDT" is shown as "Oct 7, 1:24 AM EDT"; the footer carries the year.
 const updShort = (RAW.updated || "–").replace(/^([A-Z][a-z]+\.? \d{1,2}), \d{4}(,)?/, "$1$2");
 // Phones show only the day ("Updated Oct 7"); the time sits in its own span so CSS can drop it.
 const [, updDay = updShort, updTime = ""] = updShort.match(/^([A-Z][a-z]+\.? \d{1,2})(,.*)?$/) || [];
@@ -625,7 +621,7 @@ const homeBody = `<main class="wrap" id="main">
     <div class="hx-f" aria-hidden="true">${artBlock("home")}<i class="hx-v"></i><i class="hx-v r"></i></div>
     <h1 class="sr" id="rec-h">Public Tracker: the record</h1>
     <p class="eyebrow" data-rv><span class="no">01</span><span>The record</span>
-      <span class="ey-r"><span class="ey-sp">${span}</span><span class="dot"> · </span><span>Updated ${h(updDay)}<span class="ey-t">${h(updTime)}</span> · <a href="plays.json">plays.json</a></span></span></p>
+      <span class="ey-r"><span>Updated ${h(updDay)}<span class="ey-t">${h(updTime)}</span></span></span></p>
     <div class="hero">
       <div>
         <p class="big${A.u < -0.004 ? " down" : ""}" data-rv data-to="${round(A.u, 6)}" aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span id="cu-i">${netAbs[0]}</span><span class="pt">.</span><span id="cu-d">${netAbs[1]}</span><span class="u">u</span></p>
@@ -680,7 +676,7 @@ const homeBody = `<main class="wrap" id="main">
         </tbody>
       </table>
       <div class="more" id="more" hidden></div>
-      <a class="xhint" id="xhint" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span>See the post</span><span class="xh-t"><span class="xh-d">—</span> timestamped before the event <i>↗</i></span></a>
+      <a class="xhint" id="xhint" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><span>See the post</span><span class="xh-t">timestamped before the event <i>↗</i></span></a>
     </div>
   </section>
 

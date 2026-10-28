@@ -150,7 +150,7 @@ if($('#ar-a'))(function(){
     var s=1/da+1/db;
     fine('#ar-fine',
       (s<1?'Arb of <u>'+p2(1/s-1)+'</u> on the stake at these prices'
-          :'No arb &mdash; the book holds <i>'+p2((s-1)/s)+'</i> at these prices'));
+          :'No arb. The book holds <i>'+p2((s-1)/s)+'</i> at these prices'));
   }
   [[oA,'odds'],[oB,'odds'],[sA,'sa'],[sB,'sb'],[pA,'pa'],[pB,'pb']].forEach(function(k){
     k[0].addEventListener('input',function(){paint(k[1])});
@@ -218,7 +218,6 @@ if($('#pc-in'))(function(){
 /* -- devig a two-way market -- */
 if($('#dv-a'))(function(){
   var ia=$('#dv-a'),ib=$('#dv-b'),method='mult';
-  var NAME={mult:'Multiplicative',add:'Additive',pow:'Power'};
 
   /* Power: find k where pA^k + pB^k = 1. The sum falls as k rises,
      so a plain bisection finds k. */
@@ -259,7 +258,7 @@ if($('#dv-a'))(function(){
     put('#dv-pb',p2(fb));put('#dv-ob',am(1/fb),1);
     fine('#dv-fine',
       (s>1?'Book holds <i>'+p2((s-1)/s)+'</i>':'These prices are under 100% already')+
-      ' &middot; raw <i>'+p2(pa)+'</i> / <i>'+p2(pb)+'</i> &middot; '+NAME[method]);
+      ' &middot; raw <i>'+p2(pa)+'</i> / <i>'+p2(pb)+'</i>');
   }
   var segs=[].slice.call(document.querySelectorAll('#view-devig .sg'));
   segs.forEach(function(b){
@@ -427,7 +426,6 @@ if($('#pl-legs'))(function(){
     if(n<2){
       ['#pl-n','#pl-risk','#pl-best','#pl-bestp'].forEach(function(k,i){
         $(k).textContent=i===0?'0':'$0.00';$(k).className='num mut'});
-      $('#pl-count').textContent='';
       fine('#pl-fine','Enter a price on at least two legs.');
       return}
     var K=(mode==='straight')?n:Math.min(+mode,n);
@@ -447,8 +445,6 @@ if($('#pl-legs'))(function(){
     $('#pl-bestp').className='num '+(best-risk>1e-9?'win':'loss');
     $('#pl-title').textContent=(mode==='straight')
       ? 'Straight parlay of '+n+' legs' : 'Round robin, '+n+' legs by '+K+'s';
-    $('#pl-count').textContent=combos.length+(combos.length===1?' bet':' bets')+
-      ' · '+cash2(risk)+' at risk';
 
     /* what comes back for each number of winning legs */
     var head=el('div','prow hd');
@@ -923,8 +919,7 @@ if($('#pk-rows'))(function(){
     var f=$('#pk-fine');f.innerHTML='';
     if(warn)f.appendChild(el('span','loss',warn));
     else if(!n)f.textContent='Set the buy-in, then add everyone at the table.';
-    else f.textContent=n+(n===1?' player':' players')+
-      (G.buy>0?' · '+count(tin)+' buy-ins':'')+' · '+pkMoney(tin)+' in';
+    f.hidden=!f.firstChild;   /* nothing to say once players are in: the Total row and cards say it */
 
     /* the settle-up card */
     $('#pk-np').textContent=String(n);

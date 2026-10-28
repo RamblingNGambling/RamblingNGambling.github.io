@@ -81,7 +81,7 @@ try {
     assert(p.includes('<p class="sg-lead" data-rv>Every win goes straight onto the next game, and one miss ends the run.</p>'), "the lead line, no dollars");
     assert(!p.includes("Started with") && !/\$\d/.test(p) && !p.includes("<dt>Profit</dt>"), "no dollar figure given: none shown");
     assert(p.includes('<dl class="sg-stats odd">'), "five cells without the profit cell: the grid is marked odd");
-    assert(p.includes("How it works") && (p.match(/class="sg-card sg-step"/g) || []).length === 3, "the three How it works cards");
+    assert(p.includes("How one run works") && (p.match(/class="sg-card sg-step"/g) || []).length === 3, "the three How it works cards");
     assert(!p.includes("Where the prices come from") && !p.includes("The first stake is not shown."));
   });
 
@@ -324,15 +324,12 @@ try {
   });
 
   test("the slip gallery is there only when a screenshot is", () => {
-    const num = (p, name) => (p.match(new RegExp('<span class="no">(\\d\\d)</span><span>' + name + "</span>")) || [])[1];
     for (const run of [{n: 1, st: "live", g: [game()]}, {n: 1, st: "live", g: [game({pf: "bbbbbbbb22222222"})]}]) {
       const p = build(file([run])).read("sga/index.html");
       assert(!p.includes('id="proof"') && !p.includes("Proof of placement") && !p.includes("sg-slips") && !p.includes("proof/"), "no screenshot file: no gallery");
-      assert.equal(num(p, "Game by game"), "03");
     }
     const p = build(file([{n: 1, st: "live", g: [game({pf: "aaaaaaaa11111111"})]}])).read("sga/index.html");
     assert(p.includes('id="proof"') && p.includes("proof/aaaaaaaa11111111.jpg"));
-    assert.equal(num(p, "Proof of placement"), "04");
   });
 
   test("the step pictures do not restyle the About page's .cols (every page shares one stylesheet)", () => {

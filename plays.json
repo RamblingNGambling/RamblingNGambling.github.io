@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 27, 2026, 2:16 PM EDT",
+  "updated": "Oct 27, 2026, 10:47 PM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -5680,6 +5680,97 @@
       "units": 0.25,
       "result": "Loss",
       "units_pl": -0.25,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Michael Porter Jr Over 19.5 Points",
+      "odds": -125,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Stephon Castle Over 1.5 Threes",
+      "odds": 102,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Damian Lillard Over 19.5 Points",
+      "odds": -113,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Darius Acuff Jr o19.5 Points",
+      "odds": -117,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Payton Pritchard Over 4.5 Assists",
+      "odds": 113,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Derrick White o4.5 Assists",
+      "odds": -141,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-27",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Cade Cunningham Over 22.5 Points",
+      "odds": -120,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
       "post": "",
       "game_date": ""
     }

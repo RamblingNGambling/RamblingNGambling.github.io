@@ -1206,10 +1206,10 @@ a.bk:hover .bw{color:var(--acc)}
    canvas inside .art). Pure decoration: aria-hidden, no pointer events, behind the content in
    its own stacking context, and a blank canvas is a plain dark hero. Full-bleed like the frame
    rules; the bottom edge fades out. Colour comes from the script (it reads --acc); here only
-   strength is tuned per theme. The home hero gets a band of sky above its figures (--art-sky)
-   so the orb and the ridge crests are not all behind text. */
-:root{--art-o:.95;--art-sky:136px;--art-h:461px}
-:root[data-theme="light"]{--art-o:.62}
+   strength is tuned per theme. The home hero has no band of sky above its figures
+   (--art-sky is 0; raise it to open one); the art is faint enough that the figures read over it. */
+:root{--art-o:.4;--art-sky:0px;--art-h:461px}
+:root[data-theme="light"]{--art-o:.26}
 .art{position:absolute;z-index:-1;left:50%;top:0;width:100vw;margin-left:-50vw;height:var(--art-h);
   pointer-events:none;overflow:hidden;opacity:var(--art-o);
   -webkit-mask-image:linear-gradient(#000 0,#000 var(--art-f,66%),transparent 100%);
@@ -1222,9 +1222,9 @@ a.bk:hover .bw{color:var(--acc)}
 }
 /* home */
 .record{padding-top:calc(var(--hx-top) + 16px + var(--art-sky))}
-@media (max-width:1080px){:root{--art-sky:112px;--art-h:542px}}
+@media (max-width:1080px){:root{--art-sky:0px;--art-h:542px}}
 @media (max-width:520px){
-  :root{--art-sky:64px;--art-h:483px}
+  :root{--art-sky:0px;--art-h:483px}
   .record{padding-top:calc(var(--hx-top) + 12px + var(--art-sky))}
 }
 /* sga: the art covers the hero and runs a little past it */
@@ -1263,8 +1263,8 @@ html.deco .art-img{animation:art-in 1.4s var(--ease) .15s backwards}
    full strength in the gutters), so here only the overall level is set, per theme. The canvas is 100vh
    tall (the large viewport on a phone), so the picture does not stretch when the toolbar slides away.
    Longhand offsets and no :has, so an older browser lays it out the same way. */
-:root{--page-o:.55}
-:root[data-theme="light"]{--page-o:.38}
+:root{--page-o:.25}
+:root[data-theme="light"]{--page-o:.17}
 .art-page{position:fixed;left:0;top:0;right:0;bottom:0;z-index:-1;overflow:hidden;pointer-events:none;opacity:var(--page-o)}
 .art-page>canvas{position:absolute;left:0;top:0;width:100%;height:100vh;min-height:100%;display:block}
 @keyframes art-in{from{opacity:0}}

@@ -109,6 +109,14 @@ regenerated `sitemap.xml`.
 - **Tools.** The seven calculators plus the percent-to-odds cheat sheet. The
   maths, inputs, share links (`?ar-a=…`), reset and the poker table's local
   save are unchanged from the old site.
+  The headline result of each calculator (Profit, Locked in, Payout, Best case
+  profit) also shows what it was and how far it moved (`.chg` under the figure,
+  written by the last block of `tools.js`): once typing has been quiet for 700 ms,
+  a move between two settled readings reads like `+$1.10  was $4.20`, in the accent
+  colour for a gain and the down colour for a loss. A reset, a blank or half-typed
+  price clears it, so it never says "was $0.00". The line is always in the layout
+  so nothing shifts, and a cell too narrow for both shows the change only. The poker difference is a check,
+  not a result, and has none.
 
 Motion: count-ups, chart draw-in, staggered reveals, filter transitions,
 breakdown bars, tile and row hovers, and the theme cross-fade (View

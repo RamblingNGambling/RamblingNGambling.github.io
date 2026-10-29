@@ -129,6 +129,21 @@ t("segmented controls: one pill under the chosen button, a snap first and a slid
   assert.ok(js.includes("performance.now()-key<150"), "a key press snaps");
   assert.ok(js.includes('attributeFilter:["aria-pressed","aria-selected"]'), "follows both kinds of chosen button");
 });
+t("copy buttons: a check draws in, behind html.deco, on every tool page and the poker results", () => {
+  const tools = fs.readFileSync(path.join(BUILD_SRC, "src", "tools.js"), "utf8");
+  assert.match(css, /\.ck path\{stroke-dasharray:1 2;stroke-dashoffset:0\}/, "the finished check is the plain state");
+  assert.match(css, /\.deco \.ghost\.done \.ck path\{animation:ck-draw/, "the draw is decoration");
+  assert.match(css, /@keyframes ck-draw\{from\{stroke-dashoffset:1\}/);
+  assert.ok(!/\.motion \.(ck|ghost\.done)/.test(css), "the check must not depend on .motion");
+  assert.equal(count(tools, /copyFlash\(/g), 3, "the helper and its two callers");
+  assert.ok(tools.includes("copyFlash(btn,'Link copied')") && tools.includes("copyFlash(b,'Results copied')"));
+  assert.match(css, /\.cl>\*\{grid-area:1\/1;/, "both faces share one grid cell, so the width holds");
+  assert.ok(tools.includes("b.setAttribute('aria-label',name)"), "the button keeps its name while a face is hidden");
+  assert.ok(tools.includes("setAttribute('aria-live','polite')"), "the copy is announced");
+  assert.ok(!/\b(b|btn)\.textContent='Copied'/.test(tools), "no copy button swaps its own text any more");
+  for (const s of SLUGS.filter(x => x !== "cheat-sheet")) assert.ok(page(s).includes('class="ghost tlink"'), s);
+  assert.ok(page("poker").includes('id="pk-copy"'));
+});
 t("no regex lookbehind in the shared script or stylesheet (older iPhone Safari)", () => {
   assert.ok(!/\(\?<[=!]/.test(js));
   assert.ok(!/\(\?<[=!]/.test(css));

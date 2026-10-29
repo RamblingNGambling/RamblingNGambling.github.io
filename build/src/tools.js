@@ -13,6 +13,27 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null
 /* the page's own address, without query or hash, for links people share */
 function here(){return location.href.split(/[?#]/)[0]}
 
+/* A copy button confirms itself: for 1.6 s a check draws in beside the word Copied (site.css,
+   .cl-i, .cl-d and .ck). The idle label and the Copied face share one grid cell, so the button
+   is as wide as the wider of the two and nothing beside it moves. The button keeps its own
+   name (aria-label), and a polite message tells a screen reader what was copied. Copying
+   again draws the check again. */
+var CHECK='<svg class="ck" viewBox="0 0 14 14" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M2.9 7.4 5.6 10.1 11.1 4"/></svg>';
+var LIVE=el('span','sr'),LIVE_T=0;
+LIVE.setAttribute('role','status');LIVE.setAttribute('aria-live','polite');document.body.appendChild(LIVE);
+[].slice.call(document.querySelectorAll('.tlink,.pkcopy')).forEach(function(b){
+  var name=b.textContent,w=el('span','cl'),d=el('span','cl-d');
+  b.setAttribute('aria-label',name);b.textContent='';
+  d.setAttribute('aria-hidden','true');d.insertAdjacentHTML('beforeend',CHECK);d.appendChild(document.createTextNode('Copied'));
+  w.appendChild(el('span','cl-i',name));w.appendChild(d);b.appendChild(w);
+});
+function copyFlash(b,said){
+  clearTimeout(b._t);
+  b.classList.remove('done');void b.offsetWidth;b.classList.add('done');
+  clearTimeout(LIVE_T);LIVE.textContent=said;LIVE_T=setTimeout(function(){LIVE.textContent=''},3000);
+  b._t=setTimeout(function(){b.classList.remove('done')},1600);
+}
+
 /* -- shared maths -- */
 /* Read a price. A signed number, or 100 and above, is American.
    A plain number above 1 and below 100 is decimal. */
@@ -1024,10 +1045,7 @@ if($('#pk-rows'))(function(){
   $('#pk-split').addEventListener('click',function(){G.split=!G.split;save();paint()});
   $('#pk-copy').addEventListener('click',function(){
     var t=report(),b=this;if(!t)return;
-    function ok(){
-      b.textContent='Copied';b.classList.add('done');
-      setTimeout(function(){b.textContent='Copy results';b.classList.remove('done')},1600);
-    }
+    function ok(){copyFlash(b,'Results copied')}
     if(navigator.clipboard&&navigator.clipboard.writeText)
       navigator.clipboard.writeText(t).then(ok,function(){window.prompt('Copy the results',t)});
     else window.prompt('Copy the results',t);
@@ -1129,8 +1147,7 @@ if($('#pk-rows'))(function(){
         if(d)parts.push('m='+d.getAttribute('data-m'));
       }
       var url=here()+(parts.length?'?'+parts.join('&'):'');
-      function ok(){btn.textContent='Copied';btn.classList.add('done');
-        setTimeout(function(){btn.textContent='Copy link';btn.classList.remove('done')},1600)}
+      function ok(){copyFlash(btn,'Link copied')}
       if(navigator.clipboard&&navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(ok,function(){window.prompt('Copy this link',url)});
       }else{window.prompt('Copy this link',url)}

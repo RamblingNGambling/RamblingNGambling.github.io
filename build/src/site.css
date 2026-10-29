@@ -267,6 +267,21 @@ table{width:100%;border-collapse:collapse}
 .ghost:active{transform:scale(.96)}
 .ghost[disabled]{opacity:.4;cursor:not-allowed}
 .ghost.done{color:var(--acc);border-color:var(--acc-line)}
+/* A copy button (tools.js copyFlash): the idle label and the Copied face share one grid cell,
+   so the button is as wide as the wider of the two and nothing beside it moves; .done swaps
+   which one shows. The draw and the rise are decoration (html.deco); without them, or with
+   reduced motion, the finished check and Copied just show. */
+.cl{display:grid}
+.cl>*{grid-area:1/1;display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.cl-d{visibility:hidden}
+.ghost.done .cl-i{visibility:hidden}
+.ghost.done .cl-d{visibility:visible}
+.ck{flex:none;margin-right:4px}
+.ck path{stroke-dasharray:1 2;stroke-dashoffset:0}
+.deco .ghost.done .ck path{animation:ck-draw .26s var(--ease) both}
+.deco .ghost.done .cl-d{animation:ck-in .2s var(--ease) both}
+@keyframes ck-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes ck-in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
 .ghost.arm{color:var(--down);border-color:var(--down-line);background:var(--down-wash)}
 
 /* ---- 03 split: breakdown + reading ---- */

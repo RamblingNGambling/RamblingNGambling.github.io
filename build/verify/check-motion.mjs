@@ -144,6 +144,12 @@ t("copy buttons: a check draws in, behind html.deco, on every tool page and the 
   for (const s of SLUGS.filter(x => x !== "cheat-sheet")) assert.ok(page(s).includes('class="ghost tlink"'), s);
   assert.ok(page("poker").includes('id="pk-copy"'));
 });
+t("the play log's Show more buttons hand keyboard focus to the first added row", () => {
+  const homeJs = fs.readFileSync(path.join(BUILD_SRC, "src", "home.js"), "utf8");
+  assert.match(homeJs, /function loadMore\(n\)\{[^}]*first\.focus\(\{preventScroll:true\}\)/, "the helper");
+  assert.ok(homeJs.includes('mn.addEventListener("click",()=>loadMore(limit+50))') && homeJs.includes('ma.addEventListener("click",()=>loadMore(Infinity))'), "both buttons use it");
+  assert.ok(!/limit\+=50;renderLog|limit=Infinity;renderLog/.test(homeJs), "no button redraws the log without it");
+});
 t("no regex lookbehind in the shared script or stylesheet (older iPhone Safari)", () => {
   assert.ok(!/\(\?<[=!]/.test(js));
   assert.ok(!/\(\?<[=!]/.test(css));

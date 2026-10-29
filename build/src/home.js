@@ -346,12 +346,21 @@ function drawLog(){
       (left?`<button type="button" class="ghost" id="more-n">Show ${Math.min(50,left)} more</button>`+
             (left>50?`<button type="button" class="ghost" id="more-all">Show all ${list.length}</button>`:""):"");
     const mn=$("#more-n"),ma=$("#more-all");
-    if(mn)mn.addEventListener("click",()=>{limit+=50;renderLog(true)});
-    if(ma)ma.addEventListener("click",()=>{limit=Infinity;renderLog(true)});
+    if(mn)mn.addEventListener("click",()=>loadMore(limit+50));
+    if(ma)ma.addEventListener("click",()=>loadMore(Infinity));
   }catch(err){
     rowsEl.innerHTML=`<tr class="state"><td colspan="9"><b>The log did not load</b>The record is still published as a plain data file.<br><a class="btn" href="plays.json">Open plays.json</a></td></tr>`;
     tally.innerHTML="<span>Log unavailable</span>";moreEl.hidden=true;
   }
+}
+// The redraw replaces the button that was pressed, which drops keyboard focus to the page.
+// Focus goes to the first row that was added instead, without scrolling, so the next Tab
+// carries on through the new rows. A mouse click shows no focus ring.
+function loadMore(n){
+  const had=rowsEl.children.length;
+  limit=n;renderLog(true);
+  const first=rowsEl.children[had];
+  if(first){first.tabIndex=-1;first.focus({preventScroll:true})}
 }
 function clearF(){F.sport="All";F.market="All";F.result="All";sync();$("#f-sport button").focus()}
 

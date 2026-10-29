@@ -96,7 +96,7 @@ regenerated `sitemap.xml`.
   units by day, high and low marked, draw-in, hover and keyboard readout,
   30-day / all range). 02 the play log: sport, result and market filters on one
   control row, the live tally in the section head, a reset, the prototype's
-  filter logic and FLIP row transitions, over all plays, paged 15 at a time;
+  filter logic and FLIP row transitions, over all plays, paged 15 at a time (Show more moves keyboard focus to the first row it added);
   03 splits by sport, market and month (units P/L, W-L-P, ROI), tabs in the
   section head, beside the reading note; 04 the tools index.
   On a first visit ever, after 25 seconds or at 60% scroll depth, a small

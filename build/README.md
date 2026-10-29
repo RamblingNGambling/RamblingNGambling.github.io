@@ -118,6 +118,15 @@ colour-transition fallback). All of it sits behind `html.motion` (the pill, as
 decoration, behind `html.deco`) and `(hover:hover)`, and `prefers-reduced-motion`
 turns it off, mid-visit included.
 
+The copy buttons (Copy link on every tool page, Copy results on the poker page)
+confirm themselves for 1.6 s with a check that draws in beside the word Copied
+(`copyFlash()` in `tools.js`; `.cl`, `.cl-d` and `.ck` in `site.css`). The idle
+label and the Copied face share one grid cell, so the button is as wide as the
+wider of the two and nothing beside it moves. The button keeps its name through
+`aria-label`, and a polite live region announces what was copied. The draw is
+decoration (`html.deco`); with reduced motion the finished check and the word
+just show. A refused clipboard still falls back to the prompt.
+
 The pill is the group's `::before`, placed by `--px --py --pw --ph` that
 `site.js` sets from the chosen button (`aria-pressed` or `aria-selected`), so a
 page script that redraws its buttons does not lose it. The first placement, a

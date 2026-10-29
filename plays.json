@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 29, 2026, 12:59 AM EDT",
+  "updated": "Oct 29, 2026, 2:32 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -5886,8 +5886,8 @@
       "play": "Austin Reaves Over 2.5 Threes",
       "odds": 140,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
       "game_date": ""
     },
@@ -5899,8 +5899,8 @@
       "play": "Darius Garland Over 23.5 Points",
       "odds": -113,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
       "game_date": ""
     },
@@ -5942,6 +5942,32 @@
       "units_pl": -0.25,
       "post": "",
       "game_date": "2026-10-28"
+    },
+    {
+      "date": "2026-10-29",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Murphy Over 2.5 Threes + Reaves 3+ Threes",
+      "odds": 340,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-29",
+      "sport": "NBA",
+      "market": "Parlay",
+      "game": "",
+      "play": "Murphy 4+ Threes + Reaves 4+ Threes",
+      "odds": 1249,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05,
+      "post": "",
+      "game_date": ""
     }
   ]
 }

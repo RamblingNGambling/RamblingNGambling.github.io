@@ -610,6 +610,20 @@ a.bk:hover .bw{color:var(--acc)}
 /* calculator figures: a changed result settles in (JS adds .tickd) */
 @keyframes settle{from{opacity:.35;transform:translateY(3px)}to{opacity:1;transform:none}}
 .motion .tickd{animation:settle .32s var(--ease)}
+/* a headline result's change (tools.js): the signed move, then what the figure was, on a line
+   that is always there so nothing shifts. Where a cell is too narrow for both, the old figure
+   wraps onto a second line and the fixed height clips it, so only the change shows. The
+   entrance is decoration (html.deco). */
+.asum i.chg{display:flex;flex-wrap:wrap;gap:0 8px;line-height:1.4;height:1.4em;overflow:hidden;white-space:nowrap}
+.chg em{font-style:normal}
+.chg .d{margin-left:auto;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.chg .w{color:var(--fg3)}
+.chg.up .d{color:var(--acc)}
+.chg.dn .d{color:var(--down)}
+.deco .chg.up{animation:chg-up .22s var(--ease)}
+.deco .chg.dn{animation:chg-dn .22s var(--ease)}
+@keyframes chg-up{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes chg-dn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 
 @media (hover:hover){
   .theme:hover svg{transform:rotate(-15deg)}

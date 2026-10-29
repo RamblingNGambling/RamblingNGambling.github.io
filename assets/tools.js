@@ -1174,4 +1174,46 @@ if($('#pk-rows'))(function(){
     figs.forEach(function(f){mo.observe(f,{childList:true,characterData:true,subtree:true})});
   },0);
 })();
+
+/* ---------- a headline result shows what it was and how far it moved ---------- */
+/* Profit, Locked in, Payout and Best case profit each have a line (.chg) under the figure,
+   always there so nothing shifts. Once typing has been quiet for 700 ms, if the figure moved
+   from one settled reading to another, the line shows the signed change and the old figure.
+   A blank or unreadable reading (a reset, a half-typed price) clears it at once and starts the
+   comparison afresh, so there is never a "was $0.00" from the empty state. A break-even is a
+   real result: the calculators write it signed (+$0.00), the empty state unsigned ($0.00).
+   The poker difference is a check, not a result, so it has none. */
+(function(){
+  if(!window.MutationObserver)return;
+  var heads=[].slice.call(document.querySelectorAll('.asum .sep span')).filter(function(f){
+    return !f.closest('#pk-sum')&&f.parentNode.querySelector('.chg')});
+  /* a figure reads $1,234.56, signed when the calculator has a result (+$0.00 is a break-even);
+     an unsigned $0.00, --, or anything else is the empty state, and reads as null */
+  function read(t){
+    var m=/^([+-])?\$([\d,]+\.\d\d)$/.exec(String(t).trim());
+    if(!m)return null;
+    var n=parseFloat(m[2].replace(/,/g,''));
+    if(!m[1]&&n===0)return null;
+    return m[1]==='-'?-n:n;
+  }
+  heads.forEach(function(f){
+    var chg=f.parentNode.querySelector('.chg'),base=read(f.textContent),baseTxt=f.textContent.trim(),timer=0;
+    function clear(){chg.className='chg';chg.textContent=''}
+    function settle(){
+      var txt=f.textContent.trim(),v=read(txt);
+      if(v===null){clear();base=null;baseTxt=txt;return}
+      if(base!==null&&Math.abs(v-base)>=.005){
+        clear();void chg.offsetWidth;  /* restart the entrance */
+        chg.appendChild(el('em','d',money2(v-base)));chg.appendChild(el('em','w','was '+baseTxt));
+        chg.className='chg '+(v>base?'up':'dn');
+      }
+      base=v;baseTxt=txt;
+    }
+    new MutationObserver(function(){
+      clearTimeout(timer);
+      if(read(f.textContent)===null){clear();base=null;return}  /* nothing to compare, and nothing stale to show */
+      timer=setTimeout(settle,700);
+    }).observe(f,{childList:true,characterData:true,subtree:true});
+  });
+})();
 })();

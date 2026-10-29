@@ -121,14 +121,23 @@ button,select,input{font:inherit;color:inherit}
 .phead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
 .phead h3,.phead .h3{margin:0;font-size:14.5;font-weight:500;letter-spacing:-.005em}
 .phead .delta{font:13.5px var(--mono);color:var(--fg3);margin-left:12px;font-weight:400}
-.seg{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg)}
-.seg button{min-height:28px;padding:0 10px;border:0;border-radius:7px;background:none;color:var(--fg3);
+.seg{position:relative;display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg)}
+.seg button{position:relative;min-height:28px;padding:0 10px;border:0;border-radius:7px;background:none;color:var(--fg3);
   font-size:13.5;font-weight:500;cursor:pointer;white-space:nowrap;
   transition:background .18s var(--ease),color .15s,box-shadow .18s,transform .15s var(--ease)}
 .seg button:active{transform:scale(.96)}
 .seg button:hover{color:var(--fg)}
 .seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:var(--s3);color:var(--fg);box-shadow:inset 0 0 0 1px var(--line2)}
 .seg button .n{font:12px var(--mono);color:var(--fg3);margin-left:6px}
+/* One pill under the chosen button. site.js measures the button and sets --px --py --pw --ph
+   on the group, then adds .pill; until then (no script, or nothing chosen) the chosen button
+   keeps its own fill above. The pill is the group's ::before, so a page script that redraws
+   the buttons cannot lose it. .go is added after the first placement, so only a later change
+   slides. Reduced motion has no transitions at all (the rule at the top). */
+.seg.pill::before{content:"";position:absolute;left:0;top:0;width:var(--pw);height:var(--ph);
+  transform:translate(var(--px),var(--py));border-radius:7px;background:var(--s3);box-shadow:inset 0 0 0 1px var(--line2)}
+.seg.pill button[aria-pressed="true"],.seg.pill button[aria-selected="true"]{background:none;box-shadow:none}
+.deco .seg.go::before{transition:transform .2s var(--ease),width .2s var(--ease),height .2s var(--ease)}
 .chart{position:relative;margin-top:10px;min-height:190px;touch-action:pan-y}
 .chart svg{display:block;width:100%;overflow:visible}
 .chart svg:focus-visible{outline-offset:6px}
@@ -258,6 +267,21 @@ table{width:100%;border-collapse:collapse}
 .ghost:active{transform:scale(.96)}
 .ghost[disabled]{opacity:.4;cursor:not-allowed}
 .ghost.done{color:var(--acc);border-color:var(--acc-line)}
+/* A copy button (tools.js copyFlash): the idle label and the Copied face share one grid cell,
+   so the button is as wide as the wider of the two and nothing beside it moves; .done swaps
+   which one shows. The draw and the rise are decoration (html.deco); without them, or with
+   reduced motion, the finished check and Copied just show. */
+.cl{display:grid}
+.cl>*{grid-area:1/1;display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.cl-d{visibility:hidden}
+.ghost.done .cl-i{visibility:hidden}
+.ghost.done .cl-d{visibility:visible}
+.ck{flex:none;margin-right:4px}
+.ck path{stroke-dasharray:1 2;stroke-dashoffset:0}
+.deco .ghost.done .ck path{animation:ck-draw .26s var(--ease) both}
+.deco .ghost.done .cl-d{animation:ck-in .2s var(--ease) both}
+@keyframes ck-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes ck-in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
 .ghost.arm{color:var(--down);border-color:var(--down-line);background:var(--down-wash)}
 
 /* ---- 03 split: breakdown + reading ---- */

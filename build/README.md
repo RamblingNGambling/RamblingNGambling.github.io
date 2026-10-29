@@ -177,8 +177,11 @@ page" in `src/site.css`, and `src/sga.js`). From top to bottom:
    card is on screen.
 6. **03 Game by game.** A table of every game in the current run. A second table lists
    the earlier runs, when there are any.
-7. **04 Proof of placement.** The slip screenshots, with a viewer. Only if a game has
-   one. It is the last section.
+7. **04 Proof of placement.** The slip screenshots, with a viewer: a tap opens it, a tap on
+   the slip zooms to 2x toward that point, a drag or the arrow keys pan within the
+   picture's edges, and a tap again (or the minus button) fits it back. A tap outside
+   the slip, the cross or Esc closes. The zoom eases behind `html.deco`; a drag and the
+   keys snap. Only if a game has one. It is the last section.
 
 There is no Questions section, no FAQPage block and no closing card. Darren removed them
 on 26 October 2026. The hero button is the only follow button.

@@ -109,6 +109,21 @@ t("the stylesheet has both blocks and the reduced-motion rule for scenes", () =>
   assert.ok(css.includes("/* ==== HERO TOUCHES ===="));
   assert.match(css, /prefers-reduced-motion:reduce\)\s*\{[^}]*\.tsc/);
 });
+t("slip viewer: a tap zooms toward the point, a drag or the arrow keys pan, a tap on the backdrop closes", () => {
+  const sga = fs.readFileSync(path.join(BUILD_SRC, "src", "sga.js"), "utf8");
+  assert.ok(sga.includes("const Z=2;"), "zoom is 2x");
+  assert.ok(sga.includes("-(cx-r.left-r.width/2)*(Z-1)"), "a tap zooms toward the tapped point");
+  assert.ok(/pan=\(nx,ny\)=>\{[^}]*Math\.max\(-bx,Math\.min\(bx,nx\)\)/.test(sga), "panning is clamped to the picture's edges");
+  assert.ok(sga.includes("pointerdown") && sga.includes("pointermove") && sga.includes("pointerup") && sga.includes("pointercancel"), "drag uses pointer events");
+  assert.ok(sga.includes("ArrowLeft:[64,0]") && sga.includes("ev.preventDefault();jump()"), "the arrow keys pan, without easing");
+  assert.ok(sga.includes("ev.detail===0"), "a key press on the zoom button does not wait");
+  assert.ok(sga.includes("ev.target===lb"), "only the backdrop closes, so a tap on the slip can zoom");
+  assert.ok(!/lb\.addEventListener\("click",close\)/.test(sga), "a tap on the slip no longer closes");
+  assert.match(css, /\.sglb img\.drag\{cursor:grabbing;transition:none!important\}/, "a drag does not ease");
+  assert.match(css, /\.deco \.sglb img\{transition:transform \.24s var\(--ease\)\}/, "the ease is decoration");
+  assert.ok(!/\.motion \.sglb/.test(css), "the viewer must not depend on .motion");
+  assert.ok(!/\.sglb\{[^}]*cursor:zoom-out/.test(css), "the backdrop no longer says zoom-out");
+});
 t("scenes move only while armed, and the runner needs html.deco", () => {
   assert.match(css, /\.deco \.tsc\.armed/);
   assert.match(js, /classList\.contains\("deco"\)/);

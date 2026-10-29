@@ -111,11 +111,15 @@ t("the stylesheet has both blocks and the reduced-motion rule for scenes", () =>
 });
 t("slip viewer: a tap zooms toward the point, a drag or the arrow keys pan, a tap on the backdrop closes", () => {
   const sga = fs.readFileSync(path.join(BUILD_SRC, "src", "sga.js"), "utf8");
-  assert.ok(sga.includes("const Z=2;"), "zoom is 2x");
-  assert.ok(sga.includes("-(cx-r.left-r.width/2)*(Z-1)"), "a tap zooms toward the tapped point");
+  assert.ok(sga.includes("const Z=2,"), "zoom is 2x");
+  assert.ok(sga.includes("-(cx-lb.clientWidth/2)*(Z-1)"), "a tap zooms toward the tapped point, measured from the dialog's centre");
   assert.ok(/pan=\(nx,ny\)=>\{[^}]*Math\.max\(-bx,Math\.min\(bx,nx\)\)/.test(sga), "panning is clamped to the picture's edges");
   assert.ok(sga.includes("pointerdown") && sga.includes("pointermove") && sga.includes("pointerup") && sga.includes("pointercancel"), "drag uses pointer events");
   assert.ok(sga.includes("ArrowLeft:[64,0]") && sga.includes("ev.preventDefault();jump()"), "the arrow keys pan, without easing");
+  assert.ok(sga.includes('ev.key==="Tab"') && sga.includes("f[ev.shiftKey?1:0].focus()"), "Tab stays inside the dialog");
+  assert.ok(sga.includes("if(ev.altKey||ev.ctrlKey||ev.metaKey)return;"), "Alt+arrow is left to the browser");
+  assert.ok(sga.includes("else if(SCROLL.indexOf(ev.key)>=0)ev.preventDefault()") && sga.includes('"wheel"'), "the page behind does not scroll");
+  assert.ok(sga.includes("if(lb)close();opener=a;"), "one viewer at a time");
   assert.ok(sga.includes("ev.detail===0"), "a key press on the zoom button does not wait");
   assert.ok(sga.includes("ev.target===lb"), "only the backdrop closes, so a tap on the slip can zoom");
   assert.ok(!/lb\.addEventListener\("click",close\)/.test(sga), "a tap on the slip no longer closes");

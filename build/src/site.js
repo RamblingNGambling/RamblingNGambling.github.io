@@ -104,6 +104,40 @@ function onReveal(el,d){
   });
 })();
 
+/* ---------- segmented controls: one pill slides to the chosen button ---------- */
+// The pill is the group's ::before (see .seg.pill in site.css), placed by four custom
+// properties, so a page script that redraws its buttons (the filters, the ticket types)
+// cannot lose it. A mutation observer follows the chosen button (aria-pressed or
+// aria-selected). The first placement, a resize and a key press snap; a click slides.
+(function(){
+  const segs=[].slice.call(document.querySelectorAll(".seg"));
+  if(!segs.length)return;
+  const CHOSEN='button[aria-pressed="true"],button[aria-selected="true"]';
+  function place(seg,jump){
+    const b=seg.querySelector(CHOSEN);
+    if(!b||!b.offsetWidth){seg.classList.remove("pill","go");return}
+    if(jump||!seg.classList.contains("pill"))seg.classList.remove("go");
+    const s=seg.style;
+    s.setProperty("--px",b.offsetLeft+"px");s.setProperty("--py",b.offsetTop+"px");
+    s.setProperty("--pw",b.offsetWidth+"px");s.setProperty("--ph",b.offsetHeight+"px");
+    seg.classList.add("pill");
+    if(!seg.classList.contains("go")){void seg.offsetWidth;seg.classList.add("go")}
+  }
+  const ro=window.ResizeObserver?new ResizeObserver(es=>es.forEach(e=>place(e.target,true))):null;
+  segs.forEach(seg=>{
+    let raf=0,key=-1e3;
+    const stamp=()=>{key=performance.now()};
+    seg.addEventListener("keydown",stamp,true);seg.addEventListener("keyup",stamp,true);
+    new MutationObserver(()=>{
+      if(!raf)raf=requestAnimationFrame(()=>{raf=0;place(seg,performance.now()-key<150)});
+    }).observe(seg,{subtree:true,childList:true,attributes:true,attributeFilter:["aria-pressed","aria-selected"]});
+    // the observer reports a first size at once, which places the pill before the first paint;
+    // without one the pill waits for the next frame and a resize listener
+    if(ro)ro.observe(seg);else requestAnimationFrame(()=>place(seg,true));
+  });
+  if(!ro)addEventListener("resize",()=>segs.forEach(seg=>place(seg,true)));
+})();
+
 /* ---------- looping pictures (tool scenes, SGA step pictures) ---------- */
 // The pictures are CSS keyframe loops (the CSS draws the finished picture and holds the
 // animations paused), but their clock is set from script, once per frame: Chrome on iPhone

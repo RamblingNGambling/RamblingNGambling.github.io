@@ -155,7 +155,7 @@ page" in `src/site.css`, and `src/sga.js`). From top to bottom:
    the slip zooms to 2x toward that point, a drag or the arrow keys pan within the
    picture's edges, and a tap again (or the minus button) fits it back. A tap outside
    the slip, the cross or Esc closes. The zoom eases behind `html.deco`; a drag and the
-   keys snap. Only if a game has one. It is the last section.
+   keys snap. Tab stays inside the viewer and the page behind does not scroll. Only if a game has one. It is the last section.
 
 There is no Questions section, no FAQPage block and no closing card. Darren removed them
 on 26 October 2026. The hero button is the only follow button.

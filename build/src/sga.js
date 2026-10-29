@@ -61,15 +61,16 @@ else addEventListener("resize",ladder);
 // The slip opens to fit the screen. A tap on it (or the + button) zooms to 2x toward the tapped
 // point; a drag, or the arrow keys, pans within the picture's edges; a tap again (or the - button)
 // fits it back. A tap outside the slip, the cross or Esc closes. Keys and buttons snap; only a
-// tap or a click eases (site.css, behind html.deco).
+// tap or a click eases (site.css, behind html.deco). The dialog keeps Tab inside it, opens one
+// at a time, and keeps the page behind it from scrolling by key or wheel.
 const slips=[...document.querySelectorAll("a.sgpf")];
 if(slips.length){
-  const Z=2;
+  const Z=2,SCROLL=["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","PageUp","PageDown","Home","End"];
   let lb=null,opener=null,off=()=>{};
   const close=()=>{if(!lb)return;off();lb.remove();lb=null;if(opener&&opener.focus)opener.focus()};
   slips.forEach(a=>a.addEventListener("click",e=>{
     if(e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;     // let a modified click open the file as usual
-    e.preventDefault();opener=a;
+    e.preventDefault();if(lb)close();opener=a;     // one viewer at a time
     lb=document.createElement("div");lb.className="sglb";lb.setAttribute("role","dialog");lb.setAttribute("aria-modal","true");
     lb.setAttribute("aria-label",a.title||"Bet slip");
     const im=document.createElement("img");im.src=a.getAttribute("href");im.alt=a.title||"Bet slip";im.draggable=false;
@@ -87,17 +88,25 @@ if(slips.length){
       const bx=Math.max(0,(im.offsetWidth*Z-lb.clientWidth)/2),by=Math.max(0,(im.offsetHeight*Z-lb.clientHeight)/2);
       px=Math.max(-bx,Math.min(bx,nx));py=Math.max(-by,Math.min(by,ny));apply();
     };
-    // measured before the zoom, so the tapped point stays where it was under the finger
+    // the slip sits at the centre of the dialog, so the tapped point stays where it was under the
+    // finger, even for a tap that lands while the slip is still easing back to fit
     const toggle=(cx,cy)=>{
       if(zoom){zoom=false;px=py=0;apply();return}
-      const r=im.getBoundingClientRect();zoom=true;
-      pan(cx==null?0:-(cx-r.left-r.width/2)*(Z-1),cy==null?0:-(cy-r.top-r.height/2)*(Z-1));
+      zoom=true;
+      pan(cx==null?0:-(cx-lb.clientWidth/2)*(Z-1),cy==null?0:-(cy-lb.clientHeight/2)*(Z-1));
     };
     const jump=()=>{im.classList.add("drag");clearTimeout(snap);snap=setTimeout(()=>im.classList.remove("drag"),120)};
     const onKey=ev=>{
       if(ev.key==="Escape"){close();return}
+      if(ev.key==="Tab"){     // aria-modal: Tab and Shift+Tab go round the two buttons, never to the page behind
+        const f=[zm,x],i=f.indexOf(document.activeElement);
+        if(i<0||(ev.shiftKey&&i===0)||(!ev.shiftKey&&i===1)){ev.preventDefault();f[ev.shiftKey?1:0].focus()}
+        return;
+      }
+      if(ev.altKey||ev.ctrlKey||ev.metaKey)return;     // Alt+Left is the browser's Back, not a pan
       const k=zoom&&{ArrowLeft:[64,0],ArrowRight:[-64,0],ArrowUp:[0,64],ArrowDown:[0,-64]}[ev.key];
       if(k){ev.preventDefault();jump();pan(px+k[0],py+k[1])}
+      else if(SCROLL.indexOf(ev.key)>=0)ev.preventDefault();     // and never scroll the page behind
     };
     const onSize=()=>{if(zoom)pan(px,py)};
     im.addEventListener("pointerdown",ev=>{
@@ -120,6 +129,7 @@ if(slips.length){
     zm.addEventListener("click",ev=>{if(ev.detail===0)jump();toggle()});     // detail 0: a key press, which should not wait
     x.addEventListener("click",close);
     lb.addEventListener("click",ev=>{if(ev.target===lb)close()});
+    lb.addEventListener("wheel",ev=>ev.preventDefault(),{passive:false});     // the page behind stays put
     document.addEventListener("keydown",onKey);addEventListener("resize",onSize);
     off=()=>{document.removeEventListener("keydown",onKey);removeEventListener("resize",onSize);clearTimeout(snap)};
     apply();x.focus();

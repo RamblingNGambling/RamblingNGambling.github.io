@@ -88,6 +88,18 @@ t("the hero frame is on the home page only", () => {
   assert.equal(count(home, /class="hx-f"/g), 1);
   assert.equal(count(page("about"), /hx-f/g), 0);
 });
+t("calculator headline results show what they were and the signed change, on a line that is always there", () => {
+  const tools = fs.readFileSync(path.join(BUILD_SRC, "src", "tools.js"), "utf8");
+  const chg = s => count(page(s), /<i class="chg" aria-hidden="true"><\/i>/g);
+  assert.deepEqual(["arbitrage", "hedge", "payout", "parlay"].map(chg), [1, 1, 2, 1], "one line in each Profit, Locked in, Payout and Best case profit cell");
+  for (const s of ["odds", "devig", "poker", "cheat-sheet"]) assert.equal(chg(s), 0, s + " has no headline profit");
+  assert.match(css, /\.asum i\.chg\{display:flex;flex-wrap:wrap;[^}]*height:1\.4em;overflow:hidden/, "the line is reserved, and a narrow cell clips the old figure");
+  assert.match(css, /\.deco \.chg\.up\{animation:chg-up/, "the entrance is decoration");
+  assert.ok(!/\.motion \.chg/.test(css), "the change line must not depend on .motion");
+  assert.ok(tools.includes("setTimeout(settle,700)"), "it waits for typing to stop");
+  assert.ok(tools.includes("!f.closest('#pk-sum')"), "the poker difference is not a result");
+  assert.ok(tools.includes("if(!v){chg.className='chg'"), "a blank, unreadable or zero reading clears it");
+});
 t("the stylesheet has both blocks and the reduced-motion rule for scenes", () => {
   assert.ok(css.includes("/* ==== TOOL SCENES ==== */"));
   assert.ok(css.includes("/* ==== HERO TOUCHES ===="));

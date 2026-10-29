@@ -1174,4 +1174,36 @@ if($('#pk-rows'))(function(){
     figs.forEach(function(f){mo.observe(f,{childList:true,characterData:true,subtree:true})});
   },0);
 })();
+
+/* ---------- a headline result shows what it was and how far it moved ---------- */
+/* Profit, Locked in, Payout and Best case profit each have a line (.chg) under the figure,
+   always there so nothing shifts. Once typing has been quiet for 700 ms, if the figure moved
+   from one settled reading to another, the line shows the signed change and the old figure.
+   A blank, unreadable or zero reading (a reset, a half-typed price) clears it, so there is
+   never a "was $0.00". The poker difference is a check, not a result, so it has none. */
+(function(){
+  if(!window.MutationObserver)return;
+  var heads=[].slice.call(document.querySelectorAll('.asum .sep span')).filter(function(f){
+    return !f.closest('#pk-sum')&&f.parentNode.querySelector('.chg')});
+  /* the figures read $1,234.56, with a leading + or - or neither; anything else is --, or blank */
+  function read(t){
+    var m=/^([+-]?)\$([\d,]+\.\d\d)$/.exec(String(t).trim());
+    return m?(m[1]==='-'?-1:1)*parseFloat(m[2].replace(/,/g,'')):null;
+  }
+  heads.forEach(function(f){
+    var chg=f.parentNode.querySelector('.chg'),base=read(f.textContent),baseTxt=f.textContent.trim(),timer=0;
+    function settle(){
+      var txt=f.textContent.trim(),v=read(txt);
+      if(!v){chg.className='chg';chg.textContent='';base=v;baseTxt=txt;return}
+      if(base&&Math.abs(v-base)>=.005){
+        chg.className='chg';chg.textContent='';void chg.offsetWidth;  /* restart the entrance */
+        chg.appendChild(el('em','d',money2(v-base)));chg.appendChild(el('em','w','was '+baseTxt));
+        chg.className='chg '+(v>base?'up':'dn');
+      }
+      base=v;baseTxt=txt;
+    }
+    new MutationObserver(function(){clearTimeout(timer);timer=setTimeout(settle,700)})
+      .observe(f,{childList:true,characterData:true,subtree:true});
+  });
+})();
 })();

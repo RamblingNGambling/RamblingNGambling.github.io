@@ -954,10 +954,17 @@ a.bk:hover .bw{color:var(--acc)}
 .sgpf:active{transform:scale(.98)}
 .sgpf:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:16px}
 @media(hover:hover){.sgpf:hover{border-color:var(--line3);transform:translateY(-4px)}}
-.sglb{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.74);cursor:zoom-out}
+.sglb{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.74);overflow:hidden}
 :root[data-theme="light"] .sglb{background:rgba(20,18,14,.62)}
-.sglb img{display:block;max-width:min(94vw,560px);max-height:92vh;border-radius:12px;border:1px solid var(--line2)}
+.sglb img{display:block;max-width:min(94vw,560px);max-height:92vh;border-radius:12px;border:1px solid var(--line2);
+  cursor:zoom-in;touch-action:manipulation;user-select:none;-webkit-user-drag:none}
 .sglb button{position:absolute;top:12px;right:16px;width:40px;height:40px;border-radius:9999px;border:1px solid var(--line2);background:var(--s1);color:var(--fg);font-size:24px;line-height:1;cursor:pointer}
+/* zoom and pan (sga.js): the slip scales about its centre and is dragged with a transform. A tap
+   or click eases (decoration, html.deco); a drag and the keys snap, through .drag. */
+.sglb .zm{right:64px}
+.sglb img.z{cursor:grab;touch-action:none}
+.sglb img.drag{cursor:grabbing;transition:none!important}
+.deco .sglb img{transition:transform .24s var(--ease)}
 
 @media(max-width:639px){.sg-sec{padding-top:64px}.sg-tagsec{padding-top:80px}}
 @media (prefers-reduced-motion:reduce){.sga *,.sga *::before,.sga *::after{animation:none!important}}

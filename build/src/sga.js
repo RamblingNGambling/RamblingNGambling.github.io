@@ -57,21 +57,72 @@ ladder();
 if("ResizeObserver" in window&&box)new ResizeObserver(ladder).observe(box);
 else addEventListener("resize",ladder);
 
-/* ---------- the slip viewer: a tap enlarges, a tap or Esc closes ---------- */
+/* ---------- the slip viewer: a tap opens it, a tap on the slip zooms, Esc or the cross closes ---------- */
+// The slip opens to fit the screen. A tap on it (or the + button) zooms to 2x toward the tapped
+// point; a drag, or the arrow keys, pans within the picture's edges; a tap again (or the - button)
+// fits it back. A tap outside the slip, the cross or Esc closes. Keys and buttons snap; only a
+// tap or a click eases (site.css, behind html.deco).
 const slips=[...document.querySelectorAll("a.sgpf")];
 if(slips.length){
-  let lb=null,opener=null;
-  const close=()=>{if(!lb)return;lb.remove();lb=null;document.removeEventListener("keydown",onKey);if(opener&&opener.focus)opener.focus()};
-  const onKey=e=>{if(e.key==="Escape")close()};
+  const Z=2;
+  let lb=null,opener=null,off=()=>{};
+  const close=()=>{if(!lb)return;off();lb.remove();lb=null;if(opener&&opener.focus)opener.focus()};
   slips.forEach(a=>a.addEventListener("click",e=>{
     if(e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;     // let a modified click open the file as usual
     e.preventDefault();opener=a;
     lb=document.createElement("div");lb.className="sglb";lb.setAttribute("role","dialog");lb.setAttribute("aria-modal","true");
     lb.setAttribute("aria-label",a.title||"Bet slip");
-    const im=document.createElement("img");im.src=a.getAttribute("href");im.alt=a.title||"Bet slip";
+    const im=document.createElement("img");im.src=a.getAttribute("href");im.alt=a.title||"Bet slip";im.draggable=false;
+    const zm=document.createElement("button");zm.type="button";zm.className="zm";
     const x=document.createElement("button");x.type="button";x.setAttribute("aria-label","Close");x.innerHTML="&times;";
-    lb.append(im,x);lb.addEventListener("click",close);document.body.appendChild(lb);
-    document.addEventListener("keydown",onKey);x.focus();
+    lb.append(im,zm,x);document.body.appendChild(lb);
+    let zoom=false,px=0,py=0,drag=null,snap=0;
+    const apply=()=>{
+      im.style.transform=zoom?"translate("+px+"px,"+py+"px) scale("+Z+")":"";
+      im.classList.toggle("z",zoom);
+      zm.textContent=zoom?"−":"+";zm.setAttribute("aria-label",zoom?"Fit to screen":"Zoom in");
+    };
+    // keep the picture's edges at or beyond the screen's; an axis that fits stays centred
+    const pan=(nx,ny)=>{
+      const bx=Math.max(0,(im.offsetWidth*Z-lb.clientWidth)/2),by=Math.max(0,(im.offsetHeight*Z-lb.clientHeight)/2);
+      px=Math.max(-bx,Math.min(bx,nx));py=Math.max(-by,Math.min(by,ny));apply();
+    };
+    // measured before the zoom, so the tapped point stays where it was under the finger
+    const toggle=(cx,cy)=>{
+      if(zoom){zoom=false;px=py=0;apply();return}
+      const r=im.getBoundingClientRect();zoom=true;
+      pan(cx==null?0:-(cx-r.left-r.width/2)*(Z-1),cy==null?0:-(cy-r.top-r.height/2)*(Z-1));
+    };
+    const jump=()=>{im.classList.add("drag");clearTimeout(snap);snap=setTimeout(()=>im.classList.remove("drag"),120)};
+    const onKey=ev=>{
+      if(ev.key==="Escape"){close();return}
+      const k=zoom&&{ArrowLeft:[64,0],ArrowRight:[-64,0],ArrowUp:[0,64],ArrowDown:[0,-64]}[ev.key];
+      if(k){ev.preventDefault();jump();pan(px+k[0],py+k[1])}
+    };
+    const onSize=()=>{if(zoom)pan(px,py)};
+    im.addEventListener("pointerdown",ev=>{
+      if(ev.button||drag)return;
+      drag={id:ev.pointerId,x:ev.clientX,y:ev.clientY,px:px,py:py,moved:false};im.setPointerCapture(ev.pointerId);
+    });
+    im.addEventListener("pointermove",ev=>{
+      if(!drag||ev.pointerId!==drag.id)return;
+      const dx=ev.clientX-drag.x,dy=ev.clientY-drag.y;
+      if(!drag.moved&&Math.hypot(dx,dy)<5)return;
+      drag.moved=true;
+      if(zoom){im.classList.add("drag");pan(drag.px+dx,drag.py+dy)}
+    });
+    im.addEventListener("pointerup",ev=>{
+      if(!drag||ev.pointerId!==drag.id)return;
+      const moved=drag.moved;drag=null;im.classList.remove("drag");
+      if(!moved)toggle(ev.clientX,ev.clientY);
+    });
+    im.addEventListener("pointercancel",()=>{drag=null;im.classList.remove("drag")});
+    zm.addEventListener("click",ev=>{if(ev.detail===0)jump();toggle()});     // detail 0: a key press, which should not wait
+    x.addEventListener("click",close);
+    lb.addEventListener("click",ev=>{if(ev.target===lb)close()});
+    document.addEventListener("keydown",onKey);addEventListener("resize",onSize);
+    off=()=>{document.removeEventListener("keydown",onKey);removeEventListener("resize",onSize);clearTimeout(snap)};
+    apply();x.focus();
   }));
 }
 

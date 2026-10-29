@@ -74,7 +74,7 @@ commits it. It does not push.
 ```
 build.mjs            the build: reads plays.json, computes figures, writes dist/
 src/site.css         design system, extracted from the Direction A prototype
-src/site.js          shared runtime: theme cross-fade, reveals, count-ups (window.PT)
+src/site.js          shared runtime: theme cross-fade, reveals, count-ups, the .seg pill (window.PT)
 src/home.js          home: equity curve, play log + filters, breakdown
 src/tools.js         the calculators (logic carried over from the old site)
 src/sga.js           SGA 20+ page: the ladder chart, the slip viewer, the tagline and the three step visuals
@@ -111,10 +111,18 @@ regenerated `sitemap.xml`.
   save are unchanged from the old site.
 
 Motion: count-ups, chart draw-in, staggered reveals, filter transitions,
-breakdown bars, tile and row hovers, and the theme cross-fade (View
-Transitions, with a colour-transition fallback). All of it sits behind
-`html.motion` and `(hover:hover)`, and `prefers-reduced-motion` turns it off,
-mid-visit included.
+breakdown bars, tile and row hovers, a sliding pill under the chosen button of
+every segmented control (`.seg`: chart range, play filters, breakdown tabs, the
+tools' mode switches), and the theme cross-fade (View Transitions, with a
+colour-transition fallback). All of it sits behind `html.motion` (the pill, as
+decoration, behind `html.deco`) and `(hover:hover)`, and `prefers-reduced-motion`
+turns it off, mid-visit included.
+
+The pill is the group's `::before`, placed by `--px --py --pw --ph` that
+`site.js` sets from the chosen button (`aria-pressed` or `aria-selected`), so a
+page script that redraws its buttons does not lose it. The first placement, a
+resize and a key press snap; a click slides it in 200 ms on the site's one curve.
+With no script, or with nothing chosen, the chosen button keeps its own fill.
 
 Zero external requests: no CDN, no web font, no fetch. The home page's data is
 inlined as JSON. Outbound links (posts on X, the Kalshi referral, the commit

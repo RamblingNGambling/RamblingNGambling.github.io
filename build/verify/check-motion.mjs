@@ -120,6 +120,15 @@ t("the pictures run on a script clock: CSS holds them paused, loops() sets curre
   assert.ok(css.includes(".deco .sg-step.scrub .sg-vis *,.deco .sg-step.scrub .sg-vis *::after{animation-play-state:paused!important}"), "step rule");
   assert.ok(css.includes(".deco .sg-step.armed:not(.run) .sg-vis *") && css.includes(".deco .tsc.armed:not(.run) *"), "the plain CSS fallback stays");
 });
+t("segmented controls: one pill under the chosen button, a snap first and a slide after", () => {
+  assert.match(css, /\.seg\.pill::before\{[^}]*transform:translate\(var\(--px\),var\(--py\)\)/, "the pill");
+  assert.match(css, /\.seg\.pill button\[aria-pressed="true"\],\.seg\.pill button\[aria-selected="true"\]\{background:none/, "the button gives up its fill");
+  assert.match(css, /\.deco \.seg\.go::before\{transition:transform[^}]*width[^}]*\}/, "the slide waits for .go");
+  assert.ok(!/\.motion \.seg/.test(css), "the pill must not depend on .motion");
+  assert.ok(js.includes('classList.remove("go")') && js.includes('classList.add("go")'), "the first placement and a resize snap");
+  assert.ok(js.includes("performance.now()-key<150"), "a key press snaps");
+  assert.ok(js.includes('attributeFilter:["aria-pressed","aria-selected"]'), "follows both kinds of chosen button");
+});
 t("no regex lookbehind in the shared script or stylesheet (older iPhone Safari)", () => {
   assert.ok(!/\(\?<[=!]/.test(js));
   assert.ok(!/\(\?<[=!]/.test(css));

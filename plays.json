@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 28, 2026, 2:35 AM EDT",
+  "updated": "Oct 29, 2026, 12:52 AM EDT",
   "plays": [
     {
       "date": "2026-07-19",
@@ -5877,6 +5877,71 @@
       "units_pl": -0.025,
       "post": "",
       "game_date": ""
+    },
+    {
+      "date": "2026-10-28",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Austin Reaves Over 2.5 Threes",
+      "odds": 140,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-28",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Darius Garland Over 23.5 Points",
+      "odds": -113,
+      "units": 0.25,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-10-28",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jamal Shead Over 6.5 Points",
+      "odds": -117,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2137,
+      "post": "",
+      "game_date": "2026-10-28"
+    },
+    {
+      "date": "2026-10-28",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Aaron Nesmith Over 1.5 Threes",
+      "odds": -111,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2252,
+      "post": "",
+      "game_date": "2026-10-28"
+    },
+    {
+      "date": "2026-10-28",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Trey Murphy III Over 2.5 Threes",
+      "odds": 112,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": "2026-10-28"
     }
   ]
 }

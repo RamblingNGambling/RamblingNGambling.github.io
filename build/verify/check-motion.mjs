@@ -98,7 +98,11 @@ t("calculator headline results show what they were and the signed change, on a l
   assert.ok(!/\.motion \.chg/.test(css), "the change line must not depend on .motion");
   assert.ok(tools.includes("setTimeout(settle,700)"), "it waits for typing to stop");
   assert.ok(tools.includes("!f.closest('#pk-sum')"), "the poker difference is not a result");
-  assert.ok(tools.includes("if(!v){chg.className='chg'"), "a blank, unreadable or zero reading clears it");
+  assert.ok(tools.includes("if(!m[1]&&n===0)return null"), "an unsigned $0.00 is the empty state; a signed +$0.00 is a real break-even");
+  assert.ok(tools.includes("if(v===null){clear();base=null;baseTxt=txt;return}") && tools.includes("if(base!==null&&Math.abs(v-base)>=.005)"), "only the empty state clears the comparison; zero does not");
+  assert.ok(tools.includes("if(read(f.textContent)===null){clear();base=null;return}"), "a reset clears the line at once, not after the 700 ms wait");
+  assert.match(css, /\.chg \.d\{margin-left:auto;max-width:100%;overflow:hidden;text-overflow:ellipsis\}/, "the change is right-aligned from its own margin, so a narrow cell never clips its sign");
+  assert.ok(!/\.asum i\.chg\{[^}]*justify-content/.test(css), "flex-end would overflow to the left and clip the sign");
 });
 t("the stylesheet has both blocks and the reduced-motion rule for scenes", () => {
   assert.ok(css.includes("/* ==== TOOL SCENES ==== */"));

@@ -114,7 +114,8 @@ regenerated `sitemap.xml`.
   written by the last block of `tools.js`): once typing has been quiet for 700 ms,
   a move between two settled readings reads like `+$1.10  was $4.20`, in the accent
   colour for a gain and the down colour for a loss. A reset, a blank or half-typed
-  price clears it, so it never says "was $0.00". The line is always in the layout
+  price clears it at once and starts the comparison afresh, so it never says "was $0.00" from
+  the empty state; a break-even (+$0.00) is a real result. The line is always in the layout
   so nothing shifts, and a cell too narrow for both shows the change only. The poker difference is a check,
   not a result, and has none.
 

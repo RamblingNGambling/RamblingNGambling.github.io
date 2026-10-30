@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 30, 2026, 12:45 AM EDT",
+  "updated": "Oct 30, 2026, 2:08 AM EDT",
   "line": 20,
   "runs": [
     {
@@ -22,7 +22,7 @@
         {
           "d": "2026-10-26",
           "o": "vs PHX",
-          "l": 26,
+          "l": 20,
           "p": -1250,
           "r": "Win",
           "f": 1.15,

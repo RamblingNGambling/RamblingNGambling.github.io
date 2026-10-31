@@ -35,17 +35,40 @@ function copyFlash(b,said){
 }
 
 /* -- shared maths -- */
-/* Read a price. A signed number, or 100 and above, is American.
-   A plain number above 1 and below 100 is decimal. */
-function pOdds(s){
-  s=String(s==null?'':s).trim().replace(/[\s,]/g,'');
-  if(!s||!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s))return null;
-  var v=parseFloat(s);
-  if(!isFinite(v))return null;
-  if(v<=-100)return 1+100/(-v);
-  if(v>=100)return 1+v/100;
-  if(v>1&&v<100&&s.charAt(0)!=='-')return v;
-  return null;
+/* Read a price. A leading + or -, or a number of 100 or more, is American: +100 or
+   higher, or -100 or lower. A plain number above 1 and below 100 is decimal. Returns
+   {d} (the decimal price) or {err} (what is wrong, in words). `more` is true when the
+   text could still grow into a valid price ("+1", "-9", "1."), so a caller can wait. */
+function readOdds(s){
+  var t=String(s==null?'':s).trim().replace(/[\s,]/g,'').replace(/[−–—]/g,'-');
+  if(!t)return {d:null,err:'',empty:true};
+  var more=/^[+-]?\d{0,2}\.?\d*$/.test(t);
+  if(!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(t))
+    return {d:null,err:'That is not a price. Use +150, -130 or 2.50.',more:more};
+  var v=parseFloat(t),sg=t.charAt(0),m=Math.abs(v);
+  if(!isFinite(v))return {d:null,err:'That number is too large.',more:false};
+  if(sg==='-')
+    return m>=100?{d:1+100/m}
+      :{d:null,err:t+' is not valid American odds. Use -100 or lower, such as -110.',more:more};
+  if(sg==='+'||v>=100)
+    return v>=100?{d:1+v/100}
+      :{d:null,err:t+' is not valid American odds. Use +100 or higher, such as +150.',more:more};
+  if(v>1)return {d:v};
+  return {d:null,err:t+' is too low. Decimal odds must be above 1.00. American odds are +100 or higher, or -100 or lower.',more:more};
+}
+function pOdds(s){var r=readOdds(s);return r.d==null?null:r.d}
+/* Read an amount of money: digits and one point, with $ and commas allowed.
+   Zero is an error unless `zero` is set (fees may be 0). Empty is not an error. */
+function readAmt(s,zero){
+  var t=String(s==null?'':s).replace(/[\s,$]/g,'');
+  if(!t)return {v:null,err:'',empty:true};
+  var more=/^0*\.?0*$/.test(t);
+  if(/^[-−]/.test(t))return {v:null,err:'An amount cannot be negative.',more:false};
+  if(!/^(\d+\.?\d*|\.\d+)$/.test(t))return {v:null,err:'Use digits only, like 25 or 25.50.',more:false};
+  var v=parseFloat(t);
+  if(!isFinite(v))return {v:null,err:'That number is too large.',more:false};
+  if(v===0&&!zero)return {v:null,err:'An amount must be above 0.',more:more};
+  return {v:v};
 }
 /* Decimal price back to an American price. */
 function am(d){
@@ -62,7 +85,59 @@ function mark(inp,ok){inp.className=ok?'':'bad'}
 function cash2(v){return '$'+Math.abs(v).toLocaleString('en-US',
   {minimumFractionDigits:2,maximumFractionDigits:2})}
 function money2(v){return (v<0?'-':'+')+cash2(v)}
-function num(e){var v=parseFloat(String(e.value).replace(/[^0-9.]/g,''));return (v>0&&isFinite(v))?v:null}
+function num(e){var v=readAmt(e.value).v;return v>0?v:null}
+
+/* -- input checks --
+   A tool reads its fields through a Form. A field that holds something unusable gets its
+   own message in the note line under the inputs (the .fine), a red edge, and aria-invalid
+   with aria-describedby pointing at the note. The tool's results are hidden, because no
+   figure is better than a false $0.00. An empty field is not an error. A field still being
+   typed in that could grow into a valid one ("+1", "1.") hides the results and waits until
+   the person leaves it before it complains.
+     root  selector of the tool's page    fine  selector of its note line
+     hide  result blocks to remove (selectors inside root)
+     mask  result cells to blank out but keep in the grid */
+function Form(root,fine,hide,mask){
+  var note=$(fine),F={bad:[],wait:0,marks:[]};
+  hide=hide||[];mask=mask||[];
+  note.setAttribute('aria-live','polite');
+  function all(sel){return [].slice.call($(root).querySelectorAll(sel))}
+  F.start=function(){
+    F.bad=[];F.wait=0;
+    F.marks.forEach(function(i){
+      i.classList.remove('bad');i.removeAttribute('aria-invalid');i.removeAttribute('aria-describedby')});
+    F.marks=[];
+  };
+  F.test=function(inp,msg,more){
+    if(!msg)return;
+    if(more&&document.activeElement===inp){F.wait++;return}
+    inp.classList.add('bad');inp.setAttribute('aria-invalid','true');
+    inp.setAttribute('aria-describedby',note.id);
+    F.marks.push(inp);F.bad.push(msg);
+  };
+  F.odds=function(inp,name){
+    var r=readOdds(inp.value);
+    F.test(inp,r.err&&(name?name+': ':'')+r.err,r.more);return r.d;
+  };
+  F.amt=function(inp,name,zero){
+    var r=readAmt(inp.value,zero);
+    F.test(inp,r.err&&(name?name+': ':'')+r.err,r.more);return r.v;
+  };
+  /* true when a field is bad or still being typed: results are hidden and `blank` has
+     reset the figures, so the next good reading starts from nothing */
+  F.fail=function(blank){
+    var off=F.bad.length>0||F.wait>0;
+    if(off&&blank)blank();   /* first: a reset that sets className would wipe the mask */
+    hide.forEach(function(s){all(s).forEach(function(e){e.hidden=off})});
+    mask.forEach(function(s){all(s).forEach(function(e){e.classList.toggle('rmask',off)})});
+    note.classList.toggle('err',F.bad.length>0);
+    if(!off)return false;
+    note.textContent='';
+    F.bad.forEach(function(m){note.appendChild(el('span','em',m))});
+    return true;
+  };
+  return F;
+}
 
 /* -- poker: whole cents throughout, so a split never loses or invents a cent -- */
 function pkCents(s){
@@ -137,15 +212,21 @@ if($('#ar-a'))(function(){
   /* never type over the field the person is in */
   function set(e,v){if(document.activeElement===e)return;
     e.value=(v==null||!isFinite(v)||v<=0)?'':v.toFixed(2)}
+  var F=Form('#view-arb','#ar-fine',['.asum']);
+  function blank(){
+    ['#ar-ts','#ar-tp','#ar-out'].forEach(function(k){$(k).textContent='$0.00'});
+    $('#ar-pct').textContent='0.00%';$('#ar-pct').className='num';$('#ar-out').className='num mut';
+  }
   function paint(src){
-    var da=pOdds(oA.value),db=pOdds(oB.value);
-    mark(oA,da!==null||!oA.value);mark(oB,db!==null||!oB.value);
+    F.start();
+    var da=F.odds(oA,'Odds on side A'),db=F.odds(oB,'Odds on side B');
+    F.amt(sA,'Stake on side A');F.amt(sB,'Stake on side B');
+    F.amt(pA,'Payout on side A');F.amt(pB,'Payout on side B');
+    if(F.fail(blank))return;
     var out=$('#ar-out'),pct=$('#ar-pct');
     if(da===null||db===null){
-      ['#ar-ts','#ar-tp','#ar-out'].forEach(function(k){$(k).textContent='$0.00'});
-      pct.textContent='0.00%';pct.className='num';out.className='num mut';
-      fine('#ar-fine',(oA.value||oB.value)?'That price does not read. Use +150, -130 or 2.50.'
-                                          :'Enter both prices, then a stake on either side.');
+      blank();
+      fine('#ar-fine','Enter both prices, then a stake on either side.');
       return}
     /* a payout works backwards to the stake that reaches it */
     if(src==='pa'){var v=num(pA);if(v)set(sA,v/da)}
@@ -187,27 +268,37 @@ if($('#ar-a'))(function(){
 /* -- odds: percent to odds, and back -- */
 if($('#pc-in'))(function(){
   var inp=$('#pc-in'),out=$('#pc-out');
+  var FP=Form('#view-odds','#pc-fine',[],['#pc-out']);
   function paint(){
+    FP.start();
     var v=parseFloat(inp.value);
+    /* a number box hands over '' for text it cannot read, so ask it why */
+    if(!inp.value&&inp.validity&&inp.validity.badInput)FP.test(inp,'That is not a number. Use digits only, like 55.');
+    else if(inp.value&&!isFinite(v))FP.test(inp,'That is not a number. Use digits only, like 55.');
+    else if(inp.value&&v<=0)FP.test(inp,'A chance must be above 0%, like 55.',v===0);
+    else if(inp.value&&v>=100)FP.test(inp,'A chance must be below 100%, like 55.');
+    if(FP.fail(function(){out.textContent='--';out.className='out num mut'}))return;
     if(!(v>0&&v<100)){
       out.textContent='--';out.className='out num mut';
-      fine('#pc-fine',inp.value?'Use a number above 0 and below 100.'
-                               :'Enter a chance from 0 to 100.');
+      fine('#pc-fine','Enter a chance from 0 to 100.');
       return}
     var p=v/100,d=1/p;
     out.textContent=am(d);out.className='out num';
     fine('#pc-fine','Decimal <i>'+dec(d)+'</i> &middot; pays <i>'+dec(d-1)+'</i> to 1');
   }
   inp.addEventListener('input',paint);
+  inp.addEventListener('blur',paint);
   paint();
 
   var io=$('#pc-o'),oo=$('#pc-oout');
+  var FB=Form('#view-odds','#pc-ofine',[],['#pc-oout']);
   function back(){
-    var d=pOdds(io.value);
-    mark(io,d!==null||!io.value);
+    FB.start();
+    var d=FB.odds(io);
+    if(FB.fail(function(){oo.textContent='--';oo.className='out num sm mut'}))return;
     if(d===null){
       oo.textContent='--';oo.className='out num sm mut';
-      fine('#pc-ofine',io.value?'That price does not read.':'American or decimal.');
+      fine('#pc-ofine','American or decimal.');
       return}
     var p=1/d;
     oo.textContent=p2(p);oo.className='out num sm';
@@ -215,24 +306,30 @@ if($('#pc-in'))(function(){
                      'This is the raw price, vig included');
   }
   io.addEventListener('input',back);
+  io.addEventListener('blur',back);
   back();
 
   /* a multiplier is the payout for each $1, so it is the decimal price */
   var im=$('#pc-m'),mo=$('#pc-mout');
+  var FM=Form('#view-odds','#pc-mfine',[],['#pc-mout']);
   function mult(){
+    FM.start();
     var t=String(im.value==null?'':im.value).trim().replace(/[\s,$]/g,'').replace(/[x×]$/i,'');
     var d=/^(\d+\.?\d*|\.\d+)$/.test(t)?parseFloat(t):NaN;
     var ok=isFinite(d)&&d>1;
-    mark(im,ok||!im.value);
+    if(t&&!/^(\d+\.?\d*|\.\d+)$/.test(t))FM.test(im,'That is not a multiplier. Use a number above 1, like 1.83 or 1.83x.');
+    else if(t&&!ok)FM.test(im,t+' is too low. A multiplier must be above 1, like 1.83.',/^[01]?\.?0*$/.test(t));
+    if(FM.fail(function(){mo.textContent='--';mo.className='out num sm mut'}))return;
     if(!ok){
       mo.textContent='--';mo.className='out num sm mut';
-      fine('#pc-mfine',im.value?'Use a multiplier above 1.':'The payout for each $1. Kalshi shows this.');
+      fine('#pc-mfine','The payout for each $1. Kalshi shows this.');
       return}
     mo.textContent=am(d);mo.className='out num sm';
     fine('#pc-mfine','Decimal <i>'+dec(d)+'</i> &middot; chance <i>'+p2(1/d)+'</i><br>'+
                      'Profit <i>'+dec(d-1)+'</i> for each 1 risked');
   }
   im.addEventListener('input',mult);
+  im.addEventListener('blur',mult);
   mult();
 })();
 
@@ -262,13 +359,14 @@ if($('#dv-a'))(function(){
       $(k).textContent='--';$(k).className=$(k).className.replace(' mut','')+' mut'});
   }
   function put(k,txt,lil){var e=$(k);e.textContent=txt;e.className='dv num'+(lil?' lil':'')}
+  var F=Form('#view-devig','#dv-fine',[],['#dv-pa','#dv-oa','#dv-pb','#dv-ob']);
   function paint(){
-    var da=pOdds(ia.value),db=pOdds(ib.value);
-    mark(ia,da!==null||!ia.value);mark(ib,db!==null||!ib.value);
+    F.start();
+    var da=F.odds(ia,'First side'),db=F.odds(ib,'Second side');
+    if(F.fail(blank))return;
     if(da===null||db===null){
       blank();
-      fine('#dv-fine',(ia.value||ib.value)?'That price does not read. Use +120, -140 or 2.20.'
-                                          :'Enter both sides of the market.');
+      fine('#dv-fine','Enter both sides of the market.');
       return}
     var pa=1/da,pb=1/db,s=pa+pb,fa=fairA(pa,pb,method),fb=1-fa;
     if(!(fa>0&&fa<1)){
@@ -287,7 +385,7 @@ if($('#dv-a'))(function(){
       method=b.getAttribute('data-m');press(segs,b);paint();
     });
   });
-  [ia,ib].forEach(function(e){e.addEventListener('input',paint)});
+  [ia,ib].forEach(function(e){e.addEventListener('input',paint);e.addEventListener('blur',paint)});
   paint();
 })();
 
@@ -329,10 +427,18 @@ if($('#csheet'))(function(){
         blk.appendChild(tr)});
       host.appendChild(blk)}
   }
+  var F=Form('#view-cheat','#cf-fine'),note=$('#cf-fine');
   function jump(){
     [].slice.call(document.querySelectorAll('.crow.hit')).forEach(function(e){e.className='crow'});
-    var v=parseFloat($('#cf').value);
-    if(!(v>0&&v<100))return;
+    F.start();
+    var t0=$('#cf').value.replace(/[\s%]/g,''),v=parseFloat(t0),lo=step,hi=100-step;
+    if(t0&&!/^-?(\d+\.?\d*|\.\d+)$/.test(t0))
+      F.test($('#cf'),'That is not a number. Type a percent from '+lo+' to '+hi+', like 55.',/^\.$/.test(t0));
+    else if(t0&&!(Math.round(v/step)*step>=lo&&Math.round(v/step)*step<=hi))
+      F.test($('#cf'),t0+'% is not in the table, which runs from '+lo+'% to '+hi+'%.',/^0*\.?0*$/.test(t0));
+    var off=F.fail();
+    note.hidden=!F.bad.length;if(!F.bad.length)note.textContent='';
+    if(off||!t0)return;
     v=Math.round(v/step)*step;
     var t=$('#'+key(Math.round(v*10)/10));if(!t)return;
     t.className='crow hit';t.scrollIntoView({block:'nearest'});
@@ -345,19 +451,23 @@ if($('#csheet'))(function(){
     });
   });
   $('#cf').addEventListener('input',jump);
+  $('#cf').addEventListener('blur',jump);
   build();
 })();
 
 /* -- hedge a bet you already hold -- */
 if($('#hg-o'))(function(){
   var iO=$('#hg-o'),iS=$('#hg-s'),iH=$('#hg-h'),iHS=$('#hg-hs'),iC=$('#hg-c');
+  var F=Form('#view-hedge','#hg-fine',['.asum']);
   function paint(){
-    var dO=pOdds(iO.value),dH=pOdds(iH.value),st=num(iS);
-    mark(iO,dO!==null||!iO.value);mark(iH,dH!==null||!iH.value);
+    F.start();
+    var dO=F.odds(iO,'Your odds'),dH=F.odds(iH,'Hedge odds'),st=F.amt(iS,'Your stake');
+    F.amt(iHS,'Hedge stake');F.amt(iC,'Cash out');
     var w1=$('#hg-w1'),w2=$('#hg-w2'),out=$('#hg-out'),pct=$('#hg-pct');
     function blank(msg){
       [w1,w2,out].forEach(function(e){e.textContent='$0.00';e.className='num mut'});
-      pct.textContent='0.00%';pct.className='num';fine('#hg-fine',msg)}
+      pct.textContent='0.00%';pct.className='num';if(msg)fine('#hg-fine',msg)}
+    if(F.fail(blank))return;
     if(dO===null||dH===null||!st){
       blank('Enter your price, your stake, and the price on the other side.');
       return}
@@ -408,8 +518,8 @@ if($('#pl-legs'))(function(){
       var inp=document.createElement('input');
       inp.type='text';inp.value=v;inp.placeholder='+120';inp.autocomplete='off';
       inp.spellcheck=false;inp.setAttribute('aria-label','Odds on leg '+(i+1));
-      inp.addEventListener('input',function(){legs[i]=inp.value;
-        mark(inp,pOdds(inp.value)!==null||!inp.value);paint()});
+      inp.addEventListener('input',function(){legs[i]=inp.value;paint()});
+      inp.addEventListener('blur',paint);
       row.appendChild(inp);
       var x=el('button','legx','×');
       x.type='button';x.title='Remove this leg';
@@ -439,7 +549,18 @@ if($('#pl-legs'))(function(){
   function live(){
     var out=[];legs.forEach(function(v){var d=pOdds(v);if(d!==null)out.push(d)});return out}
 
+  var F=Form('#view-parlay','#pl-fine',['.asum','#pl-out','.plist']);
+  function blank(){
+    ['#pl-n','#pl-risk','#pl-best','#pl-bestp'].forEach(function(k,i){
+      $(k).textContent=i===0?'0':'$0.00';$(k).className='num mut'});
+    $('#pl-out').innerHTML='';$('#pl-combos').innerHTML='';
+  }
   function paint(){
+    /* a leg that is typed but unusable stops the whole ticket: pricing the rest would be a false number */
+    F.start();
+    [].slice.call(box.querySelectorAll('input')).forEach(function(inp,i){F.odds(inp,'Leg '+(i+1))});
+    F.amt($('#pl-s'),'Stake per bet');
+    if(F.fail(blank))return;
     var D=live(),n=D.length,S=parseFloat(String($('#pl-s').value).replace(/[^0-9.]/g,''));
     if(!(S>0))S=0;
     var outTab=$('#pl-out'),comboTab=$('#pl-combos');
@@ -519,6 +640,7 @@ if($('#pl-legs'))(function(){
   $('#pl-add').addEventListener('click',function(){
     if(legs.length>=MAXL)return;legs.push('');drawLegs();drawModes();paint()});
   $('#pl-s').addEventListener('input',paint);
+  $('#pl-s').addEventListener('blur',paint);
   $('#pl-clear').addEventListener('click',function(){
     legs=['','',''];mode='straight';$('#pl-s').value='10';
     drawLegs();drawModes();paint();box.querySelector('input').focus()});
@@ -532,7 +654,7 @@ if($('#py-am'))(function(){
   var CURD=null,legs=['','',''],MAXL=12;
 
   /* ---- one reader per format ---- */
-  function rAm(s){s=String(s).trim().replace(/[\s,]/g,'');
+  function rAm(s){s=String(s).trim().replace(/[\s,]/g,'').replace(/[−–—]/g,'-');
     if(!/^[+-]?\d+(\.\d+)?$/.test(s))return null;
     var v=parseFloat(s);if(!isFinite(v))return null;
     if(v>=100)return 1+v/100;
@@ -595,7 +717,61 @@ if($('#py-am'))(function(){
       mark(F[k],true);
     });
   }
+  /* ---- why a box was refused, in words. {} means it reads fine. `more`: could still grow valid ---- */
+  var NUM=/^\d+(\.\d+)?$/;
+  var PX={
+    am:function(s){
+      var t=s.replace(/[\s,]/g,'').replace(/[−–—]/g,'-');
+      if(rAm(t)!==null)return {};
+      return (/^[+-]?\d*\.?\d*$/.test(t)&&/\d/.test(t))
+        ?{err:t+' is not valid American odds. Use +100 or higher, or -100 or lower.',more:/^[+-]?\d{0,2}\.?\d*$/.test(t)}
+        :{err:'That is not American odds. Use +150 or -130.',more:/^[+-]$/.test(t)};
+    },
+    dec:function(s){
+      var t=s.replace(/[\s,]/g,'');
+      if(rDec(t)!==null)return {};
+      return NUM.test(t)
+        ?{err:t+' is too low. Decimal odds must be above 1.00, like 2.50.',more:/^[01]?\.?0*$/.test(t)}
+        :{err:'That is not decimal odds. Use a number above 1, like 2.50.',more:/^\d*\.$/.test(t)};
+    },
+    frac:function(s){
+      if(rFrac(s)!==null)return {};
+      return {err:'Fractional odds are two numbers above 0, like 3/2.',more:/^[\d.]*\s*[\/:]?\s*[\d.]*$/.test(s.trim())};
+    },
+    imp:function(s){
+      if(rImp(s)!==null)return {};
+      var t=s.replace(/[\s,%]/g,'');
+      return NUM.test(t)
+        ?{err:t+'% is out of range. Use a percent above 0 and below 100, like 40.',more:/^0*\.?0*$/.test(t)}
+        :{err:'That is not a percent. Use a number above 0 and below 100, like 40.',more:/^\d*\.$/.test(t)};
+    },
+    mult:function(s){
+      if(rMult(s)!==null)return {};
+      var t=s.replace(/[\s,]/g,'').replace(/[xX×]$/,'');
+      return NUM.test(t)
+        ?{err:t+' is too low. A multiplier must be above 1, like 2.50.',more:/^[01]?\.?0*$/.test(t)}
+        :{err:'That is not a multiplier. Use a number above 1, like 2.50 or 2.5x.',more:/^\d*\.$/.test(t)};
+    }
+  };
+  /* a parlay leg takes any of the five forms */
+  function legErr(s){
+    var t=s.replace(/[\s,]/g,'');
+    if(/[\/:]/.test(t))return PX.frac(t);
+    if(/[xX×]$/.test(t))return PX.mult(t);
+    var r=readOdds(t);
+    return r.err?r:{err:'That price does not read. Use +120, 2.50, 3/2 or 2.5x.',more:/\.$/.test(t)};
+  }
+  var FS=Form('#py-single','#py-fine',['.asum']),last=null;   /* last: the price box edited most recently */
+  function blankS(){
+    var w=$('#py-win'),p=$('#py-pay');
+    w.textContent='$0.00';w.className='num mut';
+    p.textContent='$0.00';p.className='num mut';
+  }
   function render(){
+    FS.start();
+    FS.amt($('#py-s'),'Bet amount');FS.amt($('#py-f'),'Fees',true);
+    if(last&&F[last].value.trim()){var bad=PX[last](F[last].value.trim());FS.test(F[last],bad.err,bad.more)}
+    if(FS.fail(blankS))return;
     var S=num($('#py-s')),fee=num($('#py-f'))||0,w=$('#py-win'),p=$('#py-pay');
     if(CURD===null||S===null){
       w.textContent='$0.00';w.className='num mut';
@@ -621,14 +797,15 @@ if($('#py-am'))(function(){
     e.addEventListener('input',function(){
       var raw=e.value.trim();
       var d=raw?READ[k](raw):null;
-      mark(e,d!==null||!raw);
+      last=k;
       CURD=d;
       fill(k,d);
       render();
     });
+    e.addEventListener('blur',render);
   });
-  $('#py-s').addEventListener('input',render);
-  $('#py-f').addEventListener('input',render);
+  ['#py-s','#py-f'].forEach(function(id){
+    $(id).addEventListener('input',render);$(id).addEventListener('blur',render)});
 
   /* ---- parlay side ---- */
   var box=$('#py-legs');
@@ -643,10 +820,10 @@ if($('#py-am'))(function(){
       var out=el('span','lread','');
       function readout(){
         var d=anyOdds(inp.value);
-        mark(inp,d!==null||!inp.value);
         out.textContent=(d===null)?'':(am(d)+' · '+(100/d).toFixed(1)+'%');
       }
       inp.addEventListener('input',function(){legs[i]=inp.value;readout();paintP()});
+      inp.addEventListener('blur',paintP);
       readout();
       row.appendChild(inp);
       row.appendChild(out);
@@ -665,7 +842,23 @@ if($('#py-am'))(function(){
     if(legs.length>=MAXL)return;legs.push('');drawLegs();paintP();
     var ins=box.querySelectorAll('input');ins[ins.length-1].focus()});
 
+  var FP=Form('#py-parlay','#py-pfine',['.asum']);
+  function blankP(){
+    var n=$('#py-pn'),o=$('#py-po'),w=$('#py-pw'),p=$('#py-pp');
+    n.textContent='0';n.className='num mut';
+    o.textContent='--';o.className='num mut';
+    w.textContent='$0.00';w.className='num mut';
+    p.textContent='$0.00';p.className='num mut';
+  }
   function paintP(){
+    /* a typed leg that does not read stops the parlay: pricing the other legs alone would be a false number */
+    FP.start();
+    [].slice.call(box.querySelectorAll('input')).forEach(function(inp,i){
+      var raw=inp.value.trim();
+      if(raw&&anyOdds(raw)===null){var r=legErr(raw);FP.test(inp,'Leg '+(i+1)+': '+r.err,r.more)}
+    });
+    FP.amt($('#py-ps'),'Bet amount');FP.amt($('#py-pf'),'Fees',true);
+    if(FP.fail(blankP))return;
     var D=[];legs.forEach(function(v){var d=anyOdds(v);if(d!==null)D.push(d)});
     var S=num($('#py-ps')),fee=num($('#py-pf'))||0;
     var n=$('#py-pn'),o=$('#py-po'),w=$('#py-pw'),p=$('#py-pp');
@@ -693,8 +886,8 @@ if($('#py-am'))(function(){
     if(fee>0)txt+=' Fees of '+cash2(fee)+' come out of the profit.';
     fine('#py-pfine',txt);
   }
-  $('#py-ps').addEventListener('input',paintP);
-  $('#py-pf').addEventListener('input',paintP);
+  ['#py-ps','#py-pf'].forEach(function(id){
+    $(id).addEventListener('input',paintP);$(id).addEventListener('blur',paintP)});
 
   /* ---- single or parlay ---- */
   var msegs=[].slice.call(document.querySelectorAll('#py-mode .sg'));
@@ -741,6 +934,16 @@ if($('#pk-rows'))(function(){
     return G.ps.filter(function(p){return p.id!==id&&p.name.toLowerCase()===k})[0]||null;
   }
   function flag(inp,ok){inp.classList.toggle('bad',!ok)}
+  /* why an amount box was refused, in the note line under the table (the line the name checks use).
+     pkCents returns NaN for text that is not dollars and cents; CAP is the typo ceiling. */
+  function amtWarn(label,raw){
+    var t=String(raw).replace(/[\s,$]/g,'');
+    if(/^[-−]/.test(t))return label+': an amount cannot be negative.';
+    if(/^(\d+\.?\d{0,2}|\.\d{1,2})$/.test(t))return label+': amounts above '+pkMoney(CAP)+' are treated as typos.';
+    return label+': use dollars and cents, like 150 or 150.50.';
+  }
+  /* leaving an amount box puts the last good figure back, so its complaint goes too */
+  function amtOk(){if(/^(Money in|Cash-out|Buy-in):/.test(warn)){warn='';paint()}}
   function whole(v,lo,hi){return typeof v==='number'&&v===Math.floor(v)&&v>=lo&&v<=hi}
   function valid(g){
     if(!g||!whole(g.buy,0,CAP)||!Array.isArray(g.ps)||g.ps.length>MAXP)return false;
@@ -852,23 +1055,23 @@ if($('#pk-rows'))(function(){
       var ic=cell('pin','In'),mi=moneyIn(plain(inOf(p)),'Money in');
       mi.i.addEventListener('input',function(){
         var c=pkCents(mi.i.value);
-        if(c!==c||c>CAP){flag(mi.i,false);return}
-        flag(mi.i,true);c=c||0;
+        if(c!==c||c>CAP){flag(mi.i,false);warn=amtWarn('Money in',mi.i.value);paint();return}
+        flag(mi.i,true);warn='';c=c||0;
         if(G.buy>0){p.n=Math.min(999,Math.floor(c/G.buy));p.extra=c-p.n*G.buy}
         else{p.n=0;p.extra=c}
         save();paint();
       });
-      mi.i.addEventListener('blur',function(){mi.i.value=plain(inOf(p));flag(mi.i,true)});
+      mi.i.addEventListener('blur',function(){mi.i.value=plain(inOf(p));flag(mi.i,true);amtOk()});
       onEnter(mi.i,p,'inI');
       ic.appendChild(mi.w);ctl.appendChild(ic);
 
       var oc=cell('pout','Cash-out'),mo=moneyIn(p.out===null?'':plain(p.out),'Cash-out');
       mo.i.addEventListener('input',function(){
         var c=pkCents(mo.i.value);
-        if(c!==c||c>CAP){flag(mo.i,false);return}
-        flag(mo.i,true);p.out=c;save();paint();
+        if(c!==c||c>CAP){flag(mo.i,false);warn=amtWarn('Cash-out',mo.i.value);paint();return}
+        flag(mo.i,true);warn='';p.out=c;save();paint();
       });
-      mo.i.addEventListener('blur',function(){mo.i.value=p.out===null?'':plain(p.out);flag(mo.i,true)});
+      mo.i.addEventListener('blur',function(){mo.i.value=p.out===null?'':plain(p.out);flag(mo.i,true);amtOk()});
       onEnter(mo.i,p,'outI');
       oc.appendChild(mo.w);ctl.appendChild(oc);
       row.appendChild(ctl);
@@ -1028,10 +1231,10 @@ if($('#pk-rows'))(function(){
   var bi=$('#pk-buy');
   bi.addEventListener('input',function(){
     var c=pkCents(bi.value);
-    if(c!==c||c>CAP){flag(bi,false);return}
-    flag(bi,true);G.buy=c||0;save();paint();
+    if(c!==c||c>CAP){flag(bi,false);warn=amtWarn('Buy-in',bi.value);paint();return}
+    flag(bi,true);warn='';G.buy=c||0;save();paint();
   });
-  bi.addEventListener('blur',function(){bi.value=G.buy?plain(G.buy):'';flag(bi,true)});
+  bi.addEventListener('blur',function(){bi.value=G.buy?plain(G.buy):'';flag(bi,true);amtOk()});
   bi.addEventListener('keydown',function(e){
     if(e.key==='Enter'){e.preventDefault();$('#pk-name').focus()}
   });

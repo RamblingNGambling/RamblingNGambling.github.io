@@ -181,23 +181,26 @@ button,select,input{font:inherit;color:inherit}
 .meta a{color:var(--fg2);text-underline-offset:3px;text-decoration-color:var(--line3)}
 .meta a:hover{color:var(--fg)}
 
-/* ---- ticker: the last results scrolling under the hero. Pure CSS: the
-   track holds two identical halves, so translateX(-50%) loops seamlessly.
-   Item spacing lives on the items (not the track's gap), keeping the loop
-   point exact. Edge fade is a mask, like the marquee it borrows from. */
-.tick{overflow:hidden;margin-top:28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
+/* ---- latest results: the last settled plays in a still strip under the chart.
+   It never moves by itself; the reader can scroll it sideways. Only the right
+   edge fades, so the newest play at the left is never dimmed. The strip repeats
+   the log, so it stays hidden from assistive tech (aria-hidden in the markup). */
+.tick{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;margin-top:28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent);
+  mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent)}
+.tick::-webkit-scrollbar{display:none}
 .tick-track{display:flex;width:max-content;padding:10px 0}
 .tick-track>.tk-i{display:flex;align-items:baseline;white-space:nowrap;padding-right:36px;font-size:13.5;color:var(--fg2)}
 .tick .tk-d{font:12px var(--mono);color:var(--fg3);margin-right:10px}
 .tick .tk-p{overflow:hidden;text-overflow:ellipsis;max-width:34ch}
 .tick .tk-u{font:500 13.5px var(--mono);margin-left:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .tick .tk-s{margin-left:36px;color:var(--fg3);opacity:.55;font-size:12}
-@keyframes tick{to{transform:translateX(-50%)}}
-.motion .tick-track{animation:tick var(--tick-d,42s) linear infinite}
-.motion .tick:hover .tick-track{animation-play-state:paused}
-html:not(.motion) .tick{overflow-x:auto}
+/* phones: date and units only, so several results show instead of one clipped play name (the log has the names) */
+@media (max-width:640px){
+  .tick .tk-p{display:none}
+  .tick-track>.tk-i{padding-right:0}
+  .tick .tk-s{margin:0 16px}
+}
 
 /* result tiles: the identity motif. Shape carries meaning without color:
    win = filled, loss = outlined, push = dashed. */
@@ -233,6 +236,39 @@ h2{margin:0;font-size:24;line-height:1.2;font-weight:500;letter-spacing:-.022em}
 .sel select:hover{border-color:var(--line3)}
 .sel::after{content:"";position:absolute;right:13px;top:50%;width:5px;height:5px;margin-top:-4px;
   border-right:1.25px solid var(--fg3);border-bottom:1.25px solid var(--fg3);transform:rotate(45deg);pointer-events:none}
+/* the second filter row: a text search and a date range; the first row's rule is dropped so the two read as one bar */
+#filters{border-bottom:0;padding-bottom:4px}
+.ctl2{padding-top:6px}
+.fin{min-height:36px;padding:0 12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);color:var(--fg);
+  font:500 13.5px var(--sans);transition:border-color .15s}
+.fin::placeholder{color:var(--fg3);opacity:1}
+.fin:hover{border-color:var(--line3)}
+.fin:focus-visible{border-color:var(--acc)}
+.fin.bad{border-color:var(--down)}
+.fq{flex:1 1 240px}
+.fq .fin{width:100%}
+.fd{gap:8px}
+.fd .fl{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg3)}
+.fd .fin{width:156px;font-family:var(--mono)}
+.ferr{margin:0;padding:0 14px 10px}
+.ferr:empty{padding:0}
+.tally .tl{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.rtag{margin:0 0 10px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.rtag span{font-weight:400;letter-spacing:.02em;text-transform:none;color:var(--fg3)}
+/* under the total: when the data last changed, and the way in to "How the record is counted" */
+.rupd{margin:12px 0 0;max-width:46ch;font:13.5px/1.55 var(--mono);color:var(--fg3)}
+.rupd a{color:var(--fg2);text-underline-offset:3px;text-decoration-color:var(--line3)}
+.rupd a:hover{color:var(--fg)}
+.how{margin-top:28px;padding:18px 20px 4px}
+.how-h{margin:0 0 14px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.how-l{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px;margin:0}
+.how-l>div{padding:0 0 16px}
+.how-l dt{margin:0 0 5px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg3)}
+.how-l dd{margin:0;font-size:14.5px;line-height:1.55;color:var(--fg2)}
+.how-l dd a{color:var(--fg);text-underline-offset:3px;text-decoration-color:var(--line3)}
+@media (max-width:1100px){.how-l{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.how{padding:16px 16px 2px}.how-l{grid-template-columns:minmax(0,1fr)}}
+.c-more{display:none}
 .logp{overflow:hidden}
 table{width:100%;border-collapse:collapse}
 .log th{padding:9px 12px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg3);
@@ -469,6 +505,12 @@ a.bk:hover .bw{color:var(--acc)}
 .fine{margin-top:12px;font-size:14.5;line-height:1.6;color:var(--fg3)}
 .fine i,.fine u{font-style:normal;text-decoration:none;font-family:var(--mono);font-size:.94em;color:var(--fg);font-weight:500}
 .fine u{color:var(--acc)}
+/* a calculator input it cannot use: the message sits in the note line, results step aside (tools.js Form) */
+.fine.err{color:var(--down)}
+.fine.err .em{display:block}
+.fine.err .em+.em{margin-top:2px}
+.rmask{visibility:hidden}
+.cf-note{margin:0;padding:10px 18px;border-bottom:1px solid var(--line)}
 .tnote p{font-size:14.5}
 .tnote a{color:var(--fg)}
 .btn2{display:inline-flex;align-items:center;min-height:34px;padding:0 14px;border:1px dashed var(--line3);border-radius:var(--r-sm);
@@ -736,12 +778,35 @@ a.bk:hover .bw{color:var(--acc)}
   .log td.c-play .g{display:block;margin:1px 0 0;font-size:13.5;line-height:1.35}
   .log td.c-pl{order:2}
   .log td.c-date,.log td.c-sport,.log td.c-mkt,.log td.c-odds,.log td.c-stake{order:3;font:13.5px var(--mono);color:var(--fg3)}
-  .log td.c-mkt{font-family:var(--sans);font-size:13.5}
+  .log td.c-mkt{display:none}   /* the market moves into the row's Details */
   .log td.c-sport .tag{font-size:13.5;color:var(--fg3)}
-  .log td.c-sport::before,.log td.c-mkt::before,.log td.c-odds::before,.log td.c-stake::before{content:"·";margin-right:8px;color:var(--line3)}
+  .log td.c-sport::before,.log td.c-odds::before,.log td.c-stake::before{content:"·";margin-right:8px;color:var(--line3)}
+  .log td.c-stake .mo{display:inline}   /* "risk 0.50u": a bare figure beside the odds reads as a price */
   .log td.c-post{position:absolute;left:9px;top:34px;width:24px}
   .log td.c-post .xl{width:24px;height:22px;margin:0}
-  .log .nolink{display:none}
+  .log td.c-post .nolink{display:block;width:24px;text-align:center;font:13.5px/22px var(--mono)}   /* a missing link stays marked: a dash where the X icon would be */
+  /* an unsettled play has no result tile: the word Pending sits beside the dash that stands for its profit */
+  .log tr[data-open] td.c-res{position:static;order:2}
+  .log tr[data-open] .res .w-txt{position:static;width:auto;height:auto;overflow:visible;clip:auto;font:500 13.5px var(--mono);color:var(--fg2)}
+  .log tr[data-open] td.c-post{top:11px}
+  /* Details: market, result in words, and the source link, for a row too narrow to show them as columns */
+  .log td.c-more{display:block;order:4;flex-basis:100%;margin-top:1px}
+  .log td.c-more summary{display:inline-flex;align-items:center;gap:7px;min-height:28px;padding:0 4px;margin-left:-4px;border-radius:6px;
+    font:500 13px var(--sans);color:var(--fg3);cursor:pointer;list-style:none}
+  .log td.c-more summary::-webkit-details-marker{display:none}
+  .log td.c-more summary::after{content:"";width:5px;height:5px;margin-top:-3px;border-right:1.25px solid currentColor;border-bottom:1.25px solid currentColor;
+    transform:rotate(45deg);transition:transform .15s}
+  .log td.c-more details[open] summary::after{margin-top:3px;transform:rotate(-135deg)}
+  .log td.c-more summary:hover{color:var(--fg)}
+  .rd{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 14px;margin:4px 0 2px;font-size:13.5px;line-height:1.4}
+  .rd>div{display:contents}
+  .rd dt{align-self:baseline;font:12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fg3)}
+  .rd dd{margin:0;color:var(--fg2)}
+  .rd .xt{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+  .rd .xn{color:var(--fg3)}
+  .fgroup.fq{overflow:visible;padding-bottom:0;flex-basis:100%}
+  .fd{width:100%}
+  .fd .fin{flex:1 1 0;min-width:0;width:auto}
   .log tr.state{display:block;padding:0}
   .log tr.state td{display:block}
   .ctl{padding:10px;gap:8px 6px}
@@ -761,9 +826,9 @@ a.bk:hover .bw{color:var(--acc)}
 }
 @media (max-width:520px){
   .record,.phero{padding-top:26px}
-  /* phones get a thinner record: no sublabels under the four figures,
-     no last-20 strip (the ticker covers recent form) */
-  .ledger p,.ledger>.lform{display:none}
+  /* phones get a thinner record: no last-20 strip (the latest-results strip covers recent form) and
+     no win-rate note; the open count (under Settled) and the units risked (under ROI) stay */
+  .ledger>.lform,.ledger>div:nth-child(4) p{display:none}
   .chart{min-height:160px}
   .more .mo-h{display:none}
   .more .ghost{padding:0 10px}
@@ -779,8 +844,6 @@ a.bk:hover .bw{color:var(--acc)}
   .brk .c-wlp{display:none}
   .brk .c-bar{width:auto;min-width:36px}
   .brk tbody th{white-space:normal}
-  /* the stake wrapped onto its own line behind a stray dot; the P/L carries the size */
-  .log td.c-stake{display:none}
   .brk th,.brk td{padding-left:8px;padding-right:8px}
   .brk th:first-child,.brk td:first-child{padding-left:14px}
   .brk th:last-child,.brk td:last-child{padding-right:14px}
@@ -814,6 +877,8 @@ a.bk:hover .bw{color:var(--acc)}
 @media (pointer:coarse){
   .seg button{min-height:34px}
   .sel select{min-height:40px}
+  .fin{min-height:40px}
+  .log td.c-more summary{min-height:36px}
   .tally .clear,.ghost{min-height:36px}
 }
 
@@ -1041,7 +1106,7 @@ a.bk:hover .bw{color:var(--acc)}
 .sgchip .sga{color:var(--fg3)}
 .sgchip .sgdot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none}
 .sgchip.over .sgdot{background:var(--fg3)}
-.deco .sgchip:not(.over) .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
+.deco .sgchip:not(.over) .sgdot{animation:sgpulse 2.2s ease-in-out 3}   /* three pulses, then still: it says "live", it does not nag */
 @keyframes sgpulse{50%{opacity:.3}}
 
 /* ---- SGA 20+: the tab that hangs under the header ---- */
@@ -1058,7 +1123,7 @@ a.bk:hover .bw{color:var(--acc)}
   cursor:pointer;transition:color .15s,background .15s}
 .sgfx:hover{color:var(--fg);background:var(--s2)}
 .deco .sgfloat{animation:sgfin .5s var(--ease) .9s backwards}
-.deco .sgfloat .sgdot{animation:sgpulse 2.2s ease-in-out infinite}
+.deco .sgfloat .sgdot{animation:sgpulse 2.2s ease-in-out 3}
 @keyframes sgfin{from{opacity:0;transform:translateY(-6px)}}
 @media (max-width:520px){.sgfloat{right:12px}.sgfloat .sgtxt i{display:none}.sgfloat b{font-size:13px}}
 
@@ -1275,13 +1340,18 @@ a.bk:hover .bw{color:var(--acc)}
    its own stacking context, and a blank canvas is a plain dark hero. Full-bleed like the frame
    rules; the bottom edge fades out. Colour comes from the script (it reads --acc); here only
    strength is tuned per theme. The home hero has no band of sky above its figures
-   (--art-sky is 0; raise it to open one); the art is faint enough that the figures read over it. */
-:root{--art-o:.4;--art-sky:0px;--art-h:461px}
-:root[data-theme="light"]{--art-o:.26}
+   (--art-sky is 0; raise it to open one); the art is faint enough that the figures read over it.
+   Quieter since 31 Oct 2026: half the strength it had (.4 and .26). Its middle between the 24% and
+   76% marks is held to 70% of that (--art-mid), so the picture shows mainly toward the left and right
+   edges. Only the art's own opacity and mask change here; nothing in front of it is touched. */
+:root{--art-o:.2;--art-mid:.7;--art-sky:0px;--art-h:461px}
+:root[data-theme="light"]{--art-o:.13}
 .art{position:absolute;z-index:-1;left:50%;top:0;width:100vw;margin-left:-50vw;height:var(--art-h);
   pointer-events:none;overflow:hidden;opacity:var(--art-o);
-  -webkit-mask-image:linear-gradient(#000 0,#000 var(--art-f,66%),transparent 100%);
-  mask-image:linear-gradient(#000 0,#000 var(--art-f,66%),transparent 100%)}
+  -webkit-mask-image:linear-gradient(#000 0,#000 var(--art-f,66%),transparent 100%),linear-gradient(90deg,#000 0,rgba(0,0,0,var(--art-mid)) 24%,rgba(0,0,0,var(--art-mid)) 76%,#000 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(#000 0,#000 var(--art-f,66%),transparent 100%),linear-gradient(90deg,#000 0,rgba(0,0,0,var(--art-mid)) 24%,rgba(0,0,0,var(--art-mid)) 76%,#000 100%);
+  mask-composite:intersect}
 .art>canvas,.art>img{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
 .art>img{object-fit:cover}
 @supports (overflow:clip){
@@ -1330,9 +1400,11 @@ html.deco .art-img{animation:art-in 1.4s var(--ease) .15s backwards}
    ground. How strong it is, and where, is worked out in the script (a low cap inside the content column,
    full strength in the gutters), so here only the overall level is set, per theme. The canvas is 100vh
    tall (the large viewport on a phone), so the picture does not stretch when the toolbar slides away.
-   Longhand offsets and no :has, so an older browser lays it out the same way. */
-:root{--page-o:.25}
-:root[data-theme="light"]{--page-o:.17}
+   Longhand offsets and no :has, so an older browser lays it out the same way.
+   Quieter since 31 Oct 2026: half the level it had (.25 and .17). The script's map is unchanged, so the
+   pattern still sits mainly in the gutters, and the panels that hold tables, charts and forms are opaque. */
+:root{--page-o:.125}
+:root[data-theme="light"]{--page-o:.085}
 .art-page{position:fixed;left:0;top:0;right:0;bottom:0;z-index:-1;overflow:hidden;pointer-events:none;opacity:var(--page-o)}
 .art-page>canvas{position:absolute;left:0;top:0;width:100%;height:100vh;min-height:100%;display:block}
 @keyframes art-in{from{opacity:0}}
@@ -1385,7 +1457,7 @@ html.deco .art-page{animation:art-in 1.6s var(--ease) .1s backwards}
     </div>
   </div>
 </main>
-<script>/* Shared runtime for every page: theme, entrance reveals, count-ups and the
+<script>/* Shared runtime for every page: theme, entrance reveals and the
    motion helpers the page scripts use. Exposed as window.PT. */
 (function(){
 'use strict';
@@ -1440,26 +1512,13 @@ const onScheme=()=>fadeTheme(applyTheme);
 mq.addEventListener?mq.addEventListener("change",onScheme):mq.addListener(onScheme);
 applyTheme();
 
-/* ---------- count-up ---------- */
-// Count from zero with a quartic ease-out. The final text is in the markup, so
-// without JS or with reduced motion the real figures are simply there.
-function countUp(dur,delay,draw,done){
-  const t0=performance.now()+delay;
-  draw(0);
-  const f=now=>{const k=Math.max(0,Math.min(1,(now-t0)/dur));draw(1-Math.pow(1-k,4));if(k<1)requestAnimationFrame(f);else if(done)done()};
-  requestAnimationFrame(f);
-}
-
 /* ---------- entrances ---------- */
 // Page scripts register hooks; each runs when an element is revealed, with
-// the stagger delay that element got.
+// the stagger delay that element got. Figures are never counted up: every
+// number is in the markup, whole, from the first paint.
 const hooks=[];
 function onReveal(el,d){
   if(!moving())return;
-  el.querySelectorAll("[data-cu]").forEach(n=>{
-    const to=+n.dataset.cu,dp=+n.dataset.dp||0;
-    countUp(1200,d,p=>{n.textContent=(to*p).toFixed(dp)});
-  });
   hooks.forEach(h=>h(el,d));
 }
 // Sections rise 14px and fade in as they enter; whatever enters together is
@@ -1633,7 +1692,7 @@ if(/[?&]diag(=|&|$)/.test(location.search)){
   setTimeout(()=>{report();setInterval(report,2000)},800);
 }
 
-window.PT={$,moving,rise,EASE,countUp,loops,onReveal:h=>hooks.push(h)};
+window.PT={$,moving,rise,EASE,loops,onReveal:h=>hooks.push(h)};
 })();
 </script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="55eb5498-a3ca-4912-846f-c48e59a9971a"></script>

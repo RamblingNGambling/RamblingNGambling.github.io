@@ -1,8 +1,8 @@
-/* Home: equity curve, play log with filters, breakdown, hero count-up.
+/* Home: equity curve, play log with filters, breakdown.
    Data is inlined by the build in #pt-data; nothing is fetched. */
 (function(){
 'use strict';
-const {$,moving,rise,EASE,countUp}=window.PT;
+const {$,moving,rise,EASE}=window.PT;
 
 /* ---------- data ---------- */
 const DATA=JSON.parse(document.getElementById("pt-data").textContent);
@@ -21,6 +21,9 @@ const MINUS="−";
 const DAY=864e5;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const signed=(v,d=2)=>{const a=Math.abs(v).toFixed(d);return +a===0?(0).toFixed(d):(v>0?"+":MINUS)+a};
+// Units risked, to the cent: round to a millionth, then half up, so a total on a half cent reads the
+// same whatever order the plays were added in (build.mjs has the same rule for the record above).
+const u2=v=>(Math.round(Math.round(v*1e6)/1e4)/100).toFixed(2);
 const cls=v=>v>0.004?"pos":v<-0.004?"neg":"zero-v";
 const uHTML=v=>`<span class="${cls(v)}">${signed(v)}<span class="u">u</span></span>`;
 const odds=o=>o>0?"+"+o:MINUS+Math.abs(o);
@@ -253,31 +256,82 @@ tabs.forEach((t,i)=>{
 drawBreak("sport");
 
 /* ---------- play log ---------- */
-// Same filter logic as the prototype: sport AND market AND result, "All"
-// passes everything. The full log is paged so the first paint stays short.
+// Filters are ANDed: sport, market, result (including Pending), a text search over
+// the play and its game, and a date range; "All" or an empty box passes everything.
+// The full log is paged so the first paint stays short.
 const SPORT_ORDER=DATA.sportOrder,MKT_ORDER=DATA.marketOrder;
-const F={sport:"All",result:"All",market:"All"};
+const F={sport:"All",result:"All",market:"All",q:"",from:"",to:""};
 const PAGE=15;let limit=PAGE;
 const rowsEl=$("#rows"),tally=$("#tally"),moreEl=$("#more");
-const match=r=>(F.sport==="All"||r[2]===F.sport)&&(F.market==="All"||r[3]===F.market)&&(F.result==="All"||r[8]===F.result);
+
+/* ---------- filter logic (pure: verify/check-log.mjs runs this block on its own) ---------- */
+// A row is [key, date, sport, market, play, game, odds, units, result, units P/L, post]. A result of
+// W, L or P is settled. Anything else is not: Pending is open, Void is neither open nor settled.
+const isSettled=r=>r==="W"||r==="L"||r==="P";
+const isOpen=r=>!isSettled(r)&&r!=="Void";
+const rangeBad=f=>!!(f.from&&f.to&&f.from>f.to);
+// every word typed must appear in the play or its game, in any order, any case
+const textOk=(f,r)=>{
+  const q=f.q.trim().toLowerCase();if(!q)return true;
+  const hay=(r[4]+" "+r[5]).toLowerCase();
+  return q.split(/\s+/).every(t=>hay.indexOf(t)>=0);
+};
+const dateOk=(f,r)=>(!f.from||r[1]>=f.from)&&(!f.to||r[1]<=f.to);
+const resOk=(f,r)=>f.result==="All"||(f.result==="Pending"?isOpen(r[8]):r[8]===f.result);
+// a From date after the To date matches nothing: the page says why instead of guessing
+const matches=(f,r)=>!rangeBad(f)&&(f.sport==="All"||r[2]===f.sport)&&(f.market==="All"||r[3]===f.market)&&resOk(f,r)&&textOk(f,r)&&dateOk(f,r);
+const isActive=f=>f.sport!=="All"||f.market!=="All"||f.result!=="All"||!!f.q.trim()||!!f.from||!!f.to;
+// The log summary, from the rows the filters leave. Net and risked count settled plays only,
+// as the record above the log does; open plays are counted apart.
+const summarize=list=>{
+  const s={n:list.length,w:0,l:0,p:0,open:0,net:0,risk:0};
+  list.forEach(r=>{
+    if(r[8]==="W")s.w++;else if(r[8]==="L")s.l++;else if(r[8]==="P")s.p++;
+    if(isOpen(r[8]))s.open++;
+    if(isSettled(r[8])){s.net+=r[9];s.risk+=+r[7]}
+  });
+  s.settled=s.w+s.l+s.p;
+  return s;
+};
+/* ---------- end filter logic ---------- */
+const match=r=>matches(F,r);
 
 function buildFilters(){
   const count=(k,v)=>PLAYS.filter(r=>r[k]===v).length;
   const sports=SPORT_ORDER.filter(s=>count(2,s));
   $("#f-sport").innerHTML=[["All",PLAYS.length]].concat(sports.map(s=>[s,count(2,s)]))
     .map(([s,n])=>`<button type="button" data-v="${esc(s)}" aria-pressed="${s===F.sport}">${esc(s)}<span class="n">${n}</span></button>`).join("");
-  $("#f-res").innerHTML=[["All","All"],["W","Won"],["L","Lost"],["P","Push"]]
+  $("#f-res").innerHTML=[["All","All"],["W","Won"],["L","Lost"],["P","Push"],["Pending","Pending"]]
     .map(([v,l])=>`<button type="button" data-v="${v}" aria-pressed="${v===F.result}">${l}</button>`).join("");
   const mk=MKT_ORDER.filter(m=>count(3,m));
   $("#f-mkt").innerHTML=`<option value="All">All markets</option>`+mk.map(m=>`<option value="${esc(m)}">${esc(m)} (${count(3,m)})</option>`).join("");
   $("#f-sport").addEventListener("click",e=>{const b=e.target.closest("button");if(b){F.sport=b.dataset.v;sync()}});
   $("#f-res").addEventListener("click",e=>{const b=e.target.closest("button");if(b){F.result=b.dataset.v;sync()}});
   $("#f-mkt").addEventListener("change",e=>{F.market=e.target.value;sync()});
+  // the date boxes only offer days the log covers; a typed day outside still filters, it just matches nothing
+  const days=PLAYS.map(r=>r[1]).sort();
+  if(days.length){$("#f-from").min=$("#f-to").min=days[0];$("#f-from").max=$("#f-to").max=days[days.length-1]}
+  // typing waits a beat, so the log settles once per word, not once per key
+  let qT=0;
+  $("#f-q").addEventListener("input",e=>{clearTimeout(qT);qT=setTimeout(()=>{F.q=e.target.value;sync()},140)});
+  $("#f-q").addEventListener("keydown",e=>{if(e.key==="Escape"&&e.target.value){e.target.value="";clearTimeout(qT);F.q="";sync()}});
+  ["from","to"].forEach(k=>{
+    const el=$("#f-"+k),take=()=>{F[k]=el.value;sync()};
+    el.addEventListener("input",take);el.addEventListener("change",take);
+  });
 }
 function sync(){
   document.querySelectorAll("#f-sport button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===F.sport));
   document.querySelectorAll("#f-res button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===F.result));
   $("#f-mkt").value=F.market;
+  // a range that runs backwards says so next to the boxes, and both boxes point at the message
+  const bad=rangeBad(F),err=$("#f-err");
+  err.textContent=bad?"The From date is after the To date, so no play can match. Change one of them, or clear the dates.":"";
+  ["#f-from","#f-to"].forEach(s=>{
+    const el=$(s);el.classList.toggle("bad",bad);
+    if(bad){el.setAttribute("aria-invalid","true");el.setAttribute("aria-describedby","f-err")}
+    else{el.removeAttribute("aria-invalid");el.removeAttribute("aria-describedby")}
+  });
   limit=PAGE;
   renderLog(true);
 }
@@ -312,33 +366,45 @@ function drawLog(){
       tally.innerHTML="<span>0 plays</span>";moreEl.hidden=true;return;
     }
     const list=PLAYS.filter(match);
-    const active=F.sport!=="All"||F.market!=="All"||F.result!=="All";
-    const w=list.filter(r=>r[8]==="W").length,l=list.filter(r=>r[8]==="L").length,p=list.filter(r=>r[8]==="P").length;
-    const net=list.reduce((a,r)=>a+r[9],0);
-    tally.innerHTML=`<span><b data-n="${list.length}">${list.length}</b> of ${PLAYS.length} plays</span><span><b>${w}-${l}-${p}</b></span>`+
-      `<span>net <b>${uHTML(net)}</b></span>`+
+    const active=isActive(F);
+    const s=summarize(list);
+    // The summary describes exactly the rows the filters leave. With nothing settled in them there is no
+    // net or risk to state, so those read as a dash rather than a made-up 0.00u.
+    tally.innerHTML=`<span class="tl">${active?"Filtered log":"Whole log"}</span>`+
+      `<span><b data-n="${s.n}">${s.n}</b> of ${PLAYS.length} plays</span><span><b>${s.w}-${s.l}-${s.p}</b></span>`+
+      `<span>net <b>${s.settled?uHTML(s.net):"–"}</b></span>`+
+      `<span><b>${s.open}</b> open</span><span><b>${s.settled?u2(s.risk)+"u":"–"}</b> risked</span>`+
       `<button type="button" class="clear" id="clear"${active?"":" hidden"}>Clear filters</button>`;
     $("#clear").addEventListener("click",clearF);
     if(!list.length){
-      rowsEl.innerHTML=`<tr class="state"><td colspan="9"><b>No plays match</b>Nothing in the log fits that combination of filters.<br><button type="button" id="clear2">Clear filters</button></td></tr>`;
+      rowsEl.innerHTML=`<tr class="state"><td colspan="9"><b>No plays match</b>${rangeBad(F)?"The date range runs backwards, so nothing can fit it.":"Nothing in the log fits that combination of filters."}<br><button type="button" id="clear2">Clear filters</button></td></tr>`;
       $("#clear2").addEventListener("click",clearF);moreEl.hidden=true;return;
     }
     const shown=list.slice(0,limit);
     rowsEl.innerHTML=shown.map(r=>{
       const [k,date,sport,mkt,play,game,o,u,res,pl,post]=r;
+      const settled=isSettled(res),word=RES[res]||esc(res);
       const link=post
         ?`<a class="xl" href="${esc(post)}" target="_blank" rel="noopener noreferrer" aria-label="Original post on X: ${esc(play)}">${XSVG}</a>`
         :`<span class="nolink" title="No post link on file">–<span class="sr">No post link on file</span></span>`;
-      return `<tr data-k="${k}"${post?` class="has-x" data-post="${esc(post)}"`:""}>
+      // Not settled: the profit is a dash (never 0.00u) and the result is the word itself, on every screen.
+      const profit=settled?uHTML(pl):`<span class="zero-v" aria-hidden="true">–</span><span class="sr">No profit yet, not settled</span>`;
+      // On a phone the market, the result in words and the source link sit behind a details control
+      // (the wide table shows them as columns, and hides this cell).
+      const src=post
+        ?`<a class="xt" href="${esc(post)}" target="_blank" rel="noopener noreferrer">Original post on X</a>`
+        :`<span class="xn">No post link on file</span>`;
+      return `<tr data-k="${k}"${post?` class="has-x" data-post="${esc(post)}"`:""}${settled?"":' data-open="1"'}>
         <td class="c-date">${dshort(date)}</td>
         <td class="c-play">${esc(play)}${game?`<span class="g">${esc(game)}</span>`:""}</td>
         <td class="c-sport"><span class="tag">${esc(sport)}</span></td>
         <td class="c-mkt">${esc(mkt)}</td>
         <td class="c-odds num">${odds(o)}</td>
         <td class="c-stake num"><span class="mo">risk </span>${(+u).toFixed(2)}u</td>
-        <td class="c-res"><span class="res">${RES[res]?tile(res):""}<span class="w-txt">${RES[res]||esc(res)}</span></span></td>
-        <td class="c-pl num">${uHTML(pl)}</td>
-        <td class="c-post">${link}</td></tr>`;
+        <td class="c-res"><span class="res">${RES[res]?tile(res):""}<span class="w-txt">${word}</span></span></td>
+        <td class="c-pl num">${profit}</td>
+        <td class="c-post">${link}</td>
+        <td class="c-more"><details><summary aria-label="Details for ${esc(play)}">Details</summary><dl class="rd"><div><dt>Market</dt><dd>${esc(mkt)}</dd></div><div><dt>Result</dt><dd>${word}</dd></div><div><dt>Source</dt><dd>${src}</dd></div></dl></details></td></tr>`;
     }).join("");
     const left=list.length-shown.length;
     moreEl.hidden=false;
@@ -362,7 +428,11 @@ function loadMore(n){
   const first=rowsEl.children[had];
   if(first){first.tabIndex=-1;first.focus({preventScroll:true})}
 }
-function clearF(){F.sport="All";F.market="All";F.result="All";sync();$("#f-sport button").focus()}
+function clearF(){
+  F.sport="All";F.market="All";F.result="All";F.q="";F.from="";F.to="";
+  $("#f-q").value="";$("#f-from").value="";$("#f-to").value="";
+  sync();$("#f-sport button").focus();
+}
 
 /* ---------- post hint ---------- */
 // A row with a post link opens the post. Hovering one (or tabbing to its X
@@ -408,7 +478,7 @@ document.addEventListener("pointerdown",e=>{
 },true);
 rowsEl.addEventListener("click",e=>{
   const tr=e.target.closest("tr.has-x");
-  if(!tr||e.target.closest("a,button")||String(getSelection()))return;
+  if(!tr||e.target.closest("a,button,summary,details")||String(getSelection()))return;
   if(xPointer==="touch"){
     if(!(xRow===tr&&xh.classList.contains("tap")))return showHint(tr,true);
     hideHint();
@@ -464,14 +534,7 @@ buildFilters();renderLog();
 })();
 
 /* ---------- entrances ---------- */
-function countHero(delay){
-  // Hold the final width while counting so the column beside it never shifts.
-  const big=$(".big"),ci=$("#cu-i"),cd=$("#cu-d"),to=Math.abs(+big.dataset.to);
-  big.style.minWidth=big.getBoundingClientRect().width+"px";
-  countUp(1200,delay,p=>{const s=(to*p).toFixed(2).split(".");ci.textContent=s[0];cd.textContent=s[1]},()=>{big.style.minWidth=""});
-}
 PT.onReveal((el,d)=>{
-  if(el.classList.contains("big"))countHero(d);
   if(el.classList.contains("chartp"))playChart(1300,d+120);
   if(el.classList.contains("lform"))[...$("#pips").children].forEach((t,i)=>rise(t,{dy:5,dur:320,delay:d+160+i*30}));
   if(el.classList.contains("bpanel"))growBars(d+120);

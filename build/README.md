@@ -41,7 +41,7 @@ node verify/check-art-slot.mjs  # the optional hero pictures in art/: good, bad 
 node verify/check-motion.mjs    # no count-ups or moving ticker, one SGA pointer on home, scenes, art and the quieter background
 node verify/check-calc.mjs      # calculator price and amount rules, on the code that ships
 node verify/check-log.mjs       # play log filters, search, dates, Pending and the summary, on the code that ships
-node verify/check-record.mjs    # record period, data-update line and the "How the record is counted" claims, against plays.json
+node verify/check-record.mjs    # the record period label against plays.json, and no date taken from the clock
 python3 verify/check-pages.py   # headless Chromium: every page at 390px and 1440px
 ```
 

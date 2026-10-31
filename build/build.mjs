@@ -598,9 +598,6 @@ const u2 = v => (Math.round(Math.round(v * 1e6) / 1e4) / 100).toFixed(2);
 // The period the record covers: its first and last settled play. Dates come from the plays themselves.
 const recFirst = settled.length ? settled[0].date : "", recLast = settled.length ? settled[settled.length - 1].date : "";
 const recPeriod = !recFirst ? "" : recFirst.slice(0, 4) === recLast.slice(0, 4) ? `${dmd(recFirst)} – ${dlong(recLast)}` : `${dlong(recFirst)} – ${dlong(recLast)}`;
-// When the data last changed: the stamp Bet Desk writes into plays.json when Darren publishes it. Never the time the
-// page is built or opened. A file with no stamp says only when the latest result was.
-const recUpdated = [RAW.updated ? `Data updated <time${updIso ? ` datetime="${updIso}"` : ""}>${h(RAW.updated)}</time>` : "", recLast ? `latest result ${dmd(recLast)}` : ""].filter(Boolean).join(" · ");
 // "Oct 7, 2026, 1:24 AM EDT" is shown as "Oct 7, 1:24 AM EDT"; the footer carries the year.
 const updShort = (RAW.updated || "–").replace(/^([A-Z][a-z]+\.? \d{1,2}), \d{4}(,)?/, "$1$2");
 // Phones show only the day ("Updated Oct 7"); the time sits in its own span so CSS can drop it.
@@ -618,26 +615,6 @@ const ticker = tickHalf
   ? `<div class="tick" aria-hidden="true" tabindex="-1"><div class="tick-track">${tickHalf}</div></div>`
   : "";
 
-/* ---------- how the record is counted ----------
-   Each line states a rule the code above already follows (agg(): settled plays only, pushes in the
-   denominator and out of the win rate, one row per play) or one written down in architecture.md
-   (a round robin is one row per parlay). Nothing here is a rule the page does not apply. The SGA
-   line appears only when the SGA page does. check-record.mjs holds every claim against plays.json. */
-const howSga = SGAS
-  ? `<div><dt>SGA 20+</dt><dd>Not in this record. The rollover has its own page (linked just above) and its own totals. A normal play on Shai Gilgeous-Alexander counts here like any other.</dd></div>`
-  : "";
-const howBlock = `<div class="panel how" id="how" data-rv>
-      <h3 class="how-h">How the record is counted</h3>
-      <dl class="how-l">
-        <div><dt>Units</dt><dd>Stakes and results are in units (u). The size of a unit is not published.</dd></div>
-        <div><dt>ROI</dt><dd>Net units divided by units risked, settled plays only: ${signed(A.u)}u on ${u2(A.risk)}u risked is ${signed(A.roi * 100, 1)}%.</dd></div>
-        <div><dt>Pushes</dt><dd>A push returns the stake, so it adds 0u. It counts as a settled play and as the P in W-L-P, and its stake stays in units risked. Win rate is won divided by won plus lost, so pushes are left out.</dd></div>
-        <div><dt>Pending</dt><dd>A play that has not settled is open. It is not in the record, the ROI, the win rate or the chart until it settles. The open count is under Settled.</dd></div>
-        <div><dt>Parlays</dt><dd>A parlay is one play: one stake, one result, however many legs. A round robin is logged as one play for each parlay in it.</dd></div>
-        ${howSga}
-      </dl>
-    </div>`;
-
 const homeBody = `<main class="wrap" id="main">
 
   <!-- ============ 01 RECORD ============ -->
@@ -648,7 +625,6 @@ const homeBody = `<main class="wrap" id="main">
       <div>
         <p class="rtag" data-rv>Full record${recPeriod ? `<span> · ${recPeriod}</span>` : ""}</p>
         <p class="big${A.u < -0.004 ? " down" : ""}" data-rv aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span>${netAbs[0]}</span><span class="pt">.</span><span>${netAbs[1]}</span><span class="u">u</span></p>
-        <p class="rupd" data-rv>${recUpdated}${recUpdated ? " · " : ""}<a href="#how">How this is counted</a></p>
       </div>
       <dl class="ledger">
         <div data-rv><dt>Settled</dt><dd>${A.n}</dd><p>${OPEN} open right now</p></div>
@@ -673,8 +649,6 @@ const homeBody = `<main class="wrap" id="main">
     </div>
 
     ${ticker}${SGA ? "\n    " + sgaChip() : ""}
-
-    ${howBlock}
   </section>
 
   <!-- ============ 02 LOG ============ -->

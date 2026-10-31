@@ -181,25 +181,37 @@ button,select,input{font:inherit;color:inherit}
 .meta a{color:var(--fg2);text-underline-offset:3px;text-decoration-color:var(--line3)}
 .meta a:hover{color:var(--fg)}
 
-/* ---- latest results: the last settled plays in a still strip under the chart.
-   It never moves by itself; the reader can scroll it sideways. Only the right
-   edge fades, so the newest play at the left is never dimmed. The strip repeats
-   the log, so it stays hidden from assistive tech (aria-hidden in the markup). */
-.tick{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;margin-top:28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent);
-  mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent)}
-.tick::-webkit-scrollbar{display:none}
+/* ---- ticker: the last results scrolling under the chart. Pure CSS: the
+   track holds two identical halves, so translateX(-50%) loops seamlessly.
+   Item spacing lives on the items (not the track's gap), keeping the loop
+   point exact. Edge fade is a mask, like the marquee it borrows from. It runs
+   only under html.motion (the reader allows motion and no script failed) and
+   pauses on hover. Without that it is a still strip the reader scrolls by hand:
+   one copy of the plays, only the right edge fading so the newest play is never
+   dimmed. The strip repeats the log, so it stays hidden from assistive tech
+   (aria-hidden in the markup) and is never a tab stop (tabindex -1). */
+.tick{overflow:hidden;margin-top:28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
 .tick-track{display:flex;width:max-content;padding:10px 0}
 .tick-track>.tk-i{display:flex;align-items:baseline;white-space:nowrap;padding-right:36px;font-size:13.5;color:var(--fg2)}
 .tick .tk-d{font:12px var(--mono);color:var(--fg3);margin-right:10px}
 .tick .tk-p{overflow:hidden;text-overflow:ellipsis;max-width:34ch}
 .tick .tk-u{font:500 13.5px var(--mono);margin-left:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .tick .tk-s{margin-left:36px;color:var(--fg3);opacity:.55;font-size:12}
-/* phones: date and units only, so several results show instead of one clipped play name (the log has the names) */
+@keyframes tick{to{transform:translateX(-50%)}}
+.motion .tick-track{animation:tick var(--tick-d,42s) linear infinite}
+.motion .tick:hover .tick-track{animation-play-state:paused}
+html:not(.motion) .tick{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent);
+  mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent)}
+html:not(.motion) .tick::-webkit-scrollbar{display:none}
+html:not(.motion) .tk-dup{display:none}
+/* still strip on phones: date and units only, so several results show instead of one clipped play name (the log has the names) */
 @media (max-width:640px){
-  .tick .tk-p{display:none}
-  .tick-track>.tk-i{padding-right:0}
-  .tick .tk-s{margin:0 16px}
+  html:not(.motion) .tick .tk-p{display:none}
+  html:not(.motion) .tick-track>.tk-i{padding-right:0}
+  html:not(.motion) .tick .tk-s{margin:0 16px}
 }
 
 /* result tiles: the identity motif. Shape carries meaning without color:

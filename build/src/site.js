@@ -1,4 +1,4 @@
-/* Shared runtime for every page: theme, entrance reveals, count-ups and the
+/* Shared runtime for every page: theme, entrance reveals and the
    motion helpers the page scripts use. Exposed as window.PT. */
 (function(){
 'use strict';
@@ -53,26 +53,13 @@ const onScheme=()=>fadeTheme(applyTheme);
 mq.addEventListener?mq.addEventListener("change",onScheme):mq.addListener(onScheme);
 applyTheme();
 
-/* ---------- count-up ---------- */
-// Count from zero with a quartic ease-out. The final text is in the markup, so
-// without JS or with reduced motion the real figures are simply there.
-function countUp(dur,delay,draw,done){
-  const t0=performance.now()+delay;
-  draw(0);
-  const f=now=>{const k=Math.max(0,Math.min(1,(now-t0)/dur));draw(1-Math.pow(1-k,4));if(k<1)requestAnimationFrame(f);else if(done)done()};
-  requestAnimationFrame(f);
-}
-
 /* ---------- entrances ---------- */
 // Page scripts register hooks; each runs when an element is revealed, with
-// the stagger delay that element got.
+// the stagger delay that element got. Figures are never counted up: every
+// number is in the markup, whole, from the first paint.
 const hooks=[];
 function onReveal(el,d){
   if(!moving())return;
-  el.querySelectorAll("[data-cu]").forEach(n=>{
-    const to=+n.dataset.cu,dp=+n.dataset.dp||0;
-    countUp(1200,d,p=>{n.textContent=(to*p).toFixed(dp)});
-  });
   hooks.forEach(h=>h(el,d));
 }
 // Sections rise 14px and fade in as they enter; whatever enters together is
@@ -246,5 +233,5 @@ if(/[?&]diag(=|&|$)/.test(location.search)){
   setTimeout(()=>{report();setInterval(report,2000)},800);
 }
 
-window.PT={$,moving,rise,EASE,countUp,loops,onReveal:h=>hooks.push(h)};
+window.PT={$,moving,rise,EASE,loops,onReveal:h=>hooks.push(h)};
 })();

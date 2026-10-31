@@ -258,7 +258,7 @@ function header(rel, active, home) {
       <svg id="th-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
       <span class="tl" id="th-lab">Auto</span>
     </button>
-  </div>${SGA && active !== "sga" ? sgaFloat(rel) : ""}
+  </div>${SGA && active !== "sga" && !home ? sgaFloat(rel) : ""}
 </header>`;
 }
 
@@ -380,13 +380,13 @@ const SGAS = SGA && (() => {
   for (const r of runs) { const s = sgaStat(r); tw += s.w; tl += s.l; tp = Math.max(tp, s.peak); if (r.usd) profit += r.usd.bank - r.usd.start; }
   return {runs, cur, cs, tw, tl, tp, usd: runs.some(r => r.usd), profit: round(profit, 2)};
 })();
-// the line on the home page that points at it
+// the line on the home page that points at it: the home page's one SGA pointer (it has no header tab)
 function sgaChip() {
   if (!SGAS) return "";
   const {cur, cs} = SGAS, over = cur.st !== "live" && !cs.open;
   const t = cur.st === "bust" ? `last run ${plural(cs.w, "win")} · peaked ${sx(cs.peak)}`
     : cur.st === "cashed" ? `cashed out at ${sx(cs.held)}`
-    : `${sx(cs.held)} · ${plural(cs.w, "win")} in a row`;
+    : `${sx(cs.held)} · ${plural(cs.w, "win")} in a row${SGAS.usd ? " · " + usdSigned(SGAS.profit) : ""}`;   // the approved dollar profit, as the header tab showed it before the chip became the home page's only pointer
   return `<a class="sgchip${over ? " over" : ""}" href="sga/" data-rv><span class="sgdot" aria-hidden="true"></span><b>SGA 20+ rollover</b><span class="sgs">${h(t)}</span><span class="sga" aria-hidden="true">&rarr;</span></a>`;
 }
 // The small tab that hangs off the header, top right, on every page but SGA's own: it points a newcomer at
@@ -429,11 +429,11 @@ function sgaBody() {
   const pfSub = runs.length > 1 ? `${plural(runs.length, "run")} combined`
     : cur.usd && cur.st !== "bust" ? `worth ${usdFmt(cur.usd.bank)} now` : cur.usd ? `started with ${usdFmt(cur.usd.start)}` : "";
   const bigTxt = bust ? "0" : sgaBig(cs.held);
-  const big = `<p class="sg-big${bust ? " down" : ""}" aria-label="${bust ? "Zero" : sx(cs.held).replace("x", " times")} the first stake"><span${!bust && cs.held > 1 ? ` data-cu="${bigTxt}" data-dp="${cs.held >= 100 ? 0 : cs.held >= 10 ? 1 : 2}"` : ""}>${bigTxt}</span><span class="u">x</span></p>`;
+  const big = `<p class="sg-big${bust ? " down" : ""}" aria-label="${bust ? "Zero" : sx(cs.held).replace("x", " times")} the first stake"><span>${bigTxt}</span><span class="u">x</span></p>`;
   const cell = (dt, dd, note) => `<div><dt>${dt}</dt><dd>${dd}</dd>${note ? `<p>${note}</p>` : ""}</div>`;
   const cells = [
-    SGAS.usd ? `<div class="pt"><dt>Profit</dt><dd class="${pf > 0.004 ? "pos" : ""}">${pf > 0.004 ? "+" : pf < -0.004 ? MINUS : ""}$<span data-cu="${Math.abs(pf).toFixed(2)}" data-dp="2">${Math.abs(pf).toFixed(2)}</span></dd>${pfSub ? `<p>${h(pfSub)}</p>` : ""}</div>` : "",
-    cell("Wins in a row", `<span${cs.w ? ` data-cu="${cs.w}"` : ""}>${cs.w}</span>`),
+    SGAS.usd ? `<div class="pt"><dt>Profit</dt><dd class="${pf > 0.004 ? "pos" : ""}">${pf > 0.004 ? "+" : pf < -0.004 ? MINUS : ""}$<span>${Math.abs(pf).toFixed(2)}</span></dd>${pfSub ? `<p>${h(pfSub)}</p>` : ""}</div>` : "",
+    cell("Wins in a row", `<span>${cs.w}</span>`),
     cell("Best roll", sx(tp)),
     cell("Record", `${tw}–${tl}`, plural(runs.length, "run")),
     cell("Avg points", cs.avg == null ? "–" : cs.avg.toFixed(1)),
@@ -591,22 +591,52 @@ ${gallery}
 /* ---------- home ---------- */
 const netAbs = Math.abs(A.u).toFixed(2).split(".");
 const netWord = A.u < -0.004 ? "Minus" : A.u > 0.004 ? "Plus" : "";
+// Units risked, to the cent. Stakes carry up to four decimals, so a total can land on a half cent
+// (31.675); summing them in a different order moves it by 1e-15 and toFixed would flip. Round to
+// a millionth first, then half up, so the same plays always read the same. home.js has the same rule.
+const u2 = v => (Math.round(Math.round(v * 1e6) / 1e4) / 100).toFixed(2);
+// The period the record covers: its first and last settled play. Dates come from the plays themselves.
+const recFirst = settled.length ? settled[0].date : "", recLast = settled.length ? settled[settled.length - 1].date : "";
+const recPeriod = !recFirst ? "" : recFirst.slice(0, 4) === recLast.slice(0, 4) ? `${dmd(recFirst)} – ${dlong(recLast)}` : `${dlong(recFirst)} – ${dlong(recLast)}`;
+// When the data last changed: the stamp Bet Desk writes into plays.json when Darren publishes it. Never the time the
+// page is built or opened. A file with no stamp says only when the latest result was.
+const recUpdated = [RAW.updated ? `Data updated <time${updIso ? ` datetime="${updIso}"` : ""}>${h(RAW.updated)}</time>` : "", recLast ? `latest result ${dmd(recLast)}` : ""].filter(Boolean).join(" · ");
 // "Oct 7, 2026, 1:24 AM EDT" is shown as "Oct 7, 1:24 AM EDT"; the footer carries the year.
 const updShort = (RAW.updated || "–").replace(/^([A-Z][a-z]+\.? \d{1,2}), \d{4}(,)?/, "$1$2");
 // Phones show only the day ("Updated Oct 7"); the time sits in its own span so CSS can drop it.
 const [, updDay = updShort, updTime = ""] = updShort.match(/^([A-Z][a-z]+\.? \d{1,2})(,.*)?$/) || [];
 const dataJson = JSON.stringify(DATA).replace(/</g, "\\u003c");
 
-/* ---------- ticker: the last 15 settled results, newest first. Pure CSS
-   marquee under the hero; the track carries two identical halves so the
-   loop is seamless. Same figures the log shows, so nothing new to verify. */
+/* ---------- latest results: the last 15 settled plays, newest first. A still
+   strip under the chart that the reader can scroll sideways; it does not move
+   by itself. Same figures the log shows, so nothing new to verify. */
 const TICK_N = 15;
 const tickPlays = settled.slice(-TICK_N).reverse();
 const tickHalf = tickPlays.map(p =>
   `<span class="tk-i"><span class="tk-d">${dmd(p.date)}</span><span class="tk-p">${h(p.play)}</span><span class="tk-u ${cls(p.pl)}">${signed(p.pl)}u</span><span class="tk-s">&rarr;</span></span>`).join("");
 const ticker = tickHalf
-  ? `<div class="tick" aria-hidden="true"><div class="tick-track" style="--tick-d:${Math.max(24, Math.round(tickPlays.length * 2.8))}s">${tickHalf}${tickHalf}</div></div>`
+  ? `<div class="tick" aria-hidden="true" tabindex="-1"><div class="tick-track">${tickHalf}</div></div>`
   : "";
+
+/* ---------- how the record is counted ----------
+   Each line states a rule the code above already follows (agg(): settled plays only, pushes in the
+   denominator and out of the win rate, one row per play) or one written down in architecture.md
+   (a round robin is one row per parlay). Nothing here is a rule the page does not apply. The SGA
+   line appears only when the SGA page does. check-record.mjs holds every claim against plays.json. */
+const howSga = SGAS
+  ? `<div><dt>SGA 20+</dt><dd>Not in this record. The rollover has its own page (linked just above) and its own totals. A normal play on Shai Gilgeous-Alexander counts here like any other.</dd></div>`
+  : "";
+const howBlock = `<div class="panel how" id="how" data-rv>
+      <h3 class="how-h">How the record is counted</h3>
+      <dl class="how-l">
+        <div><dt>Units</dt><dd>Stakes and results are in units (u). The size of a unit is not published.</dd></div>
+        <div><dt>ROI</dt><dd>Net units divided by units risked, settled plays only: ${signed(A.u)}u on ${u2(A.risk)}u risked is ${signed(A.roi * 100, 1)}%.</dd></div>
+        <div><dt>Pushes</dt><dd>A push returns the stake, so it adds 0u. It counts as a settled play and as the P in W-L-P, and its stake stays in units risked. Win rate is won divided by won plus lost, so pushes are left out.</dd></div>
+        <div><dt>Pending</dt><dd>A play that has not settled is open. It is not in the record, the ROI, the win rate or the chart until it settles. The open count is under Settled.</dd></div>
+        <div><dt>Parlays</dt><dd>A parlay is one play: one stake, one result, however many legs. A round robin is logged as one play for each parlay in it.</dd></div>
+        ${howSga}
+      </dl>
+    </div>`;
 
 const homeBody = `<main class="wrap" id="main">
 
@@ -616,11 +646,13 @@ const homeBody = `<main class="wrap" id="main">
     <h1 class="sr" id="rec-h">Public Tracker: the record</h1>
     <div class="hero">
       <div>
-        <p class="big${A.u < -0.004 ? " down" : ""}" data-rv data-to="${round(A.u, 6)}" aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span id="cu-i">${netAbs[0]}</span><span class="pt">.</span><span id="cu-d">${netAbs[1]}</span><span class="u">u</span></p>
+        <p class="rtag" data-rv>Full record${recPeriod ? `<span> · ${recPeriod}</span>` : ""}</p>
+        <p class="big${A.u < -0.004 ? " down" : ""}" data-rv aria-label="${netWord} ${Math.abs(A.u).toFixed(2)} units">${A.u < -0.004 ? MINUS : A.u > 0.004 ? "+" : ""}<span>${netAbs[0]}</span><span class="pt">.</span><span>${netAbs[1]}</span><span class="u">u</span></p>
+        <p class="rupd" data-rv>${recUpdated}${recUpdated ? " · " : ""}<a href="#how">How this is counted</a></p>
       </div>
       <dl class="ledger">
-        <div data-rv><dt>Settled</dt><dd><span data-cu="${A.n}">${A.n}</span></dd><p>${OPEN} open right now</p></div>
-        <div data-rv><dt>ROI</dt><dd>${A.roi < 0 ? MINUS : A.roi > 0 ? "+" : ""}<span data-cu="${Math.abs(A.roi * 100).toFixed(1)}" data-dp="1">${Math.abs(A.roi * 100).toFixed(1)}</span><small>%</small></dd><p>on ${A.risk.toFixed(2)}u risked</p></div>
+        <div data-rv><dt>Settled</dt><dd>${A.n}</dd><p>${OPEN} open right now</p></div>
+        <div data-rv><dt>ROI</dt><dd>${A.roi < 0 ? MINUS : A.roi > 0 ? "+" : ""}${Math.abs(A.roi * 100).toFixed(1)}<small>%</small></dd><p>on ${u2(A.risk)}u risked</p></div>
         <div data-rv><dt>W-L-P</dt><dd>${A.w}-${A.l}-${A.p}</dd></div>
         <div data-rv><dt>Win rate</dt><dd>${(A.wr * 100).toFixed(1)}<small>%</small></dd><p>${A.wr < 0.5 && A.u > 0 ? "Under half, still up." : ""}</p></div>
         <div class="lform" data-rv><dt>Last ${form.length}, oldest first</dt><dd><div class="pips" id="pips" role="img"></div></dd></div>
@@ -641,6 +673,8 @@ const homeBody = `<main class="wrap" id="main">
     </div>
 
     ${ticker}${SGA ? "\n    " + sgaChip() : ""}
+
+    ${howBlock}
   </section>
 
   <!-- ============ 02 LOG ============ -->
@@ -656,6 +690,13 @@ const homeBody = `<main class="wrap" id="main">
         <div class="fgroup"><span class="sr" id="lab-res">Result</span><div class="seg" id="f-res" role="group" aria-labelledby="lab-res"></div></div>
         <div class="fgroup"><label class="sr" for="f-mkt">Market</label><span class="sel"><select id="f-mkt"></select></span></div>
       </div>
+      <div class="ctl ctl2" id="filters2">
+        <div class="fgroup fq"><label class="sr" for="f-q">Search the log by player or play</label><input type="search" id="f-q" class="fin" placeholder="Search player or play" autocomplete="off" spellcheck="false" enterkeyhint="search"></div>
+        <div class="fgroup fd" role="group" aria-labelledby="lab-dates"><span class="sr" id="lab-dates">Date range</span>
+          <label class="fl" for="f-from">From</label><input type="date" id="f-from" class="fin">
+          <label class="fl" for="f-to">To</label><input type="date" id="f-to" class="fin"></div>
+      </div>
+      <p class="fine err ferr" id="f-err" aria-live="polite"></p>
       <table class="log">
         <caption class="sr">Play log, newest first</caption>
         <thead><tr>

@@ -85,10 +85,14 @@ try {
     assert(!p.includes("Where the prices come from") && !p.includes("The first stake is not shown."));
   });
 
-  test("the floating tab hangs in the header of every page but the SGA page, and the menu has no SGA link", () => {
+  test("the floating tab hangs in the header of every page but the SGA page and the home page (the home page has the chip instead), and the menu has no SGA link", () => {
     const b = build(file([{n: 1, st: "live", g: [game()]}]));
     assert.equal(b.code, 0, b.err);
-    for (const p of ["index.html", "about/index.html", "odds/index.html", "404.html"]) {
+    const home = b.read("index.html");
+    assert(!home.includes('id="sgfloat"'), "the home page has no floating tab: the chip is its one promotion");
+    assert.equal((home.match(/href="sga\/"/g) || []).length, 1, "one link to the SGA page on the home page");
+    assert(!home.match(/<header class="top">[\s\S]*?<\/header>/)[0].match(/<nav[\s\S]*?<\/nav>/)[0].includes("sga"), "index.html: the menu has no SGA link");
+    for (const p of ["about/index.html", "odds/index.html", "404.html"]) {
       const page = b.read(p), head = page.match(/<header class="top">[\s\S]*?<\/header>/)[0];
       assert.equal((page.match(/id="sgfloat"/g) || []).length, 1, p);
       assert(head.includes('id="sgfloat"'), p + ": the tab is inside the header");
@@ -169,10 +173,12 @@ try {
     assert.equal(b.code, 0, b.err);
     const p = b.read("sga/index.html");
     assert(p.includes("Started with $30 on Oct 25. Every win goes straight onto the next game, and one miss ends the run."), "intro");
-    assert(p.includes('<div class="pt"><dt>Profit</dt><dd class="pos">+$<span data-cu="4.48" data-dp="2">4.48</span></dd><p>worth $34.48 now</p></div>'), "profit tile");
+    assert(p.includes('<div class="pt"><dt>Profit</dt><dd class="pos">+$<span>4.48</span></dd><p>worth $34.48 now</p></div>'), "profit tile");
     assert(p.includes('<dl class="sg-stats">') && !p.includes("sg-stats odd"), "six cells with the profit cell: an even grid");
     assert.deepEqual(dollars(p), ["$30", "$34.48"], "the only dollar figures on the page");
-    assert(b.read("index.html").includes("1.15x · +$4.48"), "the floating tab carries the figure");
+    const chip = b.read("index.html").match(/<a class="sgchip[\s\S]*?<\/a>/)[0];
+    assert(chip.includes("1.15x · 1 win in a row · +$4.48"), "the home page's chip carries the approved dollar profit");
+    assert(b.read("odds/index.html").includes("1.15x · +$4.48"), "the floating tab on the other pages still carries it");
     const j = JSON.parse(b.read("sga.json"));
     assert.equal(j.units_only, false, "a file with dollar figures does not say it is units only");
     assert.equal(j.profit_usd, 4.48);
@@ -204,7 +210,7 @@ try {
       {n: 2, st: "live", usd: {start: 30, bank: 12.5}, g: [game({d: "2026-10-30"})]}]));
     assert.equal(b.code, 0, b.err);
     const p = b.read("sga/index.html");
-    assert(p.includes('<dt>Profit</dt><dd class="">−$<span data-cu="47.50" data-dp="2">47.50</span></dd><p>2 runs combined</p>'), "−30 and −17.50 make −47.50");
+    assert(p.includes('<dt>Profit</dt><dd class="">−$<span>47.50</span></dd><p>2 runs combined</p>'), "−30 and −17.50 make −47.50");
     assert(p.includes('<th scope="col" class="num">Profit</th>') && p.includes('<td class="num">−$30</td>'), "the earlier run's profit");
     assert(p.includes("Started with $30 on Oct 25."), "the first run's start");
     assert.equal(JSON.parse(b.read("sga.json")).profit_usd, -47.5);

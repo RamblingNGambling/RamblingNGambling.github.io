@@ -323,6 +323,85 @@ t("art.js: nothing newer than ES2017, and every newer browser API is guarded", (
   assert.match(code, /window\.matchMedia \? matchMedia/);
 });
 
+/* ---- 30 Oct 2026: less competing motion ---- */
+const homeJs = fs.readFileSync(path.join(BUILD_SRC, "src", "home.js"), "utf8");
+t("no count-up: no script counts a figure up, and no page asks for it", () => {
+  assert.ok(!/countUp|data-cu|dataset\.cu|dataset\.to/.test(js + homeJs), "a count-up is still in site.js or home.js");
+  assert.ok(!/countUp/.test(fs.readFileSync(path.join(BUILD_SRC, "src", "sga.js"), "utf8")), "sga.js");
+  for (const [name, html] of [["home", home], ["sga", sgaPage], ["about", page("about")]]) assert.ok(!/data-cu|data-to=/.test(html), name + " still carries a count-up attribute");
+  assert.ok(!/PT\.countUp|countUp\s*[,}]/.test(js), "window.PT still exports countUp");
+});
+t("no count-up: the headline figure is whole in the markup, and its parts keep no ids a script would write to", () => {
+  const big = home.match(/<p class="big[^"]*"[^>]*>([\s\S]*?)<\/p>/)[1].replace(/<[^>]+>/g, "");
+  assert.match(big, /^[+−-]?\d+\.\d\du$/, "headline reads like +22.03u: " + big);
+  assert.ok(!/id="cu-[id]"/.test(home), "cu-i / cu-d are gone");
+});
+t("ticker: a still strip, not a marquee (no animation, no second copy, no keyframes, never a tab stop)", () => {
+  const strip = home.match(/<div class="tick"[^>]*>[\s\S]*?<\/div><\/div>/)[0];
+  assert.match(strip, /aria-hidden="true"/);
+  assert.match(strip, /tabindex="-1"/);
+  const items = count(strip, /class="tk-i"/g);
+  assert.ok(items >= 1 && items <= 15, "one copy of at most 15 results, got " + items);
+  assert.ok(!/--tick-d/.test(home), "no loop length is passed to the page");
+  assert.ok(!/@keyframes tick\b/.test(css), "the tick keyframes are gone");
+  const rules = css.split("\n").filter(l => /\.tick(-track)?(?![\w-])/.test(l)).join("\n");   // .tick and .tick-track, not .tickd (the calculator settle)
+  assert.ok(!/animation/.test(rules), "no .tick rule animates");
+  assert.match(css, /\.tick\{overflow-x:auto/, "the strip scrolls by hand");
+});
+t("SGA: the home page carries one promotion (the chip); the header tab stays on the other pages", () => {
+  if (!sgaPage) return;   // no sga.json beside plays.json: nothing to promote, nothing to count
+  assert.equal(count(home, /href="sga\/"/g), 1, "exactly one link to the SGA page on the home page");
+  assert.equal(count(home, /class="sgchip/g), 1);
+  assert.equal(count(home, /id="sgfloat"/g), 0, "no floating tab on the home page");
+  for (const s of ["about", "odds", "arbitrage"]) assert.equal(count(page(s), /id="sgfloat"/g), 1, s + " keeps the tab");
+});
+t("SGA dots pulse three times, then rest (no endless animation on a promotion)", () => {
+  const dots = css.split("\n").filter(l => /\.sg(chip|float)[^{]*\.sgdot\{animation/.test(l));
+  assert.equal(dots.length, 2, "both dot rules are there");
+  for (const l of dots) assert.ok(!/infinite/.test(l) && /ease-in-out 3\b/.test(l), l);
+});
+
+/* ---- 31 Oct 2026: a quieter background (the decoration only) ---- */
+t("quieter background: the hero art and the page layer sit at half the strength they had, per theme, and still show", () => {
+  const val = (re, what) => { const m = css.match(re); assert.ok(m, what + " not found"); return +m[1]; };
+  const WAS = {artDark: .4, artLight: .26, pageDark: .25, pageLight: .17};
+  const now = {
+    artDark: val(/:root\{--art-o:([0-9.]+);/, "--art-o (dark)"), artLight: val(/:root\[data-theme="light"\]\{--art-o:([0-9.]+)\}/, "--art-o (light)"),
+    pageDark: val(/:root\{--page-o:([0-9.]+)\}/, "--page-o (dark)"), pageLight: val(/:root\[data-theme="light"\]\{--page-o:([0-9.]+)\}/, "--page-o (light)")
+  };
+  for (const k of Object.keys(WAS)) {
+    assert.ok(now[k] <= WAS[k] / 2 + 1e-9, `${k}: ${now[k]} is not half of ${WAS[k]} or less`);
+    assert.ok(now[k] >= WAS[k] / 2 - 0.01, `${k}: ${now[k]} is quieter than half of ${WAS[k]}: the pattern would vanish`);
+  }
+});
+t("quieter background: only the art layers use those levels (nothing that holds text, a table or a chart)", () => {
+  assert.equal(count(css, /var\(--art-o\)/g), 1, "--art-o drives one rule");
+  assert.equal(count(css, /var\(--page-o\)/g), 1, "--page-o drives one rule");
+  assert.match(css, /\.art\{[^}]*opacity:var\(--art-o\)/);
+  assert.match(css, /\.art-page\{[^}]*opacity:var\(--page-o\)/);
+  assert.match(css, /\.art\{[^}]*z-index:-1/); assert.match(css, /\.art-page\{[^}]*z-index:-1/);
+});
+t("quieter background: the hero art keeps its middle lighter than its sides (mask: full at the edges, --art-mid between 24% and 76%)", () => {
+  const mid = +(css.match(/--art-mid:([0-9.]+)/) || [])[1];
+  assert.ok(mid > 0 && mid < 1, "--art-mid is between 0 and 1: " + mid);
+  assert.match(css, /mask-image:linear-gradient\(#000 0,#000 var\(--art-f,66%\),transparent 100%\),linear-gradient\(90deg,#000 0,rgba\(0,0,0,var\(--art-mid\)\) 24%,rgba\(0,0,0,var\(--art-mid\)\) 76%,#000 100%\)/);
+  assert.match(css, /mask-composite:intersect/); assert.match(css, /-webkit-mask-composite:source-in/);
+});
+t("quieter background: the page layer's own map is unchanged, so it stays mainly in the gutters (inside the column at most 30% of the gutter strength)", () => {
+  const ic = +(artSrc.match(/var PMAP = \{ic: ([0-9.]+)/) || [])[1];
+  assert.ok(ic > 0 && ic <= 0.3, "column cap " + ic);
+});
+t("nearly plain surfaces: every panel that holds a table, chart or form is opaque in both themes", () => {
+  assert.match(css, /\.panel\{background:var\(--s1\);/);
+  for (const m of css.matchAll(/--s1:\s*(#[0-9A-Fa-f]{3,8}|rgb[a]?\([^)]*\))/g)) {
+    const v = m[1];
+    assert.ok(/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(v) || (/^rgb\(/.test(v)), "--s1 is a solid colour, not translucent: " + v);
+  }
+  assert.ok(count(css, /--s1:/g) >= 2, "a dark and a light --s1");
+  for (const cls of ["panel logp", "panel chartp", "panel bpanel"]) assert.ok(home.includes(`class="${cls}`), cls + " is a panel");
+  for (const s of ["arbitrage", "hedge", "parlay", "payout", "odds", "devig", "poker"]) assert.ok(/class="panel tcard/.test(page(s)), s + ": its form sits in a panel");
+});
+
 fs.rmSync(TMP, {recursive: true, force: true});
 console.log(fail ? `\n${fail} FAILED, ${pass} passed.` : `\nPASS: ${pass} motion checks.`);
 process.exit(fail ? 1 : 0);

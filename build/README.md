@@ -38,6 +38,10 @@ Pages, so serve `dist/` over http rather than opening the files directly.
 node verify/check-data.mjs      # equity curve vs hero, inlined data, filter counts
 node verify/check-sga.mjs       # the optional SGA page: good, bad and hostile sga.json files
 node verify/check-art-slot.mjs  # the optional hero pictures in art/: good, bad and hostile files
+node verify/check-motion.mjs    # no count-ups or moving ticker, one SGA pointer on home, scenes, art and the quieter background
+node verify/check-calc.mjs      # calculator price and amount rules, on the code that ships
+node verify/check-log.mjs       # play log filters, search, dates, Pending and the summary, on the code that ships
+node verify/check-record.mjs    # record period, data-update line and the "How the record is counted" claims, against plays.json
 python3 verify/check-pages.py   # headless Chromium: every page at 390px and 1440px
 ```
 
@@ -53,7 +57,7 @@ file exists) serves `dist/` on 127.0.0.1 and checks each page for console
 errors, requests leaving the box, failed loads, horizontal overflow and
 sections left hidden. On the home page it clicks through every filter
 combination in `expected.json` and compares the count, W-L-P, net units and
-rows shown. It also checks reduced motion, the count-up, the theme toggle and
+rows shown. It also checks reduced motion, the headline figure at first paint, the theme toggle and
 one worked example per calculator. It also tests the follow nudge (both
 triggers, placement, focus, Esc, no layout shift) and screenshots it in place
 at both widths into `verify/shots/` (git-ignored) for review. Both scripts
@@ -74,7 +78,7 @@ commits it. It does not push.
 ```
 build.mjs            the build: reads plays.json, computes figures, writes dist/
 src/site.css         design system, extracted from the Direction A prototype
-src/site.js          shared runtime: theme cross-fade, reveals, count-ups, the .seg pill (window.PT)
+src/site.js          shared runtime: theme cross-fade, reveals, the .seg pill (window.PT)
 src/home.js          home: equity curve, play log + filters, breakdown
 src/tools.js         the calculators (logic carried over from the old site)
 src/sga.js           SGA 20+ page: the ladder chart, the slip viewer, the tagline and the three step visuals
@@ -91,7 +95,7 @@ regenerated `sitemap.xml`.
 
 ## What the pages do
 
-- **Home.** 01 the record: net units with count-ups, the ledger (settled, ROI,
+- **Home.** 01 the record: net units, the ledger (settled, ROI,
   W-L-P, win rate, last 20 results) and the equity curve (SVG, cumulative
   units by day, high and low marked, draw-in, hover and keyboard readout,
   30-day / all range). 02 the play log: sport, result and market filters on one
@@ -119,7 +123,7 @@ regenerated `sitemap.xml`.
   so nothing shifts, and a cell too narrow for both shows the change only. The poker difference is a check,
   not a result, and has none.
 
-Motion: count-ups, chart draw-in, staggered reveals, filter transitions,
+Motion: chart draw-in, staggered reveals, filter transitions,
 breakdown bars, tile and row hovers, a sliding pill under the chosen button of
 every segmented control (`.seg`: chart range, play filters, breakdown tabs, the
 tools' mode switches), and the theme cross-fade (View Transitions, with a
@@ -153,7 +157,7 @@ as multiples of the first stake, plus what each run started with and is worth no
 a screenshot of each bet slip in `sga/proof/<id>.jpg`. When `sga.json` is there and
 makes sense, the build adds `/sga/`, a small tab that hangs off the header on every other
 page (top right; it points a newcomer at `/sga/` and is gone once used or closed:
-`pt-sga-seen`), a one-line pointer under the home ticker, a line in the sitemap and the
+`pt-sga-seen`), a one-line pointer under the home chart (the chip: the home page has no header tab), a line in the sitemap and the
 404 page, `assets/sga.js`, `dist/sga.json` (the same data in words) and the screenshots in
 `dist/sga/proof/`. There is no SGA link in the menu.
 

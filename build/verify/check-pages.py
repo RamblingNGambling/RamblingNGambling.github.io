@@ -17,6 +17,8 @@ Then on the home page: every filter combination against expected.json, the
 equity curve end against the hero figure, reduced motion, the theme toggle,
 and the first-visit follow nudge (trigger, placement, focus, Esc, no layout
 shift), screenshotted in place at both widths into verify/shots/ for review.
+The play log's search, date range, Pending filter, summary and phone Details run as
+page-side scripts (verify/log-scenario.js at 1440px, verify/log-phone.js at 390px).
 Then one worked example per calculator. Exits non-zero on any failure.
 
 Browser: the Playwright chrome-headless-shell under ~/.cache/ms-playwright.
@@ -193,13 +195,29 @@ with sync_playwright() as p:
     check(not log["errors"], f"home interactions console clean {log['errors'][:3]}")
     ctx.close()
 
+    # ---- play log: search, dates, Pending, summary, source links, phone Details. The checks are page-side
+    # scripts in verify/ (they work every expectation out from /plays.json); each prints PASS or FAIL lines. ----
+    def run_log(js_name, label, vp):
+        c = context(viewport=VIEWPORTS[vp], color_scheme="dark", reduced_motion="reduce")
+        c.add_init_script(SEEN)
+        q = c.new_page(); lg = watch(q); q.goto(BASE, wait_until="load")
+        out = q.evaluate("(async()=>{" + (ROOT / "verify" / js_name).read_text(encoding="utf-8") + "\n})()")
+        lines = [l for l in out.split("\n") if l]
+        bad = [l for l in lines if not l.startswith("PASS")]
+        check(not bad and not lg["errors"], f"{label}: {len(lines) - len(bad)}/{len(lines)} {bad[:2]} {lg['errors'][:2]}")
+        c.close()
+    run_log("log-scenario.js", "play log at 1440 (search, dates, Pending, summary, links)", "1440")
+    run_log("log-phone.js", "play log at 390 (Details, stake, Pending, missing links)", "390")
+
     ctx = context(viewport=VIEWPORTS["1440"], color_scheme="dark")
     ctx.add_init_script(SEEN)
     pg = ctx.new_page(); log = watch(pg); pg.goto(BASE, wait_until="load")
     check(pg.evaluate("document.documentElement.classList.contains('motion')"), "motion on when the reader allows it")
-    pg.wait_for_timeout(1800)
+    # no count-up: the headline is already the real figure at load, and the latest-results strip does not move
     check(pg.inner_text(".big").replace("−", "-").rstrip("u").lstrip("+") == f"{abs(EXPECTED['net']):.2f}",
-          "hero count-up lands on the real figure")
+          "hero figure is the real figure from the first paint (no count-up)")
+    check(pg.evaluate("document.querySelector('.tick-track').getAnimations().length") == 0,
+          "latest-results strip has no running animation")
     pg.click("#f-sport button[data-v='NFL']"); pg.wait_for_timeout(500)   # FLIP transition path
     seq = []
     for _ in range(3):

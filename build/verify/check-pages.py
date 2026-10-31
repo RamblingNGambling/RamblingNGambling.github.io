@@ -213,11 +213,11 @@ with sync_playwright() as p:
     ctx.add_init_script(SEEN)
     pg = ctx.new_page(); log = watch(pg); pg.goto(BASE, wait_until="load")
     check(pg.evaluate("document.documentElement.classList.contains('motion')"), "motion on when the reader allows it")
-    # no count-up: the headline is already the real figure at load, and the latest-results strip does not move
+    # no count-up: the headline is already the real figure at load. The ticker runs, since motion is on here.
     check(pg.inner_text(".big").replace("−", "-").rstrip("u").lstrip("+") == f"{abs(EXPECTED['net']):.2f}",
           "hero figure is the real figure from the first paint (no count-up)")
-    check(pg.evaluate("document.querySelector('.tick-track').getAnimations().length") == 0,
-          "latest-results strip has no running animation")
+    check(pg.evaluate("document.querySelector('.tick-track').getAnimations().filter(a => a.playState === 'running').length") == 1,
+          "ticker is scrolling when motion is allowed")
     pg.click("#f-sport button[data-v='NFL']"); pg.wait_for_timeout(500)   # FLIP transition path
     seq = []
     for _ in range(3):

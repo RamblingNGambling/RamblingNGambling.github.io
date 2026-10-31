@@ -336,17 +336,23 @@ t("no count-up: the headline figure is whole in the markup, and its parts keep n
   assert.match(big, /^[+−-]?\d+\.\d\du$/, "headline reads like +22.03u: " + big);
   assert.ok(!/id="cu-[id]"/.test(home), "cu-i / cu-d are gone");
 });
-t("ticker: a still strip, not a marquee (no animation, no second copy, no keyframes, never a tab stop)", () => {
+t("ticker: scrolls by itself, but only when motion is allowed (loop of two copies, behind html.motion, pauses on hover)", () => {
   const strip = home.match(/<div class="tick"[^>]*>[\s\S]*?<\/div><\/div>/)[0];
   assert.match(strip, /aria-hidden="true"/);
-  assert.match(strip, /tabindex="-1"/);
-  const items = count(strip, /class="tk-i"/g);
-  assert.ok(items >= 1 && items <= 15, "one copy of at most 15 results, got " + items);
-  assert.ok(!/--tick-d/.test(home), "no loop length is passed to the page");
-  assert.ok(!/@keyframes tick\b/.test(css), "the tick keyframes are gone");
-  const rules = css.split("\n").filter(l => /\.tick(-track)?(?![\w-])/.test(l)).join("\n");   // .tick and .tick-track, not .tickd (the calculator settle)
-  assert.ok(!/animation/.test(rules), "no .tick rule animates");
-  assert.match(css, /\.tick\{overflow-x:auto/, "the strip scrolls by hand");
+  assert.match(strip, /tabindex="-1"/, "never a tab stop");
+  const items = count(strip, /class="tk-i[" ]/g), dups = count(strip, /class="tk-i tk-dup"/g);
+  assert.ok(items >= 2 && items % 2 === 0 && dups === items / 2, `two identical copies for a seamless loop (${items} items, ${dups} marked as the second copy)`);
+  assert.match(strip, /style="--tick-d:\d+s"/, "the loop length is passed to the page");
+  assert.match(css, /@keyframes tick\{to\{transform:translateX\(-50%\)\}\}/, "the loop is half the track");
+  assert.match(css, /\.motion \.tick-track\{animation:tick var\(--tick-d,42s\) linear infinite\}/, "it runs only under html.motion");
+  assert.match(css, /\.motion \.tick:hover \.tick-track\{animation-play-state:paused\}/, "it pauses on hover");
+  const rules = css.split("\n").filter(l => /\.tick(-track)?(?![\w-])/.test(l) && /animation/.test(l));   // .tick and .tick-track, not .tickd (the calculator settle)
+  assert.ok(rules.length === 2 && rules.every(l => /^\.motion /.test(l)), "no .tick animation outside html.motion: " + rules.join(" | "));
+});
+t("ticker: with motion off it is a still strip you scroll by hand, one copy of the plays, never dimming the newest", () => {
+  assert.match(css, /html:not\(\.motion\) \.tick\{overflow-x:auto/, "the strip scrolls by hand");
+  assert.match(css, /html:not\(\.motion\) \.tk-dup\{display:none\}/, "no play shows twice");
+  assert.match(css, /html:not\(\.motion\) \.tick\{[^}]*mask-image:linear-gradient\(90deg,#000 calc\(100% - 56px\),transparent\)/, "only the right edge fades");
 });
 t("SGA: the home page carries one promotion (the chip); the header tab stays on the other pages", () => {
   if (!sgaPage) return;   // no sga.json beside plays.json: nothing to promote, nothing to count

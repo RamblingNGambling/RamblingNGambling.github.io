@@ -604,15 +604,19 @@ const updShort = (RAW.updated || "–").replace(/^([A-Z][a-z]+\.? \d{1,2}), \d{4
 const [, updDay = updShort, updTime = ""] = updShort.match(/^([A-Z][a-z]+\.? \d{1,2})(,.*)?$/) || [];
 const dataJson = JSON.stringify(DATA).replace(/</g, "\\u003c");
 
-/* ---------- latest results: the last 15 settled plays, newest first. A still
-   strip under the chart that the reader can scroll sideways; it does not move
-   by itself. Same figures the log shows, so nothing new to verify. */
+/* ---------- ticker: the last 15 settled results, newest first. Pure CSS
+   marquee under the chart; the track carries two identical halves so the
+   loop is seamless. Same figures the log shows, so nothing new to verify.
+   The marquee runs only when the reader allows motion (html.motion). Without
+   it the strip is still and scrolls by hand, and the second half (class
+   tk-dup, there only for the loop) is hidden so no play shows twice. */
 const TICK_N = 15;
 const tickPlays = settled.slice(-TICK_N).reverse();
 const tickHalf = tickPlays.map(p =>
   `<span class="tk-i"><span class="tk-d">${dmd(p.date)}</span><span class="tk-p">${h(p.play)}</span><span class="tk-u ${cls(p.pl)}">${signed(p.pl)}u</span><span class="tk-s">&rarr;</span></span>`).join("");
+const tickDup = tickHalf.replace(/class="tk-i"/g, 'class="tk-i tk-dup"');
 const ticker = tickHalf
-  ? `<div class="tick" aria-hidden="true" tabindex="-1"><div class="tick-track">${tickHalf}</div></div>`
+  ? `<div class="tick" aria-hidden="true" tabindex="-1"><div class="tick-track" style="--tick-d:${Math.max(24, Math.round(tickPlays.length * 2.8))}s">${tickHalf}${tickDup}</div></div>`
   : "";
 
 const homeBody = `<main class="wrap" id="main">

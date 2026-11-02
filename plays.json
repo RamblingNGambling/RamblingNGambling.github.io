@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Oct 31, 2026, 11:36 PM EDT",
+  "updated": "Nov 1, 2026, 11:25 PM EST",
   "plays": [
     {
       "date": "2026-07-19",
@@ -6718,10 +6718,101 @@
       "play": "Ladd McConkey Over 49.5 Receiving Yards",
       "odds": 116,
       "units": 0.5,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Win",
+      "units_pl": 0.58,
+      "post": "",
+      "game_date": "2026-11-01"
+    },
+    {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jaylen Waddle Over 37.5 Receiving Yards",
+      "odds": -113,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4425,
+      "post": "",
+      "game_date": "2026-11-01"
+    },
+    {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Omarion Hampton Over 32.5 Rushing Yards",
+      "odds": -110,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-11-01"
+    },
+    {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jeremiyah Love Over 10.5 Rushing Attempts",
+      "odds": -114,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
       "post": "",
       "game_date": ""
+    },
+    {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Chris Godwin Over 39.5 Receiving Yards",
+      "odds": -118,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-11-01"
+    },
+    {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Josh Downs Over 31.5 Receiving Yards",
+      "odds": -113,
+      "units": 0.5,
+      "result": "Loss",
+      "units_pl": -0.5,
+      "post": "",
+      "game_date": "2026-11-01"
+    },
+    {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Tee Higgins Over 69.5 Receiving Yards",
+      "odds": -117,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.4274,
+      "post": "",
+      "game_date": "2026-11-01"
+    },
+    {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Player prop",
+      "game": "",
+      "play": "Michael Wilson Over 59.5 Receiving Yards",
+      "odds": 110,
+      "units": 0.5,
+      "result": "Win",
+      "units_pl": 0.55,
+      "post": "",
+      "game_date": "2026-11-01"
     }
   ]
 }

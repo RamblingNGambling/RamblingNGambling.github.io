@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Nov 2, 2026, 11:01 PM EST",
+  "updated": "Nov 3, 2026, 12:59 PM EST",
   "plays": [
     {
       "date": "2026-07-19",
@@ -6815,6 +6815,32 @@
       "game_date": "2026-11-01"
     },
     {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Other",
+      "game": "",
+      "play": "Redzone Special",
+      "odds": 1200,
+      "units": 0.05,
+      "result": "Loss",
+      "units_pl": -0.05,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-11-01",
+      "sport": "NFL",
+      "market": "Other",
+      "game": "",
+      "play": "Redzone Special",
+      "odds": 2700,
+      "units": 0.075,
+      "result": "Loss",
+      "units_pl": -0.075,
+      "post": "",
+      "game_date": ""
+    },
+    {
       "date": "2026-11-02",
       "sport": "NBA",
       "market": "Player prop",
@@ -6822,8 +6848,8 @@
       "play": "Nikola Jokic Triple-Double",
       "odds": 130,
       "units": 0.25,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.25,
       "post": "",
       "game_date": ""
     },
@@ -7095,8 +7121,8 @@
       "play": "Darryn Peterson Over 17.5 Points",
       "odds": 280,
       "units": 0.1,
-      "result": "Pending",
-      "units_pl": null,
+      "result": "Loss",
+      "units_pl": -0.1,
       "post": "",
       "game_date": ""
     },

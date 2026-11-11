@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Nov 10, 2026, 1:26 AM EST",
+  "updated": "Nov 11, 2026, 3:53 PM EST",
   "plays": [
     {
       "date": "2026-07-19",
@@ -8215,6 +8215,45 @@
       "units": 0.1,
       "result": "Loss",
       "units_pl": -0.1,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-11-10",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jaylen Brown Over 21.5 Points",
+      "odds": -111,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-11-10",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Jalen Brunson Over 2.5 Threes",
+      "odds": -101,
+      "units": 0.25,
+      "result": "Loss",
+      "units_pl": -0.25,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-11-10",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Kasparas Jakucionis Over 2.5 Assists",
+      "odds": 100,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.25,
       "post": "",
       "game_date": ""
     }

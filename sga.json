@@ -1,15 +1,15 @@
 {
   "units_only": false,
   "note": "Every roll is a multiple of the first stake. Dollar figures, when present, are what a run started with and what it is worth now. There is no book and no per-game stake in this file.",
-  "updated": "Nov 24, 2026, 1:47 AM EST",
-  "profit_usd": 39.55,
+  "updated": "Nov 25, 2026, 1:57 AM EST",
+  "profit_usd": 42.71,
   "runs": [
     {
       "run": 1,
       "status": "live",
       "started_with_usd": 30,
-      "worth_now_usd": 69.55,
-      "profit_usd": 39.55,
+      "worth_now_usd": 72.71,
+      "profit_usd": 42.71,
       "games": [
         {
           "date": "2026-10-25",
@@ -142,6 +142,28 @@
           "roll_before": 2.208,
           "roll_after": 2.3183,
           "slip": "sga/proof/c6805e88e1c10372.jpg"
+        },
+        {
+          "date": "2026-11-20",
+          "opponent": "vs NOP",
+          "line": 20,
+          "price": -2200,
+          "result": "Win",
+          "points": 40,
+          "roll_before": 2.3183,
+          "roll_after": 2.4237,
+          "slip": "sga/proof/1946a6e1d10cde1a.jpg"
+        },
+        {
+          "date": "2026-11-25",
+          "opponent": "vs MIN",
+          "line": 20,
+          "price": -2000,
+          "result": "Pending",
+          "points": null,
+          "roll_before": 2.4237,
+          "roll_after": 2.4237,
+          "slip": null
         }
       ]
     }

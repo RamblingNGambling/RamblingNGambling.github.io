@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Nov 25, 2026, 1:57 AM EST",
+  "updated": "Nov 25, 2026, 1:58 AM EST",
   "plays": [
     {
       "date": "2026-07-19",
@@ -9504,6 +9504,45 @@
       "units_pl": -0.1,
       "post": "",
       "game_date": "2026-11-24"
+    },
+    {
+      "date": "2026-11-25",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Brandon Ingram Over 15.5 Points",
+      "odds": -108,
+      "units": 0.35,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-11-25",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Brandon Ingram Over 19.5 Points",
+      "odds": 235,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
+    },
+    {
+      "date": "2026-11-25",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Brandon Ingram Over 24.5 Points",
+      "odds": 630,
+      "units": 0.2,
+      "result": "Pending",
+      "units_pl": null,
+      "post": "",
+      "game_date": ""
     }
   ]
 }

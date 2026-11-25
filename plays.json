@@ -1,6 +1,6 @@
 {
   "units_only": true,
-  "updated": "Nov 24, 2026, 1:47 AM EST",
+  "updated": "Nov 25, 2026, 1:57 AM EST",
   "plays": [
     {
       "date": "2026-07-19",
@@ -9465,6 +9465,45 @@
       "units_pl": 0.2252,
       "post": "",
       "game_date": "2026-11-23"
+    },
+    {
+      "date": "2026-11-24",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Paul George Over 18.5 Points",
+      "odds": -112,
+      "units": 0.25,
+      "result": "Win",
+      "units_pl": 0.2232,
+      "post": "",
+      "game_date": "2026-11-24"
+    },
+    {
+      "date": "2026-11-24",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Paul George Over 24.5 Points",
+      "odds": 310,
+      "units": 0.1,
+      "result": "Win",
+      "units_pl": 0.31,
+      "post": "",
+      "game_date": "2026-11-24"
+    },
+    {
+      "date": "2026-11-24",
+      "sport": "NBA",
+      "market": "Player prop",
+      "game": "",
+      "play": "Paul George Over 29.5 Points",
+      "odds": 800,
+      "units": 0.1,
+      "result": "Loss",
+      "units_pl": -0.1,
+      "post": "",
+      "game_date": "2026-11-24"
     }
   ]
 }
